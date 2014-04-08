@@ -77,12 +77,12 @@ public class SemanticGraphTest {
 //		logger.info("answer : " + testSemanticGraph ("how many states border on the state whose capital is boston ?"));
 //		logger.info("answer : " + testSemanticGraph ("what is the capital city of the largest state in the us ?"));
 //		logger.info("answer : " + testSemanticGraph ("what states have no bordering state ?"));
-//		logger.info("answer : " + testSemanticGraph ("how long is the delaware river ?"));
+		logger.info("answer : " + testSemanticGraph ("how long is the delaware river ?"));
 //		logger.info("answer : " + testSemanticGraph ("how big is new mexico ?"));
 //		logger.info("answer : " + testSemanticGraph(" name all the rivers in colorado ?"));
 		
 //		logger.info("answer : " + testSemanticGraph ("people in boulder ?"));
-		logger.info("answer : " + testSemanticGraph ("rivers in new york ?"));
+//		logger.info("answer : " + testSemanticGraph ("rivers in new york ?"));
 		
 		logger.info("graph : \n" + this.sgraph.toString());
 		
