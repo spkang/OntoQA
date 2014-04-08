@@ -1,0 +1,29 @@
+K 25
+svn:wc:ra_dav:version-url
+V 46
+/svn/wbzhang/!svn/ver/421/OntoQA/trunk/lib/nlp
+END
+snowball.jar
+K 25
+svn:wc:ra_dav:version-url
+V 59
+/svn/wbzhang/!svn/ver/348/OntoQA/trunk/lib/nlp/snowball.jar
+END
+secondstring-20060615.jar
+K 25
+svn:wc:ra_dav:version-url
+V 72
+/svn/wbzhang/!svn/ver/421/OntoQA/trunk/lib/nlp/secondstring-20060615.jar
+END
+lingpipe-4.0.1.jar
+K 25
+svn:wc:ra_dav:version-url
+V 65
+/svn/wbzhang/!svn/ver/421/OntoQA/trunk/lib/nlp/lingpipe-4.0.1.jar
+END
+plingstemmer.jar
+K 25
+svn:wc:ra_dav:version-url
+V 63
+/svn/wbzhang/!svn/ver/348/OntoQA/trunk/lib/nlp/plingstemmer.jar
+END

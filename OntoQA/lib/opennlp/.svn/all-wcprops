@@ -1,0 +1,23 @@
+K 25
+svn:wc:ra_dav:version-url
+V 50
+/svn/wbzhang/!svn/ver/333/OntoQA/trunk/lib/opennlp
+END
+jwnl-1.3.3.jar
+K 25
+svn:wc:ra_dav:version-url
+V 65
+/svn/wbzhang/!svn/ver/333/OntoQA/trunk/lib/opennlp/jwnl-1.3.3.jar
+END
+opennlp-tools-1.5.1-incubating.jar
+K 25
+svn:wc:ra_dav:version-url
+V 85
+/svn/wbzhang/!svn/ver/333/OntoQA/trunk/lib/opennlp/opennlp-tools-1.5.1-incubating.jar
+END
+opennlp-maxent-3.0.1-incubating.jar
+K 25
+svn:wc:ra_dav:version-url
+V 86
+/svn/wbzhang/!svn/ver/333/OntoQA/trunk/lib/opennlp/opennlp-maxent-3.0.1-incubating.jar
+END

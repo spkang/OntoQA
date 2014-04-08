@@ -1,0 +1,6 @@
+big, area, 0.5
+big, population, 0.6
+large, area, 0.5
+large, population, 0.6
+small, area, 0.5
+small, population, 0.6

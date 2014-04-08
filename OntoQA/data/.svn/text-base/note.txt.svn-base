@@ -1,0 +1,8 @@
+#1 test
+total: 93, correct: 52
+precision: 55.91%%
+
+wrong question type
+1.only one entity.		e.g. give me all the states of usa ?
+2.maximum, minimum.		e.g. give me the largest state ?
+3.how many.				e.g. how many cities are in montana ?

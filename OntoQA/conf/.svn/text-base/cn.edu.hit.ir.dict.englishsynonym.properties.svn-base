@@ -1,0 +1,2 @@
+data.dir = res/nlp/synonym/
+data.files = ${data.dir}question_word.syn

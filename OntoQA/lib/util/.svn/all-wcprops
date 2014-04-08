@@ -1,0 +1,41 @@
+K 25
+svn:wc:ra_dav:version-url
+V 47
+/svn/wbzhang/!svn/ver/379/OntoQA/trunk/lib/util
+END
+commons-logging.jar
+K 25
+svn:wc:ra_dav:version-url
+V 67
+/svn/wbzhang/!svn/ver/333/OntoQA/trunk/lib/util/commons-logging.jar
+END
+commons-configuration.jar
+K 25
+svn:wc:ra_dav:version-url
+V 73
+/svn/wbzhang/!svn/ver/349/OntoQA/trunk/lib/util/commons-configuration.jar
+END
+commons-io.jar
+K 25
+svn:wc:ra_dav:version-url
+V 62
+/svn/wbzhang/!svn/ver/347/OntoQA/trunk/lib/util/commons-io.jar
+END
+jsoup-1.5.2.jar
+K 25
+svn:wc:ra_dav:version-url
+V 63
+/svn/wbzhang/!svn/ver/379/OntoQA/trunk/lib/util/jsoup-1.5.2.jar
+END
+commons-collections.jar
+K 25
+svn:wc:ra_dav:version-url
+V 71
+/svn/wbzhang/!svn/ver/349/OntoQA/trunk/lib/util/commons-collections.jar
+END
+commons-lang.jar
+K 25
+svn:wc:ra_dav:version-url
+V 64
+/svn/wbzhang/!svn/ver/349/OntoQA/trunk/lib/util/commons-lang.jar
+END

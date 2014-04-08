@@ -1,0 +1,23 @@
+v0 geobase1.0.rdf 
+最初版本
+
+v1 geobase1.1.rdf
+将geo#river改为geo/river
+
+v2 geobase1.2.rdf （geobase1.2.java 为处理geobase1.1.rdf的java程序）
+1)	增加资源http://ir.hit.edu/nli/geo/point
+geo:point 属性: hasName(object为string), hasElevation(object为int), rdfs:label, rdf:type
+2)  原state的属性:hasHighestPoint, hasLowestPoint, hasHighestElevation, hasLowestElevation
+==>现state的属性:hasHighestPoint, hasLowestPoint(两个属性的object均是geo:point)
+3)	新geo:point 节点的uri命名方式为http://ir.hit.edu/nli/geo/point/pointName_in_stateName_high或者http://ir.hit.edu/nli/geo/point/pointName_in_stateName_low
+
+v3 geobase1.3.rdf
+将hasCountry改成inCountry
+
+v4 geobase1.4.rdf （geobase1.4.java 为处理geobase1.3.rdf的java程序）
+1) 将属性hasCapital的值域由Literal改为Resource，其中有一些城市找不到geo:city，直接增加了新资源geo:city，命名方式为http://ir.hit.edu/nli/geo/city/state_name/city_name，并为新资源增加了属性geo:hasName和geo:label
+2)	去掉inCountry属性
+
+v5 geobase1.5.rdf (geobase1.5.java为处理geobase1.3.rdf的java程序）
+1) 将属性hasCapital的值域由Literal改为Resource，其中有一些城市找不到geo:city，直接增加了新资源geo:city，命名方式为http://ir.hit.edu/nli/geo/city/state_name/city_name，并为新资源增加了属性geo:hasName,geo:label,rdf:type, geo:inState
+2)	去掉inCountry属性

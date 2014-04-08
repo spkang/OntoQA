@@ -1,0 +1,865 @@
+name the rivers in arkansas .	rivers-2	name-1
+name/NN rivers/NNS in/IN arkansas/NNS
+nn(rivers-2, name-1)
+root(ROOT-0, rivers-2)
+prep_in(rivers-2, arkansas-4)
+
+give me the states that border utah ?	states-3	border-5
+give/VB me/PRP states/VBZ that/IN border/NN utah/NN
+root(ROOT-0, give-1)
+nsubj(states-3, me-2)
+ccomp(give-1, states-3)
+nn(utah-6, border-5)
+prep_that(states-3, utah-6)
+
+how big is alaska ?	big-2	null
+how/WRB big/JJ is/VBZ alaska/IN
+advmod(big-2, how-1)
+dep(is-3, big-2)
+root(ROOT-0, is-3)
+prep(is-3, alaska-4)
+
+how big is massachusetts ?	big-2	massachusetts-4
+how/WRB big/JJ is/VBZ massachusetts/NNS
+advmod(big-2, how-1)
+dep(is-3, big-2)
+root(ROOT-0, is-3)
+nsubj(is-3, massachusetts-4)
+
+how big is new mexico ?	big-2	mexico-5
+how/WRB big/JJ is/VBZ new/JJ mexico/NN
+advmod(big-2, how-1)
+dep(is-3, big-2)
+root(ROOT-0, is-3)
+amod(mexico-5, new-4)
+nsubj(is-3, mexico-5)
+
+how big is north dakota ?	big-2	null
+how/WRB big/JJ is/VBZ north/RB dakota/JJ
+advmod(big-2, how-1)
+dep(dakota-5, big-2)
+cop(dakota-5, is-3)
+advmod(dakota-5, north-4)
+root(ROOT-0, dakota-5)
+
+how big is texas ?	big-2	null
+how/WRB big/JJ is/VBZ texas/IN
+advmod(big-2, how-1)
+dep(is-3, big-2)
+root(ROOT-0, is-3)
+prep(is-3, texas-4)
+
+how big is the city of new york ?	big-2	city-4
+how/WRB big/JJ is/VBZ city/NN of/IN new/JJ york/NN
+advmod(big-2, how-1)
+dep(is-3, big-2)
+root(ROOT-0, is-3)
+nsubj(is-3, city-4)
+amod(york-7, new-6)
+prep_of(city-4, york-7)
+
+how high is guadalupe peak ?	high-2	peak-5
+how/WRB high/JJ is/VBZ guadalupe/NN peak/NN
+advmod(high-2, how-1)
+dep(is-3, high-2)
+root(ROOT-0, is-3)
+nn(peak-5, guadalupe-4)
+nsubj(is-3, peak-5)
+
+how high is mount mckinley ?	high-2	mckinley-5
+how/WRB high/JJ is/VBZ mount/VB mckinley/NN
+advmod(high-2, how-1)
+dep(mount-4, high-2)
+aux(mount-4, is-3)
+root(ROOT-0, mount-4)
+dobj(mount-4, mckinley-5)
+
+how large is alaska ?	large-2	null
+how/WRB large/JJ is/VBZ alaska/IN
+advmod(large-2, how-1)
+dep(is-3, large-2)
+root(ROOT-0, is-3)
+prep(is-3, alaska-4)
+
+how large is texas ?	large-2	null
+how/WRB large/JJ is/VBZ texas/IN
+advmod(large-2, how-1)
+dep(is-3, large-2)
+root(ROOT-0, is-3)
+prep(is-3, texas-4)
+
+how large is the largest city in alaska ?	large-2	city-5
+how/WRB large/JJ is/VBZ largest/JJS city/NN in/IN alaska/FW
+advmod(large-2, how-1)
+dep(is-3, large-2)
+root(ROOT-0, is-3)
+amod(city-5, largest-4)
+nsubj(is-3, city-5)
+prep_in(city-5, alaska-7)
+
+how long is rio grande ?	long-2	null
+how/WRB long/JJ is/VBZ rio/FW grande/FW
+advmod(long-2, how-1)
+dep(is-3, long-2)
+root(ROOT-0, is-3)
+nn(grande-5, rio-4)
+nsubj(is-3, grande-5)
+
+how long is the colorado river ?	long-2	river-5
+how/WRB long/JJ is/VBZ colorado/NN river/NN
+advmod(long-2, how-1)
+dep(is-3, long-2)
+root(ROOT-0, is-3)
+nn(river-5, colorado-4)
+nsubj(is-3, river-5)
+
+how long is the delaware river ?	long-2	river-5
+how/WRB long/RB is/VBZ delaware/JJ river/NN
+advmod(long-2, how-1)
+advmod(is-3, long-2)
+root(ROOT-0, is-3)
+amod(river-5, delaware-4)
+nsubj(is-3, river-5)
+
+how long is the longest river in california ?	long-2	river-5
+how/WRB long/JJ is/VBZ longest/JJS river/NN in/IN california/NN
+advmod(long-2, how-1)
+dep(is-3, long-2)
+root(ROOT-0, is-3)
+amod(river-5, longest-4)
+nsubj(is-3, river-5)
+prep_in(river-5, california-7)
+
+how long is the longest river in the usa ?	long-2	river-5
+how/WRB long/JJ is/VBZ longest/JJS river/NN in/IN usa/NN
+advmod(long-2, how-1)
+dep(is-3, long-2)
+root(ROOT-0, is-3)
+amod(river-5, longest-4)
+nsubj(is-3, river-5)
+prep_in(river-5, usa-7)
+
+how long is the mississippi ?	long-2	mississippi-4
+how/WRB long/JJ is/VBZ mississippi/NN
+advmod(long-2, how-1)
+dep(is-3, long-2)
+root(ROOT-0, is-3)
+nsubj(is-3, mississippi-4)
+
+how long is the mississippi river ?	long-2	river-5
+how/WRB long/JJ is/VBZ mississippi/NN river/NN
+advmod(long-2, how-1)
+dep(is-3, long-2)
+root(ROOT-0, is-3)
+nn(river-5, mississippi-4)
+nsubj(is-3, river-5)
+
+how long is the mississippi river in miles ?	long-2	river-5
+how/WRB long/JJ is/VBZ mississippi/NN river/NN in/IN miles/NNS
+advmod(long-2, how-1)
+dep(is-3, long-2)
+root(ROOT-0, is-3)
+nn(river-5, mississippi-4)
+nsubj(is-3, river-5)
+prep_in(river-5, miles-7)
+
+how long is the missouri river ?	long-2	river-5
+how/WRB long/JJ is/VBZ missouri/NN river/NN
+advmod(long-2, how-1)
+dep(is-3, long-2)
+root(ROOT-0, is-3)
+nn(river-5, missouri-4)
+nsubj(is-3, river-5)
+
+how long is the north platte river ?	long-2	river-6
+how/WRB long/JJ is/VBZ north/RB platte/JJ river/NN
+advmod(long-2, how-1)
+dep(is-3, long-2)
+root(ROOT-0, is-3)
+advmod(is-3, north-4)
+amod(river-6, platte-5)
+pobj(north-4, river-6)
+
+how long is the ohio river ?	long-2	river-5
+how/WRB long/JJ is/VBZ ohio/NN river/NN
+advmod(long-2, how-1)
+dep(is-3, long-2)
+root(ROOT-0, is-3)
+nn(river-5, ohio-4)
+nsubj(is-3, river-5)
+
+how long is the rio grande river ?	long-2	river-6
+how/WRB long/JJ is/VBZ rio/FW grande/FW river/NN
+advmod(long-2, how-1)
+dep(is-3, long-2)
+root(ROOT-0, is-3)
+nn(grande-5, rio-4)
+nn(river-6, grande-5)
+nsubj(is-3, river-6)
+
+how long is the shortest river in the usa ?	long-2	river-5
+how/WRB long/JJ is/VBZ shortest/JJS river/NN in/IN usa/NN
+advmod(long-2, how-1)
+dep(is-3, long-2)
+root(ROOT-0, is-3)
+amod(river-5, shortest-4)
+nsubj(is-3, river-5)
+prep_in(river-5, usa-7)
+
+how many rivers are called colorado ?	rivers-3	colorado-6
+how/WRB many/JJ rivers/NNS are/VBP called/VBN colorado/NN
+advmod(many-2, how-1)
+dep(called-5, many-2)
+nsubjpass(called-5, rivers-3)
+auxpass(called-5, are-4)
+root(ROOT-0, called-5)
+dobj(called-5, colorado-6)
+
+how many rivers are in the state that has the most rivers ?	rivers-3	state-6
+how/WRB many/JJ rivers/NNS are/VBP in/IN state/NN that/WDT has/VBZ most/RBS rivers/NNS
+advmod(many-2, how-1)
+dep(are-4, many-2)
+nsubj(are-4, rivers-3)
+root(ROOT-0, are-4)
+prep_in(are-4, state-6)
+nsubj(has-8, state-6)
+rcmod(state-6, has-8)
+dobj(has-8, most-9)
+iobj(has-8, most-9)
+dep(most-9, rivers-10)
+
+how many states border colorado and border new mexico ?	states-3	mexico-9
+how/WRB many/JJ states/NNS border/NN colorado/NN and/CC border/VB new/JJ mexico/NN
+advmod(many-2, how-1)
+amod(states-3, many-2)
+dep(colorado-5, states-3)
+nn(colorado-5, border-4)
+root(ROOT-0, colorado-5)
+conj_and(colorado-5, border-7)
+amod(mexico-9, new-8)
+dobj(border-7, mexico-9)
+
+how tall is mount mckinley ?	tall-2	mckinley-5
+how/WRB tall/JJ is/VBZ mount/VB mckinley/NN
+advmod(tall-2, how-1)
+dep(mount-4, tall-2)
+aux(mount-4, is-3)
+root(ROOT-0, mount-4)
+dobj(mount-4, mckinley-5)
+
+in which state does the highest point in usa exist ?	state-3	point-6
+in/IN which/WDT state/NN does/VBZ highest/JJS point/NN in/IN usa/NN exist/VBP
+prep_in(does-4, which-2)
+nsubj(does-4, state-3)
+root(ROOT-0, does-4)
+amod(point-6, highest-5)
+nsubj(exist-9, point-6)
+prep_in(point-6, usa-8)
+ccomp(does-4, exist-9)
+
+list the states ?	states-3	list-1
+list/NN states/NNS
+nn(states-2, list-1)
+root(ROOT-0, states-2)
+
+name the 50 capitals in the usa ?	capitals-3	name-1
+name/NN 50/CD capitals/NNS in/IN usa/NN
+root(ROOT-0, name-1)
+num(capitals-3, 50-2)
+dep(name-1, capitals-3)
+prep_in(capitals-3, usa-5)
+
+name the rivers in arkansas ?	rivers-2	name-1
+name/NN rivers/NNS in/IN arkansas/NNS
+nn(rivers-2, name-1)
+root(ROOT-0, rivers-2)
+prep_in(rivers-2, arkansas-4)
+
+name the states which have no surrounding states ?	states-2	states-7
+name/NN states/NNS which/WDT have/VBP no/DT surrounding/JJ states/NNS
+nn(states-2, name-1)
+root(ROOT-0, states-2)
+nsubj(have-4, states-2)
+rcmod(states-2, have-4)
+det(states-7, no-5)
+amod(states-7, surrounding-6)
+dobj(have-4, states-7)
+
+number of citizens in boulder ?	citizens-3	number-1
+number/NN of/IN citizens/NNS in/IN boulder/NN
+root(ROOT-0, number-1)
+prep_of(number-1, citizens-3)
+prep_in(citizens-3, boulder-5)
+
+number of people in boulder ?	people-3	number-1
+number/NN of/IN people/NNS in/IN boulder/NN
+root(ROOT-0, number-1)
+prep_of(number-1, people-3)
+prep_in(people-3, boulder-5)
+
+state the state with the largest area ?	state-2	area-5
+state/NN state/NN with/IN largest/JJS area/NN
+nn(state-2, state-1)
+root(ROOT-0, state-2)
+amod(area-5, largest-4)
+prep_with(state-2, area-5)
+
+through which states does the longest river in texas run ?	states-3	river-6
+through/IN which/WDT states/VBZ does/VBZ longest/JJS river/NN in/IN texas/NNS run/VBP
+dep(does-4, through-1)
+nsubj(states-3, which-2)
+pcomp(through-1, states-3)
+root(ROOT-0, does-4)
+nsubj(does-4, longest-5)
+dobj(run-9, longest-5)
+nsubj(run-9, river-6)
+prep_in(river-6, texas-8)
+rcmod(longest-5, run-9)
+
+through which states does the mississippi flow ?	states-3	flow-6
+through/IN which/WDT states/VBZ does/VBZ mississippi/NN flow/NN
+root(ROOT-0, through-1)
+nsubj(states-3, which-2)
+nsubj(does-4, which-2)
+pcomp(through-1, states-3)
+ccomp(states-3, does-4)
+nn(flow-6, mississippi-5)
+dobj(does-4, flow-6)
+
+through which states does the mississippi run ?	states-3	mississippi-5
+through/IN which/WDT states/VBZ does/VBZ mississippi/NNP run/VB
+root(ROOT-0, through-1)
+nsubj(states-3, which-2)
+pcomp(through-1, states-3)
+aux(run-6, does-4)
+nsubj(run-6, mississippi-5)
+advcl(states-3, run-6)
+
+what are the names of the major cities in illinois ?	cities-6	names-3
+what/WP are/VBP names/NNS of/IN major/JJ cities/NNS in/IN illinois/NN
+root(ROOT-0, what-1)
+cop(what-1, are-2)
+nsubj(what-1, names-3)
+amod(cities-6, major-5)
+prep_of(names-3, cities-6)
+prep_in(cities-6, illinois-8)
+
+what is the area of all the states combined ?	area-3	states-6
+what/WP is/VBZ area/NN of/IN all/DT states/NNS combined/VBN
+dobj(combined-7, what-1)
+auxpass(combined-7, is-2)
+nsubjpass(combined-7, area-3)
+det(states-6, all-5)
+prep_of(area-3, states-6)
+root(ROOT-0, combined-7)
+
+what is the area of the state with the smallest population density ?	area-3	density-9
+what/WP is/VBZ area/NN of/IN state/NN with/IN smallest/JJS population/NN density/NN
+root(ROOT-0, what-1)
+cop(what-1, is-2)
+nn(density-9, area-3)
+prep_of(area-3, state-5)
+amod(population-8, smallest-7)
+prep_with(state-5, population-8)
+nsubj(what-1, density-9)
+
+what is the capital of the state that borders the state that borders texas ?	capital-3	state-8
+what/WP is/VBZ capital/NN of/IN state/NN that/WDT borders/VBZ state/NN that/WDT borders/VBZ texas/NNS
+root(ROOT-0, what-1)
+cop(what-1, is-2)
+nsubj(what-1, capital-3)
+prep_of(capital-3, state-5)
+nsubj(borders-7, state-5)
+rcmod(state-5, borders-7)
+dobj(borders-7, state-8)
+nsubj(borders-10, state-8)
+rcmod(state-8, borders-10)
+dobj(borders-10, texas-11)
+
+what is the capital of the state with the largest population density ?	capital-3	density-9
+what/WP is/VBZ capital/NN of/IN state/NN with/IN largest/JJS population/NN density/NN
+root(ROOT-0, what-1)
+cop(what-1, is-2)
+nn(density-9, capital-3)
+prep_of(capital-3, state-5)
+amod(population-8, largest-7)
+prep_with(state-5, population-8)
+nsubj(what-1, density-9)
+
+what is the highest point of the state with the smallest population density ?	point-4	density-10
+what/WP is/VBZ highest/JJS point/NN of/IN state/NN with/IN smallest/JJS population/NN density/NN
+root(ROOT-0, what-1)
+cop(what-1, is-2)
+amod(point-4, highest-3)
+nn(density-10, point-4)
+prep_of(point-4, state-6)
+amod(population-9, smallest-8)
+prep_with(state-6, population-9)
+nsubj(what-1, density-10)
+
+what is the largest state bordering arkansas ?	state-4	arkansas-6
+what/WP is/VBZ largest/JJS state/NN bordering/VBG arkansas/NNS
+nsubj(arkansas-6, what-1)
+cop(arkansas-6, is-2)
+dep(state-4, largest-3)
+amod(arkansas-6, state-4)
+amod(arkansas-6, bordering-5)
+root(ROOT-0, arkansas-6)
+
+what is the largest state bordering texas ?	state-4	texas-6
+what/WP is/VBZ largest/JJS state/NN bordering/VBG texas/NNS
+nsubj(texas-6, what-1)
+cop(texas-6, is-2)
+dep(state-4, largest-3)
+amod(texas-6, state-4)
+amod(texas-6, bordering-5)
+root(ROOT-0, texas-6)
+
+what is the population of new york city ?	population-3	city-7
+what/WP is/VBZ population/NN of/IN new/JJ york/JJ city/NN
+root(ROOT-0, what-1)
+cop(what-1, is-2)
+nsubj(what-1, population-3)
+amod(city-7, new-5)
+amod(city-7, york-6)
+prep_of(population-3, city-7)
+
+what is the population of the state with the highest population density ?	population-3	density-9
+what/WP is/VBZ population/NN of/IN state/NN with/IN highest/JJS population/NN density/NN
+root(ROOT-0, what-1)
+cop(what-1, is-2)
+nn(density-9, population-3)
+prep_of(population-3, state-5)
+amod(population-8, highest-7)
+prep_with(state-5, population-8)
+nsubj(what-1, density-9)
+
+what is the smallest state through which the longest river runs ?	state-4	runs-9
+what/WP is/VBZ smallest/JJS state/NN through/IN which/WDT longest/JJS river/NN runs/NNS
+root(ROOT-0, what-1)
+cop(what-1, is-2)
+nsubj(what-1, smallest-3)
+prep_through(state-4, smallest-3)
+rcmod(smallest-3, state-4)
+amod(runs-9, longest-7)
+nn(runs-9, river-8)
+dep(smallest-3, runs-9)
+
+what is the state with the largest population density ?	state-3	density-7
+what/WP is/VBZ state/NN with/IN largest/JJS population/NN density/NN
+root(ROOT-0, what-1)
+cop(what-1, is-2)
+nn(density-7, state-3)
+amod(population-6, largest-5)
+prep_with(state-3, population-6)
+nsubj(what-1, density-7)
+
+what is the state with the lowest population density ?	state-3	density-7
+what/WP is/VBZ state/NN with/IN lowest/JJS population/NN density/NN
+root(ROOT-0, what-1)
+cop(what-1, is-2)
+nn(density-7, state-3)
+amod(population-6, lowest-5)
+prep_with(state-3, population-6)
+nsubj(what-1, density-7)
+
+what river traverses the state which borders the most states ?	state-4	river-2
+what/WDT river/NN traverses/VBZ state/NN which/WDT borders/VBZ most/RBS states/NNS
+det(river-2, what-1)
+nsubj(traverses-3, river-2)
+root(ROOT-0, traverses-3)
+dobj(traverses-3, state-4)
+nsubj(borders-6, state-4)
+rcmod(state-4, borders-6)
+advmod(borders-6, most-7)
+dobj(borders-6, states-8)
+
+what rivers are in states that border texas ?	rivers-2	states-5
+what/WDT rivers/NNS are/VBP in/IN states/NNS that/WDT border/VBP texas/NNS
+dobj(are-3, what-1)
+nsubj(are-3, rivers-2)
+root(ROOT-0, are-3)
+prep_in(are-3, states-5)
+nsubj(border-7, states-5)
+rcmod(states-5, border-7)
+dobj(border-7, texas-8)
+
+what rivers flow through states that alabama borders ?	rivers-2	states-5
+what/WDT rivers/NNS flow/VBP through/IN states/NNS that/WDT alabama/VBP borders/NNS
+dobj(flow-3, what-1)
+nsubj(flow-3, rivers-2)
+root(ROOT-0, flow-3)
+prep_through(flow-3, states-5)
+nsubj(alabama-7, states-5)
+rcmod(states-5, alabama-7)
+dobj(alabama-7, borders-8)
+
+what rivers flow through states that border the state with the largest population ?	rivers-2	states-5
+what/WDT rivers/NNS flow/VBP through/IN states/NNS that/WDT border/VBP state/NN with/IN largest/JJS population/NN
+dobj(flow-3, what-1)
+nsubj(flow-3, rivers-2)
+root(ROOT-0, flow-3)
+prep_through(flow-3, states-5)
+nsubj(border-7, states-5)
+rcmod(states-5, border-7)
+dobj(border-7, state-8)
+amod(population-11, largest-10)
+prep_with(border-7, population-11)
+
+what rivers flow through the largest state ?	rivers-2	state-6
+what/WDT rivers/NNS flow/VBP through/RB largest/JJS state/NN
+dobj(flow-3, what-1)
+nsubj(flow-3, rivers-2)
+root(ROOT-0, flow-3)
+advmod(flow-3, through-4)
+amod(state-6, largest-5)
+dobj(flow-3, state-6)
+
+what rivers run through the states that border the state with the capital atlanta ?	rivers-2	states-5
+what/WDT rivers/NNS run/VBP through/IN states/NNS that/WDT border/VBP state/NN with/IN capital/NN atlanta/NN
+dobj(run-3, what-1)
+nsubj(run-3, rivers-2)
+root(ROOT-0, run-3)
+prep_through(run-3, states-5)
+nsubj(border-7, states-5)
+rcmod(states-5, border-7)
+dobj(border-7, state-8)
+nn(atlanta-11, capital-10)
+prep_with(border-7, atlanta-11)
+
+what state bordering nevada has the largest population ?	state-2	nevada-4
+what/WDT state/NN bordering/VBG nevada/NN has/VBZ largest/JJS population/NN
+dobj(has-5, what-1)
+nn(nevada-4, state-2)
+amod(nevada-4, bordering-3)
+nsubj(has-5, nevada-4)
+root(ROOT-0, has-5)
+dobj(has-5, largest-6)
+iobj(has-5, largest-6)
+dep(largest-6, population-7)
+
+what state borders most other states ?	state-2	states-6
+what/WDT state/NN borders/NNS most/RBS other/JJ states/NNS
+dep(borders-3, what-1)
+nn(borders-3, state-2)
+root(ROOT-0, borders-3)
+advmod(other-5, most-4)
+amod(states-6, other-5)
+dep(borders-3, states-6)
+
+what state borders new york ?	state-2	york-5
+what/WDT state/NN borders/NNS new/JJ york/NN
+dep(borders-3, what-1)
+nn(borders-3, state-2)
+root(ROOT-0, borders-3)
+amod(york-5, new-4)
+dep(borders-3, york-5)
+
+what state borders the least states ?	state-2	states-5
+what/WDT state/NN borders/NNS least/JJS states/NNS
+dep(borders-3, what-1)
+nn(borders-3, state-2)
+root(ROOT-0, borders-3)
+amod(states-5, least-4)
+dep(borders-3, states-5)
+
+what state borders the least states excluding alaska and excluding hawaii ?	state-2	borders-3
+what/WDT state/NN borders/NNS least/JJS states/NNS excluding/VBG alaska/NN and/CC excluding/VBG hawaii/NNS
+det(borders-3, what-1)
+nn(borders-3, state-2)
+dep(states-5, borders-3)
+amod(states-5, least-4)
+root(ROOT-0, states-5)
+dep(states-5, excluding-6)
+pobj(excluding-6, alaska-7)
+conj_and(states-5, excluding-9)
+pobj(excluding-9, hawaii-10)
+
+what state borders the most states ?	state-2	borders-3
+what/WDT state/NN borders/NNS most/RBS states/NNS
+det(borders-3, what-1)
+nn(borders-3, state-2)
+dep(most-4, borders-3)
+root(ROOT-0, most-4)
+dep(most-4, states-5)
+
+what state borders the state with the smallest population ?	state-2	population-7
+what/WDT state/NN borders/NNS state/NN with/IN smallest/JJS population/NN
+dep(state-2, what-1)
+root(ROOT-0, state-2)
+nn(state-4, borders-3)
+dep(state-2, state-4)
+amod(population-7, smallest-6)
+prep_with(state-4, population-7)
+
+what states border states that border mississippi ?	states-4	states-2
+what/WDT states/NNS border/VBP states/NNS that/WDT border/VBP mississippi/NNS
+det(states-2, what-1)
+nsubj(border-3, states-2)
+root(ROOT-0, border-3)
+dobj(border-3, states-4)
+nsubj(border-6, states-4)
+rcmod(states-4, border-6)
+dobj(border-6, mississippi-7)
+
+what states border the states with the most cities ?	states-4	states-2
+what/WDT states/NNS border/VBP states/NNS with/IN most/JJS cities/NNS
+det(states-2, what-1)
+nsubj(border-3, states-2)
+root(ROOT-0, border-3)
+dobj(border-3, states-4)
+amod(cities-7, most-6)
+prep_with(states-4, cities-7)
+
+what states high point are higher than that of colorado ?	states-2	point-4
+what/WDT states/NNS high/JJ point/NN are/VBP higher/JJR than/IN that/DT of/IN colorado/NN
+det(states-2, what-1)
+dep(point-4, states-2)
+amod(point-4, high-3)
+dep(are-5, point-4)
+root(ROOT-0, are-5)
+nsubj(are-5, higher-6)
+prep_than(higher-6, that-8)
+prep_of(that-8, colorado-10)
+
+which is the density of the state that the largest river in the united states runs through ?	state-5	river-8
+which/WDT is/VBZ density/NN of/IN state/NN that/WDT largest/JJS river/NN in/IN united/JJ states/NNS runs/VBZ through/IN
+nsubj(density-3, which-1)
+cop(density-3, is-2)
+root(ROOT-0, density-3)
+dep(river-8, density-3)
+prep_of(density-3, state-5)
+amod(river-8, largest-7)
+nsubj(runs-12, river-8)
+amod(states-11, united-10)
+prep_in(river-8, states-11)
+rcmod(density-3, runs-12)
+prep(runs-12, through-13)
+
+which of the states bordering pennsylvania has the largest population ?	states-3	pennsylvania-5
+which/WDT of/IN states/NNS bordering/VBG pennsylvania/NN has/VBZ largest/JJS population/NN
+root(ROOT-0, which-1)
+prep_of(which-1, states-3)
+amod(pennsylvania-5, bordering-4)
+nsubj(has-6, pennsylvania-5)
+rcmod(states-3, has-6)
+dobj(has-6, largest-7)
+iobj(has-6, largest-7)
+dep(largest-7, population-8)
+
+which rivers run through states bordering new mexico ?	rivers-2	mexico-8
+which/WDT rivers/NNS run/VBP through/IN states/NNS bordering/VBG new/JJ mexico/NN
+dobj(run-3, which-1)
+nsubj(run-3, rivers-2)
+root(ROOT-0, run-3)
+prep_through(run-3, states-5)
+vmod(states-5, bordering-6)
+amod(mexico-8, new-7)
+dobj(bordering-6, mexico-8)
+
+which rivers run through states that border the state with the capital austin ?	rivers-2	states-5
+which/WDT rivers/NNS run/VBP through/IN states/NNS that/WDT border/VBP state/NN with/IN capital/NN austin/NN
+dobj(run-3, which-1)
+nsubj(run-3, rivers-2)
+root(ROOT-0, run-3)
+prep_through(run-3, states-5)
+nsubj(border-7, states-5)
+rcmod(states-5, border-7)
+dobj(border-7, state-8)
+nn(austin-11, capital-10)
+prep_with(border-7, austin-11)
+
+which state borders florida ?	state-2	borders-3
+which/WDT state/NN borders/NNS florida/VBP
+dobj(florida-4, which-1)
+nn(borders-3, state-2)
+nsubj(florida-4, borders-3)
+root(ROOT-0, florida-4)
+
+which state borders hawaii ?	state-2	borders-3
+which/WDT state/NN borders/NNS hawaii/VBP
+dobj(hawaii-4, which-1)
+nn(borders-3, state-2)
+nsubj(hawaii-4, borders-3)
+root(ROOT-0, hawaii-4)
+
+which state borders most states ?	state-2	borders-3
+which/WDT state/NN borders/NNS most/RBS states/NNS
+det(borders-3, which-1)
+nn(borders-3, state-2)
+dep(most-4, borders-3)
+root(ROOT-0, most-4)
+dep(most-4, states-5)
+
+which state borders the most states ?	state-2	borders-3
+which/WDT state/NN borders/NNS most/RBS states/NNS
+det(borders-3, which-1)
+nn(borders-3, state-2)
+dep(most-4, borders-3)
+root(ROOT-0, most-4)
+dep(most-4, states-5)
+
+which state has the lowest point that borders idaho ?	state-2	point-5
+which/WDT state/NN has/VBZ lowest/JJS point/NN that/WDT borders/VBZ idaho/NN
+det(state-2, which-1)
+nsubj(has-3, state-2)
+root(ROOT-0, has-3)
+amod(point-5, lowest-4)
+dobj(has-3, point-5)
+nsubj(borders-7, point-5)
+rcmod(point-5, borders-7)
+dobj(borders-7, idaho-8)
+
+which state has the smallest area that borders texas ?	state-2	area-5
+which/WDT state/NN has/VBZ smallest/JJS area/NN that/WDT borders/VBZ texas/NNS
+det(state-2, which-1)
+nsubj(has-3, state-2)
+root(ROOT-0, has-3)
+amod(area-5, smallest-4)
+dobj(has-3, area-5)
+nsubj(borders-7, area-5)
+rcmod(area-5, borders-7)
+dobj(borders-7, texas-8)
+
+which states border alabama ?	states-2	border-3
+which/WDT states/VBZ border/NN alabama/IN
+nsubj(states-2, which-1)
+root(ROOT-0, states-2)
+dobj(states-2, border-3)
+prep(states-2, alabama-4)
+
+which states border alaska ?	states-2	border-3
+which/WDT states/VBZ border/NN alaska/IN
+nsubj(states-2, which-1)
+root(ROOT-0, states-2)
+dobj(states-2, border-3)
+prep(states-2, alaska-4)
+
+which states border arizona ?	states-2	arizona-4
+which/WDT states/VBZ border/NN arizona/NN
+nsubj(states-2, which-1)
+root(ROOT-0, states-2)
+nn(arizona-4, border-3)
+dobj(states-2, arizona-4)
+
+which states border colorado ?	states-2	colorado-4
+which/WDT states/VBZ border/NN colorado/NN
+nsubj(states-2, which-1)
+root(ROOT-0, states-2)
+nn(colorado-4, border-3)
+dobj(states-2, colorado-4)
+
+which states border hawaii ?	states-2	hawaii-4
+which/WDT states/VBZ border/NN hawaii/NNS
+nsubj(states-2, which-1)
+root(ROOT-0, states-2)
+nn(hawaii-4, border-3)
+dobj(states-2, hawaii-4)
+
+which states border illinois ?	states-2	illinois-4
+which/WDT states/VBZ border/NN illinois/NN
+nsubj(states-2, which-1)
+root(ROOT-0, states-2)
+nn(illinois-4, border-3)
+dobj(states-2, illinois-4)
+
+which states border iowa ?	states-2	iowa-4
+which/WDT states/VBZ border/NN iowa/NN
+nsubj(states-2, which-1)
+root(ROOT-0, states-2)
+nn(iowa-4, border-3)
+dobj(states-2, iowa-4)
+
+which states border kentucky ?	states-2	kentucky-4
+which/WDT states/VBZ border/NN kentucky/NN
+nsubj(states-2, which-1)
+root(ROOT-0, states-2)
+nn(kentucky-4, border-3)
+dobj(states-2, kentucky-4)
+
+which states border michigan ?	states-2	michigan-4
+which/WDT states/VBZ border/NN michigan/NN
+nsubj(states-2, which-1)
+root(ROOT-0, states-2)
+nn(michigan-4, border-3)
+dobj(states-2, michigan-4)
+
+which states border new york ?	states-2	york-5
+which/WDT states/VBZ border/NN new/JJ york/NN
+nsubj(states-2, which-1)
+root(ROOT-0, states-2)
+nn(york-5, border-3)
+amod(york-5, new-4)
+dobj(states-2, york-5)
+
+which states border no other states ?	states-2	states-6
+which/WDT states/VBZ border/NN no/DT other/JJ states/NNS
+dep(states-2, which-1)
+root(ROOT-0, states-2)
+dobj(states-2, border-3)
+det(states-6, no-4)
+amod(states-6, other-5)
+nsubj(states-2, states-6)
+
+which states border states through which the mississippi traverses ?	states-2	states-4
+which/WDT states/VBZ border/NN states/NNS through/IN which/WDT mississippi/NN traverses/VBZ
+nsubj(states-2, which-1)
+root(ROOT-0, states-2)
+nn(states-4, border-3)
+dobj(states-2, states-4)
+prep_through(traverses-8, states-4)
+nsubj(traverses-8, mississippi-7)
+rcmod(states-4, traverses-8)
+
+which states border texas ?	states-2	texas-4
+which/WDT states/VBZ border/NN texas/NNS
+nsubj(states-2, which-1)
+root(ROOT-0, states-2)
+nn(texas-4, border-3)
+dobj(states-2, texas-4)
+
+which states border the longest river in the usa ?	states-2	river-5
+which/WDT states/VBZ border/NN longest/JJS river/NN in/IN usa/NN
+nsubj(states-2, which-1)
+root(ROOT-0, states-2)
+dobj(states-2, border-3)
+amod(river-5, longest-4)
+npadvmod(states-2, river-5)
+prep_in(states-2, usa-7)
+
+which states border the missouri river ?	states-2	river-5
+which/WDT states/VBZ border/NN missouri/NN river/NN
+nsubj(states-2, which-1)
+root(ROOT-0, states-2)
+nn(river-5, border-3)
+nn(river-5, missouri-4)
+dobj(states-2, river-5)
+
+which states border the state with the smallest area ?	states-2	area-7
+which/WDT states/VBZ border/NN state/NN with/IN smallest/JJS area/NN
+nsubj(states-2, which-1)
+root(ROOT-0, states-2)
+nn(state-4, border-3)
+dobj(states-2, state-4)
+amod(area-7, smallest-6)
+prep_with(states-2, area-7)
+
+which states capital city is the largest ?	city-4	capital-3
+which/WDT states/VBZ capital/NN city/NN is/VBZ largest/JJS
+nsubj(states-2, which-1)
+root(ROOT-0, states-2)
+nn(city-4, capital-3)
+nsubj(largest-6, city-4)
+cop(largest-6, is-5)
+ccomp(states-2, largest-6)
+
+which states have a major city named austin ?	states-2	city-6
+which/WDT states/NNS have/VBP a/DT major/JJ city/NN named/VBN austin/IN
+det(states-2, which-1)
+prep_austin(named-7, states-2)
+aux(named-7, have-3)
+det(city-6, a-4)
+amod(city-6, major-5)
+nsubj(named-7, city-6)
+root(ROOT-0, named-7)
+

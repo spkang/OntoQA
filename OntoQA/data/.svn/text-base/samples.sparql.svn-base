@@ -1,0 +1,9 @@
+SELECT ?r
+WHERE {
+	?r a geo:river .
+	?r geo:hasLength ?l .
+	?r geo:runThrough ?s .
+	?s geo:inCountry "us" .
+}
+ORDER BY DESC(?l)
+LIMIT 1

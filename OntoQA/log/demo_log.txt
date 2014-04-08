@@ -1,0 +1,26 @@
+2014-02-22 21:31:34,621 [INFO] [cn.edu.hit.ir.demo.OntoQADemo:75] - @run
+2014-02-22 21:33:32,811 [INFO] [cn.edu.hit.ir.demo.OntoQADemo:142] - query: how many people live in texas ?
+2014-02-22 21:33:37,432 [INFO] [cn.edu.hit.ir.demo.OntoQADemo:146] - result: <div class="results">
+ <div class="result">
+  <div class="result-title">
+   Answer
+  </div>
+  <div class="result-content">
+   14229000
+  </div>
+ </div>
+ <div class="result">
+  <div class="result-title">
+   Sparql
+  </div>
+  <div class="result-content">
+   <pre>SELECT DISTINCT ?x_0
+WHERE {
+	?texas_5 rdfs:label &quot;texas&quot; .
+	?texas_5 a geo:state .
+	?texas_5 geo:hasPopulation ?x_0 .
+}
+</pre>
+  </div>
+ </div>
+</div>

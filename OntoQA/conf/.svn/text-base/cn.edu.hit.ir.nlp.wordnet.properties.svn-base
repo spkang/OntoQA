@@ -1,0 +1,4 @@
+WORDNET_VERSION = 2.1
+WORDNET_PATH = E:/Program Files/WordNet
+
+JWNL_PROPERTIES_PATH = res/nlp/wordnet/jwnl_properties.xml

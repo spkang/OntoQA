@@ -1,0 +1,41 @@
+K 25
+svn:wc:ra_dav:version-url
+V 54
+/svn/wbzhang/!svn/ver/410/OntoQA/trunk/res/nlp/opennlp
+END
+en-chunker.bin
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/svn/wbzhang/!svn/ver/410/OntoQA/trunk/res/nlp/opennlp/en-chunker.bin
+END
+en-parser-chunking.bin
+K 25
+svn:wc:ra_dav:version-url
+V 77
+/svn/wbzhang/!svn/ver/410/OntoQA/trunk/res/nlp/opennlp/en-parser-chunking.bin
+END
+en-pos-perceptron.bin
+K 25
+svn:wc:ra_dav:version-url
+V 76
+/svn/wbzhang/!svn/ver/410/OntoQA/trunk/res/nlp/opennlp/en-pos-perceptron.bin
+END
+en-token.bin
+K 25
+svn:wc:ra_dav:version-url
+V 67
+/svn/wbzhang/!svn/ver/410/OntoQA/trunk/res/nlp/opennlp/en-token.bin
+END
+en-sent.bin
+K 25
+svn:wc:ra_dav:version-url
+V 66
+/svn/wbzhang/!svn/ver/410/OntoQA/trunk/res/nlp/opennlp/en-sent.bin
+END
+en-pos-maxent.bin
+K 25
+svn:wc:ra_dav:version-url
+V 72
+/svn/wbzhang/!svn/ver/410/OntoQA/trunk/res/nlp/opennlp/en-pos-maxent.bin
+END

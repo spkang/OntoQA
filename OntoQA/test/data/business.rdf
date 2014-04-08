@@ -1,0 +1,129 @@
+<?xml version="1.0"?>
+<rdf:RDF
+    xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+    xmlns:db="file:///D:/javaProjects/d2r-server-0.7/business.owl"
+    xmlns:owl="http://www.w3.org/2002/07/owl#"
+    xmlns:vocab="http://localhost:2020/vocab/resource/"
+    xmlns:xsd="http://www.w3.org/2001/XMLSchema#"
+    xmlns:map="file:///D:/javaProjects/d2r-server-0.7/business_mapping.n3#"
+    xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" > 
+  <rdf:Description rdf:about="#orders/1">
+    <vocab:orders_id rdf:datatype="http://www.w3.org/2001/XMLSchema#int">1</vocab:orders_id>
+    <vocab:orders_customer_id rdf:datatype="http://www.w3.org/2001/XMLSchema#int">1</vocab:orders_customer_id>
+    <vocab:orders_product_id rdf:datatype="http://www.w3.org/2001/XMLSchema#int">1</vocab:orders_product_id>
+    <vocab:orders_number rdf:datatype="http://www.w3.org/2001/XMLSchema#int">1</vocab:orders_number>
+    <rdfs:label>orders #1</rdfs:label>
+    <rdf:type rdf:resource="http://localhost:2020/vocab/resource/orders"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="#customers/2">
+    <rdfs:label>customers #2</rdfs:label>
+    <vocab:customers_id rdf:datatype="http://www.w3.org/2001/XMLSchema#int">2</vocab:customers_id>
+    <vocab:customers_country>USA</vocab:customers_country>
+    <vocab:customers_city>Redwood Shores</vocab:customers_city>
+    <vocab:customers_state>California</vocab:customers_state>
+    <vocab:customers_name>Oracle</vocab:customers_name>
+    <rdf:type rdf:resource="http://localhost:2020/vocab/resource/customers"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://localhost:2020/vocab/resource/customers_id">
+    <rdfs:label>customers id</rdfs:label>
+    <rdf:type rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#Property"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="#customers/1">
+    <rdfs:label>customers #1</rdfs:label>
+    <vocab:customers_id rdf:datatype="http://www.w3.org/2001/XMLSchema#int">1</vocab:customers_id>
+    <vocab:customers_country>USA</vocab:customers_country>
+    <vocab:customers_city>Armonk</vocab:customers_city>
+    <vocab:customers_state>New York</vocab:customers_state>
+    <vocab:customers_name>IBM</vocab:customers_name>
+    <rdf:type rdf:resource="http://localhost:2020/vocab/resource/customers"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://localhost:2020/vocab/resource/orders_customer_id">
+    <rdfs:label>orders customer_id</rdfs:label>
+    <rdf:type rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#Property"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://localhost:2020/vocab/resource/orders_number">
+    <rdfs:label>orders number</rdfs:label>
+    <rdf:type rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#Property"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://localhost:2020/vocab/resource/orders_product_id">
+    <rdfs:label>orders product_id</rdfs:label>
+    <rdf:type rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#Property"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://localhost:2020/vocab/resource/products_id">
+    <rdfs:label>products id</rdfs:label>
+    <rdf:type rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#Property"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://localhost:2020/vocab/resource/customers_name">
+    <rdfs:label>customers name</rdfs:label>
+    <rdf:type rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#Property"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.w3.org/2000/01/rdf-schema#label">
+    <rdf:type rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#Property"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="#orders/2">
+    <vocab:orders_id rdf:datatype="http://www.w3.org/2001/XMLSchema#int">2</vocab:orders_id>
+    <vocab:orders_customer_id rdf:datatype="http://www.w3.org/2001/XMLSchema#int">1</vocab:orders_customer_id>
+    <vocab:orders_product_id rdf:datatype="http://www.w3.org/2001/XMLSchema#int">2</vocab:orders_product_id>
+    <vocab:orders_number rdf:datatype="http://www.w3.org/2001/XMLSchema#int">2</vocab:orders_number>
+    <rdfs:label>orders #2</rdfs:label>
+    <rdf:type rdf:resource="http://localhost:2020/vocab/resource/orders"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://localhost:2020/vocab/resource/orders_id">
+    <rdfs:label>orders id</rdfs:label>
+    <rdf:type rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#Property"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://localhost:2020/vocab/resource/customers_state">
+    <rdfs:label>customers state</rdfs:label>
+    <rdf:type rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#Property"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://localhost:2020/vocab/resource/customers_city">
+    <rdfs:label>customers city</rdfs:label>
+    <rdf:type rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#Property"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://localhost:2020/vocab/resource/products_name">
+    <rdfs:label>products name</rdfs:label>
+    <rdf:type rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#Property"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="#orders/3">
+    <vocab:orders_id rdf:datatype="http://www.w3.org/2001/XMLSchema#int">3</vocab:orders_id>
+    <vocab:orders_customer_id rdf:datatype="http://www.w3.org/2001/XMLSchema#int">2</vocab:orders_customer_id>
+    <vocab:orders_product_id rdf:datatype="http://www.w3.org/2001/XMLSchema#int">1</vocab:orders_product_id>
+    <vocab:orders_number rdf:datatype="http://www.w3.org/2001/XMLSchema#int">4</vocab:orders_number>
+    <rdfs:label>orders #3</rdfs:label>
+    <rdf:type rdf:resource="http://localhost:2020/vocab/resource/orders"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://localhost:2020/vocab/resource/customers_country">
+    <rdfs:label>customers country</rdfs:label>
+    <rdf:type rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#Property"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://localhost:2020/vocab/resource/products">
+    <rdfs:label>products</rdfs:label>
+    <rdf:type rdf:resource="http://www.w3.org/2000/01/rdf-schema#Class"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://localhost:2020/vocab/resource/orders">
+    <rdfs:label>orders</rdfs:label>
+    <rdf:type rdf:resource="http://www.w3.org/2000/01/rdf-schema#Class"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://localhost:2020/vocab/resource/customers">
+    <rdfs:label>customers</rdfs:label>
+    <rdf:type rdf:resource="http://www.w3.org/2000/01/rdf-schema#Class"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://localhost:2020/vocab/resource/products_price">
+    <rdfs:label>products price</rdfs:label>
+    <rdf:type rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#Property"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="#products/2">
+    <vocab:products_name>Spider Library</vocab:products_name>
+    <rdfs:label>products #2</rdfs:label>
+    <vocab:products_price rdf:datatype="http://www.w3.org/2001/XMLSchema#float">20</vocab:products_price>
+    <vocab:products_id rdf:datatype="http://www.w3.org/2001/XMLSchema#int">2</vocab:products_id>
+    <rdf:type rdf:resource="http://localhost:2020/vocab/resource/products"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="#products/1">
+    <vocab:products_name>KnowledgeBooks NLP Library</vocab:products_name>
+    <rdfs:label>products #1</rdfs:label>
+    <vocab:products_price rdf:datatype="http://www.w3.org/2001/XMLSchema#float">500</vocab:products_price>
+    <vocab:products_id rdf:datatype="http://www.w3.org/2001/XMLSchema#int">1</vocab:products_id>
+    <rdf:type rdf:resource="http://localhost:2020/vocab/resource/products"/>
+  </rdf:Description>
+</rdf:RDF>

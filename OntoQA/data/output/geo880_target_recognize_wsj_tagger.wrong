@@ -1,0 +1,139 @@
+name the rivers in arkansas .	rivers-2	name-1
+give me the lakes in california ?	lakes-3	california-5
+give me the states that border utah ?	states-3	border-5
+how big is alaska ?	big-2	alaska-4
+how big is massachusetts ?	big-2	massachusetts-4
+how big is new mexico ?	big-2	mexico-5
+how big is north dakota ?	big-2	dakota-5
+how big is texas ?	big-2	texas-4
+how big is the city of new york ?	big-2	city-4
+how high is guadalupe peak ?	high-2	peak-5
+how high is mount mckinley ?	high-2	is-3
+how large is alaska ?	large-2	alaska-4
+how large is texas ?	large-2	texas-4
+how large is the largest city in alaska ?	large-2	city-5
+how long is rio grande ?	long-2	grande-5
+how long is the colorado river ?	long-2	river-5
+how long is the delaware river ?	long-2	river-5
+how long is the longest river in california ?	long-2	river-5
+how long is the longest river in the usa ?	long-2	river-5
+how long is the mississippi ?	long-2	mississippi-4
+how long is the mississippi river ?	long-2	river-5
+how long is the mississippi river in miles ?	long-2	river-5
+how long is the missouri river ?	long-2	river-5
+how long is the north platte river ?	long-2	river-6
+how long is the ohio river ?	long-2	river-5
+how long is the rio grande river ?	long-2	river-6
+how long is the shortest river in the usa ?	long-2	river-5
+how many rivers are called colorado ?	rivers-3	colorado-6
+how many rivers are in the state that has the most rivers ?	rivers-3	state-6
+how many states does the mississippi run through ?	states-3	mississippi-5
+how tall is mount mckinley ?	tall-2	is-3
+in which state does the highest point in usa exist ?	state-3	point-6
+list the states ?	states-3	list-1
+name the 50 capitals in the usa ?	capitals-3	name-1
+name the major lakes in michigan ?	lakes-3	major-2
+name the rivers in arkansas ?	rivers-2	name-1
+number of citizens in boulder ?	citizens-3	number-1
+number of people in boulder ?	people-3	number-1
+san antonio is in what state ?	state-6	antonio-2
+state the state with the largest area ?	state-2	area-5
+through which states does the longest river in texas run ?	states-3	river-6
+what are the cities in states through which the mississippi runs ?	cities-3	runs-9
+what are the names of the major cities in illinois ?	cities-6	names-3
+what are the populations of states through which the mississippi river run ?	populations-3	run-10
+what are the populations of states through which the mississippi runs ?	populations-3	runs-9
+what are the populations of the states through which the mississippi river run ?	populations-3	run-10
+what are the populations of the states through which the mississippi runs ?	populations-3	runs-9
+what is the area of all the states combined ?	area-3	states-6
+what is the area of the state with the smallest population density ?	area-3	density-9
+what is the capital of the state with the largest population density ?	capital-3	density-9
+what is the highest point of the state with the smallest population density ?	point-4	density-10
+what is the largest city in smallest state through which the mississippi runs ?	city-4	runs-11
+what is the largest of the state that the rio grande runs through ?	state-5	grande-8
+what is the largest state bordering arkansas ?	state-4	arkansas-6
+what is the largest state bordering texas ?	state-4	texas-6
+what is the population of the capital of the largest state through which the mississippi runs ?	population-3	runs-12
+what is the population of the state with the highest population density ?	population-3	density-9
+what is the smallest state through which the longest river runs ?	state-4	runs-9
+what is the state with the largest population density ?	state-3	density-7
+what is the state with the lowest population density ?	state-3	density-7
+what length is the mississippi ?	length-2	mississippi-4
+what river traverses the state which borders the most states ?	state-4	states-8
+what rivers flow through states that alabama borders ?	rivers-2	states-5
+what rivers traverses the state which borders the most states ?	state-4	states-8
+what state bordering nevada has the largest population ?	state-2	nevada-4
+what state borders most other states ?	state-2	states-6
+what state borders new york ?	state-2	york-5
+what state borders the least states ?	state-2	states-5
+what state borders the least states excluding alaska and excluding hawaii ?	state-2	states-5
+what state borders the most states ?	state-2	states-5
+what state borders the state with the smallest population ?	state-2	population-7
+what state has the most major rivers running through it ?	state-2	rivers-6
+what state has the most rivers running through it ?	state-2	rivers-5
+what state that borders texas has the highest population ?	state-2	texas-5
+what states border alaska ?	states-2	alaska-4
+what states border arkansas ?	states-2	arkansas-4
+what states border delaware ?	states-2	delaware-4
+what states border florida ?	states-2	florida-4
+what states border georgia ?	states-2	georgia-4
+what states border hawaii ?	states-2	hawaii-4
+what states border indiana ?	states-2	indiana-4
+what states border kentucky ?	states-2	kentucky-4
+what states border michigan ?	states-2	michigan-4
+what states border missouri ?	states-2	missouri-4
+what states border montana ?	states-2	montana-4
+what states border new hampshire ?	states-2	hampshire-5
+what states border new jersey ?	states-2	jersey-5
+what states border ohio ?	states-2	ohio-4
+what states border rhode island ?	states-2	island-5
+what states border states that border colorado ?	states-2	states-4
+what states border states that border states that border florida ?	states-2	states-4
+what states border states that border states that border states that border texas ?	states-2	states-4
+what states border states that border the state with the largest population ?	states-2	states-4
+what states border states that the mississsippi runs through ?	states-2	states-4
+what states border states that the ohio runs through ?	states-2	states-4
+what states border states which the mississippi runs through ?	states-2	states-4
+what states border texas ?	states-2	texas-4
+what states border texas and have a major river ?	states-2	river-9
+what states border the mississippi river ?	states-2	river-5
+what states border the most populous state ?	states-2	state-6
+what states border the state that borders the most states ?	states-2	state-4
+what states border the state with the most cities ?	states-2	state-4
+what states border the state with the most major cities ?	states-2	cities-8
+what states border the state with the smallest area ?	states-2	state-4
+what states border wisconsin ?	states-2	wisconsin-4
+what states capital is dover ?	capital-3	dover-5
+what states does the mississippi run through ?	states-2	mississippi-4
+what states does the missouri run through ?	states-2	missouri-4
+what states have a city named austin ?	states-2	city-5
+what states high point are higher than that of colorado ?	states-2	point-4
+what states neighbor maine ?	states-2	maine-4
+whats the largest city ?	city-3	whats-1
+where is mount whitney located ?	whitney-4	is-2
+where is san diego ?	diego-4	null
+where is san jose ?	jose-4	null
+which is the density of the state that the largest river in the united states runs through ?	state-5	river-8
+which of the states bordering pennsylvania has the largest population ?	states-3	pennsylvania-5
+which state borders hawaii ?	state-2	borders-3
+which state borders most states ?	state-2	states-5
+which state borders the most states ?	state-2	states-5
+which states adjoin alabama ?	states-2	alabama-4
+which states border alabama ?	states-2	alabama-4
+which states border alaska ?	states-2	alaska-4
+which states border arizona ?	states-2	arizona-4
+which states border colorado ?	states-2	colorado-4
+which states border hawaii ?	states-2	hawaii-4
+which states border illinois ?	states-2	illinois-4
+which states border iowa ?	states-2	iowa-4
+which states border kentucky ?	states-2	kentucky-4
+which states border michigan ?	states-2	michigan-4
+which states border new york ?	states-2	york-5
+which states border no other states ?	states-2	states-6
+which states border south dakota ?	states-2	dakota-5
+which states border states through which the mississippi traverses ?	states-2	traverses-8
+which states border texas ?	states-2	texas-4
+which states border the longest river in the usa ?	states-2	border-3
+which states border the missouri river ?	states-2	river-5
+which states border the state with the smallest area ?	states-2	state-4
+which states capital city is the largest ?	city-4	capital-3

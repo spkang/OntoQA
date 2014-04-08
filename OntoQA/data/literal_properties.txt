@@ -1,0 +1,31 @@
+subject: http://ir.hit.edu/nli/geo/road
+literals:
+[http://ir.hit.edu/nli/geo/hasNumber]
+
+subject: http://ir.hit.edu/nli/geo/state
+literals:
+[http://ir.hit.edu/nli/geo/hasArea, http://ir.hit.edu/nli/geo/hasPopDensity, http://ir.hit.edu/nli/geo/hasNumber, http://ir.hit.edu/nli/geo/hasPopulation]
+
+subject: http://www.w3.org/2000/01/rdf-schema#Literal
+literals:
+null
+
+subject: http://ir.hit.edu/nli/geo/river
+literals:
+[http://ir.hit.edu/nli/geo/hasLength]
+
+subject: http://ir.hit.edu/nli/geo/point
+literals:
+[http://ir.hit.edu/nli/geo/hasElevation]
+
+subject: http://ir.hit.edu/nli/geo/mountain
+literals:
+[http://ir.hit.edu/nli/geo/hasHeight]
+
+subject: http://ir.hit.edu/nli/geo/city
+literals:
+[http://ir.hit.edu/nli/geo/hasPopulation]
+
+subject: http://ir.hit.edu/nli/geo/lake
+literals:
+[http://ir.hit.edu/nli/geo/hasArea]

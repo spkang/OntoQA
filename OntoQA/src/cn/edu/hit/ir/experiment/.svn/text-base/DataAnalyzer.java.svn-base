@@ -1,0 +1,135 @@
+/**
+ * Copyright 2011 HIT-CIR
+ * Research Center for Information Retrieval
+ * Harbin Institute of Technology
+ * http://ir.hit.edu.cn
+ */
+
+package cn.edu.hit.ir.experiment;
+
+import java.io.File;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+
+import org.apache.commons.io.FileUtils;
+import org.apache.commons.lang.StringUtils;
+
+import opennlp.tools.util.Span;
+
+import cn.edu.hit.ir.nlp.OpenNLP;
+import cn.edu.hit.ir.questionanalysis.QuestionAnalyzer;
+import cn.edu.hit.ir.util.Printer;
+
+/**
+ * A data analyzer.
+ *
+ * @author   bin3 (bin183cs@gmail.com)
+ * @version  0.1.0
+ * @date	 2011-5-15
+ */
+
+public class DataAnalyzer {
+	
+	public static final String DATA_DIR = "data/";
+	
+	public static OpenNLP openNLP = OpenNLP.getInstance();
+	
+	public static void posData() {
+		openNLP.createPosTagger();
+		
+        try {
+        	List<String> lines = FileUtils.readLines(new File("data/geo880.txt"));
+        	List<String> poses = new ArrayList<String>();
+    		for (String line : lines) {
+    			String[] tokens = openNLP.tokenize(line);
+    			String[] tags = openNLP.tag(line);
+    			StringBuffer sb = new StringBuffer();
+    			for (int i = 0; i < tags.length; i++) {
+    				sb.append(tokens[i]+ "/" + tags[i] + " ");
+    			}
+    			String tokenTagString = sb.toString();
+    			Printer.print("Q: " + line);
+    			Printer.print(tokenTagString);
+    			poses.add(tokenTagString);
+    		}
+    		FileUtils.writeLines(new File("data/geo880.pos"), poses);
+        } catch (IOException e) {
+	        e.printStackTrace();
+        }		
+	}
+	
+	public static void chunkData() {
+		openNLP.createChunker();
+		
+		try {
+			List<String> lines = FileUtils.readLines(new File("data/geo880.txt"));
+        	List<String> chunkList = new ArrayList<String>();
+			for (String line : lines) {
+				String[] tokens = openNLP.tokenize(line);
+				String[] tags = openNLP.tag(line);
+				String[] chunks = openNLP.chunkAsWords(tokens, tags);
+				Printer.print("Q: " + line);
+				Printer.print(chunks);
+				String chunkString = StringUtils.join(chunks, ", ");
+				chunkList.add(chunkString);
+			}
+			FileUtils.writeLines(new File("data/geo880.chunck"), chunkList);
+        } catch (IOException e) {
+	        e.printStackTrace();
+        }
+	}
+	
+	public static void analyzeData() {
+		QuestionAnalyzer analyzer = new QuestionAnalyzer();
+		
+		try {
+			final String inFilename = DATA_DIR + "geo880.txt";
+			final String outFilename = DATA_DIR + "geo880.analysiss";
+			StringBuffer outBuffer = new StringBuffer();
+			
+			List<String> questions = FileUtils.readLines(new File(inFilename));
+			for (String question : questions) {
+				Object res = analyzer.analyzeData(question);
+				System.out.println(res);
+				
+				//FileUtils.writeStringToFile(outFile, question + "\n");
+				//FileUtils.writeStringToFile(outFile, mes + "\n\n");
+				outBuffer.append(question).append("\n");
+				outBuffer.append(res).append("\n\n");
+			}
+			FileUtils.writeStringToFile(new File(outFilename), outBuffer.toString());
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
+	public static void testSth() {
+		String line = "can you tell me the capital of texas ?";
+		openNLP.createChunker();
+		String[] tokens = openNLP.tokenize(line);
+		String[] tags = openNLP.tag(line);
+		String[] chunks = openNLP.chunk(tokens, tags);
+		Span[] spans = openNLP.chunkAsSpans(tokens, tags);
+		String[] chunckWords = openNLP.chunkAsWords(tokens, tags);
+		Printer.print(tokens);
+		Printer.print(tags);
+		Printer.print(chunks);
+		Printer.print(spans);
+		Printer.print(chunckWords);		
+	}
+
+	/**
+	 * Runs data analyzer.
+	 *
+	 * @param args
+	 */
+	public static void main(String[] args) {
+		//chunkData();
+		//posData();
+		//testSth();
+		analyzeData();
+	}
+
+}

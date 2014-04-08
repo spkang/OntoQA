@@ -1,0 +1,41 @@
+K 25
+svn:wc:ra_dav:version-url
+V 63
+/svn/wbzhang/!svn/ver/334/OntoQA/trunk/src/cn/edu/hit/ir/ontoqa
+END
+QueryTripleElement.java
+K 25
+svn:wc:ra_dav:version-url
+V 87
+/svn/wbzhang/!svn/ver/334/OntoQA/trunk/src/cn/edu/hit/ir/ontoqa/QueryTripleElement.java
+END
+ParseTreeNode.java
+K 25
+svn:wc:ra_dav:version-url
+V 82
+/svn/wbzhang/!svn/ver/334/OntoQA/trunk/src/cn/edu/hit/ir/ontoqa/ParseTreeNode.java
+END
+OntoQA.java
+K 25
+svn:wc:ra_dav:version-url
+V 75
+/svn/wbzhang/!svn/ver/334/OntoQA/trunk/src/cn/edu/hit/ir/ontoqa/OntoQA.java
+END
+QueryTripleExtractor.java
+K 25
+svn:wc:ra_dav:version-url
+V 89
+/svn/wbzhang/!svn/ver/334/OntoQA/trunk/src/cn/edu/hit/ir/ontoqa/QueryTripleExtractor.java
+END
+QueryTriple.java
+K 25
+svn:wc:ra_dav:version-url
+V 80
+/svn/wbzhang/!svn/ver/334/OntoQA/trunk/src/cn/edu/hit/ir/ontoqa/QueryTriple.java
+END
+ParseTree.java
+K 25
+svn:wc:ra_dav:version-url
+V 78
+/svn/wbzhang/!svn/ver/334/OntoQA/trunk/src/cn/edu/hit/ir/ontoqa/ParseTree.java
+END

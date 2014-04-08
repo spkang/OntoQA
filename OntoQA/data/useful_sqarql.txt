@@ -1,0 +1,29 @@
+SELECT (COUNT(DISTINCT ?type) AS ?type_cnt)
+WHERE{
+ ?x a ?type.
+}
+
+SELECT DISTINCT ?type
+WHERE{
+ ?x a ?type.
+}
+
+SELECT DISTINCT ?p
+WHERE{
+ ?s ?p ?o .
+}
+
+SELECT (COUNT(DISTINCT ?p) AS ?p_cnt)
+WHERE{
+ ?s ?p ?o .
+}
+
+SELECT (COUNT(DISTINCT ?s) AS ?s_cnt)
+WHERE{
+ ?s ?p ?o .
+}
+
+SELECT (COUNT(*) AS ?triple_cnt)
+WHERE{
+ ?s ?p ?o .
+}

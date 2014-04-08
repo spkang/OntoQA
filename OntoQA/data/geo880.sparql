@@ -1,0 +1,157 @@
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX geo:<http://ir.hit.edu/nli/geo/>
+
+
+SELECT ?city
+WHERE {  
+	?city rdf:type geo:city .
+	?city geo:inState ?state .
+	?state geo:hasName "virginia" .
+}
+
+SELECT ?highestPoint
+WHERE {
+	?state geo:hasHighestPoint ?highestPoint .
+	?state geo:border ?state2 .
+	?state2 geo:hasName "mississippi" .
+}
+
+SELECT ?river
+WHERE {
+	?river rdf:type geo:river .
+	?river geo:runThrough ?state .
+	?state geo:hasName "arkansas" .
+	?state rdf:type geo:state .
+}
+
+SELECT ?river
+WHERE {
+	?river rdf:type geo:river .
+	?river geo:runThrough ?state .
+	?state geo:hasName "colorado" .
+	?state rdf:type geo:state .
+}
+
+SELECT ?capital
+WHERE {
+	?state geo:hasCapital ?capital .
+	?state geo:hasName "texas" .
+	?state rdf:type geo:state .
+}
+
+SELECT ?highestPoint
+WHERE {
+	?state geo:hasHighestPoint ?highestPoint .
+	?state rdf:type geo:state .
+	?state geo:hasName "oregon" .
+}
+
+SELECT ?state
+WHERE {
+	?state geo:hasLowestElevation ?lowestElevation .
+	?state rdf:type geo:state .
+	?state2 rdf:type geo:state .
+	?state2 geo:hasName "alabama" .
+	?state2 geo:hasLowestElevation ?lowestElevation2 .
+	FILTER(?lowestElevation < ?lowestElevation2)
+}
+
+SELECT ?city
+WHERE {
+	?city geo:inState ?state .
+	?state rdf:type geo:state .
+	?state geo:hasName "texas" .
+}
+
+SELECT ?city
+WHERE {
+	?city geo:inState ?state .
+	?state rdf:type geo:state .
+	?state geo:inCountry "us" .
+}
+
+SELECT ?city
+WHERE {
+	?city geo:inState ?state .
+	?state rdf:type geo:state .
+	?state geo:hasName "virginia" .
+}
+
+SELECT ?city
+WHERE {
+	?city geo:inState ?state .
+	?state rdf:type geo:state .
+	?state geo:hasName "texas" .
+}
+
+SELECT ?lake
+WHERE {
+	?lake geo:inState ?state .
+	?lake rdf:type geo:lake .
+	?state rdf:type geo:state .
+	?state geo:hasName "california" .
+}
+
+SELECT ?state
+WHERE {
+	?state rdf:type geo:state .
+	?state geo:border ?state2 .
+	?state2 rdf:type geo:state .
+	?state2 geo:hasName "utah" .
+}
+
+SELECT ?area
+WHERE {
+	?state rdf:type geo:state .
+	?state geo:hasArea ?area .
+	?state geo:hasName "alaska" .
+}
+
+SELECT ?area
+WHERE {
+	?state rdf:type geo:state .
+	?state geo:hasArea ?area .
+	?state geo:hasName "massachusetts" .
+}
+
+SELECT ?area
+WHERE {
+	?state rdf:type geo:state .
+	?state geo:hasArea ?area .
+	?state geo:hasName "new mexico" .
+}
+
+
+SELECT ?area
+WHERE {
+	?state rdf:type geo:state .
+	?state geo:hasArea ?area .
+	?state geo:hasName "north dakota" .
+}
+
+SELECT ?area
+WHERE {
+	?state rdf:type geo:state .
+	?state geo:hasArea ?area .
+	?state geo:hasName "texas" .
+}
+
+SELECT ?area
+WHERE {
+	?city rdf:type geo:city .
+	?city geo:hasArea ?area .
+	?city geo:hasName "new york" .
+}
+
+SELECT (MAX(?highestElevation) AS ?ans)
+WHERE {
+	?state geo:hasElevation ?highestElevation .
+}
+
+SELECT ?highestElevation
+WHERE {
+	?state geo:hasHighestElevation ?highestElevation .
+	?state geo:hasHighestPoint "guadalupe peak" .
+}
+
+TODO 26

@@ -1,0 +1,77 @@
+K 25
+svn:wc:ra_dav:version-url
+V 60
+/svn/wbzhang/!svn/ver/440/OntoQA/trunk/src/cn/edu/hit/ir/nlp
+END
+NlpSentence.java
+K 25
+svn:wc:ra_dav:version-url
+V 77
+/svn/wbzhang/!svn/ver/440/OntoQA/trunk/src/cn/edu/hit/ir/nlp/NlpSentence.java
+END
+SnowballStemmer.java
+K 25
+svn:wc:ra_dav:version-url
+V 81
+/svn/wbzhang/!svn/ver/365/OntoQA/trunk/src/cn/edu/hit/ir/nlp/SnowballStemmer.java
+END
+EnglishNlpTool.java
+K 25
+svn:wc:ra_dav:version-url
+V 80
+/svn/wbzhang/!svn/ver/368/OntoQA/trunk/src/cn/edu/hit/ir/nlp/EnglishNlpTool.java
+END
+WordNet.java
+K 25
+svn:wc:ra_dav:version-url
+V 73
+/svn/wbzhang/!svn/ver/421/OntoQA/trunk/src/cn/edu/hit/ir/nlp/WordNet.java
+END
+Similarity.java
+K 25
+svn:wc:ra_dav:version-url
+V 76
+/svn/wbzhang/!svn/ver/372/OntoQA/trunk/src/cn/edu/hit/ir/nlp/Similarity.java
+END
+NlpTool.java
+K 25
+svn:wc:ra_dav:version-url
+V 73
+/svn/wbzhang/!svn/ver/368/OntoQA/trunk/src/cn/edu/hit/ir/nlp/NlpTool.java
+END
+Vocabulary.java
+K 25
+svn:wc:ra_dav:version-url
+V 76
+/svn/wbzhang/!svn/ver/426/OntoQA/trunk/src/cn/edu/hit/ir/nlp/Vocabulary.java
+END
+Distance.java
+K 25
+svn:wc:ra_dav:version-url
+V 74
+/svn/wbzhang/!svn/ver/372/OntoQA/trunk/src/cn/edu/hit/ir/nlp/Distance.java
+END
+OpenNLP.java
+K 25
+svn:wc:ra_dav:version-url
+V 73
+/svn/wbzhang/!svn/ver/365/OntoQA/trunk/src/cn/edu/hit/ir/nlp/OpenNLP.java
+END
+Stemmer.java
+K 25
+svn:wc:ra_dav:version-url
+V 73
+/svn/wbzhang/!svn/ver/365/OntoQA/trunk/src/cn/edu/hit/ir/nlp/Stemmer.java
+END
+WeightedWord.java
+K 25
+svn:wc:ra_dav:version-url
+V 78
+/svn/wbzhang/!svn/ver/421/OntoQA/trunk/src/cn/edu/hit/ir/nlp/WeightedWord.java
+END
+Scorer.java
+K 25
+svn:wc:ra_dav:version-url
+V 72
+/svn/wbzhang/!svn/ver/372/OntoQA/trunk/src/cn/edu/hit/ir/nlp/Scorer.java
+END

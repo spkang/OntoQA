@@ -1,0 +1,3 @@
+Right Number    : 768
+Wrong Number    : 112
+Targetprecision : 0.8727272727272727

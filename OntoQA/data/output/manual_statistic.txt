@@ -1,0 +1,6 @@
+prep_of NN*  NN* **
+prep_of NN*  FW 5 (识别错了，外部词)
+prep_of NN*  PRP (us --> usa， 识别错了，us识别成“我们” 了)
+prep_of NN*  BVG (point of wyoming)
+
+

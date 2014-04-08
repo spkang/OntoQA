@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="src" path="src"/>
+	<classpathentry kind="src" path="test"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.6"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.junit.JUNIT_CONTAINER/4"/>
+	<classpathentry kind="lib" path="lib/wordnet/jwnl.jar"/>
+	<classpathentry kind="lib" path="lib/wordnet/edu.sussex.nlp.jws.beta.11.jar"/>
+	<classpathentry kind="lib" path="lib/jena/arq-2.8.7.jar" sourcepath="/Jena-2.6.4"/>
+	<classpathentry kind="lib" path="lib/jena/icu4j-3.4.4.jar"/>
+	<classpathentry kind="lib" path="lib/jena/iri-0.8.jar"/>
+	<classpathentry kind="lib" path="lib/jena/jena-2.6.4-tests.jar"/>
+	<classpathentry kind="lib" path="lib/jena/jena-2.6.4.jar"/>
+	<classpathentry kind="lib" path="lib/jena/junit-4.5.jar"/>
+	<classpathentry kind="lib" path="lib/jena/log4j-1.2.13.jar"/>
+	<classpathentry kind="lib" path="lib/jena/lucene-core-2.3.1.jar"/>
+	<classpathentry kind="lib" path="lib/jena/slf4j-api-1.5.8.jar"/>
+	<classpathentry kind="lib" path="lib/jena/slf4j-log4j12-1.5.8.jar"/>
+	<classpathentry kind="lib" path="lib/jena/stax-api-1.0.1.jar"/>
+	<classpathentry kind="lib" path="lib/jena/wstx-asl-3.2.9.jar"/>
+	<classpathentry kind="lib" path="lib/jena/xercesImpl-2.7.1.jar"/>
+	<classpathentry kind="lib" path="lib/opennlp/jwnl-1.3.3.jar"/>
+	<classpathentry kind="lib" path="lib/opennlp/opennlp-maxent-3.0.1-incubating.jar"/>
+	<classpathentry kind="lib" path="lib/opennlp/opennlp-tools-1.5.1-incubating.jar"/>
+	<classpathentry kind="lib" path="lib/util/commons-logging.jar"/>
+	<classpathentry kind="lib" path="lib/wordnet/edu.mit.jwi_2.1.5_jdk.jar"/>
+	<classpathentry kind="lib" path="lib/util/commons-io.jar"/>
+	<classpathentry kind="lib" path="lib/nlp/snowball.jar"/>
+	<classpathentry kind="lib" path="lib/nlp/plingstemmer.jar"/>
+	<classpathentry kind="lib" path="lib/util/commons-configuration.jar"/>
+	<classpathentry kind="lib" path="lib/util/commons-lang.jar"/>
+	<classpathentry kind="lib" path="lib/util/commons-collections.jar"/>
+	<classpathentry kind="lib" path="lib/graph/jgrapht-jdk1.6.jar" sourcepath="D:/javaProjects/jgrapht-0.8.2/src"/>
+	<classpathentry kind="lib" path="lib/util/jsoup-1.5.2.jar"/>
+	<classpathentry kind="lib" path="lib/nlp/secondstring-20060615.jar"/>
+	<classpathentry kind="lib" path="lib/nlp/lingpipe-4.0.1.jar"/>
+	<classpathentry kind="lib" path="lib/demo/jetty/jetty-server-7.2.0.v20101020.jar"/>
+	<classpathentry kind="lib" path="lib/demo/jetty/jetty-util-7.2.0.v20101020.jar"/>
+	<classpathentry kind="lib" path="lib/demo/jetty/servlet-api-2.5.jar"/>
+	<classpathentry kind="lib" path="lib/demo/jetty/jetty-http-7.2.0.v20101020.jar"/>
+	<classpathentry kind="lib" path="lib/demo/jetty/jetty-io-7.2.0.v20101020.jar"/>
+	<classpathentry kind="lib" path="lib/demo/jetty/jetty-continuation-7.2.0.v20101020.jar"/>
+	<classpathentry kind="lib" path="lib/demo/jetty/jetty-servlet-7.2.0.v20101020.jar"/>
+	<classpathentry kind="lib" path="lib/demo/jetty/jetty-servlets-7.2.0.v20101020.jar"/>
+	<classpathentry kind="lib" path="lib/demo/jetty/jetty-client-7.2.0.v20101020.jar"/>
+	<classpathentry kind="lib" path="lib/stanford/stanfordparser/stanford-parser.jar"/>
+	<classpathentry kind="lib" path="lib/stanford/stanfordtagger/stanford-postagger.jar"/>
+	<classpathentry kind="lib" path="/Users/spkang/Documents/workspace/masterdemo/dp_demo/OntoQA/OntoQA/trunk/lib/stanford/stanfordparser/ejml-0.23.jar"/>
+	<classpathentry kind="output" path="bin"/>
+</classpath>

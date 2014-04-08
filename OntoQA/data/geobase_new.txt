@@ -1,0 +1,8 @@
+增加资源
+http://ir.hit.edu/nli/geo/point
+geo:point 属性: hasName(object为string), hasElevation(object为int), rdfs:label, rdf:type
+
+原state的属性:hasHighestPoint, hasLowestPoint, hasHighestElevation, hasLowestElevation
+==>现state的属性:hasHighestPoint, hasLowestPoint(两个属性的object均是geo:point)
+
+新geo:point 节点的uri命名方式为http://ir.hit.edu/nli/geo/point/pointName_in_stateName_high或者http://ir.hit.edu/nli/geo/point/pointName_in_stateName_low

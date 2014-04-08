@@ -1,0 +1,2121 @@
+@question : give me the cities in virginia .
+[cities, city, NNS, 3]->in->[virginia, virginia, NNP, 5]
+
+@question : what are the high points of states surrounding mississippi ?
+[points, point, NNS, 4]->of->[states, state, NNS, 6]->surrounding->[mississippi, mississippi, NNP, 8]
+
+@question : name the rivers in arkansas .
+[rivers, river, NNS, 2]->in->[arkansas, arkansa, NNP, 4]
+
+@question : can you tell me the capital of texas ?
+[capital, capital, NN, 5]->of->[texas, texa, NNS, 7]
+
+@question : could you tell me what is the highest point in the state of oregon ?
+[point, point, NN, 8]->in->[state, state, NN, 11]->of->[oregon, oregon, NNP, 13]
+
+@question : count the states which have elevations lower than what alabama has ?
+[states, state, NNS, 2]->than->[alabama, alabama, NNP, 9]
+
+@question : give me all the states of usa ?
+[states, state, NNS, 4]->of->[usa, usa, NNP, 6]
+
+@question : give me the cities which are in texas ?
+[cities, city, NNS, 3]->are->[texas, texa, NNS, 7]
+
+@question : give me the largest state ?
+null
+
+@question : give me the longest river that passes through the us ?
+[river, river, NN, 4]->passes->[us, us, PRP, 9]
+
+@question : give me the states that border utah ?
+
+
+@question : how big is new mexico ?
+[big, big, JJ, 1]->is->[mexico, mexico, NNS, 4]
+
+@question : how big is north dakota ?
+[big, big, JJ, 1]->is->[dakota, dakota, NN, 4]
+
+@question : how big is texas ?
+[big, big, JJ, 1]->is->[texas, texa, NNS, 3]
+
+@question : how big is the city of new york ?
+[big, big, JJ, 1]->is->[city, city, NN, 4]->of->[york, york, NNS, 7]
+
+@question : how high are the highest points of all the states ?
+[high, high, JJ, 1]->are->[points, point, NNS, 5]->of->[states, state, NNS, 9]
+
+@question : how high is guadalupe peak ?
+[high, high, JJ, 1]->is->[peak, peak, NN, 4]
+
+@question : how high is the highest point in the largest state ?
+[high, high, JJ, 1]->is->[point, point, NN, 5]->in->[state, state, NN, 9]
+
+@question : how high is the highest point of alabama ?
+[high, high, JJ, 1]->is->[point, point, NN, 5]->of->[alabama, alabama, NNP, 7]
+
+@question : how large is alaska ?
+[large, large, JJ, 1]->is->[alaska, alaska, NN, 3]
+
+@question : how large is the largest city in alaska ?
+[large, large, JJ, 1]->is->[city, city, NN, 5]->in->[alaska, alaska, NNP, 7]
+
+@question : how long is rio grande ?
+[long, long, RB, 1]->is->[grande, grande, NNP, 4]
+
+@question : how long is the delaware river ?
+[long, long, RB, 1]->is->[river, river, NN, 5]
+
+@question : how long is the longest river in the usa ?
+[long, long, RB, 1]->is->[river, river, NN, 5]->in->[usa, usa, NN, 8]
+
+@question : how long is the mississippi ?
+[long, long, RB, 1]->is->[mississippi, mississippi, NN, 4]
+
+@question : how long is the mississippi river ?
+[long, long, RB, 1]->is->[river, river, NN, 5]
+
+@question : how long is the mississippi river in miles ?
+[long, long, RB, 1]->is->[river, river, NN, 5]->in->[miles, mile, NNS, 7]
+
+@question : how long is the shortest river in the usa ?
+[long, long, RB, 1]->is->[river, river, NN, 5]->in->[usa, usa, NN, 8]
+
+@question : how many big cities are in pennsylvania ?
+[cities, city, NNS, 3]->are->[pennsylvania, pennsylvania, NNP, 6]
+
+@question : how many capitals does rhode island have ?
+[capitals, capital, NNS, 2]->have->[island, island, NN, 5]
+
+@question : how many cities are in montana ?
+[cities, city, NNS, 2]->are->[montana, montana, NNP, 5]
+
+@question : how many cities are there in the united states ?
+[cities, city, NNS, 2]->are->[states, state, NNS, 8]
+
+@question : how many cities are there in usa ?
+[cities, city, NNS, 2]->are->[usa, usa, NNP, 6]
+
+@question : how many cities does the usa have ?
+[cities, city, NNS, 2]->have->[usa, usa, NNS, 5]
+
+@question : how many cities named austin are there in the usa ?
+[cities, city, NNS, 2]->are->[usa, usa, NN, 9]
+
+@question : how many citizens does the biggest city have in the usa ?
+[citizens, citizen, NNS, 2]->have->[city, city, NN, 6]
+
+@question : how many citizens in boulder ?
+[citizens, citizen, NNS, 2]->in->[boulder, boulder, NN, 4]
+
+@question : how many citizens live in california ?
+[citizens, citizen, NNS, 2]->live->[california, california, NNP, 5]
+
+@question : how many colorado rivers are there ?
+null
+
+@question : how many inhabitants does montgomery have ?
+[inhabitants, inhabitant, NNS, 2]->have->[montgomery, montgomery, NNP, 4]
+
+@question : how many major cities are in states bordering utah ?
+[cities, city, NNS, 3]->are->[states, state, NNS, 6]->bordering->[utah, utah, NNP, 8]
+
+@question : how many major cities are in texas ?
+[cities, city, NNS, 3]->are->[texas, texa, NNP, 6]
+
+@question : how many major cities are there in oregon ?
+[cities, city, NNS, 3]->are->[oregon, oregon, NNP, 7]
+
+@question : how many major rivers cross ohio ?
+[rivers, river, NNS, 3]->cross->[ohio, ohio, NNP, 5]
+
+@question : how many people are in the state of nevada ?
+[people, person, NNS, 2]->are->[state, state, NN, 6]->of->[nevada, nevada, NNP, 8]
+
+@question : how many people are there in new york ?
+[people, person, NNS, 2]->are->[york, york, NNP, 7]
+
+@question : how many people in boulder ?
+null
+
+@question : how many people live in austin texas ?
+[people, person, NNS, 2]->live->[texas, texa, NNP, 6]
+
+@question : how many people live in california ?
+[people, person, NNS, 2]->live->[california, california, NNP, 5]
+
+@question : how many people live in minneapolis minnesota ?
+[people, person, NNS, 2]->live->[minnesota, minnesota, NNP, 6]
+
+@question : how many people live in montana ?
+[people, person, NNS, 2]->live->[montana, montana, NNP, 5]
+
+@question : how many people live in new hampshire ?
+[people, person, NNS, 2]->live->[hampshire, hampshire, NNP, 6]
+
+@question : how many people live in new york ?
+[people, person, NNS, 2]->live->[york, york, NNS, 6]
+
+@question : how many people live in rhode island ?
+[people, person, NNS, 2]->live->[island, island, NN, 6]
+
+@question : how many people live in spokane washington ?
+[people, person, NNS, 2]->live->[washington, washington, NNP, 6]
+
+@question : how many people live in the biggest city in new york state ?
+[people, person, NNS, 2]->live->[city, city, NN, 7]->in->[state, state, NN, 11]
+
+@question : how many people live in the capital of georgia ?
+[people, person, NNS, 2]->live->[capital, capital, NN, 6]->of->[georgia, georgia, NNP, 8]
+
+@question : how many people live in the smallest state bordering wyoming ?
+[people, person, NNS, 2]->live->[state, state, NN, 7]->bordering->[wyoming, wyoming, NNP, 9]
+
+@question : how many people live in the state with the largest population density ?
+[people, person, NNS, 2]->live->[state, state, NN, 6]->with->[population, population, NN, 10]
+
+@question : how many people live in the united states ?
+[people, person, NNS, 2]->live->[states, state, NNS, 7]
+
+@question : how many people live in washington dc ?
+[people, person, NNS, 2]->live->[dc, dc, NNP, 6]
+
+@question : how many people lived in austin ?
+[people, person, NNS, 2]->lived->[austin, austin, NNP, 5]
+
+@question : how many people reside in utah ?
+[people, person, NNS, 2]->reside->[utah, utah, NNP, 5]
+
+@question : how many people stay in utah ?
+[people, person, NNS, 2]->stay->[utah, utah, NNP, 5]
+
+@question : how many residents live in texas ?
+[residents, resident, NNS, 2]->live->[texas, texa, NNP, 5]
+
+@question : how many rivers are called colorado ?
+[rivers, river, NNS, 2]->called->[colorado, colorado, NNP, 5]
+
+@question : how many rivers are found in colorado ?
+[rivers, river, NNS, 2]->found->[colorado, colorado, NNP, 6]
+
+@question : how many rivers are in new york ?
+[rivers, river, NNS, 2]->are->[york, york, NNP, 6]
+
+@question : how many rivers are in the state that has the most rivers ?
+[rivers, river, NNS, 2]->are->[state, state, NN, 6]->has->[rivers, river, NNS, 11]
+
+@question : how many rivers are in the state with the highest point ?
+[rivers, river, NNS, 2]->are->[state, state, NN, 6]->with->[point, point, NN, 10]
+
+@question : how many rivers are in the state with the largest population ?
+[rivers, river, NNS, 2]->are->[state, state, NN, 6]->with->[population, population, NN, 10]
+
+@question : how many rivers are there in texas ?
+[rivers, river, NNS, 2]->are->[texas, texa, NNP, 6]
+
+@question : how many rivers do not traverse the state with the capital albany ?
+[rivers, river, NNS, 2]->traverse->[state, state, NN, 7]->with->[albany, albany, NN, 11]
+
+@question : how many rivers does alaska have ?
+[rivers, river, NNS, 2]->have->[alaska, alaska, NNP, 4]
+
+@question : how many rivers in texas are longer than the red ?
+[rivers, river, NNS, 2]->in->[texas, texa, NNS, 4]->than->[red, red, NN, 9]
+
+@question : how many rivers in washington ?
+[rivers, river, NNS, 2]->in->[washington, washington, NN, 4]
+
+@question : how many rivers run through texas ?
+[rivers, river, NNS, 2]->run->[texas, texa, NNP, 5]
+
+@question : how many rivers run through the states bordering colorado ?
+[rivers, river, NNS, 2]->run->[states, state, NNS, 6]->bordering->[colorado, colorado, NN, 8]
+
+@question : how many square kilometers in the us ?
+[square, square, NNS, 2]->kilometers->[us, us, PRP, 6]
+
+@question : how many states are in the united states ?
+[states, state, NNS, 2]->are->[states, state, NNS, 7]
+
+@question : how many states are in the usa ?
+[states, state, NNS, 2]->are->[usa, usa, NN, 6]
+
+@question : how many states are next to major rivers ?
+[states, state, NNS, 2]->are->[rivers, river, NNS, 7]
+
+@question : how many states are there in the usa ?
+[states, state, NNS, 2]->are->[usa, usa, NN, 7]
+
+@question : how many states are there in united states ?
+[states, state, NNS, 2]->are->[states, state, NNS, 7]
+
+@question : how many states border alaska ?
+null
+
+@question : how many states border at least one other state ?
+[states, state, NNS, 2]->border->[state, state, NN, 8]
+
+@question : how many states border colorado and border new mexico ?
+
+
+@question : how many states border hawaii ?
+null
+
+@question : how many states border on the state whose capital is boston ?
+[states, state, NNS, 2]->on->[state, state, NN, 6]->is->[boston, boston, NN, 10]
+
+@question : how many states border texas ?
+null
+
+@question : how many states border the largest state ?
+[states, state, NNS, 2]->border->[state, state, NN, 6]
+
+@question : how many states border the mississippi river ?
+[states, state, NNS, 2]->border->[river, river, NN, 6]
+
+@question : how many states border the state that borders the most states ?
+[states, state, NNS, 2]->border->[state, state, NN, 5]->borders->[states, state, NNS, 10]
+
+@question : how many states border the state with the largest population ?
+[states, state, NNS, 2]->border->[state, state, NN, 5]->with->[population, population, NN, 9]
+
+@question : how many states do not have rivers ?
+[states, state, NNS, 2]->have->[rivers, river, NNS, 6]
+
+@question : how many states does iowa border ?
+[states, state, NNS, 2]->border->[iowa, iowa, NNP, 4]
+
+@question : how many states does tennessee border ?
+[states, state, NNS, 2]->border->[tennessee, tennessee, NNP, 4]
+
+@question : how many states does the colorado river flow through ?
+[states, state, NNS, 2]->flow->[river, river, NN, 6]
+
+@question : how many states does the colorado river run through ?
+[states, state, NNS, 2]->run->[river, river, NN, 6]
+
+@question : how many states does the mississippi river run through ?
+[states, state, NNS, 2]->run->[river, river, NN, 6]
+
+@question : how many states does the mississippi run through ?
+[states, state, NNS, 2]->run->[mississippi, mississippi, NNS, 5]
+
+@question : how many states does the missouri river run through ?
+[states, state, NNS, 2]->run->[river, river, NN, 6]
+
+@question : how many states does usa have ?
+[states, state, NNS, 2]->have->[usa, usa, NNP, 4]
+
+@question : how many states have a city called rochester ?
+[states, state, NNS, 2]->called->[city, city, NN, 5]
+
+@question : how many states have a city named springfield ?
+[states, state, NNS, 2]->named->[city, city, NN, 5]
+
+@question : how many states have a higher point than the highest point of the state with the largest capital city in the us ?
+[states, state, NNS, 2]->have->[point, point, NN, 6]->than->[point, point, NN, 10]->of->[state, state, NN, 13]->with->[city, city, NN, 18]->in->[us, us, PRP, 21]
+
+@question : how many states have cites named austin ?
+[states, state, NNS, 2]->cites->[austin, austin, NNS, 6]
+
+@question : how many states have cities or towns named springfield ?
+[states, state, NNS, 2]->have->[cities, city, NNS, 4]->named->[springfield, springfield, NN, 8]
+
+@question : how many states have major rivers ?
+[states, state, NNS, 2]->have->[rivers, river, NNS, 5]
+
+@question : how many states in the us does the shortest river run through ?
+[states, state, NNS, 2]->in->[us, us, PRP, 5]->run->[river, river, NN, 9]
+
+@question : how much population does texas have ?
+[population, population, NN, 2]->have->[texas, texa, NNP, 4]
+
+@question : how tall is mount mckinley ?
+
+
+@question : how tall is the highest point in montana ?
+[point, point, NN, 5]->in->[montana, montana, NNP, 7]
+
+@question : in what state is mount mckinley ?
+[state, state, NN, 2]->is->[mckinley, mckinley, NN, 5]
+
+@question : in which state does the highest point in usa exist ?
+[state, state, NN, 2]->exist->[point, point, NN, 6]->in->[usa, usa, NNS, 8]
+
+@question : in which state is rochester ?
+[state, state, NN, 2]->is->[rochester, rochester, NNS, 4]
+
+@question : iowa borders how many states ?
+[iowa, iowa, NNS, 0]->borders->[states, state, NNS, 4]
+
+@question : list the states ?
+null
+
+@question : name all the rivers in colorado ?
+[rivers, river, NNS, 3]->in->[colorado, colorado, NNP, 5]
+
+@question : name the 50 capitals in the usa ?
+[capitals, capital, NNS, 3]->in->[usa, usa, NN, 6]
+
+@question : name the longest river in us ?
+[river, river, NN, 3]->in->[us, us, PRP, 5]
+
+@question : name the major lakes in michigan ?
+[lakes, lake, NN, 3]->in->[michigan, michigan, NNP, 5]
+
+@question : name the rivers in arkansas ?
+[rivers, river, NNS, 2]->in->[arkansas, arkansa, NNP, 4]
+
+@question : name the states which have no surrounding states ?
+[states, state, NNS, 2]->have->[states, state, NNS, 7]
+
+@question : number of citizens in boulder ?
+[number, number, NN, 0]->of->[citizens, citizen, NNS, 2]->in->[boulder, boulder, NN, 4]
+
+@question : number of people in boulder ?
+[number, number, NN, 0]->of->[people, person, NNS, 2]->in->[boulder, boulder, NN, 4]
+
+@question : number of states bordering iowa ?
+[number, number, NN, 0]->of->[states, state, NNS, 2]->bordering->[iowa, iowa, NNP, 4]
+
+@question : of the states washed by the mississippi river which has the lowest point ?
+[states, state, NNS, 2]->washed->[river, river, NN, 7]->has->[point, point, NN, 12]
+
+@question : people in boulder ?
+null
+
+@question : population of boulder ?
+null
+
+@question : rivers in new york ?
+null
+
+@question : sacramento is the capital of which state ?
+[capital, capital, NN, 3]->of->[state, state, NN, 6]
+
+@question : san antonio is in what state ?
+[antonio, antonio, NNS, 1]->is->[state, state, NN, 5]
+
+@question : show major cities in colorado ?
+[cities, city, NNS, 2]->in->[colorado, colorado, NN, 4]
+
+@question : show me all the major lakes in the us ?
+[lakes, lake, NN, 5]->in->[us, us, PRP, 8]
+
+@question : state the state with the largest area ?
+[state, state, NN, 2]->with->[area, area, NN, 6]
+
+@question : states bordering iowa ?
+[states, state, NNS, 0]->bordering->[iowa, iowa, NN, 2]
+
+@question : tell me what cities are in texas ?
+[cities, city, NNS, 3]->are->[texas, texa, NNS, 6]
+
+@question : through which states does the longest river in texas run ?
+[states, state, NNS, 2]->run->[river, river, NN, 6]->in->[texas, texa, NNS, 8]
+
+@question : through which states does the mississippi flow ?
+[states, state, NNS, 2]->flow->[mississippi, mississippi, NNS, 5]
+
+@question : through which states does the mississippi run ?
+[states, state, NNS, 2]->run->[mississippi, mississippi, NNS, 5]
+
+@question : what are all the rivers in texas ?
+[rivers, river, NNS, 4]->in->[texas, texa, NNP, 6]
+
+@question : what are major rivers in texas ?
+[rivers, river, NNS, 3]->in->[texas, texa, NNP, 5]
+
+@question : what are the biggest rivers in texas ?
+[rivers, river, NNS, 4]->in->[texas, texa, NNP, 6]
+
+@question : what are the capital cities of the states which border texas ?
+[cities, city, NNS, 4]->of->[states, state, NNS, 7]
+
+@question : what are the capital city in texas ?
+[city, city, NN, 4]->in->[texas, texa, NNP, 6]
+
+@question : what are the capitals of states that border missouri ?
+[capitals, capital, NNS, 3]->of->[states, state, NNS, 5]
+
+@question : what are the capitals of the states that border texas ?
+[capitals, capital, NNS, 3]->of->[states, state, NNS, 6]
+
+@question : what are the cities in california ?
+[cities, city, NNS, 3]->in->[california, california, NNP, 5]
+
+@question : what are the cities in states through which the mississippi runs ?
+[cities, city, NNS, 3]->in->[states, state, NNS, 5]
+
+@question : what are the cities of the state with the highest point ?
+[cities, city, NNS, 3]->of->[state, state, NN, 6]->with->[point, point, NN, 10]
+
+@question : what are the highest points of all the states ?
+[points, point, NNS, 4]->of->[states, state, NNS, 8]
+
+@question : what are the highest points of states surrounding mississippi ?
+[points, point, NNS, 4]->of->[states, state, NNS, 6]->surrounding->[mississippi, mississippi, NNP, 8]
+
+@question : what are the lakes in states bordering texas ?
+[lakes, lake, NN, 3]->in->[states, state, NNS, 5]->bordering->[texas, texa, NNS, 7]
+
+@question : what are the largest cities in the states that border the largest state ?
+[cities, city, NNS, 4]->in->[states, state, NNS, 7]->border->[state, state, NN, 12]
+
+@question : what are the major cities in alabama ?
+[cities, city, NNS, 4]->in->[alabama, alabama, NNP, 6]
+
+@question : what are the major cities in new mexico ?
+[cities, city, NNS, 4]->in->[mexico, mexico, NNP, 7]
+
+@question : what are the major cities in new york ?
+[cities, city, NNS, 4]->in->[york, york, NNS, 7]
+
+@question : what are the major cities in rhode island ?
+[cities, city, NNS, 4]->in->[island, island, NN, 7]
+
+@question : what are the major cities in states through which the mississippi runs ?
+[cities, city, NNS, 4]->in->[states, state, NNS, 6]
+
+@question : what are the major cities in the largest state ?
+[cities, city, NNS, 4]->in->[state, state, NN, 8]
+
+@question : what are the major cities in the smallest state in the us ?
+[cities, city, NNS, 4]->in->[state, state, NN, 8]->in->[us, us, PRP, 11]
+
+@question : what are the major cities in the state of california ?
+[cities, city, NNS, 4]->in->[state, state, NN, 7]->of->[california, california, NNP, 9]
+
+@question : what are the major cities in the states through which the major river in virginia runs ?
+[cities, city, NNS, 4]->in->[states, state, NNS, 7]
+
+@question : what are the major cities in the usa ?
+[cities, city, NNS, 4]->in->[usa, usa, NN, 7]
+
+@question : what are the major cities of texas ?
+[cities, city, NNS, 4]->of->[texas, texa, NNP, 6]
+
+@question : what are the major cities of the united states ?
+[cities, city, NNS, 4]->of->[states, state, NNS, 8]
+
+@question : what are the major cities of the us ?
+[cities, city, NNS, 4]->of->[us, us, PRP, 7]
+
+@question : what are the major lakes in united states ?
+[lakes, lake, NN, 4]->in->[states, state, NNS, 7]
+
+@question : what are the major rivers in ohio ?
+[rivers, river, NNS, 4]->in->[ohio, ohio, NN, 6]
+
+@question : what are the major rivers in the us ?
+[rivers, river, NNS, 4]->in->[us, us, PRP, 7]
+
+@question : what are the names of the major cities in illinois ?
+[names, name, NNS, 3]->of->[cities, city, NNS, 7]->in->[illinois, illinois, NNP, 9]
+
+@question : what are the neighboring states for michigan ?
+[states, state, NNS, 4]->for->[michigan, michigan, NNS, 6]
+
+@question : what are the population densities of each us state ?
+[densities, density, NNS, 4]->of->[state, state, NN, 8]
+
+@question : what are the population of mississippi ?
+[population, population, NN, 3]->of->[mississippi, mississippi, NNP, 5]
+
+@question : what are the populations of all the major cities in montana ?
+[populations, population, NNS, 3]->of->[cities, city, NNS, 8]->in->[montana, montana, NNP, 10]
+
+@question : what are the populations of states through which the mississippi river run ?
+[populations, population, NNS, 3]->of->[states, state, NNS, 5]
+
+@question : what are the populations of states through which the mississippi river runs ?
+[populations, population, NNS, 3]->of->[states, state, NNS, 5]
+
+@question : what are the populations of states through which the mississippi run ?
+[populations, population, NNS, 3]->of->[states, state, NNS, 5]
+
+@question : what are the populations of states through which the mississippi runs ?
+[populations, population, NNS, 3]->of->[states, state, NNS, 5]
+
+@question : what are the populations of states which border texas ?
+[populations, population, NNS, 3]->of->[states, state, NNS, 5]
+
+@question : what are the populations of the major cities of texas ?
+[populations, population, NNS, 3]->of->[cities, city, NNS, 7]->of->[texas, texa, NNP, 9]
+
+@question : what are the populations of the states through which the mississippi river run ?
+[populations, population, NNS, 3]->of->[states, state, NNS, 6]
+
+@question : what are the populations of the states through which the mississippi river runs ?
+[populations, population, NNS, 3]->of->[states, state, NNS, 6]
+
+@question : what are the populations of the states through which the mississippi run ?
+[populations, population, NNS, 3]->of->[states, state, NNS, 6]
+
+@question : what are the populations of the states through which the mississippi runs ?
+[populations, population, NNS, 3]->of->[states, state, NNS, 6]
+
+@question : what are the rivers in alaska ?
+[rivers, river, NNS, 3]->in->[alaska, alaska, NNP, 5]
+
+@question : what are the rivers in the state of indiana ?
+[rivers, river, NNS, 3]->in->[state, state, NN, 6]->of->[indiana, indiana, NNP, 8]
+
+@question : what are the rivers in the state of texas ?
+[rivers, river, NNS, 3]->in->[state, state, NN, 6]->of->[texas, texa, NNP, 8]
+
+@question : what are the rivers of montana ?
+[rivers, river, NNS, 3]->of->[montana, montana, NNP, 5]
+
+@question : what are the states ?
+null
+
+@question : what are the states that border the state with the greatest population ?
+[states, state, NNS, 3]->border->[state, state, NN, 7]->with->[population, population, NN, 11]
+
+@question : what are the states that the potomac run through ?
+
+
+@question : what are the states through which the longest river runs ?
+
+
+@question : what can you tell me about the population of missouri ?
+[population, population, NN, 7]->of->[missouri, missouri, NNP, 9]
+
+@question : what capital has the largest population ?
+[capital, capital, NN, 1]->has->[population, population, NN, 5]
+
+@question : what capital is the largest in the us ?
+[capital, capital, NN, 1]->in->[us, us, PRP, 7]
+
+@question : what cities are located in pennsylvania ?
+[cities, city, NNS, 1]->located->[pennsylvania, pennsylvania, NNP, 5]
+
+@question : what cities in california ?
+[cities, city, NNS, 1]->in->[california, california, NN, 3]
+
+@question : what cities in texas have the highest number of citizens ?
+[cities, city, NNS, 1]->in->[texas, texa, NNS, 3]->have->[number, number, NN, 7]->of->[citizens, citizen, NNS, 9]
+
+@question : what cities in texas have the highest populations ?
+[cities, city, NNS, 1]->in->[texas, texa, NNS, 3]->have->[populations, population, NNS, 7]
+
+@question : what city has the largest population ?
+[city, city, NN, 1]->has->[population, population, NN, 5]
+
+@question : what city has the least population ?
+[city, city, NN, 1]->has->[population, population, NN, 5]
+
+@question : what city has the most people ?
+[city, city, NN, 1]->has->[people, person, NNS, 5]
+
+@question : what city in the united states has the highest population density ?
+[city, city, NN, 1]->in->[states, state, NNS, 5]->has->[density, density, NN, 10]
+
+@question : what is capital of iowa ?
+[capital, capital, NN, 2]->of->[iowa, iowa, NNP, 4]
+
+@question : what is capital of the state with the lowest point ?
+[capital, capital, NN, 2]->of->[state, state, NN, 5]->with->[point, point, NN, 9]
+
+@question : what is largest capital ?
+null
+
+@question : what is the adjacent state of california ?
+[state, state, NN, 4]->of->[california, california, NNP, 6]
+
+@question : what is the area of all the states combined ?
+[area, area, NN, 3]->of->[states, state, NNS, 7]
+
+@question : what is the area of maine ?
+[area, area, NN, 3]->of->[maine, maine, NNP, 5]
+
+@question : what is the area of maryland in square kilometers ?
+[area, area, NN, 3]->of->[maryland, maryland, NN, 5]->in->[kilometers, kilometer, NNS, 8]
+
+@question : what is the area of new mexico ?
+[area, area, NN, 3]->of->[mexico, mexico, NNP, 6]
+
+@question : what is the area of south carolina ?
+[area, area, NN, 3]->of->[carolina, caroli, NNP, 6]
+
+@question : what is the area of texas ?
+[area, area, NN, 3]->of->[texas, texa, NNP, 5]
+
+@question : what is the area of the largest state ?
+[area, area, NN, 3]->of->[state, state, NN, 7]
+
+@question : what is the area of the smallest state ?
+[area, area, NN, 3]->of->[state, state, NN, 7]
+
+@question : what is the area of the state with the capital albany ?
+[area, area, NN, 3]->of->[state, state, NN, 6]->with->[albany, albany, NN, 10]
+
+@question : what is the area of the state with the smallest population density ?
+[area, area, NN, 3]->of->[state, state, NN, 6]->with->[density, density, NN, 11]
+
+@question : what is the area of the states ?
+[area, area, NN, 3]->of->[states, state, NNS, 6]
+
+@question : what is the area of the texas state ?
+[area, area, NN, 3]->of->[state, state, NN, 7]
+
+@question : what is the average population of the us by state ?
+[population, population, NN, 4]->of->[us, us, PRP, 7]->by->[state, state, NN, 9]
+
+@question : what is the average population per square km in pennsylvania ?
+[population, population, NN, 4]->per->[km, km, NNS, 7]->in->[pennsylvania, pennsylvania, NN, 9]
+
+@question : what is the average population per square km in the us ?
+[population, population, NN, 4]->per->[km, km, NNS, 7]->in->[us, us, PRP, 10]
+
+@question : what is the biggest american city in a state with a river ?
+[city, city, NN, 5]->in->[state, state, NN, 8]->with->[river, river, NN, 11]
+
+@question : what is the biggest capital city in the us ?
+[city, city, NN, 5]->in->[us, us, PRP, 8]
+
+@question : what is the biggest city in kansas ?
+[city, city, NN, 4]->in->[kansas, kansa, NNP, 6]
+
+@question : what is the biggest city in the smallest state ?
+[city, city, NN, 4]->in->[state, state, NN, 8]
+
+@question : what is the biggest city in the us ?
+[city, city, NN, 4]->in->[us, us, PRP, 7]
+
+@question : what is the biggest city in the usa ?
+[city, city, NN, 4]->in->[usa, usa, NN, 7]
+
+@question : what is the biggest city in usa ?
+[city, city, NN, 4]->in->[usa, usa, NNP, 6]
+
+@question : what is the biggest city in wyoming ?
+[city, city, NN, 4]->in->[wyoming, wyoming, NNP, 6]
+
+@question : what is the biggest river in illinois ?
+[river, river, NN, 4]->in->[illinois, illinois, NNP, 6]
+
+@question : what is the biggest state ?
+null
+
+@question : what is the biggest state in continental us ?
+[state, state, NN, 4]->in->[continental, continental, NNP, 6]
+
+@question : what is the biggest state in the usa ?
+[state, state, NN, 4]->in->[usa, usa, NN, 7]
+
+@question : what is the capital city of the largest state in the us ?
+[city, city, NN, 4]->of->[state, state, NN, 8]->in->[us, us, PRP, 11]
+
+@question : what is the capital of california ?
+[capital, capital, NN, 3]->of->[california, california, NNP, 5]
+
+@question : what is the capital of colorado ?
+[capital, capital, NN, 3]->of->[colorado, colorado, NNP, 5]
+
+@question : what is the capital of new hampshire ?
+[capital, capital, NN, 3]->of->[hampshire, hampshire, NNP, 6]
+
+@question : what is the capital of new york ?
+[capital, capital, NN, 3]->of->[york, york, NNS, 6]
+
+@question : what is the capital of north dakota ?
+[capital, capital, NN, 3]->of->[dakota, dakota, NNP, 6]
+
+@question : what is the capital of pennsylvania ?
+[capital, capital, NN, 3]->of->[pennsylvania, pennsylvania, NNP, 5]
+
+@question : what is the capital of states that have cities named durham ?
+[capital, capital, NN, 3]->of->[states, state, NNS, 5]->have->[cities, city, NNS, 8]->named->[durham, durham, NN, 10]
+
+@question : what is the capital of the alabama state ?
+[capital, capital, NN, 3]->of->[state, state, NN, 7]
+
+@question : what is the capital of the largest state ?
+[capital, capital, NN, 3]->of->[state, state, NN, 7]
+
+@question : what is the capital of the smallest state ?
+[capital, capital, NN, 3]->of->[state, state, NN, 7]
+
+@question : what is the capital of the state texas ?
+[capital, capital, NN, 3]->of->[texas, texa, NNP, 7]
+
+@question : what is the capital of the state that borders the most states ?
+[capital, capital, NN, 3]->of->[state, state, NN, 6]->borders->[states, state, NNS, 11]
+
+@question : what is the capital of the state that borders the state that borders texas ?
+[capital, capital, NN, 3]->of->[state, state, NN, 6]->borders->[state, state, NN, 10]
+
+@question : what is the capital of the state with the highest elevation ?
+[capital, capital, NN, 3]->of->[state, state, NN, 6]->with->[elevation, elevation, NN, 10]
+
+@question : what is the capital of the state with the highest point ?
+[capital, capital, NN, 3]->of->[state, state, NN, 6]->with->[point, point, NN, 10]
+
+@question : what is the capital of the state with the largest population ?
+[capital, capital, NN, 3]->of->[state, state, NN, 6]->with->[population, population, NN, 10]
+
+@question : what is the capital of the state with the largest population density ?
+[capital, capital, NN, 3]->of->[state, state, NN, 6]->with->[population, population, NN, 10]
+
+@question : what is the capital of the state with the longest river ?
+[capital, capital, NN, 3]->of->[state, state, NN, 6]->with->[river, river, NN, 10]
+
+@question : what is the capital of the state with the most inhabitants ?
+[capital, capital, NN, 3]->of->[state, state, NN, 6]->with->[inhabitants, inhabitant, NNS, 10]
+
+@question : what is the city in texas with the largest population ?
+[city, city, NN, 3]->in->[texas, texa, NNS, 5]->with->[population, population, NN, 9]
+
+@question : what is the city with the smallest population ?
+[city, city, NN, 3]->with->[population, population, NN, 7]
+
+@question : what is the combined area of all 50 states ?
+[area, area, NN, 4]->of->[states, state, NNS, 8]
+
+@question : what is the combined population of all 50 states ?
+[population, population, NN, 4]->of->[states, state, NNS, 8]
+
+@question : what is the density of texas ?
+[density, density, NN, 3]->of->[texas, texa, NNP, 5]
+
+@question : what is the density of the new york ?
+[density, density, NN, 3]->of->[york, york, NN, 7]
+
+@question : what is the elevation of death valley ?
+[elevation, elevation, NN, 3]->of->[valley, valley, NN, 6]
+
+@question : what is the elevation of the highest point in the usa ?
+[elevation, elevation, NN, 3]->of->[point, point, NN, 7]->in->[usa, usa, NNS, 10]
+
+@question : what is the height of mount mckinley ?
+[height, height, NN, 3]->of->[mckinley, mckinley, NN, 6]
+
+@question : what is the height of the highest mountain in texas ?
+[height, height, NN, 3]->of->[mountain, mountain, NN, 7]->in->[texas, texa, NNP, 9]
+
+@question : what is the height of the highest point in the usa ?
+[height, height, NN, 3]->of->[point, point, NN, 7]->in->[usa, usa, NNS, 10]
+
+@question : what is the high point of wyoming ?
+[point, point, NN, 4]->of->[wyoming, wyoming, NNP, 6]
+
+@question : what is the highest elevation in new mexico ?
+[elevation, elevation, NN, 4]->in->[mexico, mexico, NNP, 7]
+
+@question : what is the highest elevation in south carolina ?
+[elevation, elevation, NN, 4]->in->[carolina, caroli, NNP, 7]
+
+@question : what is the highest elevation in texas ?
+[elevation, elevation, NN, 4]->in->[texas, texa, NNP, 6]
+
+@question : what is the highest elevation in the united states ?
+[elevation, elevation, NN, 4]->in->[states, state, NNS, 8]
+
+@question : what is the highest mountain in the us ?
+[mountain, mountain, NN, 4]->in->[us, us, PRP, 7]
+
+@question : what is the highest mountain in us ?
+[mountain, mountain, NN, 4]->in->[us, us, PRP, 6]
+
+@question : what is the highest point in each state whose lowest point is sea level ?
+[point, point, NN, 4]->in->[state, state, NN, 7]
+
+@question : what is the highest point in nevada in meters ?
+[point, point, NN, 4]->in->[nevada, nevada, NNS, 6]->in->[meters, meter, NNS, 8]
+
+@question : what is the highest point in new mexico ?
+[point, point, NN, 4]->in->[mexico, mexico, NNP, 7]
+
+@question : what is the highest point in ohio ?
+[point, point, NN, 4]->in->[ohio, ohio, NNP, 6]
+
+@question : what is the highest point in rhode island ?
+[point, point, NN, 4]->in->[island, island, NN, 7]
+
+@question : what is the highest point in states bordering georgia ?
+[point, point, NN, 4]->in->[states, state, NNS, 6]->bordering->[georgia, georgia, NNP, 8]
+
+@question : what is the highest point in the country ?
+[point, point, NN, 4]->in->[country, country, NN, 7]
+
+@question : what is the highest point in the smallest state ?
+[point, point, NN, 4]->in->[state, state, NN, 8]
+
+@question : what is the highest point in the state with capital austin ?
+[point, point, NN, 4]->in->[state, state, NN, 7]->with->[austin, austin, NN, 10]
+
+@question : what is the highest point in the state with capital des moines ?
+[point, point, NN, 4]->in->[state, state, NN, 7]->with->[moines, moine, NNS, 11]
+
+@question : what is the highest point in the state with the capital des moines ?
+[point, point, NN, 4]->in->[state, state, NN, 7]->with->[moines, moine, NNS, 12]
+
+@question : what is the highest point in the state with the most rivers ?
+[point, point, NN, 4]->in->[state, state, NN, 7]->with->[rivers, river, NNS, 11]
+
+@question : what is the highest point in the state with the smallest population ?
+[point, point, NN, 4]->in->[state, state, NN, 7]->with->[population, population, NN, 11]
+
+@question : what is the highest point in the states bordering colorado ?
+[point, point, NN, 4]->in->[states, state, NNS, 7]->bordering->[colorado, colorado, NNP, 9]
+
+@question : what is the highest point in the united states ?
+[point, point, NN, 4]->in->[states, state, NNS, 8]
+
+@question : what is the highest point in the us ?
+[point, point, NN, 4]->in->[us, us, PRP, 7]
+
+@question : what is the highest point in the usa ?
+[point, point, NN, 4]->in->[usa, usa, NN, 7]
+
+@question : what is the highest point in virginia ?
+[point, point, NN, 4]->in->[virginia, virginia, NNP, 6]
+
+@question : what is the highest point in wyoming ?
+[point, point, NN, 4]->in->[wyoming, wyoming, NNP, 6]
+
+@question : what is the highest point of the state with the largest area ?
+[point, point, NN, 4]->of->[state, state, NN, 7]->with->[area, area, NN, 11]
+
+@question : what is the highest point of the state with the smallest population density ?
+[point, point, NN, 4]->of->[state, state, NN, 7]->with->[density, density, NN, 12]
+
+@question : what is the highest point of the usa ?
+[point, point, NN, 4]->of->[usa, usa, NN, 7]
+
+@question : what is the largest capital ?
+null
+
+@question : what is the largest capital city in the usa ?
+[city, city, NN, 5]->in->[usa, usa, NN, 8]
+
+@question : what is the largest city in a state that borders texas ?
+[city, city, NN, 4]->in->[state, state, NN, 7]->borders->[texas, texa, NN, 10]
+
+@question : what is the largest city in alabama ?
+[city, city, NN, 4]->in->[alabama, alabama, NNP, 6]
+
+@question : what is the largest city in california ?
+[city, city, NN, 4]->in->[california, california, NNP, 6]
+
+@question : what is the largest city in michigan ?
+[city, city, NN, 4]->in->[michigan, michigan, NNP, 6]
+
+@question : what is the largest city in minnesota by population ?
+[city, city, NN, 4]->in->[minnesota, minnesota, NNS, 6]->by->[population, population, NN, 8]
+
+@question : what is the largest city in missouri ?
+[city, city, NN, 4]->in->[missouri, missouri, NNP, 6]
+
+@question : what is the largest city in rhode island ?
+[city, city, NN, 4]->in->[island, island, NN, 7]
+
+@question : what is the largest city in smallest state through which the mississippi runs ?
+[city, city, NN, 4]->in->[state, state, NN, 7]
+
+@question : what is the largest city in states that border california ?
+[city, city, NN, 4]->in->[states, state, NNS, 6]
+
+@question : what is the largest city in texas ?
+[city, city, NN, 4]->in->[texas, texa, NNP, 6]
+
+@question : what is the largest city in the smallest state in the usa ?
+[city, city, NN, 4]->in->[state, state, NN, 8]->in->[usa, usa, NNS, 11]
+
+@question : what is the largest city in wisconsin ?
+[city, city, NN, 4]->in->[wisconsin, wisconsin, NNP, 6]
+
+@question : what is the largest city of kansas ?
+[city, city, NN, 4]->of->[kansas, kansa, NNP, 6]
+
+@question : what is the largest of the state that the rio grande runs through ?
+
+
+@question : what is the largest river in washington state ?
+[river, river, NN, 4]->in->[state, state, NN, 7]
+
+@question : what is the largest state ?
+null
+
+@question : what is the largest state bordering arkansas ?
+[state, state, NN, 4]->bordering->[arkansas, arkansa, NNS, 6]
+
+@question : what is the largest state bordering texas ?
+[state, state, NN, 4]->bordering->[texas, texa, NNS, 6]
+
+@question : what is the largest state capital in population ?
+[capital, capital, NN, 5]->in->[population, population, NN, 7]
+
+@question : what is the largest state in the us ?
+[state, state, NN, 4]->in->[us, us, PRP, 7]
+
+@question : what is the largest state in usa ?
+[state, state, NN, 4]->in->[usa, usa, NNP, 6]
+
+@question : what is the largest state that borders california ?
+[state, state, NN, 4]->borders->[california, california, NN, 7]
+
+@question : what is the largest state that borders texas ?
+[state, state, NN, 4]->borders->[texas, texa, NN, 7]
+
+@question : what is the largest state that borders the state with the highest population ?
+[state, state, NN, 4]->borders->[state, state, NN, 8]->with->[population, population, NN, 12]
+
+@question : what is the largest state that borders the state with the lowest point in the usa ?
+[state, state, NN, 4]->borders->[state, state, NN, 8]->with->[point, point, NN, 12]->in->[usa, usa, NNPS, 15]
+
+@question : what is the largest state traversed by the mississippi river ?
+[state, state, NN, 4]->traversed->[river, river, NN, 9]
+
+@question : what is the least populous state ?
+null
+
+@question : what is the length of the colorado river ?
+[length, length, NN, 3]->of->[river, river, NN, 7]
+
+@question : what is the length of the colorado river in texas ?
+[length, length, NN, 3]->of->[river, river, NN, 7]->in->[texas, texa, NNP, 9]
+
+@question : what is the length of the longest river in the usa ?
+[length, length, NN, 3]->of->[river, river, NN, 7]->in->[usa, usa, NNS, 10]
+
+@question : what is the length of the longest river that runs through texas ?
+[length, length, NN, 3]->of->[river, river, NN, 7]->runs->[texas, texa, NNS, 11]
+
+@question : what is the length of the mississippi river ?
+[length, length, NN, 3]->of->[river, river, NN, 7]
+
+@question : what is the length of the river that flows through the most states ?
+[length, length, NN, 3]->of->[river, river, NN, 6]->flows->[states, state, NNS, 12]
+
+@question : what is the length of the river that runs through the most number of states ?
+[length, length, NN, 3]->of->[river, river, NN, 6]->runs->[number, number, NN, 12]->of->[states, state, NNS, 14]
+
+@question : what is the length of the river that runs through the most states ?
+[length, length, NN, 3]->of->[river, river, NN, 6]->runs->[states, state, NNS, 12]
+
+@question : what is the length of the river that traverses the most states ?
+[length, length, NN, 3]->of->[river, river, NN, 6]->traverses->[states, state, NNS, 11]
+
+@question : what is the longest river ?
+null
+
+@question : what is the longest river flowing through new york ?
+[river, river, NN, 4]->flowing->[york, york, NNS, 8]
+
+@question : what is the longest river in america ?
+[river, river, NN, 4]->in->[america, america, NNP, 6]
+
+@question : what is the longest river in new york ?
+[river, river, NN, 4]->in->[york, york, NNS, 7]
+
+@question : what is the longest river in texas ?
+[river, river, NN, 4]->in->[texas, texa, NNP, 6]
+
+@question : what is the longest river in the largest state ?
+[river, river, NN, 4]->in->[state, state, NN, 8]
+
+@question : what is the longest river in the smallest state in the usa ?
+[river, river, NN, 4]->in->[state, state, NN, 8]->in->[usa, usa, NNS, 11]
+
+@question : what is the longest river in the state with the highest point ?
+[river, river, NN, 4]->in->[state, state, NN, 7]->with->[point, point, NN, 11]
+
+@question : what is the longest river in the state with the most major cities ?
+[river, river, NN, 4]->in->[state, state, NN, 7]->with->[cities, city, NNS, 12]
+
+@question : what is the longest river in the states that border nebraska ?
+[river, river, NN, 4]->in->[states, state, NNS, 7]
+
+@question : what is the longest river in the united states ?
+[river, river, NN, 4]->in->[states, state, NNS, 8]
+
+@question : what is the longest river in the us ?
+[river, river, NN, 4]->in->[us, us, PRP, 7]
+
+@question : what is the longest river that does not run through texas ?
+[river, river, NN, 4]->run->[texas, texa, NNS, 10]
+
+@question : what is the longest river that flows through a state that borders indiana ?
+[river, river, NN, 4]->flows->[state, state, NN, 9]->borders->[indiana, indiana, NNP, 12]
+
+@question : what is the longest river that flows through colorado ?
+[river, river, NN, 4]->flows->[colorado, colorado, NNS, 8]
+
+@question : what is the longest river that passes the states that border the state that borders the most states ?
+[river, river, NN, 4]->passes->[states, state, NNS, 8]->border->[state, state, NN, 12]->borders->[states, state, NNS, 17]
+
+@question : what is the longest river that runs through a state that borders tennessee ?
+[river, river, NN, 4]->runs->[state, state, NN, 9]
+
+@question : what is the lowest elevation in pennsylvania ?
+[elevation, elevation, NN, 4]->in->[pennsylvania, pennsylvania, NNP, 6]
+
+@question : what is the lowest point in arkansas ?
+[point, point, NN, 4]->in->[arkansas, arkansa, NNP, 6]
+
+@question : what is the lowest point in mississippi ?
+[point, point, NN, 4]->in->[mississippi, mississippi, NNP, 6]
+
+@question : what is the lowest point in nebraska in meters ?
+[point, point, NN, 4]->in->[nebraska, nebraska, NNS, 6]->in->[meters, meter, NNS, 8]
+
+@question : what is the lowest point in texas ?
+[point, point, NN, 4]->in->[texas, texa, NNP, 6]
+
+@question : what is the lowest point in the state of texas ?
+[point, point, NN, 4]->in->[state, state, NN, 7]->of->[texas, texa, NNP, 9]
+
+@question : what is the lowest point in the united states ?
+[point, point, NN, 4]->in->[states, state, NNS, 8]
+
+@question : what is the lowest point in usa ?
+[point, point, NN, 4]->in->[usa, usa, NNP, 6]
+
+@question : what is the lowest point in wisconsin ?
+[point, point, NN, 4]->in->[wisconsin, wisconsin, NNP, 6]
+
+@question : what is the lowest point of all states through which the colorado river runs through ?
+[point, point, NN, 4]->of->[states, state, NNS, 7]
+
+@question : what is the lowest point of colorado ?
+[point, point, NN, 4]->of->[colorado, colorado, NNP, 6]
+
+@question : what is the lowest point of the state with the largest area ?
+[point, point, NN, 4]->of->[state, state, NN, 7]->with->[area, area, NN, 11]
+
+@question : what is the lowest point of the us ?
+[point, point, NN, 4]->of->[us, us, PRP, 7]
+
+@question : what is the major cities in montana ?
+[cities, city, NNS, 4]->in->[montana, montana, NNP, 6]
+
+@question : what is the maximum elevation of san francisco ?
+[elevation, elevation, NN, 4]->of->[francisco, francisco, NNP, 7]
+
+@question : what is the most dense state in the usa ?
+[state, state, NN, 5]->in->[usa, usa, NN, 8]
+
+@question : what is the most populated capital in the usa ?
+[capital, capital, NN, 5]->in->[usa, usa, NN, 8]
+
+@question : what is the most populated state bordering oklahoma ?
+[state, state, NN, 5]->bordering->[oklahoma, oklahoma, NNP, 7]
+
+@question : what is the most populous city ?
+null
+
+@question : what is the most populous city in texas ?
+[city, city, NN, 5]->in->[texas, texa, NNP, 7]
+
+@question : what is the most populous city in wyoming ?
+[city, city, NN, 5]->in->[wyoming, wyoming, NNP, 7]
+
+@question : what is the most populous state ?
+null
+
+@question : what is the most populous state in the us ?
+[state, state, NN, 5]->in->[us, us, PRP, 8]
+
+@question : what is the most populous state through which the mississippi runs ?
+
+
+@question : what is the name of the state with the lowest point ?
+[name, name, NN, 3]->of->[state, state, NN, 6]->with->[point, point, NN, 10]
+
+@question : what is the number of neighboring states for kentucky ?
+[number, number, NN, 3]->of->[states, state, NNS, 6]->for->[kentucky, kentucky, NN, 8]
+
+@question : what is the population density in the state with capital austin ?
+[density, density, NNS, 4]->in->[state, state, NN, 7]->with->[austin, austin, NNS, 10]
+
+@question : what is the population density of south dakota ?
+[density, density, NN, 4]->of->[dakota, dakota, NNP, 7]
+
+@question : what is the population density of texas ?
+[density, density, NN, 4]->of->[texas, texa, NNP, 6]
+
+@question : what is the population density of the largest state ?
+[density, density, NN, 4]->of->[state, state, NN, 8]
+
+@question : what is the population density of the smallest state ?
+[density, density, NNS, 4]->of->[state, state, NN, 8]
+
+@question : what is the population density of the state with the smallest area ?
+[density, density, NNS, 4]->of->[state, state, NN, 7]->with->[area, area, NN, 11]
+
+@question : what is the population density of the state with the smallest population ?
+[density, density, NNS, 4]->of->[state, state, NN, 7]->with->[population, population, NN, 11]
+
+@question : what is the population density of wyoming ?
+[density, density, NN, 4]->of->[wyoming, wyoming, NNP, 6]
+
+@question : what is the population in boston ?
+[population, population, NN, 3]->in->[boston, boston, NNP, 5]
+
+@question : what is the population of atlanta ga ?
+[population, population, NN, 3]->of->[ga, ga, NNP, 6]
+
+@question : what is the population of austin ?
+[population, population, NN, 3]->of->[austin, austin, NNP, 5]
+
+@question : what is the population of austin texas ?
+[population, population, NN, 3]->of->[texas, texa, NNP, 6]
+
+@question : what is the population of boston massachusetts ?
+[population, population, NN, 3]->of->[massachusetts, massachusett, NNP, 6]
+
+@question : what is the population of boulder ?
+[population, population, NN, 3]->of->[boulder, boulder, NN, 5]
+
+@question : what is the population of erie pennsylvania ?
+[population, population, NN, 3]->of->[pennsylvania, pennsylvania, NNP, 6]
+
+@question : what is the population of hawaii ?
+[population, population, NN, 3]->of->[hawaii, hawaii, NNP, 5]
+
+@question : what is the population of new york ?
+[population, population, NN, 3]->of->[york, york, NNS, 6]
+
+@question : what is the population of new york city ?
+[population, population, NN, 3]->of->[city, city, NN, 7]
+
+@question : what is the population of oregon ?
+[population, population, NN, 3]->of->[oregon, oregon, NNP, 5]
+
+@question : what is the population of portland maine ?
+[population, population, NN, 3]->of->[maine, maine, NNP, 6]
+
+@question : what is the population of rhode island ?
+[population, population, NN, 3]->of->[island, island, NN, 6]
+
+@question : what is the population of sacramento ?
+[population, population, NN, 3]->of->[sacramento, sacramento, NNP, 5]
+
+@question : what is the population of san antonio ?
+[population, population, NN, 3]->of->[antonio, antonio, NNP, 6]
+
+@question : what is the population of seattle washington ?
+[population, population, NN, 3]->of->[washington, washington, NNP, 6]
+
+@question : what is the population of south dakota ?
+[population, population, NN, 3]->of->[dakota, dakota, NNP, 6]
+
+@question : what is the population of springfield missouri ?
+[population, population, NN, 3]->of->[missouri, missouri, NNP, 6]
+
+@question : what is the population of springfield south dakota ?
+[population, population, NN, 3]->of->[dakota, dakota, NNP, 7]
+
+@question : what is the population of tempe arizona ?
+[population, population, NN, 3]->of->[arizona, arizona, NNP, 6]
+
+@question : what is the population of the capital of the largest state ?
+[population, population, NN, 3]->of->[capital, capital, NN, 6]->of->[state, state, NN, 10]
+
+@question : what is the population of the capital of the largest state through which the mississippi runs ?
+[population, population, NN, 3]->of->[capital, capital, NN, 6]->of->[state, state, NN, 10]
+
+@question : what is the population of the capital of the smallest state ?
+[population, population, NN, 3]->of->[capital, capital, NN, 6]->of->[state, state, NN, 10]
+
+@question : what is the population of the largest city in the state with the largest area ?
+[population, population, NN, 3]->of->[city, city, NN, 7]->in->[state, state, NN, 10]->with->[area, area, NN, 14]
+
+@question : what is the population of the largest state ?
+[population, population, NN, 3]->of->[state, state, NN, 7]
+
+@question : what is the population of the largest state that borders texas ?
+[population, population, NN, 3]->of->[state, state, NN, 7]->borders->[texas, texa, NNP, 10]
+
+@question : what is the population of the major cities in wisconsin ?
+[population, population, NN, 3]->of->[cities, city, NNS, 7]->in->[wisconsin, wisconsin, NNP, 9]
+
+@question : what is the population of the smallest state ?
+[population, population, NN, 3]->of->[state, state, NN, 7]
+
+@question : what is the population of the state that borders the most states ?
+[population, population, NN, 3]->of->[state, state, NN, 6]->borders->[states, state, NNS, 11]
+
+@question : what is the population of the state with the highest population density ?
+[population, population, NN, 3]->of->[state, state, NN, 6]->with->[density, density, NN, 11]
+
+@question : what is the population of the state with the largest area ?
+[population, population, NN, 3]->of->[state, state, NN, 6]->with->[area, area, NN, 10]
+
+@question : what is the population of washington ?
+[population, population, NN, 3]->of->[washington, washington, NNP, 5]
+
+@question : what is the population of washington dc ?
+[population, population, NN, 3]->of->[dc, dc, NNP, 6]
+
+@question : what is the river that cross over ohio ?
+[river, river, NN, 3]->cross->[ohio, ohio, NNS, 7]
+
+@question : what is the shortest river ?
+null
+
+@question : what is the shortest river in nebraska ?
+[river, river, NN, 4]->in->[nebraska, nebraska, NNP, 6]
+
+@question : what is the shortest river in the united states ?
+[river, river, NN, 4]->in->[states, state, NNS, 8]
+
+@question : what is the shortest river in the us ?
+[river, river, NN, 4]->in->[us, us, PRP, 7]
+
+@question : what is the shortest river in the usa ?
+[river, river, NN, 4]->in->[usa, usa, NN, 7]
+
+@question : what is the size of texas ?
+[size, size, NN, 3]->of->[texas, texa, NNP, 5]
+
+@question : what is the size of the capital of texas ?
+[size, size, NN, 3]->of->[capital, capital, NN, 6]->of->[texas, texa, NNP, 8]
+
+@question : what is the size of the largest state in the usa ?
+[size, size, NN, 3]->of->[state, state, NN, 7]->in->[usa, usa, NNS, 10]
+
+@question : what is the smallest city in alaska ?
+[city, city, NN, 4]->in->[alaska, alaska, NNP, 6]
+
+@question : what is the smallest city in the largest state ?
+[city, city, NN, 4]->in->[state, state, NN, 8]
+
+@question : what is the smallest city in the us ?
+[city, city, NN, 4]->in->[us, us, PRP, 7]
+
+@question : what is the smallest city in the usa ?
+[city, city, NN, 4]->in->[usa, usa, NN, 7]
+
+@question : what is the smallest city in washington ?
+[city, city, NN, 4]->in->[washington, washington, NNP, 6]
+
+@question : what is the smallest city of the smallest state in the us ?
+[city, city, NN, 4]->of->[state, state, NN, 8]->in->[us, us, PRP, 11]
+
+@question : what is the smallest state bordering wyoming ?
+[state, state, NN, 4]->bordering->[wyoming, wyoming, NN, 6]
+
+@question : what is the smallest state by area ?
+[state, state, NN, 4]->by->[area, area, NN, 6]
+
+@question : what is the smallest state in the usa ?
+[state, state, NN, 4]->in->[usa, usa, NN, 7]
+
+@question : what is the smallest state that borders texas ?
+[state, state, NN, 4]->borders->[texas, texa, NN, 7]
+
+@question : what is the smallest state that borders the most states ?
+[state, state, NN, 4]->borders->[states, state, NNS, 9]
+
+@question : what is the smallest state that the mississippi river runs through ?
+
+
+@question : what is the smallest state through which the longest river runs ?
+
+
+@question : what is the state that contains the highest point ?
+[state, state, NN, 3]->contains->[point, point, NN, 8]
+
+@question : what is the state with the highest elevation in the united states ?
+[state, state, NN, 3]->with->[elevation, elevation, NN, 7]->in->[states, state, NNS, 11]
+
+@question : what is the state with the largest area ?
+[state, state, NN, 3]->with->[area, area, NN, 7]
+
+@question : what is the state with the largest density in usa ?
+[state, state, NN, 3]->with->[density, density, NN, 7]->in->[usa, usa, NNP, 9]
+
+@question : what is the state with the largest population density ?
+[state, state, NN, 3]->with->[population, population, NN, 7]
+
+@question : what is the state with the lowest point ?
+[state, state, NN, 3]->with->[point, point, NN, 7]
+
+@question : what is the state with the lowest population ?
+[state, state, NN, 3]->with->[population, population, NN, 7]
+
+@question : what is the state with the lowest population density ?
+[state, state, NN, 3]->with->[population, population, NN, 7]
+
+@question : what is the state with the smallest area ?
+[state, state, NN, 3]->with->[area, area, NN, 7]
+
+@question : what is the tallest mountain in america ?
+[mountain, mountain, NN, 4]->in->[america, america, NNP, 6]
+
+@question : what is the tallest mountain in the united states ?
+[mountain, mountain, NN, 4]->in->[states, state, NNS, 8]
+
+@question : what is the total area of the usa ?
+[area, area, NN, 4]->of->[usa, usa, NN, 7]
+
+@question : what is the total length of all rivers in the usa ?
+[length, length, NN, 4]->of->[rivers, river, NNS, 7]->in->[usa, usa, NN, 10]
+
+@question : what is the total population of the states that border texas ?
+[population, population, NN, 4]->of->[states, state, NNS, 7]
+
+@question : what length is the mississippi ?
+[length, length, NN, 1]->is->[mississippi, mississippi, NN, 4]
+
+@question : what major cities are located in pennsylvania ?
+[cities, city, NNS, 2]->located->[pennsylvania, pennsylvania, NNP, 6]
+
+@question : what major rivers run through illinois ?
+[rivers, river, NNS, 2]->run->[illinois, illinois, NNS, 5]
+
+@question : what mountains are in alaska ?
+[mountains, mountain, NN, 1]->are->[alaska, alaska, NNP, 4]
+
+@question : what river flows through kansas ?
+[river, river, NN, 1]->flows->[kansas, kansa, NNP, 4]
+
+@question : what river flows through the most states ?
+[river, river, NN, 1]->flows->[states, state, NNS, 6]
+
+@question : what river is the longest one in the united states ?
+[river, river, NN, 1]->in->[states, state, NNS, 9]
+
+@question : what river runs through the most states ?
+[river, river, NN, 1]->runs->[states, state, NNS, 6]
+
+@question : what river runs through the state with the most cities ?
+[river, river, NN, 1]->runs->[state, state, NN, 5]->with->[cities, city, NNS, 9]
+
+@question : what river runs through virginia ?
+[river, river, NN, 1]->runs->[virginia, virginia, NNP, 4]
+
+@question : what river traverses the most states ?
+[river, river, NN, 1]->traverses->[states, state, NNS, 5]
+
+@question : what river traverses the state which borders the most states ?
+[river, river, NN, 1]->traverses->[state, state, NN, 4]->borders->[states, state, NNS, 9]
+
+@question : what rivers are in new mexico ?
+[rivers, river, NN, 1]->are->[mexico, mexico, NNP, 5]
+
+@question : what rivers are in oregon ?
+[rivers, river, NN, 1]->are->[oregon, oregon, NNP, 4]
+
+@question : what rivers are in states that border texas ?
+[rivers, river, NNS, 1]->are->[states, state, NNS, 4]
+
+@question : what rivers are in texas ?
+[rivers, river, NN, 1]->are->[texas, texa, NNP, 4]
+
+@question : what rivers are there in texas ?
+[rivers, river, NN, 1]->are->[texas, texa, NNP, 5]
+
+@question : what rivers do not run through tennessee ?
+[rivers, river, NNS, 1]->run->[tennessee, tennessee, NNS, 6]
+
+@question : what rivers flow though colorado ?
+[rivers, river, NNS, 1]->flow->[colorado, colorado, NN, 4]
+
+@question : what rivers flow through states that alabama borders ?
+[rivers, river, NNS, 1]->flow->[states, state, NNS, 4]
+
+@question : what rivers flow through states that border the state with the largest population ?
+[rivers, river, NNS, 1]->flow->[states, state, NNS, 4]->border->[state, state, NN, 8]->with->[population, population, NN, 12]
+
+@question : what rivers flow through the largest state ?
+[rivers, river, NNS, 1]->flow->[state, state, NN, 6]
+
+@question : what rivers flow through the state with the largest population ?
+[rivers, river, NN, 1]->flow->[state, state, NN, 5]->with->[population, population, NN, 9]
+
+@question : what rivers run through austin texas ?
+[rivers, river, NN, 1]->run->[texas, texa, NNS, 5]
+
+@question : what rivers run through colorado ?
+[rivers, river, NN, 1]->run->[colorado, colorado, NNP, 4]
+
+@question : what rivers run through new york ?
+[rivers, river, NN, 1]->run->[york, york, NN, 5]
+
+@question : what rivers run through the state with the lowest point in the usa ?
+[rivers, river, NNS, 1]->run->[state, state, NN, 5]->with->[point, point, NN, 9]->in->[usa, usa, NN, 12]
+
+@question : what rivers run through the states that border the state with the capital atlanta ?
+[rivers, river, NNS, 1]->run->[states, state, NNS, 5]->border->[state, state, NN, 9]->with->[atlanta, atlanta, NN, 13]
+
+@question : what rivers run through west virginia ?
+[rivers, river, NNS, 1]->run->[virginia, virginia, NNP, 5]
+
+@question : what rivers traverses the state which borders the most states ?
+[rivers, river, NNS, 1]->traverses->[state, state, NN, 4]
+
+@question : what state bordering nevada has the largest population ?
+[state, state, NN, 1]->bordering->[nevada, nevada, NN, 3]->has->[population, population, NN, 7]
+
+@question : what state borders michigan ?
+[state, state, NN, 1]->borders->[michigan, michigan, NNP, 3]
+
+@question : what state borders most other states ?
+[state, state, NN, 1]->borders->[states, state, NNS, 5]
+
+@question : what state borders new york ?
+[state, state, NN, 1]->borders->[york, york, NN, 4]
+
+@question : what state borders the least states ?
+[state, state, NN, 1]->borders->[states, state, NNS, 5]
+
+@question : what state borders the least states excluding alaska and excluding hawaii ?
+[state, state, NN, 1]->borders->[states, state, NNS, 5]
+
+@question : what state borders the most states ?
+[state, state, NN, 1]->borders->[states, state, NNS, 5]
+
+@question : what state borders the state with the smallest population ?
+[state, state, NN, 1]->borders->[state, state, NN, 4]->with->[population, population, NN, 8]
+
+@question : what state contains the highest point in the us ?
+[state, state, NN, 1]->contains->[point, point, NN, 5]->in->[us, us, PRP, 8]
+
+@question : what state contains the highest point of those the colorado river traverses ?
+[state, state, NN, 1]->contains->[point, point, NN, 5]->of->[traverses, travers, NN, 11]
+
+@question : what state has highest elevation ?
+[state, state, NN, 1]->has->[elevation, elevation, NNS, 4]
+
+@question : what state has no rivers ?
+[state, state, NN, 1]->has->[rivers, river, NNS, 4]
+
+@question : what state has the capital salem ?
+[state, state, NN, 1]->has->[salem, salem, NNP, 5]
+
+@question : what state has the city flint ?
+[state, state, NN, 1]->has->[city, city, NN, 4]
+
+@question : what state has the city with the largest population ?
+[state, state, NN, 1]->has->[city, city, NN, 4]->with->[population, population, NN, 8]
+
+@question : what state has the city with the most population ?
+[state, state, NN, 1]->has->[city, city, NN, 4]->with->[population, population, NN, 8]
+
+@question : what state has the greatest population density ?
+[state, state, NN, 1]->has->[density, density, NN, 6]
+
+@question : what state has the highest elevation ?
+[state, state, NN, 1]->has->[elevation, elevation, NN, 5]
+
+@question : what state has the highest population ?
+[state, state, NN, 1]->has->[population, population, NN, 5]
+
+@question : what state has the highest population density ?
+[state, state, NN, 1]->has->[density, density, NN, 6]
+
+@question : what state has the largest area ?
+[state, state, NN, 1]->has->[area, area, NN, 5]
+
+@question : what state has the largest capital ?
+[state, state, NN, 1]->has->[capital, capital, NN, 5]
+
+@question : what state has the largest city ?
+[state, state, NN, 1]->has->[city, city, NN, 5]
+
+@question : what state has the largest population ?
+[state, state, NN, 1]->has->[population, population, NN, 5]
+
+@question : what state has the largest population density ?
+[state, state, NN, 1]->has->[density, density, NN, 6]
+
+@question : what state has the largest urban population ?
+[state, state, NN, 1]->has->[population, population, NN, 6]
+
+@question : what state has the least population density ?
+[state, state, NN, 1]->has->[density, density, NN, 6]
+
+@question : what state has the longest river ?
+[state, state, NN, 1]->has->[river, river, NN, 5]
+
+@question : what state has the lowest population density ?
+[state, state, NN, 1]->has->[density, density, NN, 6]
+
+@question : what state has the most cities ?
+[state, state, NN, 1]->has->[cities, city, NNS, 5]
+
+@question : what state has the most major cities ?
+[state, state, NN, 1]->has->[cities, city, NNS, 6]
+
+@question : what state has the most major rivers running through it ?
+[state, state, NN, 1]->has->[rivers, river, NNS, 6]
+
+@question : what state has the most people ?
+[state, state, NN, 1]->has->[people, person, NNS, 5]
+
+@question : what state has the most rivers ?
+[state, state, NN, 1]->has->[rivers, river, NNS, 5]
+
+@question : what state has the most rivers running through it ?
+[state, state, NN, 1]->running->[rivers, river, NNS, 5]
+
+@question : what state has the shortest river ?
+[state, state, NN, 1]->has->[river, river, NN, 5]
+
+@question : what state has the smallest area ?
+[state, state, NN, 1]->has->[area, area, NN, 5]
+
+@question : what state has the smallest capital ?
+[state, state, NN, 1]->has->[capital, capital, NN, 5]
+
+@question : what state has the smallest population ?
+[state, state, NN, 1]->has->[population, population, NN, 5]
+
+@question : what state has the smallest population density ?
+[state, state, NN, 1]->has->[density, density, NN, 6]
+
+@question : what state has the smallest urban population ?
+[state, state, NN, 1]->has->[population, population, NN, 6]
+
+@question : what state has the sparsest population density ?
+[state, state, NN, 1]->has->[population, population, NN, 5]
+
+@question : what state is austin in ?
+[state, state, NN, 1]->is->[austin, austin, NNS, 3]
+
+@question : what state is austin the capital of ?
+[state, state, NN, 1]->is->[austin, austin, NNS, 3]
+
+@question : what state is boston in ?
+[state, state, NN, 1]->is->[boston, boston, NNS, 3]
+
+@question : what state is columbus the capital of ?
+[state, state, NN, 1]->is->[columbus, columbus, NNS, 3]
+
+@question : what state is dallas in ?
+[state, state, NN, 1]->is->[dallas, dalla, NNS, 3]
+
+@question : what state is des moines located in ?
+
+
+@question : what state is miami in ?
+[state, state, NN, 1]->is->[miami, miami, NNS, 3]
+
+@question : what state is pittsburgh in ?
+[state, state, NN, 1]->is->[pittsburgh, pittsburgh, NNS, 3]
+
+@question : what state is the biggest ?
+null
+
+@question : what state is the largest in population ?
+[state, state, NN, 1]->in->[population, population, NN, 6]
+
+@question : what state is the state with the most rivers ?
+[state, state, NN, 1]->is->[state, state, NN, 4]->with->[rivers, river, NNS, 8]
+
+@question : what state that borders texas has the highest population ?
+[state, state, NN, 1]->borders->[texas, texa, NNS, 4]->has->[population, population, NN, 8]
+
+@question : what state that borders texas is the largest ?
+
+
+@question : what state which the mississippi runs through has the largest population ?
+[state, state, NN, 1]->has->[population, population, NN, 10]
+
+@question : what states are next to arizona ?
+[states, state, NNS, 1]->are->[arizona, arizona, NNP, 5]
+
+@question : what states are next to texas ?
+[states, state, NNS, 1]->are->[texas, texa, NNS, 5]
+
+@question : what states are next to the mississippi ?
+[states, state, NNS, 1]->are->[mississippi, mississippi, NN, 6]
+
+@question : what states border montana ?
+
+
+@question : what states border new hampshire ?
+
+
+@question : what states border new jersey ?
+[states, state, NNS, 1]->border->[jersey, jersey, NN, 4]
+
+@question : what states border ohio ?
+
+
+@question : what states border rhode island ?
+
+
+@question : what states border states that border colorado ?
+
+
+@question : what states border states that border mississippi ?
+
+
+@question : what states border states that border states that border florida ?
+
+
+@question : what states border states that border states that border states that border texas ?
+[states, state, NNS, 6]->states->[texas, texa, NNS, 12]
+
+@question : what states border states that border the state with the largest population ?
+[states, state, NNS, 3]->border->[state, state, NN, 7]->with->[population, population, NN, 11]
+
+@question : what states border states that the mississsippi runs through ?
+
+
+@question : what states border states that the ohio runs through ?
+
+
+@question : what states border states which the mississippi runs through ?
+
+
+@question : what states border texas ?
+
+
+@question : what states border texas and have a major river ?
+
+
+@question : what states border the mississippi river ?
+[states, state, NNS, 1]->border->[river, river, NN, 5]
+
+@question : what states border the most populous state ?
+[states, state, NNS, 1]->border->[state, state, NN, 6]
+
+@question : what states border the state that borders the most states ?
+[state, state, NN, 4]->borders->[states, state, NNS, 9]
+
+@question : what states border the state with the most cities ?
+[states, state, NNS, 1]->border->[state, state, NN, 4]->with->[cities, city, NNS, 8]
+
+@question : what states border the state with the most major cities ?
+[states, state, NNS, 1]->border->[state, state, NN, 4]->with->[cities, city, NNS, 9]
+
+@question : what states border the state with the smallest area ?
+[states, state, NNS, 1]->border->[state, state, NN, 4]->with->[area, area, NN, 8]
+
+@question : what states border the states with the most cities ?
+[states, state, NNS, 1]->border->[states, state, NNS, 4]->with->[cities, city, NNS, 8]
+
+@question : what states border wisconsin ?
+
+
+@question : what states capital is dover ?
+[capital, capital, NN, 2]->is->[dover, dover, NN, 4]
+
+@question : what states contain at least one major rivers ?
+[states, state, NNS, 1]->contain->[rivers, river, NNS, 7]
+
+@question : what states does the colorado river run through ?
+[states, state, NNS, 1]->run->[river, river, NN, 5]
+
+@question : what states does the delaware river run through ?
+[states, state, NNS, 1]->run->[river, river, NN, 5]
+
+@question : what states does the mississippi river run through ?
+[states, state, NNS, 1]->run->[river, river, NN, 5]
+
+@question : what states does the mississippi run through ?
+[states, state, NNS, 1]->run->[mississippi, mississippi, NNS, 4]
+
+@question : what states does the missouri river run through ?
+[states, state, NNS, 1]->run->[river, river, NN, 5]
+
+@question : what states does the missouri run through ?
+[states, state, NNS, 1]->run->[missouri, missouri, NNS, 4]
+
+@question : what states does the ohio river go through ?
+[states, state, NNS, 1]->go->[river, river, NN, 5]
+
+@question : what states does the ohio river run through ?
+[states, state, NNS, 1]->run->[river, river, NN, 5]
+
+@question : what states does the shortest river run through ?
+[states, state, NNS, 1]->run->[river, river, NN, 5]
+
+@question : what states have a capital that is the highest point in the state ?
+[states, state, NNS, 1]->have->[capital, capital, NN, 4]
+
+@question : what states have a city named austin ?
+[states, state, NNS, 1]->have->[city, city, NN, 4]->named->[austin, austin, NN, 6]
+
+@question : what states have cities named austin ?
+[states, state, NNS, 1]->named->[cities, city, NNS, 3]
+
+@question : what states have cities named dallas ?
+[states, state, NNS, 1]->named->[cities, city, NNS, 3]
+
+@question : what states have cities named plano ?
+[states, state, NNS, 1]->named->[cities, city, NNS, 3]
+
+@question : what states have cities named portland ?
+[states, state, NNS, 1]->named->[cities, city, NNS, 3]
+
+@question : what states have cities named rochester ?
+[states, state, NNS, 1]->named->[cities, city, NNS, 3]
+
+@question : what states have cities named salt lake city ?
+[states, state, NNS, 1]->have->[cities, city, NNS, 3]->named->[city, city, NN, 7]
+
+@question : what states have no bordering state ?
+[states, state, NNS, 1]->have->[state, state, NN, 5]
+
+@question : what states have rivers named colorado ?
+[states, state, NNS, 1]->have->[rivers, river, NNS, 3]->named->[colorado, colorado, NN, 5]
+
+@question : what states have rivers running through them ?
+[states, state, NNS, 1]->running->[rivers, river, NNS, 3]
+
+@question : what states have towns named springfield ?
+[states, state, NNS, 1]->have->[towns, town, NNS, 3]
+
+@question : what states high point are higher than that of colorado ?
+[point, point, NN, 3]->of->[colorado, colorado, NNP, 9]
+
+@question : what states in the united states have a city of springfield ?
+[states, state, NNS, 1]->in->[states, state, NNS, 5]->have->[city, city, NN, 8]->of->[springfield, springfield, NN, 10]
+
+@question : what states neighbor maine ?
+
+
+@question : what states surround kentucky ?
+[states, state, NNS, 1]->surround->[kentucky, kentucky, NNP, 3]
+
+@question : what texas city has the largest population ?
+[city, city, NN, 2]->has->[population, population, NN, 6]
+
+@question : whats the largest city ?
+null
+
+@question : where are mountains ?
+[where, where, WRB, 0]->are->[mountains, mountain, NNS, 2]
+
+@question : where is austin ?
+[where, where, WRB, 0]->is->[austin, austin, NNS, 2]
+
+@question : where is baton rouge ?
+[where, where, WRB, 0]->is->[rouge, rouge, NN, 3]
+
+@question : where is dallas ?
+[where, where, WRB, 0]->is->[dallas, dalla, NNS, 2]
+
+@question : where is fort wayne ?
+[where, where, WRB, 0]->is->[wayne, wayne, NN, 3]
+
+@question : where is massachusetts ?
+[where, where, WRB, 0]->is->[massachusetts, massachusett, NNS, 2]
+
+@question : where is mount whitney ?
+[where, where, WRB, 0]->is->[whitney, whitney, NN, 3]
+
+@question : where is mount whitney located ?
+
+
+@question : where is new hampshire ?
+[where, where, WRB, 0]->is->[hampshire, hampshire, NNS, 3]
+
+@question : where is new orleans ?
+[where, where, WRB, 0]->is->[orleans, orlean, NNS, 3]
+
+@question : where is san diego ?
+[where, where, WRB, 0]->is->[diego, diego, NNP, 3]
+
+@question : where is san jose ?
+[where, where, WRB, 0]->is->[jose, jose, NNP, 3]
+
+@question : where is scotts valley ?
+[where, where, WRB, 0]->is->[valley, valley, NN, 3]
+
+@question : where is springfield ?
+[where, where, WRB, 0]->is->[springfield, springfield, NNS, 2]
+
+@question : where is the chattahoochee river ?
+[where, where, WRB, 0]->is->[river, river, NN, 4]
+
+@question : where is the highest mountain of the united states ?
+[where, where, WRB, 0]->is->[mountain, mountain, NN, 4]->of->[states, state, NNS, 8]
+
+@question : where is the highest point in hawaii ?
+[where, where, WRB, 0]->is->[point, point, NN, 4]->in->[hawaii, hawaii, NNP, 6]
+
+@question : where is the highest point in montana ?
+[where, where, WRB, 0]->is->[point, point, NN, 4]->in->[montana, montana, NNP, 6]
+
+@question : where is the lowest point in maryland ?
+[where, where, WRB, 0]->is->[point, point, NN, 4]->in->[maryland, maryland, NNP, 6]
+
+@question : where is the lowest point in the us ?
+[where, where, WRB, 0]->is->[point, point, NN, 4]->in->[us, us, PRP, 7]
+
+@question : where is the lowest spot in iowa ?
+[where, where, WRB, 0]->is->[spot, spot, NN, 4]->in->[iowa, iowa, NNP, 6]
+
+@question : where is the most populated area of new mexico ?
+[where, where, WRB, 0]->is->[area, area, NN, 5]->of->[mexico, mexico, NNP, 8]
+
+@question : where is the smallest city ?
+[where, where, WRB, 0]->is->[city, city, NN, 4]
+
+@question : which capitals are in the states that border texas ?
+[capitals, capital, NNS, 1]->are->[states, state, NNS, 5]
+
+@question : which capitals are not major cities ?
+
+
+@question : which city in california has the largest population ?
+[city, city, NN, 1]->in->[california, california, NNP, 3]->has->[population, population, NN, 7]
+
+@question : which is the density of the state that the largest river in the united states runs through ?
+[density, density, NN, 3]->of->[state, state, NN, 6]
+
+@question : which is the highest peak not in alaska ?
+[peak, peak, NN, 4]->in->[alaska, alaska, NNP, 7]
+
+@question : which is the longest river in usa ?
+[river, river, NN, 4]->in->[usa, usa, NNP, 6]
+
+@question : which is the lowest point of the states that the mississippi runs through ?
+[point, point, NN, 4]->of->[states, state, NNS, 7]
+
+@question : which is the shortest river ?
+null
+
+@question : which is the smallest state ?
+null
+
+@question : which of the states bordering pennsylvania has the largest population ?
+[states, state, NNS, 3]->bordering->[pennsylvania, pennsylvania, NNP, 5]->has->[population, population, NN, 9]
+
+@question : which river goes through the most states ?
+[river, river, NN, 1]->goes->[states, state, NNS, 6]
+
+@question : which river runs through most states ?
+[river, river, NN, 1]->runs->[states, state, NNS, 5]
+
+@question : which river runs through the most states ?
+[river, river, NN, 1]->runs->[states, state, NNS, 6]
+
+@question : which river traverses most states ?
+[river, river, NN, 1]->traverses->[states, state, NNS, 4]
+
+@question : which rivers are in alaska ?
+[rivers, river, NNS, 1]->are->[alaska, alaska, NNP, 4]
+
+@question : which rivers do not run through texas ?
+[rivers, river, NNS, 1]->run->[texas, texa, NNS, 6]
+
+@question : which rivers do not run through usa ?
+[rivers, river, NNS, 1]->run->[usa, usa, NNP, 6]
+
+@question : which rivers flow through alaska ?
+[rivers, river, NNS, 1]->flow->[alaska, alaska, NNP, 4]
+
+@question : which rivers run through states bordering new mexico ?
+[rivers, river, NNS, 1]->run->[states, state, NNS, 4]->bordering->[mexico, mexico, NN, 7]
+
+@question : which rivers run through states that border the state with the capital austin ?
+[rivers, river, NNS, 1]->run->[states, state, NNS, 4]->border->[state, state, NN, 8]->with->[austin, austin, NN, 12]
+
+@question : which rivers run through states with fewest cities ?
+[rivers, river, NNS, 1]->run->[states, state, NNS, 4]->with->[cities, city, NNS, 7]
+
+@question : which rivers run through the state with the largest city in the us ?
+[rivers, river, NNS, 1]->run->[state, state, NN, 5]->with->[city, city, NN, 9]->in->[us, us, PRP, 12]
+
+@question : which rivers run through the state with the lowest elevation in the usa ?
+[rivers, river, NNS, 1]->run->[state, state, NN, 5]->with->[elevation, elevation, NN, 9]->in->[usa, usa, NN, 12]
+
+@question : which state border kentucky ?
+
+
+@question : which state borders florida ?
+[state, state, NN, 1]->borders->[florida, florida, NNP, 3]
+
+@question : which state borders hawaii ?
+[state, state, NN, 1]->borders->[hawaii, hawaii, NNP, 3]
+
+@question : which state borders most states ?
+[state, state, NN, 1]->borders->[states, state, NNS, 4]
+
+@question : which state borders the most states ?
+[state, state, NN, 1]->borders->[states, state, NNS, 5]
+
+@question : which state capital has the smallest population ?
+[capital, capital, NN, 2]->has->[population, population, NN, 6]
+
+@question : which state contains most rivers ?
+[state, state, NN, 1]->contains->[rivers, river, NNS, 4]
+
+@question : which state has the biggest population ?
+[state, state, NN, 1]->has->[population, population, NN, 5]
+
+@question : which state has the greatest density ?
+[state, state, NN, 1]->has->[density, density, NN, 5]
+
+@question : which state has the greatest population ?
+[state, state, NN, 1]->has->[population, population, NN, 5]
+
+@question : which state has the highest elevation ?
+[state, state, NN, 1]->has->[elevation, elevation, NN, 5]
+
+@question : which state has the highest peak in the country ?
+[state, state, NN, 1]->has->[peak, peak, NN, 5]->in->[country, country, NN, 8]
+
+@question : which state has the highest point ?
+[state, state, NN, 1]->has->[point, point, NN, 5]
+
+@question : which state has the highest population density ?
+[state, state, NN, 1]->has->[density, density, NN, 6]
+
+@question : which state has the largest city ?
+[state, state, NN, 1]->has->[city, city, NN, 5]
+
+@question : which state has the largest density ?
+[state, state, NN, 1]->has->[density, density, NN, 5]
+
+@question : which state has the least population density ?
+[state, state, NN, 1]->has->[density, density, NN, 6]
+
+@question : which state has the longest river ?
+[state, state, NN, 1]->has->[river, river, NN, 5]
+
+@question : which state has the lowest elevation ?
+[state, state, NN, 1]->has->[elevation, elevation, NN, 5]
+
+@question : which state has the lowest point that borders idaho ?
+[state, state, NN, 1]->has->[point, point, NN, 5]->borders->[idaho, idaho, NN, 8]
+
+@question : which state has the lowest population density ?
+[state, state, NN, 1]->has->[density, density, NN, 6]
+
+@question : which state has the most major cities ?
+[state, state, NN, 1]->has->[cities, city, NNS, 6]
+
+@question : which state has the most major rivers ?
+[state, state, NN, 1]->has->[rivers, river, NNS, 6]
+
+@question : which state has the most major rivers running through it ?
+[state, state, NN, 1]->has->[rivers, river, NNS, 6]
+
+@question : which state has the most people ?
+[state, state, NN, 1]->has->[people, person, NNS, 5]
+
+@question : which state has the most population ?
+[state, state, NN, 1]->has->[population, population, NN, 5]
+
+@question : which state has the most rivers ?
+[state, state, NN, 1]->has->[rivers, river, NNS, 5]
+
+@question : which state has the most rivers running through it ?
+[state, state, NN, 1]->running->[rivers, river, NNS, 5]
+
+@question : which state has the red river ?
+[state, state, NN, 1]->has->[river, river, NN, 5]
+
+@question : which state has the smallest area that borders texas ?
+[state, state, NN, 1]->has->[area, area, NN, 5]->borders->[texas, texa, NN, 8]
+
+@question : which state has the smallest average urban population ?
+[state, state, NN, 1]->has->[population, population, NN, 7]
+
+@question : which state has the smallest population density ?
+[state, state, NN, 1]->has->[density, density, NN, 6]
+
+@question : which state has the sparsest population density ?
+[state, state, NN, 1]->has->[density, density, NN, 6]
+
+@question : which state is kalamazoo in ?
+[state, state, NN, 1]->is->[kalamazoo, kalamazoo, NNS, 3]
+
+@question : which state is mount mckinley in ?
+[state, state, NN, 1]->is->[mckinley, mckinley, NN, 4]
+
+@question : which state is the city denver located in ?
+
+
+@question : which state is the largest city in montana in ?
+[state, state, NN, 1]->is->[city, city, NN, 5]->in->[montana, montana, NNS, 7]
+
+@question : which state is the smallest ?
+null
+
+@question : which states adjoin alabama ?
+[states, state, NNS, 1]->adjoin->[alabama, alabama, NN, 3]
+
+@question : which states border alabama ?
+
+
+@question : which states border michigan ?
+
+
+@question : which states border new york ?
+
+
+@question : which states border no other states ?
+[states, state, NNS, 1]->border->[states, state, NNS, 5]
+
+@question : which states border south dakota ?
+
+
+@question : which states border states through which the mississippi traverses ?
+
+
+@question : which states border the longest river in the usa ?
+[states, state, NNS, 1]->border->[river, river, NN, 5]->in->[usa, usa, NN, 8]
+
+@question : which states border the missouri river ?
+[states, state, NNS, 1]->border->[river, river, NN, 5]
+
+@question : which states border the state with the smallest area ?
+[states, state, NNS, 1]->border->[state, state, NN, 4]->with->[area, area, NN, 8]
+
+@question : which states capital city is the largest ?
+
+
+@question : which states do colorado river flow through ?
+[states, state, NNS, 1]->flow->[river, river, NN, 4]
+
+@question : which states does not border texas ?
+[states, state, NNS, 1]->border->[texas, texa, NNS, 5]
+
+@question : which states does the chattahoochee river run through ?
+[states, state, NNS, 1]->run->[river, river, NN, 5]
+
+@question : which states does the colorado river run through ?
+[states, state, NNS, 1]->run->[river, river, NN, 5]
+
+@question : which states does the longest river cross ?
+[states, state, NNS, 1]->cross->[river, river, NN, 5]
+
+@question : which states does the longest river run through ?
+[states, state, NNS, 1]->run->[river, river, NN, 5]
+
+@question : which states does the mississippi river run through ?
+[states, state, NNS, 1]->run->[river, river, NN, 5]
+
+@question : which states does the mississippi run through ?
+[states, state, NNS, 1]->run->[mississippi, mississippi, NNS, 4]
+
+@question : which states does the missouri river pass through ?
+[states, state, NNS, 1]->pass->[river, river, NN, 5]
+
+@question : which states does the missouri river run through ?
+[states, state, NNS, 1]->run->[river, river, NN, 5]
+
+@question : which states have a major city named austin ?
+[states, state, NNS, 1]->named->[city, city, NN, 5]
+
+@question : which states have a river ?
+[states, state, NNS, 1]->have->[river, river, NN, 4]
+
+@question : which states have cities named austin ?
+[states, state, NNS, 1]->named->[cities, city, NNS, 3]
+
+@question : which states have points higher than the highest point in colorado ?
+[states, state, NNS, 1]->than->[point, point, NN, 8]->in->[colorado, colorado, NN, 10]
+
+@question : which states have points that are higher than the highest point in texas ?
+[states, state, NNS, 1]->have->[points, point, NNS, 3]->than->[point, point, NN, 10]->in->[texas, texa, NNS, 12]
+
+@question : which states lie on the largest river in the united states ?
+[states, state, NNS, 1]->lie->[river, river, NN, 6]->in->[states, state, NNS, 10]
+
+@question : which us city has the highest population density ?
+[us, us, PRP, 1]->has->[density, density, NN, 7]
+

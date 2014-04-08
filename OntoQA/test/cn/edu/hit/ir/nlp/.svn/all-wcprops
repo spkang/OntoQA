@@ -1,0 +1,29 @@
+K 25
+svn:wc:ra_dav:version-url
+V 61
+/svn/wbzhang/!svn/ver/419/OntoQA/trunk/test/cn/edu/hit/ir/nlp
+END
+EnglishNlpToolTest.java
+K 25
+svn:wc:ra_dav:version-url
+V 85
+/svn/wbzhang/!svn/ver/385/OntoQA/trunk/test/cn/edu/hit/ir/nlp/EnglishNlpToolTest.java
+END
+WordNetTest.java
+K 25
+svn:wc:ra_dav:version-url
+V 78
+/svn/wbzhang/!svn/ver/419/OntoQA/trunk/test/cn/edu/hit/ir/nlp/WordNetTest.java
+END
+VocabularyTest.java
+K 25
+svn:wc:ra_dav:version-url
+V 81
+/svn/wbzhang/!svn/ver/412/OntoQA/trunk/test/cn/edu/hit/ir/nlp/VocabularyTest.java
+END
+OpenNLPTest.java
+K 25
+svn:wc:ra_dav:version-url
+V 78
+/svn/wbzhang/!svn/ver/365/OntoQA/trunk/test/cn/edu/hit/ir/nlp/OpenNLPTest.java
+END

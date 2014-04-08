@@ -1,0 +1,23 @@
+K 25
+svn:wc:ra_dav:version-url
+V 48
+/svn/wbzhang/!svn/ver/354/OntoQA/trunk/test/data
+END
+geobase.rdf
+K 25
+svn:wc:ra_dav:version-url
+V 60
+/svn/wbzhang/!svn/ver/354/OntoQA/trunk/test/data/geobase.rdf
+END
+business.rdf
+K 25
+svn:wc:ra_dav:version-url
+V 61
+/svn/wbzhang/!svn/ver/354/OntoQA/trunk/test/data/business.rdf
+END
+foaf.rdf
+K 25
+svn:wc:ra_dav:version-url
+V 57
+/svn/wbzhang/!svn/ver/354/OntoQA/trunk/test/data/foaf.rdf
+END

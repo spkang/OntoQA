@@ -1,0 +1,157 @@
+/**
+e * Copyright 2011 HIT-CIR
+ * Research Center for Information Retrieval
+ * Harbin Institute of Technology
+ * http://ir.hit.edu.cn
+ */
+
+package cn.edu.hit.ir.ontology;
+
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.List;
+import java.util.PriorityQueue;
+
+/**
+ * A sub-graph of an ontology.
+ *
+ * @author   bin3 (bin183cs@gmail.com)
+ * @version  0.1.0
+ * @date	 2011-5-28
+ */
+
+public class Graph {
+	
+	static final double UNREACHABLE_DIS = -1;
+	
+	static final int PRE_NULL = -1;
+	
+	protected List<ArrayList<Node>> graph;
+	protected int size;
+	protected int[] pre;
+	
+	public Graph() {
+		graph = new ArrayList<ArrayList<Node>>();
+	}	
+	
+	public void init(int size) {
+		if (size < 0) {
+			final String msg = "size must be a nonnegative integer. size: "
+					+ size;
+			throw new IllegalArgumentException(msg);
+		}
+		
+		this.size = size;
+		graph.clear();
+		for (int i = 0; i < size; ++i) {
+			graph.add(new ArrayList<Node>());
+		}
+	}
+	
+	public void addEdge(int u, int v, double dis) {
+		graph.get(u).add(new Node(v, dis));
+		graph.get(v).add(new Node(u, dis));
+	}
+	
+	public boolean isUnreachable(double dis) {
+		return dis < 0;
+	}
+	
+	/**
+	 * Returns the shortest distance between node s and t.
+	 *
+	 * @param s the node s
+	 * @param t the node t
+	 * @return	the shortest distance or <code>UNREACHABLE_DIS</code> 
+	 * if s and t aren't connected.
+	 */
+	public double dijkstra(int s, int t) {
+		if (s >= size || t >= size) {
+			final String msg = "s and t must be smaller than size." 
+				+ "size: " + size + ", s: " + s + ", t: " + t;
+			throw new IllegalArgumentException(msg);
+		}
+		
+		pre = new int[size];
+		double[] dis = new double[size];
+		boolean[] vis = new boolean[size];
+		for (int i = 0; i < size; ++i) {
+			pre[i] = PRE_NULL;
+			dis[i] = UNREACHABLE_DIS;
+			vis[i] = false; 
+		}
+		
+		PriorityQueue<Node> pq = new PriorityQueue<Node>(size,
+				new Comparator<Node>() {
+					public int compare(Node a, Node b) {
+						if (a.dis != b.dis) {
+							if (a.dis > b.dis)
+								return 1;
+							else
+								return -1;
+						}
+						return a.v - b.v;
+					}
+				});
+		
+		dis[s] = 0;
+		pq.add(new Node(s, dis[s]));
+		while (!pq.isEmpty()) {
+			Node top = pq.poll();
+			int u = top.v;
+			double d = top.dis;
+			vis[u] = true;
+			// Found the shortest path
+			if (u == t) {
+				return dis[t];
+			}
+			List<Node> nodes = graph.get(u);
+			for (Node node: nodes) {
+				int v = node.v;
+				double vd = d + node.dis;
+				if (vis[v] == false && dis[v] > vd) {
+					dis[v] = vd;
+					pq.add(new Node(v, dis[v]));
+					pre[v]= u;
+				}
+			}
+		}
+		// Cann't find the shortest path
+		return UNREACHABLE_DIS;
+	}
+	
+	List<Integer> getPath(int t) {
+		List<Integer> path = new ArrayList<Integer>();
+		int i = t;
+		while (i != PRE_NULL) {
+			path.add(i);
+			i = pre[i];
+		}
+		Collections.reverse(path);
+		return path;
+	}
+	
+	public String toString() {
+		StringBuffer sb = new StringBuffer();
+		sb.append("[\n");
+		for (int i = 0; i < graph.size(); i++) {
+			sb.append(i + ": [");
+			for (Node node : graph.get(i)) {
+				sb.append(node.v + ", ");
+			}
+			sb.append("]\n");
+		}
+		sb.append("]\n");
+		return sb.toString();
+	}
+}
+
+class Node {
+	public int v;
+	public double dis;
+	public Node(int v, double dis) {
+		this.v = v;
+		this.dis = dis;
+	}
+}

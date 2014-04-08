@@ -1,0 +1,77 @@
+K 25
+svn:wc:ra_dav:version-url
+V 65
+/svn/wbzhang/!svn/ver/449/OntoQA/trunk/src/cn/edu/hit/ir/ontology
+END
+SparqlGenerator.java
+K 25
+svn:wc:ra_dav:version-url
+V 86
+/svn/wbzhang/!svn/ver/449/OntoQA/trunk/src/cn/edu/hit/ir/ontology/SparqlGenerator.java
+END
+Ontology.java
+K 25
+svn:wc:ra_dav:version-url
+V 79
+/svn/wbzhang/!svn/ver/448/OntoQA/trunk/src/cn/edu/hit/ir/ontology/Ontology.java
+END
+Path.java
+K 25
+svn:wc:ra_dav:version-url
+V 75
+/svn/wbzhang/!svn/ver/364/OntoQA/trunk/src/cn/edu/hit/ir/ontology/Path.java
+END
+Jena.java
+K 25
+svn:wc:ra_dav:version-url
+V 75
+/svn/wbzhang/!svn/ver/354/OntoQA/trunk/src/cn/edu/hit/ir/ontology/Jena.java
+END
+SchemaEdgeKey.java
+K 25
+svn:wc:ra_dav:version-url
+V 84
+/svn/wbzhang/!svn/ver/391/OntoQA/trunk/src/cn/edu/hit/ir/ontology/SchemaEdgeKey.java
+END
+Graph.java
+K 25
+svn:wc:ra_dav:version-url
+V 76
+/svn/wbzhang/!svn/ver/370/OntoQA/trunk/src/cn/edu/hit/ir/ontology/Graph.java
+END
+SchemaGraph.java
+K 25
+svn:wc:ra_dav:version-url
+V 82
+/svn/wbzhang/!svn/ver/431/OntoQA/trunk/src/cn/edu/hit/ir/ontology/SchemaGraph.java
+END
+Sparql.java
+K 25
+svn:wc:ra_dav:version-url
+V 77
+/svn/wbzhang/!svn/ver/449/OntoQA/trunk/src/cn/edu/hit/ir/ontology/Sparql.java
+END
+RDFNodeType.java
+K 25
+svn:wc:ra_dav:version-url
+V 82
+/svn/wbzhang/!svn/ver/389/OntoQA/trunk/src/cn/edu/hit/ir/ontology/RDFNodeType.java
+END
+SchemaEdge.java
+K 25
+svn:wc:ra_dav:version-url
+V 81
+/svn/wbzhang/!svn/ver/396/OntoQA/trunk/src/cn/edu/hit/ir/ontology/SchemaEdge.java
+END
+SchemaNode.java
+K 25
+svn:wc:ra_dav:version-url
+V 81
+/svn/wbzhang/!svn/ver/396/OntoQA/trunk/src/cn/edu/hit/ir/ontology/SchemaNode.java
+END
+ScoredResource.java
+K 25
+svn:wc:ra_dav:version-url
+V 85
+/svn/wbzhang/!svn/ver/334/OntoQA/trunk/src/cn/edu/hit/ir/ontology/ScoredResource.java
+END

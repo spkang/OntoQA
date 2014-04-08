@@ -1,0 +1,161 @@
+K 25
+svn:wc:ra_dav:version-url
+V 54
+/svn/wbzhang/!svn/ver/442/OntoQA/trunk/res/nlp/wordnet
+END
+adj.exc
+K 25
+svn:wc:ra_dav:version-url
+V 62
+/svn/wbzhang/!svn/ver/410/OntoQA/trunk/res/nlp/wordnet/adj.exc
+END
+verb.exc
+K 25
+svn:wc:ra_dav:version-url
+V 63
+/svn/wbzhang/!svn/ver/410/OntoQA/trunk/res/nlp/wordnet/verb.exc
+END
+index.adv
+K 25
+svn:wc:ra_dav:version-url
+V 64
+/svn/wbzhang/!svn/ver/410/OntoQA/trunk/res/nlp/wordnet/index.adv
+END
+adv.dat
+K 25
+svn:wc:ra_dav:version-url
+V 62
+/svn/wbzhang/!svn/ver/442/OntoQA/trunk/res/nlp/wordnet/adv.dat
+END
+adj.idx
+K 25
+svn:wc:ra_dav:version-url
+V 62
+/svn/wbzhang/!svn/ver/442/OntoQA/trunk/res/nlp/wordnet/adj.idx
+END
+verb.idx
+K 25
+svn:wc:ra_dav:version-url
+V 63
+/svn/wbzhang/!svn/ver/442/OntoQA/trunk/res/nlp/wordnet/verb.idx
+END
+data.adv
+K 25
+svn:wc:ra_dav:version-url
+V 63
+/svn/wbzhang/!svn/ver/410/OntoQA/trunk/res/nlp/wordnet/data.adv
+END
+index.sense
+K 25
+svn:wc:ra_dav:version-url
+V 66
+/svn/wbzhang/!svn/ver/410/OntoQA/trunk/res/nlp/wordnet/index.sense
+END
+index.noun
+K 25
+svn:wc:ra_dav:version-url
+V 65
+/svn/wbzhang/!svn/ver/410/OntoQA/trunk/res/nlp/wordnet/index.noun
+END
+jwnl_properties.xml
+K 25
+svn:wc:ra_dav:version-url
+V 74
+/svn/wbzhang/!svn/ver/410/OntoQA/trunk/res/nlp/wordnet/jwnl_properties.xml
+END
+noun.dat
+K 25
+svn:wc:ra_dav:version-url
+V 63
+/svn/wbzhang/!svn/ver/442/OntoQA/trunk/res/nlp/wordnet/noun.dat
+END
+data.noun
+K 25
+svn:wc:ra_dav:version-url
+V 64
+/svn/wbzhang/!svn/ver/410/OntoQA/trunk/res/nlp/wordnet/data.noun
+END
+adv.exc
+K 25
+svn:wc:ra_dav:version-url
+V 62
+/svn/wbzhang/!svn/ver/410/OntoQA/trunk/res/nlp/wordnet/adv.exc
+END
+file_properties.xml
+K 25
+svn:wc:ra_dav:version-url
+V 74
+/svn/wbzhang/!svn/ver/410/OntoQA/trunk/res/nlp/wordnet/file_properties.xml
+END
+adv.idx
+K 25
+svn:wc:ra_dav:version-url
+V 62
+/svn/wbzhang/!svn/ver/442/OntoQA/trunk/res/nlp/wordnet/adv.idx
+END
+noun.exc
+K 25
+svn:wc:ra_dav:version-url
+V 63
+/svn/wbzhang/!svn/ver/410/OntoQA/trunk/res/nlp/wordnet/noun.exc
+END
+sense.idx
+K 25
+svn:wc:ra_dav:version-url
+V 64
+/svn/wbzhang/!svn/ver/442/OntoQA/trunk/res/nlp/wordnet/sense.idx
+END
+noun.idx
+K 25
+svn:wc:ra_dav:version-url
+V 63
+/svn/wbzhang/!svn/ver/442/OntoQA/trunk/res/nlp/wordnet/noun.idx
+END
+wordnet.license
+K 25
+svn:wc:ra_dav:version-url
+V 70
+/svn/wbzhang/!svn/ver/410/OntoQA/trunk/res/nlp/wordnet/wordnet.license
+END
+index.verb
+K 25
+svn:wc:ra_dav:version-url
+V 65
+/svn/wbzhang/!svn/ver/410/OntoQA/trunk/res/nlp/wordnet/index.verb
+END
+index.adj
+K 25
+svn:wc:ra_dav:version-url
+V 64
+/svn/wbzhang/!svn/ver/410/OntoQA/trunk/res/nlp/wordnet/index.adj
+END
+adj.dat
+K 25
+svn:wc:ra_dav:version-url
+V 62
+/svn/wbzhang/!svn/ver/442/OntoQA/trunk/res/nlp/wordnet/adj.dat
+END
+verb.dat
+K 25
+svn:wc:ra_dav:version-url
+V 63
+/svn/wbzhang/!svn/ver/442/OntoQA/trunk/res/nlp/wordnet/verb.dat
+END
+data.verb
+K 25
+svn:wc:ra_dav:version-url
+V 64
+/svn/wbzhang/!svn/ver/410/OntoQA/trunk/res/nlp/wordnet/data.verb
+END
+data.adj
+K 25
+svn:wc:ra_dav:version-url
+V 63
+/svn/wbzhang/!svn/ver/410/OntoQA/trunk/res/nlp/wordnet/data.adj
+END
+wordnet.version
+K 25
+svn:wc:ra_dav:version-url
+V 70
+/svn/wbzhang/!svn/ver/410/OntoQA/trunk/res/nlp/wordnet/wordnet.version
+END

@@ -1,0 +1,3 @@
+Right Number    : 782
+Wrong Number    : 98
+Targetprecision : 0.8886363636363637

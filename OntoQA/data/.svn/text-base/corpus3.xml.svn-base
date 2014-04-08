@@ -1,0 +1,8423 @@
+<?xml version="1.0"?>
+<!DOCTYPE examples [
+  <!ELEMENT examples (example*)>
+  <!ELEMENT example (query*,sparql*,answer*)>
+  <!ELEMENT query (#PCDATA)>
+  <!ELEMENT sparql (#PCDATA)>
+  <!ELEMENT answer (#PCDATA)>
+]>
+<examples xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+          xmlns:geo="http://ir.hit.edu/nli/geo/">
+ <example id="0">
+  <query>
+   give me the cities in virginia .
+  </query>
+  <sparql>
+  SELECT ?city
+WHERE {  
+	?city rdf:type geo:city .
+	?city geo:inState ?state .
+	?state geo:hasName "virginia" .
+}
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="1">
+  <query>
+   what are the high points of states surrounding mississippi ?
+  </query>
+  <sparql>
+SELECT ?highestPoint
+WHERE {
+	?state geo:hasHighestPoint ?highestPoint .
+	?state a geo:state .
+	?state geo:border ?state2 .
+	?state2 geo:hasName "mississippi" .
+}  
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="2">
+  <query>
+   name the rivers in arkansas .
+  </query>
+  <sparql>
+SELECT ?name
+WHERE {
+	?river geo:hasName ?name .
+	?river rdf:type geo:river .
+	?river geo:runThrough ?state .
+	?state geo:hasName "arkansas" .
+	?state rdf:type geo:state .
+}
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="3">
+  <query>
+   name all the rivers in colorado .
+  </query>
+  <sparql>
+SELECT ?name
+WHERE {
+	?river geo:hasName ?name .
+	?river rdf:type geo:river .
+	?river geo:runThrough ?state .
+	?state geo:hasName "colorado" .
+}
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="4">
+  <query>
+   can you tell me the capital of texas ?
+  </query>
+  <sparql>
+SELECT ?capital
+WHERE {
+	?state geo:hasCapital ?capital .
+	?state geo:hasName "texas" .
+	?state rdf:type geo:state .
+}
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="5">
+  <query>
+   could you tell me what is the highest point in the state of oregon ?
+  </query>
+  <sparql>
+SELECT ?highestPoint
+WHERE {
+	?state geo:hasHighestPoint ?highestPoint .
+	?state rdf:type geo:state .
+	?state geo:hasName "oregon" .
+}
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="6">
+  <query>
+   count the states which have elevations lower than what alabama has ?
+  </query>
+  <sparql  status="todo">
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="7">
+  <query>
+   give me all the states of usa ?
+  </query>
+  <sparql>
+    SELECT ?state
+	WHERE {
+	?state a geo:state .
+	?state geo:inCountry "us" .
+	} 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="8">
+  <query>
+   give me the cities in texas ?
+  </query>
+  <sparql>
+SELECT ?city
+WHERE {
+	?city geo:inState ?state .
+	?city a geo:city .
+	?state geo:hasName "texas" .
+}
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="9">
+  <query>
+   give me the cities in usa ?
+  </query>
+  <sparql>
+SELECT ?city
+WHERE {
+	?city geo:inState ?state .
+	?state rdf:type geo:state .
+	?state geo:inCountry "us" .
+}
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="10">
+  <query>
+   give me the cities in virginia ?
+  </query>
+  <sparql>
+SELECT ?city
+WHERE {
+	?city geo:inState ?state .
+	?city a geo:city .
+	?state geo:hasName "virginia" .
+}
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="11">
+  <query>
+   give me the cities which are in texas ?
+  </query>
+  <sparql>
+SELECT ?city
+WHERE {
+	?city geo:inState ?state .
+	?city a geo:city .
+	?state geo:hasName "texas" .
+}
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="12">
+  <query>
+   give me the lakes in california ?
+  </query>
+  <sparql>
+SELECT ?lake
+WHERE {
+	?lake geo:inState ?state .
+	?lake rdf:type geo:lake .
+	?state rdf:type geo:state .
+	?state geo:hasName "california" .
+}
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="13">
+  <query>
+   give me the largest state ?
+  </query>
+  <sparql>
+SELECT ?s
+WHERE {
+	?s a geo:state .
+	?s geo:hasArea ?a .
+}
+ORDER BY DESC(?a)
+LIMIT 1
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="14">
+  <query>
+   give me the longest river that passes through the us ?
+  </query>
+  <sparql>
+SELECT ?r
+WHERE {
+	?r a geo:river .
+	?r geo:hasLength ?l .
+	?r geo:runThrough ?s .
+	?s geo:inCountry "us" .
+}
+ORDER BY DESC(?l)
+LIMIT 1
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="15">
+  <query>
+   give me the number of rivers in california ?
+  </query>
+  <sparql>
+SELECT (COUNT(DISTINCT ?r) AS ?cnt) 
+WHERE {
+	?r a geo:river .
+	?r geo:runThrough ?s .
+	?s geo:hasName "california" .
+}
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="16">
+  <query>
+   give me the states that border utah ?
+  </query>
+  <sparql>
+SELECT ?state
+WHERE {
+	?state rdf:type geo:state .
+	?state geo:border ?state2 .
+	?state2 geo:hasName "utah" .
+}
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="17">
+  <query>
+   how big is alaska ?
+  </query>
+  <sparql>
+SELECT ?area
+WHERE {
+	?state rdf:type geo:state .
+	?state geo:hasArea ?area .
+	?state geo:hasName "alaska" .
+}
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="18">
+  <query>
+   how big is massachusetts ?
+  </query>
+  <sparql>
+SELECT ?area
+WHERE {
+	?state rdf:type geo:state .
+	?state geo:hasArea ?area .
+	?state geo:hasName "massachusetts" .
+}
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="19">
+  <query>
+   how big is new mexico ?
+  </query>
+  <sparql>
+SELECT ?area
+WHERE {
+	?state rdf:type geo:state .
+	?state geo:hasArea ?area .
+	?state geo:hasName "new mexico" .
+}
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="20">
+  <query>
+   how big is north dakota ?
+  </query>
+  <sparql>
+SELECT ?area
+WHERE {
+	?state rdf:type geo:state .
+	?state geo:hasArea ?area .
+	?state geo:hasName "north dakota" .
+}
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="21">
+  <query>
+   how big is texas ?
+  </query>
+  <sparql>
+SELECT ?area
+WHERE {
+	?state rdf:type geo:state .
+	?state geo:hasArea ?area .
+	?state geo:hasName "texas" .
+}
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="22">
+  <query>
+   how big is the city of new york ?
+  </query>
+  <sparql>
+SELECT ?area
+WHERE {
+	?city rdf:type geo:city .
+	?city geo:hasArea ?area .
+	?city geo:hasName "new york" .
+}
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="23">
+  <query>
+   how high are the highest points of all the states ?
+  </query>
+  <sparql>
+SELECT ?e
+WHERE {
+	?s geo:hasHighestPoint ?h.
+	?h geo:hasElevation ?e .
+}
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="24">
+  <query>
+   how high is guadalupe peak ?
+  </query>
+  <sparql>
+SELECT ?e
+WHERE {
+	?s geo:hasHighestPoint ?h.
+	?h geo:hasName "guadalupe peak" .
+	?h geo:hasElevation ?e .
+}
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="25">
+  <query>
+   how high is mount mckinley ?
+  </query>
+  <sparql>
+SELECT ?e
+WHERE {
+	?s geo:hasHighestPoint ?h.
+	?h geo:hasName "mount mckinley" .
+	?h geo:hasElevation ?e .
+}
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="26">
+  <query>
+   how high is the highest point in america ?
+  </query>
+  <sparql>
+SELECT ?e
+WHERE {
+	?s geo:hasHighestPoint ?h .
+	?h geo:hasElevation ?e .
+}
+ORDER BY DESC(?e)
+LIMIT 1 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="27">
+  <query>
+   how high is the highest point in montana ?
+  </query>
+  <sparql>
+SELECT ?e
+WHERE {
+	?s geo:hasName "montana" .
+	?s geo:hasHighestPoint ?h .
+	?h geo:hasElevation ?e .
+}
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="28">
+  <query>
+   how high is the highest point in the largest state ?
+  </query>
+  <sparql status="todo">
+SELECT *
+WHERE {
+	{SELECT ?s
+	WHERE {
+		?s a geo:state .
+		?s geo:hasArea ?a .
+	}
+	ORDER BY DESC(?a)
+	LIMIT 1}
+?s geo:hasHighestPoint ?h .
+?h geo:hasElevation ?e .
+}
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="29">
+  <query>
+   how high is the highest point of alabama ?
+  </query>
+  <sparql>
+SELECT ?e
+WHERE {
+	?s geo:hasName "alabama" .
+	?s geo:hasHighestPoint ?h.
+	?h geo:hasElevation ?e .
+}
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="30">
+  <query>
+   how high is the highest point of delaware ?
+  </query>
+  <sparql>
+SELECT ?e
+WHERE {
+	?s geo:hasName "delaware" .
+	?s geo:hasHighestPoint ?h.
+	?h geo:hasElevation ?e .
+}
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="31">
+  <query>
+   how high is the highest point of florida ?
+  </query>
+  <sparql>
+SELECT ?e
+WHERE {
+	?s geo:hasName "florida" .
+	?s geo:hasHighestPoint ?h.
+	?h geo:hasElevation ?e .
+}
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="32">
+  <query>
+   how high is the highest point of louisiana ?
+  </query>
+  <sparql>
+SELECT ?e
+WHERE {
+	?s geo:hasName "louisiana" .
+	?s geo:hasHighestPoint ?h.
+	?h geo:hasElevation ?e .
+}
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="33">
+  <query>
+   how large is alaska ?
+  </query>
+  <sparql>
+SELECT ?a
+WHERE {
+	?s geo:hasName "alaska" .
+	?s geo:hasArea ?a .
+} 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="34">
+  <query>
+   how large is texas ?
+  </query>
+  <sparql>
+SELECT ?a
+WHERE {
+	?s geo:hasName "texas" .
+	?s geo:hasArea ?a .
+}  
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="35">
+  <query>
+   how large is the largest city in alaska ?
+  </query>
+  <sparql status="todo">
+SELECT ?a
+WHERE {
+	?s geo:hasName "alaska" .
+	?c geo:inState ?s .
+	{SELECT ?c
+	WHERE {
+		?s geo:hasName "alaska" .
+		?c geo:inState ?s .
+		?c geo:hasPopulation ?p .	
+	}
+	ORDER BY DESC(?p)
+	LIMIT 1}
+} 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="36">
+  <query>
+   how long is rio grande ?
+  </query>
+  <sparql>
+SELECT ?l
+WHERE {
+	?r a geo:river .
+	?r geo:hasName "rio grande" .
+	?r geo:hasLength ?l .
+} 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="37">
+  <query>
+   how long is the colorado river ?
+  </query>
+  <sparql>
+SELECT ?l
+WHERE {
+	?r a geo:river .
+	?r geo:hasName "colorado" .
+	?r geo:hasLength ?l .
+}  
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="38">
+  <query>
+   how long is the delaware river ?
+  </query>
+  <sparql>
+SELECT ?l
+WHERE {
+	?r a geo:river .
+	?r geo:hasName "delaware" .
+	?r geo:hasLength ?l .
+} 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="39">
+  <query>
+   how long is the longest river in california ?
+  </query>
+  <sparql>
+SELECT ?l
+WHERE {
+	?r a geo:river .
+	?r geo:hasLength ?l .
+	?r geo:runThrough ?s .
+	?s geo:hasName "california" .
+} 
+ORDER BY DESC(?l)
+LIMIT 1
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="40">
+  <query>
+   how long is the longest river in the usa ?
+  </query>
+  <sparql>
+SELECT ?l
+WHERE {
+	?r a geo:river .
+	?r geo:hasLength ?l .
+	?r geo:runThrough ?s .
+	?s geo:inCountry "us" .
+} 
+ORDER BY DESC(?l)
+LIMIT 1 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="41">
+  <query>
+   how long is the mississippi ?
+  </query>
+  <sparql>
+SELECT ?l
+WHERE {
+	?r a geo:river .
+	?r geo:hasName "mississippi" .
+	?r geo:hasLength ?l .
+} 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="42">
+  <query>
+   how long is the mississippi river ?
+  </query>
+  <sparql>
+SELECT ?l
+WHERE {
+	?r a geo:river .
+	?r geo:hasName "mississippi" .
+	?r geo:hasLength ?l .
+} 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="43">
+  <query>
+   how long is the mississippi river in miles ?
+  </query>
+  <sparql status="todo">
+SELECT ?l
+WHERE {
+	?r a geo:river .
+	?r geo:hasName "mississippi" .
+	?r geo:hasLength ?l .
+}  
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="44">
+  <query>
+   how long is the missouri river ?
+  </query>
+  <sparql>
+SELECT ?l
+WHERE {
+	?r a geo:river .
+	?r geo:hasName "missouri" .
+	?r geo:hasLength ?l .
+}  
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="45">
+  <query>
+   how long is the north platte river ?
+  </query>
+  <sparql>
+SELECT ?l
+WHERE {
+	?r a geo:river .
+	?r geo:hasName "north platte" .
+	?r geo:hasLength ?l .
+}  
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="46">
+  <query>
+   how long is the ohio river ?
+  </query>
+  <sparql>
+SELECT ?l
+WHERE {
+	?r a geo:river .
+	?r geo:hasName "ohio" .
+	?r geo:hasLength ?l .
+} 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="47">
+  <query>
+   how long is the rio grande river ?
+  </query>
+  <sparql>
+SELECT ?l
+WHERE {
+	?r a geo:river .
+	?r geo:hasName "rio grande" .
+	?r geo:hasLength ?l .
+}  
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="48">
+  <query>
+   how long is the shortest river in the usa ?
+  </query>
+  <sparql>
+SELECT ?l
+WHERE {
+	?r a geo:river .
+	?r geo:hasLength ?l .
+	?r geo:runThrough ?s .
+	?s geo:inCountry "us" .
+} 
+ORDER BY ?l
+LIMIT 1
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="49">
+  <query>
+   how many big cities are in pennsylvania ?
+  </query>
+  <sparql>
+SELECT (COUNT(DISTINCT ?c) AS ?cnt)
+WHERE {
+	?c a geo:city .
+	?c geo:inState ?s .
+	?s geo:hasName "pennsylvania" .
+}
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="50">
+  <query>
+   how many capitals does rhode island have ?
+  </query>
+  <sparql status="todo">
+SELECT (COUNT(DISTINCT ?c) AS ?cnt)
+WHERE {
+	?c a geo:city .
+	?s geo:hasCapital ?c .
+	?s geo:hasName "rhode island" .
+}
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="51">
+  <query>
+   how many cities are in louisiana ?
+  </query>
+  <sparql>
+SELECT (COUNT(DISTINCT ?c) AS ?cnt)
+WHERE {
+	?c a geo:city .
+	?c geo:inState ?s .
+	?s geo:hasName "louisiana" .
+} 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="52">
+  <query>
+   how many cities are in montana ?
+  </query>
+  <sparql>
+SELECT (COUNT(DISTINCT ?c) AS ?cnt)
+WHERE {
+	?c a geo:city .
+	?c geo:inState ?s .
+	?s geo:hasName "montana" .
+} 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="53">
+  <query>
+   how many cities are there in the united states ?
+  </query>
+  <sparql>
+SELECT (COUNT(DISTINCT ?c) AS ?cnt)
+WHERE {
+	?c a geo:city .
+	?c geo:inState ?s .
+	?s geo:inCountry "us" .
+}  
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="54">
+  <query>
+   how many cities are there in the us ?
+  </query>
+  <sparql>
+SELECT (COUNT(DISTINCT ?c) AS ?cnt)
+WHERE {
+	?c a geo:city .
+	?c geo:inState ?s .
+	?s geo:inCountry "us" .
+} 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="55">
+  <query>
+   how many cities are there in us ?
+  </query>
+  <sparql>
+SELECT (COUNT(DISTINCT ?c) AS ?cnt)
+WHERE {
+	?c a geo:city .
+	?c geo:inState ?s .
+	?s geo:inCountry "us" .
+} 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="56">
+  <query>
+   how many cities are there in usa ?
+  </query>
+  <sparql>
+SELECT (COUNT(DISTINCT ?c) AS ?cnt)
+WHERE {
+	?c a geo:city .
+	?c geo:inState ?s .
+	?s geo:inCountry "us" .
+}  
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="57">
+  <query>
+   how many cities does texas have ?
+  </query>
+  <sparql>
+SELECT (COUNT(DISTINCT ?c) AS ?cnt)
+WHERE {
+	?c a geo:city .
+	?c geo:inState ?s .
+	?s geo:hasName "texas" .
+}  
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="58">
+  <query>
+   how many cities does the usa have ?
+  </query>
+  <sparql>
+SELECT (COUNT(DISTINCT ?c) AS ?cnt)
+WHERE {
+	?c a geo:city .
+	?c geo:inState ?s .
+	?s geo:inCountry "us" .
+} 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="59">
+  <query>
+   how many cities named austin are there in the usa ?
+  </query>
+  <sparql>
+SELECT (COUNT(DISTINCT ?c) AS ?cnt)
+WHERE {
+	?c a geo:city .
+	?c geo:hasName "austin" .
+	?c geo:inState ?s .
+	?s geo:inCountry "us" .
+}  
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="60">
+  <query>
+   how many citizens does the biggest city have in the usa ?
+  </query>
+  <sparql>
+SELECT ?p
+WHERE {
+	?c a geo:city .
+	?c geo:hasPopulation ?p .
+	?c geo:inState ?s .
+	?s geo:inCountry "us" .
+}
+ORDER BY DESC(?p)
+LIMIT 1
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="61">
+  <query>
+   how many citizens in alabama ?
+  </query>
+  <sparql>
+SELECT ?p
+WHERE {
+	?s geo:hasPopulation ?p .
+	?s geo:hasName "alabama" .
+} 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="62">
+  <query>
+   how many citizens in boulder ?
+  </query>
+  <sparql>
+SELECT ?p
+WHERE {
+	?s geo:hasPopulation ?p .
+	?s geo:hasName "boulder" .
+} 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="63">
+  <query>
+   how many citizens live in california ?
+  </query>
+  <sparql>
+SELECT ?p
+WHERE {
+	?s geo:hasPopulation ?p .
+	?s geo:hasName "california" .
+}
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="64">
+  <query>
+   how many colorado rivers are there ?
+  </query>
+  <sparql status="todo">
+SELECT (COUNT(DISTINCT ?r) AS ?cnt)
+WHERE {
+	?r a geo:river .
+	?r geo:hasName "colorado" .
+} 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="65">
+  <query>
+   how many inhabitants does montgomery have ?
+  </query>
+  <sparql>
+SELECT ?p
+WHERE {
+	?s geo:hasPopulation ?p .
+	?s geo:hasName "montgomery" .
+} 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="66">
+  <query>
+   how many major cities are in arizona ?
+  </query>
+  <sparql>
+SELECT (COUNT(DISTINCT ?c) AS ?cnt)
+WHERE {
+	?s geo:hasName "arizona" .
+	?s geo:majorCity ?c .
+}
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="67">
+  <query>
+   how many major cities are in florida ?
+  </query>
+  <sparql>
+SELECT (COUNT(DISTINCT ?c) AS ?cnt)
+WHERE {
+	?s geo:hasName "florida" .
+	?s geo:majorCity ?c .
+}
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="68">
+  <query>
+   how many major cities are in states bordering nebraska ?
+  </query>
+  <sparql>
+SELECT (COUNT(DISTINCT ?c) AS ?cnt)
+WHERE {
+	?s geo:majorCity ?c .
+	?s geo:border ?s2 .
+	?s2 geo:hasName "nebraska" .
+} 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="69">
+  <query>
+   how many major cities are in states bordering utah ?
+  </query>
+  <sparql>
+SELECT (COUNT(DISTINCT ?c) AS ?cnt)
+WHERE {
+	?s geo:majorCity ?c .
+	?s geo:border ?s2 .
+	?s2 geo:hasName "utah" .
+}
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="70">
+  <query>
+   how many major cities are in texas ?
+  </query>
+  <sparql>
+SELECT (COUNT(DISTINCT ?c) AS ?cnt)
+WHERE {
+	?s geo:hasName "florida" .
+	?s geo:majorCity ?c .
+} 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="71">
+  <query>
+   how many major cities are there ?
+  </query>
+  <sparql>
+SELECT (COUNT(DISTINCT ?c) AS ?cnt)
+WHERE {
+	?s geo:majorCity ?c .
+}
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="72">
+  <query>
+   how many major cities are there in oregon ?
+  </query>
+  <sparql>
+SELECT (COUNT(DISTINCT ?c) AS ?cnt)
+WHERE {
+	?s geo:hasName "oregon" .
+	?s geo:majorCity ?c .
+}
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="73">
+  <query>
+   how many major rivers cross ohio ?
+  </query>
+  <sparql>
+SELECT (COUNT(DISTINCT ?r) AS ?cnt)
+WHERE {
+	?r a geo:river .
+	?r geo:runThrough ?s .
+	?s geo:hasName "ohio" .
+} 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="74">
+  <query>
+   how many people are in the state of nevada ?
+  </query>
+  <sparql>
+SELECT ?p
+WHERE {
+	?s geo:hasPopulation ?p .
+	?s geo:hasName "nevada" .
+	?s a geo:state .
+} 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="75">
+  <query>
+   how many people are there in iowa ?
+  </query>
+  <sparql>
+SELECT ?p
+WHERE {
+	?s geo:hasPopulation ?p .
+	?s geo:hasName "iowa" .
+} 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="76">
+  <query>
+   how many people are there in new york ?
+  </query>
+  <sparql>
+SELECT ?p
+WHERE {
+	?s geo:hasPopulation ?p .
+	?s geo:hasName "new york" .
+} 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="77">
+  <query>
+   how many people in boulder ?
+  </query>
+  <sparql>
+SELECT ?p
+WHERE {
+	?s geo:hasPopulation ?p .
+	?s geo:hasName "boulder" .
+}  
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="78">
+  <query>
+   how many people live in austin ?
+  </query>
+  <sparql>
+SELECT ?p
+WHERE {
+	?s geo:hasPopulation ?p .
+	?s geo:hasName "austin" .
+} 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="79">
+  <query>
+   how many people live in austin texas ?
+  </query>
+  <sparql>
+SELECT ?p
+WHERE {
+	?c geo:hasPopulation ?p .
+	?c geo:hasName "austin" .
+	?c geo:inState ?s .
+	?s geo:hasName "texas" .
+}  
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="80">
+  <query>
+   how many people live in california ?
+  </query>
+  <sparql>
+SELECT ?p
+WHERE {
+	?s geo:hasPopulation ?p .
+	?s geo:hasName "california" .
+} 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="81">
+  <query>
+   how many people live in chicago ?
+  </query>
+  <sparql>
+SELECT ?p
+WHERE {
+	?s geo:hasPopulation ?p .
+	?s geo:hasName "chicago" .
+}  
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="82">
+  <query>
+   how many people live in detroit ?
+  </query>
+  <sparql>
+SELECT ?p
+WHERE {
+	?s geo:hasPopulation ?p .
+	?s geo:hasName "detroit" .
+}  
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="83">
+  <query>
+   how many people live in hawaii ?
+  </query>
+  <sparql>
+SELECT ?p
+WHERE {
+	?s geo:hasPopulation ?p .
+	?s geo:hasName "hawaii" .
+} 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="84">
+  <query>
+   how many people live in houston ?
+  </query>
+  <sparql>
+SELECT ?p
+WHERE {
+	?s geo:hasPopulation ?p .
+	?s geo:hasName "houston" .
+}  
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="85">
+  <query>
+   how many people live in kalamazoo ?
+  </query>
+  <sparql>
+SELECT ?p
+WHERE {
+	?s geo:hasPopulation ?p .
+	?s geo:hasName "kalamazoo" .
+}  
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="86">
+  <query>
+   how many people live in kansas ?
+  </query>
+  <sparql>
+SELECT ?p
+WHERE {
+	?s geo:hasPopulation ?p .
+	?s geo:hasName "kansas" .
+}  
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="87">
+  <query>
+   how many people live in minneapolis minnesota ?
+  </query>
+  <sparql>
+SELECT ?p
+WHERE {
+	?c geo:hasPopulation ?p .
+	?c geo:hasName "minneapolis" .
+	?c geo:inState ?s .
+	?s geo:hasName "minnesota" .
+}  
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="88">
+  <query>
+   how many people live in mississippi ?
+  </query>
+  <sparql>
+SELECT ?p
+WHERE {
+	?s geo:hasPopulation ?p .
+	?s geo:hasName "mississippi" .
+} 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="89">
+  <query>
+   how many people live in montana ?
+  </query>
+  <sparql>
+SELECT ?p
+WHERE {
+	?s geo:hasPopulation ?p .
+	?s geo:hasName "montana" .
+} 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="90">
+  <query>
+   how many people live in new hampshire ?
+  </query>
+  <sparql>
+SELECT ?p
+WHERE {
+	?s geo:hasPopulation ?p .
+	?s geo:hasName "new hampshire" .
+}  
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="91">
+  <query>
+   how many people live in new mexico ?
+  </query>
+  <sparql>
+SELECT ?p
+WHERE {
+	?s geo:hasPopulation ?p .
+	?s geo:hasName "new mexico" .
+}  
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="92">
+  <query>
+   how many people live in new york ?
+  </query>
+  <sparql>
+SELECT ?p
+WHERE {
+	?s geo:hasPopulation ?p .
+	?s geo:hasName "new york" .
+}  
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="93">
+  <query>
+   how many people live in rhode island ?
+  </query>
+  <sparql>
+SELECT ?p
+WHERE {
+	?s geo:hasPopulation ?p .
+	?s geo:hasName "rhode island" .
+} 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="94">
+  <query>
+   how many people live in riverside ?
+  </query>
+  <sparql>
+SELECT ?p
+WHERE {
+	?s geo:hasPopulation ?p .
+	?s geo:hasName "riverside" .
+} 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="95">
+  <query>
+   how many people live in san francisco ?
+  </query>
+  <sparql>
+SELECT ?p
+WHERE {
+	?s geo:hasPopulation ?p .
+	?s geo:hasName "san francisco" .
+}  
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="96">
+  <query>
+   how many people live in south dakota ?
+  </query>
+  <sparql>
+SELECT ?p
+WHERE {
+	?s geo:hasPopulation ?p .
+	?s geo:hasName "south dakota" .
+} 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="97">
+  <query>
+   how many people live in spokane washington ?
+  </query>
+  <sparql>
+SELECT ?p
+WHERE {
+	?c geo:hasPopulation ?p .
+	?c geo:hasName "spokane" .
+	?c geo:inState ?s .
+	?s geo:hasName "washington" .
+}  
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="98">
+  <query>
+   how many people live in texas ?
+  </query>
+  <sparql>
+SELECT ?p
+WHERE {
+	?s geo:hasPopulation ?p .
+	?s geo:hasName "texas" .
+}  
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="99">
+  <query>
+   how many people live in the biggest city in new york state ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="100">
+  <query>
+   how many people live in the capital of georgia ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="101">
+  <query>
+   how many people live in the capital of texas ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="102">
+  <query>
+   how many people live in the smallest state bordering wyoming ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="103">
+  <query>
+   how many people live in the state with the largest population density ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="104">
+  <query>
+   how many people live in the united states ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="105">
+  <query>
+   how many people live in washington ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="106">
+  <query>
+   how many people live in washington dc ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="107">
+  <query>
+   how many people lived in austin ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="108">
+  <query>
+   how many people reside in utah ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="109">
+  <query>
+   how many people stay in utah ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="110">
+  <query>
+   how many residents live in texas ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="111">
+  <query>
+   how many rivers are called colorado ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="112">
+  <query>
+   how many rivers are found in colorado ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="113">
+  <query>
+   how many rivers are in colorado ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="114">
+  <query>
+   how many rivers are in iowa ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="115">
+  <query>
+   how many rivers are in missouri ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="116">
+  <query>
+   how many rivers are in new york ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="117">
+  <query>
+   how many rivers are in the state that has the most rivers ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="118">
+  <query>
+   how many rivers are in the state with the highest point ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="119">
+  <query>
+   how many rivers are in the state with the largest population ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="120">
+  <query>
+   how many rivers are there in idaho ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="121">
+  <query>
+   how many rivers are there in texas ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="122">
+  <query>
+   how many rivers are there in us ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="123">
+  <query>
+   how many rivers do not traverse the state with the capital albany ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="124">
+  <query>
+   how many rivers does alaska have ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="125">
+  <query>
+   how many rivers does colorado have ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="126">
+  <query>
+   how many rivers in texas are longer than the red ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="127">
+  <query>
+   how many rivers in washington ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="128">
+  <query>
+   how many rivers run through texas ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="129">
+  <query>
+   how many rivers run through the states bordering colorado ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="130">
+  <query>
+   how many square kilometers in the us ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="131">
+  <query>
+   how many states are in the united states ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="132">
+  <query>
+   how many states are in the usa ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="133">
+  <query>
+   how many states are next to major rivers ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="134">
+  <query>
+   how many states are there ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="135">
+  <query>
+   how many states are there in the usa ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="136">
+  <query>
+   how many states are there in united states ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="137">
+  <query>
+   how many states border alaska ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="138">
+  <query>
+   how many states border at least one other state ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="139">
+  <query>
+   how many states border colorado and border new mexico ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="140">
+  <query>
+   how many states border hawaii ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="141">
+  <query>
+   how many states border iowa ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="142">
+  <query>
+   how many states border on the state whose capital is boston ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="143">
+  <query>
+   how many states border tennessee ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="144">
+  <query>
+   how many states border texas ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="145">
+  <query>
+   how many states border the largest state ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="146">
+  <query>
+   how many states border the mississippi river ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="147">
+  <query>
+   how many states border the state that borders the most states ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="148">
+  <query>
+   how many states border the state with the largest population ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="149">
+  <query>
+   how many states do not have rivers ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="150">
+  <query>
+   how many states does iowa border ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="151">
+  <query>
+   how many states does missouri border ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="152">
+  <query>
+   how many states does tennessee border ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="153">
+  <query>
+   how many states does the colorado river flow through ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="154">
+  <query>
+   how many states does the colorado river run through ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="155">
+  <query>
+   how many states does the mississippi river run through ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="156">
+  <query>
+   how many states does the mississippi run through ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="157">
+  <query>
+   how many states does the missouri river run through ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="158">
+  <query>
+   how many states does usa have ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="159">
+  <query>
+   how many states have a city called rochester ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="160">
+  <query>
+   how many states have a city named springfield ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="161">
+  <query>
+   how many states have a higher point than the highest point of the state with the largest capital city in the us ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="162">
+  <query>
+   how many states have cites named austin ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="163">
+  <query>
+   how many states have cities or towns named springfield ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="164">
+  <query>
+   how many states have major rivers ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="165">
+  <query>
+   how many states in the us does the shortest river run through ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="166">
+  <query>
+   how much population does texas have ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="167">
+  <query>
+   how tall is mount mckinley ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="168">
+  <query>
+   how tall is the highest point in montana ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="169">
+  <query>
+   in what state is mount mckinley ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="170">
+  <query>
+   in which state does the highest point in usa exist ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="171">
+  <query>
+   in which state is rochester ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="172">
+  <query>
+   iowa borders how many states ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="173">
+  <query>
+   list the states ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="174">
+  <query>
+   name all the lakes of us ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="175">
+  <query>
+   name all the rivers in colorado ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="176">
+  <query>
+   name the 50 capitals in the usa ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="177">
+  <query>
+   name the longest river in us ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="178">
+  <query>
+   name the major lakes in michigan ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="179">
+  <query>
+   name the major rivers in florida ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="180">
+  <query>
+   name the rivers in arkansas ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="181">
+  <query>
+   name the states which have no surrounding states ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="182">
+  <query>
+   number of citizens in boulder ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="183">
+  <query>
+   number of people in boulder ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="184">
+  <query>
+   number of states bordering iowa ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="185">
+  <query>
+   of the states washed by the mississippi river which has the lowest point ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="186">
+  <query>
+   people in boulder ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="187">
+  <query>
+   population of boulder ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="188">
+  <query>
+   rivers in new york ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="189">
+  <query>
+   sacramento is the capital of which state ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="190">
+  <query>
+   san antonio is in what state ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="191">
+  <query>
+   show major cities in colorado ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="192">
+  <query>
+   show me all the major lakes in the us ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="193">
+  <query>
+   state the state with the largest area ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="194">
+  <query>
+   states bordering iowa ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="195">
+  <query>
+   tell me what cities are in texas ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="196">
+  <query>
+   through which states does the longest river in texas run ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="197">
+  <query>
+   through which states does the mississippi flow ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="198">
+  <query>
+   through which states does the mississippi run ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="199">
+  <query>
+   what are all the rivers in texas ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="200">
+  <query>
+   what are major rivers in texas ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="201">
+  <query>
+   what are the biggest rivers in texas ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="202">
+  <query>
+   what are the capital cities of the states which border texas ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="203">
+  <query>
+   what are the capital city in texas ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="204">
+  <query>
+   what are the capitals of states that border missouri ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="205">
+  <query>
+   what are the capitals of the states that border texas ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="206">
+  <query>
+   what are the cities in california ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="207">
+  <query>
+   what are the cities in states through which the mississippi runs ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="208">
+  <query>
+   what are the cities of the state with the highest point ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="209">
+  <query>
+   what are the highest points of all the states ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="210">
+  <query>
+   what are the highest points of states surrounding mississippi ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="211">
+  <query>
+   what are the lakes in states bordering texas ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="212">
+  <query>
+   what are the largest cities in the states that border the largest state ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="213">
+  <query>
+   what are the major cities in alabama ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="214">
+  <query>
+   what are the major cities in alaska ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="215">
+  <query>
+   what are the major cities in california ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="216">
+  <query>
+   what are the major cities in delaware ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="217">
+  <query>
+   what are the major cities in kansas ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="218">
+  <query>
+   what are the major cities in missouri ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="219">
+  <query>
+   what are the major cities in new mexico ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="220">
+  <query>
+   what are the major cities in new york ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="221">
+  <query>
+   what are the major cities in north carolina ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="222">
+  <query>
+   what are the major cities in ohio ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="223">
+  <query>
+   what are the major cities in oklahoma ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="224">
+  <query>
+   what are the major cities in rhode island ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="225">
+  <query>
+   what are the major cities in states through which the mississippi runs ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="226">
+  <query>
+   what are the major cities in texas ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="227">
+  <query>
+   what are the major cities in the largest state ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="228">
+  <query>
+   what are the major cities in the smallest state in the us ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="229">
+  <query>
+   what are the major cities in the state of california ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="230">
+  <query>
+   what are the major cities in the states through which the major river in virginia runs ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="231">
+  <query>
+   what are the major cities in the usa ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="232">
+  <query>
+   what are the major cities in vermont ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="233">
+  <query>
+   what are the major cities in wyoming ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="234">
+  <query>
+   what are the major cities of texas ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="235">
+  <query>
+   what are the major cities of the united states ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="236">
+  <query>
+   what are the major cities of the us ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="237">
+  <query>
+   what are the major lakes in united states ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="238">
+  <query>
+   what are the major rivers in ohio ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="239">
+  <query>
+   what are the major rivers in the us ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="240">
+  <query>
+   what are the names of the major cities in illinois ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="241">
+  <query>
+   what are the neighboring states for michigan ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="242">
+  <query>
+   what are the population densities of each us state ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="243">
+  <query>
+   what are the population of mississippi ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="244">
+  <query>
+   what are the populations of all the major cities in montana ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="245">
+  <query>
+   what are the populations of states through which the mississippi river run ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="246">
+  <query>
+   what are the populations of states through which the mississippi river runs ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="247">
+  <query>
+   what are the populations of states through which the mississippi run ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="248">
+  <query>
+   what are the populations of states through which the mississippi runs ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="249">
+  <query>
+   what are the populations of states which border texas ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="250">
+  <query>
+   what are the populations of the major cities of texas ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="251">
+  <query>
+   what are the populations of the states through which the mississippi river run ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="252">
+  <query>
+   what are the populations of the states through which the mississippi river runs ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="253">
+  <query>
+   what are the populations of the states through which the mississippi run ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="254">
+  <query>
+   what are the populations of the states through which the mississippi runs ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="255">
+  <query>
+   what are the rivers in alaska ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="256">
+  <query>
+   what are the rivers in the state of indiana ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="257">
+  <query>
+   what are the rivers in the state of texas ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="258">
+  <query>
+   what are the rivers of montana ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="259">
+  <query>
+   what are the states ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="260">
+  <query>
+   what are the states that border the state with the greatest population ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="261">
+  <query>
+   what are the states that the potomac run through ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="262">
+  <query>
+   what are the states through which the longest river runs ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="263">
+  <query>
+   what can you tell me about the population of missouri ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="264">
+  <query>
+   what capital has the largest population ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="265">
+  <query>
+   what capital is the largest in the us ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="266">
+  <query>
+   what cities are located in pennsylvania ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="267">
+  <query>
+   what cities in california ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="268">
+  <query>
+   what cities in texas have the highest number of citizens ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="269">
+  <query>
+   what cities in texas have the highest populations ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="270">
+  <query>
+   what city has the largest population ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="271">
+  <query>
+   what city has the least population ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="272">
+  <query>
+   what city has the most people ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="273">
+  <query>
+   what city in the united states has the highest population density ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="274">
+  <query>
+   what is capital of iowa ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="275">
+  <query>
+   what is capital of the state with the lowest point ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="276">
+  <query>
+   what is largest capital ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="277">
+  <query>
+   what is the adjacent state of california ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="278">
+  <query>
+   what is the area of alaska ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="279">
+  <query>
+   what is the area of all the states combined ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="280">
+  <query>
+   what is the area of california ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="281">
+  <query>
+   what is the area of florida ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="282">
+  <query>
+   what is the area of idaho ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="283">
+  <query>
+   what is the area of maine ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="284">
+  <query>
+   what is the area of maryland in square kilometers ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="285">
+  <query>
+   what is the area of new mexico ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="286">
+  <query>
+   what is the area of ohio ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="287">
+  <query>
+   what is the area of seattle ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="288">
+  <query>
+   what is the area of south carolina ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="289">
+  <query>
+   what is the area of texas ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="290">
+  <query>
+   what is the area of the largest state ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="291">
+  <query>
+   what is the area of the smallest state ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="292">
+  <query>
+   what is the area of the state with the capital albany ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="293">
+  <query>
+   what is the area of the state with the smallest population density ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="294">
+  <query>
+   what is the area of the states ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="295">
+  <query>
+   what is the area of the texas state ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="296">
+  <query>
+   what is the area of wisconsin ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="297">
+  <query>
+   what is the average population of the us by state ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="298">
+  <query>
+   what is the average population per square km in pennsylvania ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="299">
+  <query>
+   what is the average population per square km in the us ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="300">
+  <query>
+   what is the biggest american city in a state with a river ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="301">
+  <query>
+   what is the biggest capital city in the us ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="302">
+  <query>
+   what is the biggest city in arizona ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="303">
+  <query>
+   what is the biggest city in georgia ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="304">
+  <query>
+   what is the biggest city in kansas ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="305">
+  <query>
+   what is the biggest city in louisiana ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="306">
+  <query>
+   what is the biggest city in nebraska ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="307">
+  <query>
+   what is the biggest city in oregon ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="308">
+  <query>
+   what is the biggest city in texas ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="309">
+  <query>
+   what is the biggest city in the smallest state ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="310">
+  <query>
+   what is the biggest city in the us ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="311">
+  <query>
+   what is the biggest city in the usa ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="312">
+  <query>
+   what is the biggest city in usa ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="313">
+  <query>
+   what is the biggest city in wyoming ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="314">
+  <query>
+   what is the biggest river in illinois ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="315">
+  <query>
+   what is the biggest state ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="316">
+  <query>
+   what is the biggest state in continental us ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="317">
+  <query>
+   what is the biggest state in the usa ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="318">
+  <query>
+   what is the capital city of the largest state in the us ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="319">
+  <query>
+   what is the capital of california ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="320">
+  <query>
+   what is the capital of colorado ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="321">
+  <query>
+   what is the capital of georgia ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="322">
+  <query>
+   what is the capital of hawaii ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="323">
+  <query>
+   what is the capital of illinois ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="324">
+  <query>
+   what is the capital of indiana ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="325">
+  <query>
+   what is the capital of iowa ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="326">
+  <query>
+   what is the capital of maine ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="327">
+  <query>
+   what is the capital of maryland ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="328">
+  <query>
+   what is the capital of massachusetts ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="329">
+  <query>
+   what is the capital of michigan ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="330">
+  <query>
+   what is the capital of new hampshire ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="331">
+  <query>
+   what is the capital of new jersey ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="332">
+  <query>
+   what is the capital of new york ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="333">
+  <query>
+   what is the capital of north dakota ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="334">
+  <query>
+   what is the capital of ohio ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="335">
+  <query>
+   what is the capital of pennsylvania ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="336">
+  <query>
+   what is the capital of states that have cities named durham ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="337">
+  <query>
+   what is the capital of texas ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="338">
+  <query>
+   what is the capital of the alabama state ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="339">
+  <query>
+   what is the capital of the florida state ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="340">
+  <query>
+   what is the capital of the largest state ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="341">
+  <query>
+   what is the capital of the smallest state ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="342">
+  <query>
+   what is the capital of the state texas ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="343">
+  <query>
+   what is the capital of the state that borders the most states ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="344">
+  <query>
+   what is the capital of the state that borders the state that borders texas ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="345">
+  <query>
+   what is the capital of the state with the highest elevation ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="346">
+  <query>
+   what is the capital of the state with the highest point ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="347">
+  <query>
+   what is the capital of the state with the largest population ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="348">
+  <query>
+   what is the capital of the state with the largest population density ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="349">
+  <query>
+   what is the capital of the state with the longest river ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="350">
+  <query>
+   what is the capital of the state with the most inhabitants ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="351">
+  <query>
+   what is the capital of utah ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="352">
+  <query>
+   what is the capital of vermont ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="353">
+  <query>
+   what is the capital of washington ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="354">
+  <query>
+   what is the city in texas with the largest population ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="355">
+  <query>
+   what is the city with the smallest population ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="356">
+  <query>
+   what is the combined area of all 50 states ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="357">
+  <query>
+   what is the combined population of all 50 states ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="358">
+  <query>
+   what is the density of texas ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="359">
+  <query>
+   what is the density of the new york ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="360">
+  <query>
+   what is the elevation of death valley ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="361">
+  <query>
+   what is the elevation of the highest point in the usa ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="362">
+  <query>
+   what is the height of mount mckinley ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="363">
+  <query>
+   what is the height of the highest mountain in texas ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="364">
+  <query>
+   what is the height of the highest point in the usa ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="365">
+  <query>
+   what is the high point of wyoming ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="366">
+  <query>
+   what is the highest elevation in new mexico ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="367">
+  <query>
+   what is the highest elevation in south carolina ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="368">
+  <query>
+   what is the highest elevation in texas ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="369">
+  <query>
+   what is the highest elevation in the united states ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="370">
+  <query>
+   what is the highest mountain in alaska ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="371">
+  <query>
+   what is the highest mountain in texas ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="372">
+  <query>
+   what is the highest mountain in the us ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="373">
+  <query>
+   what is the highest mountain in us ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="374">
+  <query>
+   what is the highest point in colorado ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="375">
+  <query>
+   what is the highest point in delaware ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="376">
+  <query>
+   what is the highest point in each state whose lowest point is sea level ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="377">
+  <query>
+   what is the highest point in florida ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="378">
+  <query>
+   what is the highest point in iowa ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="379">
+  <query>
+   what is the highest point in kansas ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="380">
+  <query>
+   what is the highest point in maine ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="381">
+  <query>
+   what is the highest point in montana ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="382">
+  <query>
+   what is the highest point in nevada in meters ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="383">
+  <query>
+   what is the highest point in new mexico ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="384">
+  <query>
+   what is the highest point in ohio ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="385">
+  <query>
+   what is the highest point in rhode island ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="386">
+  <query>
+   what is the highest point in states bordering georgia ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="387">
+  <query>
+   what is the highest point in texas ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="388">
+  <query>
+   what is the highest point in the country ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="389">
+  <query>
+   what is the highest point in the smallest state ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="390">
+  <query>
+   what is the highest point in the state with capital austin ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="391">
+  <query>
+   what is the highest point in the state with capital des moines ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="392">
+  <query>
+   what is the highest point in the state with the capital des moines ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="393">
+  <query>
+   what is the highest point in the state with the most rivers ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="394">
+  <query>
+   what is the highest point in the state with the smallest population ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="395">
+  <query>
+   what is the highest point in the states bordering colorado ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="396">
+  <query>
+   what is the highest point in the united states ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="397">
+  <query>
+   what is the highest point in the us ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="398">
+  <query>
+   what is the highest point in the usa ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="399">
+  <query>
+   what is the highest point in virginia ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="400">
+  <query>
+   what is the highest point in wyoming ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="401">
+  <query>
+   what is the highest point of the state with the largest area ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="402">
+  <query>
+   what is the highest point of the state with the smallest population density ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="403">
+  <query>
+   what is the highest point of the usa ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="404">
+  <query>
+   what is the largest capital ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="405">
+  <query>
+   what is the largest capital city in the usa ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="406">
+  <query>
+   what is the largest city in a state that borders texas ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="407">
+  <query>
+   what is the largest city in alabama ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="408">
+  <query>
+   what is the largest city in california ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="409">
+  <query>
+   what is the largest city in michigan ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="410">
+  <query>
+   what is the largest city in minnesota by population ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="411">
+  <query>
+   what is the largest city in missouri ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="412">
+  <query>
+   what is the largest city in rhode island ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="413">
+  <query>
+   what is the largest city in smallest state through which the mississippi runs ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="414">
+  <query>
+   what is the largest city in states that border california ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="415">
+  <query>
+   what is the largest city in texas ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="416">
+  <query>
+   what is the largest city in the smallest state in the usa ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="417">
+  <query>
+   what is the largest city in wisconsin ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="418">
+  <query>
+   what is the largest city of kansas ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="419">
+  <query>
+   what is the largest of the state that the rio grande runs through ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="420">
+  <query>
+   what is the largest river in washington state ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="421">
+  <query>
+   what is the largest state ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="422">
+  <query>
+   what is the largest state bordering arkansas ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="423">
+  <query>
+   what is the largest state bordering texas ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="424">
+  <query>
+   what is the largest state capital in population ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="425">
+  <query>
+   what is the largest state in the us ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="426">
+  <query>
+   what is the largest state in usa ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="427">
+  <query>
+   what is the largest state that borders california ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="428">
+  <query>
+   what is the largest state that borders texas ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="429">
+  <query>
+   what is the largest state that borders the state with the highest population ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="430">
+  <query>
+   what is the largest state that borders the state with the lowest point in the usa ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="431">
+  <query>
+   what is the largest state traversed by the mississippi river ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="432">
+  <query>
+   what is the least populous state ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="433">
+  <query>
+   what is the length of the colorado river ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="434">
+  <query>
+   what is the length of the colorado river in texas ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="435">
+  <query>
+   what is the length of the longest river in the usa ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="436">
+  <query>
+   what is the length of the longest river that runs through texas ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="437">
+  <query>
+   what is the length of the mississippi river ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="438">
+  <query>
+   what is the length of the river that flows through the most states ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="439">
+  <query>
+   what is the length of the river that runs through the most number of states ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="440">
+  <query>
+   what is the length of the river that runs through the most states ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="441">
+  <query>
+   what is the length of the river that traverses the most states ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="442">
+  <query>
+   what is the longest river ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="443">
+  <query>
+   what is the longest river flowing through new york ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="444">
+  <query>
+   what is the longest river in america ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="445">
+  <query>
+   what is the longest river in california ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="446">
+  <query>
+   what is the longest river in florida ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="447">
+  <query>
+   what is the longest river in mississippi ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="448">
+  <query>
+   what is the longest river in new york ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="449">
+  <query>
+   what is the longest river in pennsylvania ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="450">
+  <query>
+   what is the longest river in texas ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="451">
+  <query>
+   what is the longest river in the largest state ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="452">
+  <query>
+   what is the longest river in the smallest state in the usa ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="453">
+  <query>
+   what is the longest river in the state with the highest point ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="454">
+  <query>
+   what is the longest river in the state with the most major cities ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="455">
+  <query>
+   what is the longest river in the states that border nebraska ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="456">
+  <query>
+   what is the longest river in the united states ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="457">
+  <query>
+   what is the longest river in the us ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="458">
+  <query>
+   what is the longest river that does not run through texas ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="459">
+  <query>
+   what is the longest river that flows through a state that borders indiana ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="460">
+  <query>
+   what is the longest river that flows through colorado ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="461">
+  <query>
+   what is the longest river that passes the states that border the state that borders the most states ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="462">
+  <query>
+   what is the longest river that runs through a state that borders tennessee ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="463">
+  <query>
+   what is the lowest elevation in pennsylvania ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="464">
+  <query>
+   what is the lowest point in arkansas ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="465">
+  <query>
+   what is the lowest point in california ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="466">
+  <query>
+   what is the lowest point in louisiana ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="467">
+  <query>
+   what is the lowest point in massachusetts ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="468">
+  <query>
+   what is the lowest point in mississippi ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="469">
+  <query>
+   what is the lowest point in nebraska in meters ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="470">
+  <query>
+   what is the lowest point in oregon ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="471">
+  <query>
+   what is the lowest point in texas ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="472">
+  <query>
+   what is the lowest point in the state of california ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="473">
+  <query>
+   what is the lowest point in the state of texas ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="474">
+  <query>
+   what is the lowest point in the united states ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="475">
+  <query>
+   what is the lowest point in usa ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="476">
+  <query>
+   what is the lowest point in wisconsin ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="477">
+  <query>
+   what is the lowest point of all states through which the colorado river runs through ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="478">
+  <query>
+   what is the lowest point of colorado ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="479">
+  <query>
+   what is the lowest point of the state with the largest area ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="480">
+  <query>
+   what is the lowest point of the us ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="481">
+  <query>
+   what is the major cities in montana ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="482">
+  <query>
+   what is the maximum elevation of san francisco ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="483">
+  <query>
+   what is the most dense state in the usa ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="484">
+  <query>
+   what is the most populated capital in the usa ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="485">
+  <query>
+   what is the most populated state bordering oklahoma ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="486">
+  <query>
+   what is the most populous city ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="487">
+  <query>
+   what is the most populous city in texas ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="488">
+  <query>
+   what is the most populous city in wyoming ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="489">
+  <query>
+   what is the most populous state ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="490">
+  <query>
+   what is the most populous state in the us ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="491">
+  <query>
+   what is the most populous state through which the mississippi runs ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="492">
+  <query>
+   what is the name of the state with the lowest point ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="493">
+  <query>
+   what is the number of neighboring states for kentucky ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="494">
+  <query>
+   what is the population density in the state with capital austin ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="495">
+  <query>
+   what is the population density of maine ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="496">
+  <query>
+   what is the population density of south dakota ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="497">
+  <query>
+   what is the population density of texas ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="498">
+  <query>
+   what is the population density of the largest state ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="499">
+  <query>
+   what is the population density of the smallest state ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="500">
+  <query>
+   what is the population density of the state with the smallest area ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="501">
+  <query>
+   what is the population density of the state with the smallest population ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="502">
+  <query>
+   what is the population density of wyoming ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="503">
+  <query>
+   what is the population in boston ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="504">
+  <query>
+   what is the population of alaska ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="505">
+  <query>
+   what is the population of arizona ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="506">
+  <query>
+   what is the population of atlanta ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="507">
+  <query>
+   what is the population of atlanta ga ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="508">
+  <query>
+   what is the population of austin ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="509">
+  <query>
+   what is the population of austin texas ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="510">
+  <query>
+   what is the population of boston massachusetts ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="511">
+  <query>
+   what is the population of boulder ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="512">
+  <query>
+   what is the population of california ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="513">
+  <query>
+   what is the population of dallas ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="514">
+  <query>
+   what is the population of denver ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="515">
+  <query>
+   what is the population of erie pennsylvania ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="516">
+  <query>
+   what is the population of hawaii ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="517">
+  <query>
+   what is the population of houston ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="518">
+  <query>
+   what is the population of idaho ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="519">
+  <query>
+   what is the population of illinois ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="520">
+  <query>
+   what is the population of maine ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="521">
+  <query>
+   what is the population of maryland ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="522">
+  <query>
+   what is the population of minnesota ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="523">
+  <query>
+   what is the population of montana ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="524">
+  <query>
+   what is the population of new mexico ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="525">
+  <query>
+   what is the population of new york ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="526">
+  <query>
+   what is the population of new york city ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="527">
+  <query>
+   what is the population of oregon ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="528">
+  <query>
+   what is the population of portland maine ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="529">
+  <query>
+   what is the population of rhode island ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="530">
+  <query>
+   what is the population of sacramento ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="531">
+  <query>
+   what is the population of san antonio ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="532">
+  <query>
+   what is the population of seattle ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="533">
+  <query>
+   what is the population of seattle washington ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="534">
+  <query>
+   what is the population of south dakota ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="535">
+  <query>
+   what is the population of springfield missouri ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="536">
+  <query>
+   what is the population of springfield south dakota ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="537">
+  <query>
+   what is the population of tempe arizona ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="538">
+  <query>
+   what is the population of texas ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="539">
+  <query>
+   what is the population of the capital of the largest state ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="540">
+  <query>
+   what is the population of the capital of the largest state through which the mississippi runs ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="541">
+  <query>
+   what is the population of the capital of the smallest state ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="542">
+  <query>
+   what is the population of the largest city in the state with the largest area ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="543">
+  <query>
+   what is the population of the largest state ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="544">
+  <query>
+   what is the population of the largest state that borders texas ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="545">
+  <query>
+   what is the population of the major cities in wisconsin ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="546">
+  <query>
+   what is the population of the smallest state ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="547">
+  <query>
+   what is the population of the state that borders the most states ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="548">
+  <query>
+   what is the population of the state with the highest population density ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="549">
+  <query>
+   what is the population of the state with the largest area ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="550">
+  <query>
+   what is the population of tucson ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="551">
+  <query>
+   what is the population of utah ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="552">
+  <query>
+   what is the population of washington ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="553">
+  <query>
+   what is the population of washington dc ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="554">
+  <query>
+   what is the river that cross over ohio ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="555">
+  <query>
+   what is the shortest river ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="556">
+  <query>
+   what is the shortest river in alaska ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="557">
+  <query>
+   what is the shortest river in iowa ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="558">
+  <query>
+   what is the shortest river in nebraska ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="559">
+  <query>
+   what is the shortest river in texas ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="560">
+  <query>
+   what is the shortest river in the united states ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="561">
+  <query>
+   what is the shortest river in the us ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="562">
+  <query>
+   what is the shortest river in the usa ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="563">
+  <query>
+   what is the size of california ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="564">
+  <query>
+   what is the size of florida ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="565">
+  <query>
+   what is the size of texas ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="566">
+  <query>
+   what is the size of the capital of texas ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="567">
+  <query>
+   what is the size of the largest state in the usa ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="568">
+  <query>
+   what is the smallest city in alaska ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="569">
+  <query>
+   what is the smallest city in arkansas ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="570">
+  <query>
+   what is the smallest city in hawaii ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="571">
+  <query>
+   what is the smallest city in the largest state ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="572">
+  <query>
+   what is the smallest city in the us ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="573">
+  <query>
+   what is the smallest city in the usa ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="574">
+  <query>
+   what is the smallest city in washington ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="575">
+  <query>
+   what is the smallest city of the smallest state in the us ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="576">
+  <query>
+   what is the smallest state bordering ohio ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="577">
+  <query>
+   what is the smallest state bordering wyoming ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="578">
+  <query>
+   what is the smallest state by area ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="579">
+  <query>
+   what is the smallest state in the usa ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="580">
+  <query>
+   what is the smallest state that borders texas ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="581">
+  <query>
+   what is the smallest state that borders the most states ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="582">
+  <query>
+   what is the smallest state that the mississippi river runs through ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="583">
+  <query>
+   what is the smallest state through which the longest river runs ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="584">
+  <query>
+   what is the state that contains the highest point ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="585">
+  <query>
+   what is the state with the highest elevation in the united states ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="586">
+  <query>
+   what is the state with the largest area ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="587">
+  <query>
+   what is the state with the largest density in usa ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="588">
+  <query>
+   what is the state with the largest population density ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="589">
+  <query>
+   what is the state with the lowest point ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="590">
+  <query>
+   what is the state with the lowest population ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="591">
+  <query>
+   what is the state with the lowest population density ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="592">
+  <query>
+   what is the state with the smallest area ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="593">
+  <query>
+   what is the tallest mountain in america ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="594">
+  <query>
+   what is the tallest mountain in the united states ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="595">
+  <query>
+   what is the total area of the usa ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="596">
+  <query>
+   what is the total length of all rivers in the usa ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="597">
+  <query>
+   what is the total population of the states that border texas ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="598">
+  <query>
+   what length is the mississippi ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="599">
+  <query>
+   what major cities are located in pennsylvania ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="600">
+  <query>
+   what major rivers run through illinois ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="601">
+  <query>
+   what mountains are in alaska ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="602">
+  <query>
+   what river flows through kansas ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="603">
+  <query>
+   what river flows through texas ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="604">
+  <query>
+   what river flows through the most states ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="605">
+  <query>
+   what river is the longest one in the united states ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="606">
+  <query>
+   what river runs through illinois ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="607">
+  <query>
+   what river runs through the most states ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="608">
+  <query>
+   what river runs through the state with the most cities ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="609">
+  <query>
+   what river runs through virginia ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="610">
+  <query>
+   what river traverses the most states ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="611">
+  <query>
+   what river traverses the state which borders the most states ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="612">
+  <query>
+   what rivers are in nevada ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="613">
+  <query>
+   what rivers are in new mexico ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="614">
+  <query>
+   what rivers are in oregon ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="615">
+  <query>
+   what rivers are in states that border texas ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="616">
+  <query>
+   what rivers are in texas ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="617">
+  <query>
+   what rivers are in utah ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="618">
+  <query>
+   what rivers are there in texas ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="619">
+  <query>
+   what rivers do not run through tennessee ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="620">
+  <query>
+   what rivers flow though colorado ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="621">
+  <query>
+   what rivers flow through missouri ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="622">
+  <query>
+   what rivers flow through states that alabama borders ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="623">
+  <query>
+   what rivers flow through states that border the state with the largest population ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="624">
+  <query>
+   what rivers flow through the largest state ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="625">
+  <query>
+   what rivers flow through the state with the largest population ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="626">
+  <query>
+   what rivers run through arizona ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="627">
+  <query>
+   what rivers run through austin texas ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="628">
+  <query>
+   what rivers run through colorado ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="629">
+  <query>
+   what rivers run through louisiana ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="630">
+  <query>
+   what rivers run through maine ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="631">
+  <query>
+   what rivers run through new york ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="632">
+  <query>
+   what rivers run through the state with the lowest point in the usa ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="633">
+  <query>
+   what rivers run through the states that border the state with the capital atlanta ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="634">
+  <query>
+   what rivers run through west virginia ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="635">
+  <query>
+   what rivers traverses the state which borders the most states ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="636">
+  <query>
+   what state bordering nevada has the largest population ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="637">
+  <query>
+   what state borders michigan ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="638">
+  <query>
+   what state borders most other states ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="639">
+  <query>
+   what state borders new york ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="640">
+  <query>
+   what state borders the least states ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="641">
+  <query>
+   what state borders the least states excluding alaska and excluding hawaii ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="642">
+  <query>
+   what state borders the most states ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="643">
+  <query>
+   what state borders the state with the smallest population ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="644">
+  <query>
+   what state contains the highest point in the us ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="645">
+  <query>
+   what state contains the highest point of those the colorado river traverses ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="646">
+  <query>
+   what state has highest elevation ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="647">
+  <query>
+   what state has no rivers ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="648">
+  <query>
+   what state has the capital salem ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="649">
+  <query>
+   what state has the city flint ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="650">
+  <query>
+   what state has the city with the largest population ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="651">
+  <query>
+   what state has the city with the most population ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="652">
+  <query>
+   what state has the greatest population density ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="653">
+  <query>
+   what state has the highest elevation ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="654">
+  <query>
+   what state has the highest population ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="655">
+  <query>
+   what state has the highest population density ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="656">
+  <query>
+   what state has the largest area ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="657">
+  <query>
+   what state has the largest capital ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="658">
+  <query>
+   what state has the largest city ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="659">
+  <query>
+   what state has the largest population ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="660">
+  <query>
+   what state has the largest population density ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="661">
+  <query>
+   what state has the largest urban population ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="662">
+  <query>
+   what state has the least population density ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="663">
+  <query>
+   what state has the longest river ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="664">
+  <query>
+   what state has the lowest population density ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="665">
+  <query>
+   what state has the most cities ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="666">
+  <query>
+   what state has the most major cities ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="667">
+  <query>
+   what state has the most major rivers running through it ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="668">
+  <query>
+   what state has the most people ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="669">
+  <query>
+   what state has the most rivers ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="670">
+  <query>
+   what state has the most rivers running through it ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="671">
+  <query>
+   what state has the shortest river ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="672">
+  <query>
+   what state has the smallest area ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="673">
+  <query>
+   what state has the smallest capital ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="674">
+  <query>
+   what state has the smallest population ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="675">
+  <query>
+   what state has the smallest population density ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="676">
+  <query>
+   what state has the smallest urban population ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="677">
+  <query>
+   what state has the sparsest population density ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="678">
+  <query>
+   what state is austin in ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="679">
+  <query>
+   what state is austin the capital of ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="680">
+  <query>
+   what state is boston in ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="681">
+  <query>
+   what state is columbus the capital of ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="682">
+  <query>
+   what state is dallas in ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="683">
+  <query>
+   what state is des moines located in ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="684">
+  <query>
+   what state is miami in ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="685">
+  <query>
+   what state is pittsburgh in ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="686">
+  <query>
+   what state is the biggest ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="687">
+  <query>
+   what state is the largest in population ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="688">
+  <query>
+   what state is the state with the most rivers ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="689">
+  <query>
+   what state that borders texas has the highest population ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="690">
+  <query>
+   what state that borders texas is the largest ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="691">
+  <query>
+   what state which the mississippi runs through has the largest population ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="692">
+  <query>
+   what states are next to arizona ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="693">
+  <query>
+   what states are next to texas ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="694">
+  <query>
+   what states are next to the mississippi ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="695">
+  <query>
+   what states border alaska ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="696">
+  <query>
+   what states border arkansas ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="697">
+  <query>
+   what states border delaware ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="698">
+  <query>
+   what states border florida ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="699">
+  <query>
+   what states border georgia ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="700">
+  <query>
+   what states border hawaii ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="701">
+  <query>
+   what states border indiana ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="702">
+  <query>
+   what states border kentucky ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="703">
+  <query>
+   what states border michigan ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="704">
+  <query>
+   what states border missouri ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="705">
+  <query>
+   what states border montana ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="706">
+  <query>
+   what states border new hampshire ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="707">
+  <query>
+   what states border new jersey ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="708">
+  <query>
+   what states border ohio ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="709">
+  <query>
+   what states border rhode island ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="710">
+  <query>
+   what states border states that border colorado ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="711">
+  <query>
+   what states border states that border mississippi ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="712">
+  <query>
+   what states border states that border states that border florida ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="713">
+  <query>
+   what states border states that border states that border states that border texas ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="714">
+  <query>
+   what states border states that border the state with the largest population ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="715">
+  <query>
+   what states border states that the mississsippi runs through ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="716">
+  <query>
+   what states border states that the ohio runs through ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="717">
+  <query>
+   what states border states which the mississippi runs through ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="718">
+  <query>
+   what states border texas ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="719">
+  <query>
+   what states border texas and have a major river ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="720">
+  <query>
+   what states border the mississippi river ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="721">
+  <query>
+   what states border the most populous state ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="722">
+  <query>
+   what states border the state that borders the most states ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="723">
+  <query>
+   what states border the state with the most cities ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="724">
+  <query>
+   what states border the state with the most major cities ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="725">
+  <query>
+   what states border the state with the smallest area ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="726">
+  <query>
+   what states border the states with the most cities ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="727">
+  <query>
+   what states border wisconsin ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="728">
+  <query>
+   what states capital is dover ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="729">
+  <query>
+   what states contain at least one major rivers ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="730">
+  <query>
+   what states does the colorado river run through ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="731">
+  <query>
+   what states does the delaware river run through ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="732">
+  <query>
+   what states does the mississippi river run through ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="733">
+  <query>
+   what states does the mississippi run through ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="734">
+  <query>
+   what states does the missouri river run through ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="735">
+  <query>
+   what states does the missouri run through ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="736">
+  <query>
+   what states does the ohio river go through ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="737">
+  <query>
+   what states does the ohio river run through ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="738">
+  <query>
+   what states does the shortest river run through ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="739">
+  <query>
+   what states have a capital that is the highest point in the state ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="740">
+  <query>
+   what states have a city named austin ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="741">
+  <query>
+   what states have cities named austin ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="742">
+  <query>
+   what states have cities named dallas ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="743">
+  <query>
+   what states have cities named plano ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="744">
+  <query>
+   what states have cities named portland ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="745">
+  <query>
+   what states have cities named rochester ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="746">
+  <query>
+   what states have cities named salt lake city ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="747">
+  <query>
+   what states have no bordering state ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="748">
+  <query>
+   what states have rivers named colorado ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="749">
+  <query>
+   what states have rivers running through them ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="750">
+  <query>
+   what states have towns named springfield ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="751">
+  <query>
+   what states high point are higher than that of colorado ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="752">
+  <query>
+   what states in the united states have a city of springfield ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="753">
+  <query>
+   what states neighbor maine ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="754">
+  <query>
+   what states surround kentucky ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="755">
+  <query>
+   what texas city has the largest population ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="756">
+  <query>
+   whats the largest city ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="757">
+  <query>
+   where are mountains ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="758">
+  <query>
+   where is austin ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="759">
+  <query>
+   where is baton rouge ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="760">
+  <query>
+   where is dallas ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="761">
+  <query>
+   where is fort wayne ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="762">
+  <query>
+   where is houston ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="763">
+  <query>
+   where is indianapolis ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="764">
+  <query>
+   where is massachusetts ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="765">
+  <query>
+   where is mount whitney ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="766">
+  <query>
+   where is mount whitney located ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="767">
+  <query>
+   where is new hampshire ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="768">
+  <query>
+   where is new orleans ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="769">
+  <query>
+   where is portland ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="770">
+  <query>
+   where is san diego ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="771">
+  <query>
+   where is san jose ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="772">
+  <query>
+   where is scotts valley ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="773">
+  <query>
+   where is springfield ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="774">
+  <query>
+   where is the chattahoochee river ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="775">
+  <query>
+   where is the highest mountain of the united states ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="776">
+  <query>
+   where is the highest point in hawaii ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="777">
+  <query>
+   where is the highest point in montana ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="778">
+  <query>
+   where is the lowest point in maryland ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="779">
+  <query>
+   where is the lowest point in the us ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="780">
+  <query>
+   where is the lowest spot in iowa ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="781">
+  <query>
+   where is the most populated area of new mexico ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="782">
+  <query>
+   where is the smallest city ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="783">
+  <query>
+   which capitals are in the states that border texas ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="784">
+  <query>
+   which capitals are not major cities ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="785">
+  <query>
+   which city in california has the largest population ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="786">
+  <query>
+   which is the density of the state that the largest river in the united states runs through ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="787">
+  <query>
+   which is the highest peak not in alaska ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="788">
+  <query>
+   which is the longest river in usa ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="789">
+  <query>
+   which is the lowest point of the states that the mississippi runs through ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="790">
+  <query>
+   which is the shortest river ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="791">
+  <query>
+   which is the smallest state ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="792">
+  <query>
+   which of the states bordering pennsylvania has the largest population ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="793">
+  <query>
+   which river goes through the most states ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="794">
+  <query>
+   which river runs through most states ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="795">
+  <query>
+   which river runs through the most states ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="796">
+  <query>
+   which river traverses most states ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="797">
+  <query>
+   which rivers are in alaska ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="798">
+  <query>
+   which rivers do not run through texas ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="799">
+  <query>
+   which rivers do not run through usa ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="800">
+  <query>
+   which rivers flow through alaska ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="801">
+  <query>
+   which rivers run through states bordering new mexico ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="802">
+  <query>
+   which rivers run through states that border the state with the capital austin ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="803">
+  <query>
+   which rivers run through states with fewest cities ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="804">
+  <query>
+   which rivers run through the state with the largest city in the us ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="805">
+  <query>
+   which rivers run through the state with the lowest elevation in the usa ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="806">
+  <query>
+   which state border kentucky ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="807">
+  <query>
+   which state borders florida ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="808">
+  <query>
+   which state borders hawaii ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="809">
+  <query>
+   which state borders most states ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="810">
+  <query>
+   which state borders the most states ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="811">
+  <query>
+   which state capital has the smallest population ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="812">
+  <query>
+   which state contains most rivers ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="813">
+  <query>
+   which state has the biggest population ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="814">
+  <query>
+   which state has the greatest density ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="815">
+  <query>
+   which state has the greatest population ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="816">
+  <query>
+   which state has the highest elevation ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="817">
+  <query>
+   which state has the highest peak in the country ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="818">
+  <query>
+   which state has the highest point ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="819">
+  <query>
+   which state has the highest population density ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="820">
+  <query>
+   which state has the largest city ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="821">
+  <query>
+   which state has the largest density ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="822">
+  <query>
+   which state has the least population density ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="823">
+  <query>
+   which state has the longest river ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="824">
+  <query>
+   which state has the lowest elevation ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="825">
+  <query>
+   which state has the lowest point that borders idaho ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="826">
+  <query>
+   which state has the lowest population density ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="827">
+  <query>
+   which state has the most major cities ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="828">
+  <query>
+   which state has the most major rivers ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="829">
+  <query>
+   which state has the most major rivers running through it ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="830">
+  <query>
+   which state has the most people ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="831">
+  <query>
+   which state has the most population ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="832">
+  <query>
+   which state has the most rivers ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="833">
+  <query>
+   which state has the most rivers running through it ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="834">
+  <query>
+   which state has the red river ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="835">
+  <query>
+   which state has the smallest area that borders texas ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="836">
+  <query>
+   which state has the smallest average urban population ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="837">
+  <query>
+   which state has the smallest population density ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="838">
+  <query>
+   which state has the sparsest population density ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="839">
+  <query>
+   which state is kalamazoo in ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="840">
+  <query>
+   which state is mount mckinley in ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="841">
+  <query>
+   which state is the city denver located in ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="842">
+  <query>
+   which state is the largest city in montana in ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="843">
+  <query>
+   which state is the smallest ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="844">
+  <query>
+   which states adjoin alabama ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="845">
+  <query>
+   which states border alabama ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="846">
+  <query>
+   which states border alaska ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="847">
+  <query>
+   which states border arizona ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="848">
+  <query>
+   which states border colorado ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="849">
+  <query>
+   which states border hawaii ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="850">
+  <query>
+   which states border illinois ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="851">
+  <query>
+   which states border iowa ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="852">
+  <query>
+   which states border kentucky ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="853">
+  <query>
+   which states border michigan ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="854">
+  <query>
+   which states border new york ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="855">
+  <query>
+   which states border no other states ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="856">
+  <query>
+   which states border south dakota ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="857">
+  <query>
+   which states border states through which the mississippi traverses ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="858">
+  <query>
+   which states border texas ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="859">
+  <query>
+   which states border the longest river in the usa ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="860">
+  <query>
+   which states border the missouri river ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="861">
+  <query>
+   which states border the state with the smallest area ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="862">
+  <query>
+   which states capital city is the largest ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="863">
+  <query>
+   which states do colorado river flow through ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="864">
+  <query>
+   which states does not border texas ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="865">
+  <query>
+   which states does the chattahoochee river run through ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="866">
+  <query>
+   which states does the colorado river run through ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="867">
+  <query>
+   which states does the longest river cross ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="868">
+  <query>
+   which states does the longest river run through ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="869">
+  <query>
+   which states does the mississippi river run through ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="870">
+  <query>
+   which states does the mississippi run through ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="871">
+  <query>
+   which states does the missouri river pass through ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="872">
+  <query>
+   which states does the missouri river run through ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="873">
+  <query>
+   which states have a major city named austin ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="874">
+  <query>
+   which states have a river ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="875">
+  <query>
+   which states have cities named austin ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="876">
+  <query>
+   which states have points higher than the highest point in colorado ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="877">
+  <query>
+   which states have points that are higher than the highest point in texas ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="878">
+  <query>
+   which states lie on the largest river in the united states ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="879">
+  <query>
+   which us city has the highest population density ?
+  </query>
+  <sparql>
+    SELECT WHERE { } 
+  </sparql>
+  <answer></answer>
+ </example>
+</examples>

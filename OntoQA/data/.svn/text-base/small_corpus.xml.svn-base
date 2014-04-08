@@ -1,0 +1,528 @@
+<?xml version="1.0"?>
+<!DOCTYPE examples [
+  <!ELEMENT examples (example*)>
+  <!ELEMENT example (query*,sparql*,answer*)>
+  <!ELEMENT query (#PCDATA)>
+  <!ELEMENT sparql (#PCDATA)>
+  <!ELEMENT answer (#PCDATA)>
+]>
+<examples xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+          xmlns:geo="http://ir.hit.edu/nli/geo/">
+ <example id="0">
+  <query>
+   give me the cities in virginia .
+  </query>
+  <sparql>
+  SELECT ?city
+WHERE {  
+	?city rdf:type geo:city .
+	?city geo:inState ?state .
+	?state geo:hasName "virginia" .
+}
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="1">
+  <query>
+   what are the high points of states surrounding mississippi ?
+  </query>
+  <sparql>
+SELECT ?highestPoint
+WHERE {
+	?state geo:hasHighestPoint ?highestPoint .
+	?state a geo:state .
+	?state geo:border ?state2 .
+	?state2 geo:hasName "mississippi" .
+}  
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="2">
+  <query>
+   name the rivers in arkansas .
+  </query>
+  <sparql>
+SELECT ?name
+WHERE {
+	?river geo:hasName ?name .
+	?river rdf:type geo:river .
+	?river geo:runThrough ?state .
+	?state geo:hasName "arkansas" .
+	?state rdf:type geo:state .
+}
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="3">
+  <query>
+   name all the rivers in colorado .
+  </query>
+  <sparql>
+SELECT ?name
+WHERE {
+	?river geo:hasName ?name .
+	?river rdf:type geo:river .
+	?river geo:runThrough ?state .
+	?state geo:hasName "colorado" .
+}
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="4">
+  <query>
+   can you tell me the capital of texas ?
+  </query>
+  <sparql>
+SELECT ?capital
+WHERE {
+	?state geo:hasCapital ?capital .
+	?state geo:hasName "texas" .
+	?state rdf:type geo:state .
+}
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="5">
+  <query>
+   could you tell me what is the highest point in the state of oregon ?
+  </query>
+  <sparql>
+SELECT ?highestPoint
+WHERE {
+	?state geo:hasHighestPoint ?highestPoint .
+	?state rdf:type geo:state .
+	?state geo:hasName "oregon" .
+}
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="6">
+  <query>
+   count the states which have elevations lower than what alabama has ?
+  </query>
+  <sparql  status="todo">
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="7">
+  <query>
+   give me all the states of usa ?
+  </query>
+  <sparql>
+    SELECT ?state
+	WHERE {
+	?state a geo:state .
+	?state geo:inCountry "us" .
+	} 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="8">
+  <query>
+   give me the cities in texas ?
+  </query>
+  <sparql>
+SELECT ?city
+WHERE {
+	?city geo:inState ?state .
+	?city a geo:city .
+	?state geo:hasName "texas" .
+}
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="9">
+  <query>
+   give me the cities in usa ?
+  </query>
+  <sparql>
+SELECT ?city
+WHERE {
+	?city geo:inState ?state .
+	?state rdf:type geo:state .
+	?state geo:inCountry "us" .
+}
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="10">
+  <query>
+   give me the cities in virginia ?
+  </query>
+  <sparql>
+SELECT ?city
+WHERE {
+	?city geo:inState ?state .
+	?city a geo:city .
+	?state geo:hasName "virginia" .
+}
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="11">
+  <query>
+   give me the cities which are in texas ?
+  </query>
+  <sparql>
+SELECT ?city
+WHERE {
+	?city geo:inState ?state .
+	?city a geo:city .
+	?state geo:hasName "texas" .
+}
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="12">
+  <query>
+   give me the lakes in california ?
+  </query>
+  <sparql>
+SELECT ?lake
+WHERE {
+	?lake geo:inState ?state .
+	?lake rdf:type geo:lake .
+	?state rdf:type geo:state .
+	?state geo:hasName "california" .
+}
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="13">
+  <query>
+   give me the largest state ?
+  </query>
+  <sparql>
+SELECT ?s
+WHERE {
+	?s a geo:state .
+	?s geo:hasArea ?a .
+}
+ORDER BY DESC(?a)
+LIMIT 1
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="14">
+  <query>
+   give me the longest river that passes through the us ?
+  </query>
+  <sparql>
+SELECT ?r
+WHERE {
+	?r a geo:river .
+	?r geo:hasLength ?l .
+	?r geo:runThrough ?s .
+	?s geo:inCountry "us" .
+}
+ORDER BY DESC(?l)
+LIMIT 1
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="15">
+  <query>
+   give me the number of rivers in california ?
+  </query>
+  <sparql>
+SELECT (COUNT(*) AS ?c)
+WHERE {
+	?r a geo:river .
+	?r geo:runThrough ?s .
+	?s geo:hasName "california" .
+}
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="16">
+  <query>
+   give me the states that border utah ?
+  </query>
+  <sparql>
+SELECT ?state
+WHERE {
+	?state rdf:type geo:state .
+	?state geo:border ?state2 .
+	?state2 geo:hasName "utah" .
+}
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="17">
+  <query>
+   how big is alaska ?
+  </query>
+  <sparql>
+SELECT ?area
+WHERE {
+	?state rdf:type geo:state .
+	?state geo:hasArea ?area .
+	?state geo:hasName "alaska" .
+}
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="18">
+  <query>
+   how big is massachusetts ?
+  </query>
+  <sparql>
+SELECT ?area
+WHERE {
+	?state rdf:type geo:state .
+	?state geo:hasArea ?area .
+	?state geo:hasName "massachusetts" .
+}
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="19">
+  <query>
+   how big is new mexico ?
+  </query>
+  <sparql>
+SELECT ?area
+WHERE {
+	?state rdf:type geo:state .
+	?state geo:hasArea ?area .
+	?state geo:hasName "new mexico" .
+}
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="20">
+  <query>
+   how big is north dakota ?
+  </query>
+  <sparql>
+SELECT ?area
+WHERE {
+	?state rdf:type geo:state .
+	?state geo:hasArea ?area .
+	?state geo:hasName "north dakota" .
+}
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="21">
+  <query>
+   how big is texas ?
+  </query>
+  <sparql>
+SELECT ?area
+WHERE {
+	?state rdf:type geo:state .
+	?state geo:hasArea ?area .
+	?state geo:hasName "texas" .
+}
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="22">
+  <query>
+   how big is the city of new york ?
+  </query>
+  <sparql>
+SELECT ?area
+WHERE {
+	?city rdf:type geo:city .
+	?city geo:hasArea ?area .
+	?city geo:hasName "new york" .
+}
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="23">
+  <query>
+   how high are the highest points of all the states ?
+  </query>
+  <sparql>
+SELECT ?e
+WHERE {
+	?s geo:hasHighestPoint ?h.
+	?h geo:hasElevation ?e .
+}
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="24">
+  <query>
+   how high is guadalupe peak ?
+  </query>
+  <sparql>
+SELECT ?e
+WHERE {
+	?s geo:hasHighestPoint ?h.
+	?h geo:hasName "guadalupe peak" .
+	?h geo:hasElevation ?e .
+}
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="25">
+  <query>
+   how high is mount mckinley ?
+  </query>
+  <sparql>
+SELECT ?e
+WHERE {
+	?s geo:hasHighestPoint ?h.
+	?h geo:hasName "mount mckinley" .
+	?h geo:hasElevation ?e .
+}
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="26">
+  <query>
+   how high is the highest point in america ?
+  </query>
+  <sparql>
+SELECT ?e
+WHERE {
+	?s geo:hasHighestPoint ?h .
+	?h geo:hasElevation ?e .
+}
+ORDER BY DESC(?e)
+LIMIT 1 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="27">
+  <query>
+   how high is the highest point in montana ?
+  </query>
+  <sparql>
+SELECT ?e
+WHERE {
+	?s geo:hasName "montana" .
+	?s geo:hasHighestPoint ?h .
+	?h geo:hasElevation ?e .
+}
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="28">
+  <query>
+   how high is the highest point in the largest state ?
+  </query>
+  <sparql status="todo">
+SELECT *
+WHERE {
+	{SELECT ?s
+	WHERE {
+		?s a geo:state .
+		?s geo:hasArea ?a .
+	}
+	ORDER BY DESC(?a)
+	LIMIT 1}
+?s geo:hasHighestPoint ?h .
+?h geo:hasElevation ?e .
+}
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="29">
+  <query>
+   how high is the highest point of alabama ?
+  </query>
+  <sparql>
+SELECT ?e
+WHERE {
+	?s geo:hasName "alabama" .
+	?s geo:hasHighestPoint ?h.
+	?h geo:hasElevation ?e .
+}
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="30">
+  <query>
+   how high is the highest point of delaware ?
+  </query>
+  <sparql>
+SELECT ?e
+WHERE {
+	?s geo:hasName "delaware" .
+	?s geo:hasHighestPoint ?h.
+	?h geo:hasElevation ?e .
+}
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="31">
+  <query>
+   how high is the highest point of florida ?
+  </query>
+  <sparql>
+SELECT ?e
+WHERE {
+	?s geo:hasName "florida" .
+	?s geo:hasHighestPoint ?h.
+	?h geo:hasElevation ?e .
+}
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="32">
+  <query>
+   how high is the highest point of louisiana ?
+  </query>
+  <sparql>
+SELECT ?e
+WHERE {
+	?s geo:hasName "louisiana" .
+	?s geo:hasHighestPoint ?h.
+	?h geo:hasElevation ?e .
+}
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="33">
+  <query>
+   how large is alaska ?
+  </query>
+  <sparql>
+SELECT ?a
+WHERE {
+	?s geo:hasName "alaska" .
+	?s geo:hasArea ?a .
+} 
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="34">
+  <query>
+   how large is texas ?
+  </query>
+  <sparql>
+SELECT ?a
+WHERE {
+	?s geo:hasName "texas" .
+	?s geo:hasArea ?a .
+}  
+  </sparql>
+  <answer></answer>
+ </example>
+ <example id="35">
+  <query>
+   how large is the largest city in alaska ?
+  </query>
+  <sparql status="todo">
+SELECT ?a
+WHERE {
+	?s geo:hasName "alaska" .
+	?c geo:inState ?s .
+	{SELECT ?c
+	WHERE {
+		?s geo:hasName "alaska" .
+		?c geo:inState ?s .
+		?c geo:hasPopulation ?p .	
+	}
+	ORDER BY DESC(?p)
+	LIMIT 1}
+} 
+  </sparql>
+  <answer></answer>
+ </example>
+</examples>

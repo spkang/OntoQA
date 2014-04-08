@@ -1,0 +1,83 @@
+K 25
+svn:wc:ra_dav:version-url
+V 47
+/svn/wbzhang/!svn/ver/333/OntoQA/trunk/lib/jena
+END
+xercesImpl-2.7.1.jar
+K 25
+svn:wc:ra_dav:version-url
+V 68
+/svn/wbzhang/!svn/ver/333/OntoQA/trunk/lib/jena/xercesImpl-2.7.1.jar
+END
+log4j-1.2.13.jar
+K 25
+svn:wc:ra_dav:version-url
+V 64
+/svn/wbzhang/!svn/ver/333/OntoQA/trunk/lib/jena/log4j-1.2.13.jar
+END
+lucene-core-2.3.1.jar
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/svn/wbzhang/!svn/ver/333/OntoQA/trunk/lib/jena/lucene-core-2.3.1.jar
+END
+slf4j-api-1.5.8.jar
+K 25
+svn:wc:ra_dav:version-url
+V 67
+/svn/wbzhang/!svn/ver/333/OntoQA/trunk/lib/jena/slf4j-api-1.5.8.jar
+END
+stax-api-1.0.1.jar
+K 25
+svn:wc:ra_dav:version-url
+V 66
+/svn/wbzhang/!svn/ver/333/OntoQA/trunk/lib/jena/stax-api-1.0.1.jar
+END
+icu4j-3.4.4.jar
+K 25
+svn:wc:ra_dav:version-url
+V 63
+/svn/wbzhang/!svn/ver/333/OntoQA/trunk/lib/jena/icu4j-3.4.4.jar
+END
+jena-2.6.4-tests.jar
+K 25
+svn:wc:ra_dav:version-url
+V 68
+/svn/wbzhang/!svn/ver/333/OntoQA/trunk/lib/jena/jena-2.6.4-tests.jar
+END
+jena-2.6.4.jar
+K 25
+svn:wc:ra_dav:version-url
+V 62
+/svn/wbzhang/!svn/ver/333/OntoQA/trunk/lib/jena/jena-2.6.4.jar
+END
+iri-0.8.jar
+K 25
+svn:wc:ra_dav:version-url
+V 59
+/svn/wbzhang/!svn/ver/333/OntoQA/trunk/lib/jena/iri-0.8.jar
+END
+slf4j-log4j12-1.5.8.jar
+K 25
+svn:wc:ra_dav:version-url
+V 71
+/svn/wbzhang/!svn/ver/333/OntoQA/trunk/lib/jena/slf4j-log4j12-1.5.8.jar
+END
+wstx-asl-3.2.9.jar
+K 25
+svn:wc:ra_dav:version-url
+V 66
+/svn/wbzhang/!svn/ver/333/OntoQA/trunk/lib/jena/wstx-asl-3.2.9.jar
+END
+arq-2.8.7.jar
+K 25
+svn:wc:ra_dav:version-url
+V 61
+/svn/wbzhang/!svn/ver/333/OntoQA/trunk/lib/jena/arq-2.8.7.jar
+END
+junit-4.5.jar
+K 25
+svn:wc:ra_dav:version-url
+V 61
+/svn/wbzhang/!svn/ver/333/OntoQA/trunk/lib/jena/junit-4.5.jar
+END

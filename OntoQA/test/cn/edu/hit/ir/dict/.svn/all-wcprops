@@ -1,0 +1,29 @@
+K 25
+svn:wc:ra_dav:version-url
+V 62
+/svn/wbzhang/!svn/ver/407/OntoQA/trunk/test/cn/edu/hit/ir/dict
+END
+MatchedEntitiesSentenceTest.java
+K 25
+svn:wc:ra_dav:version-url
+V 95
+/svn/wbzhang/!svn/ver/407/OntoQA/trunk/test/cn/edu/hit/ir/dict/MatchedEntitiesSentenceTest.java
+END
+EntityMatcherTest.java
+K 25
+svn:wc:ra_dav:version-url
+V 85
+/svn/wbzhang/!svn/ver/389/OntoQA/trunk/test/cn/edu/hit/ir/dict/EntityMatcherTest.java
+END
+PrefixToEntitiesMapTest.java
+K 25
+svn:wc:ra_dav:version-url
+V 91
+/svn/wbzhang/!svn/ver/362/OntoQA/trunk/test/cn/edu/hit/ir/dict/PrefixToEntitiesMapTest.java
+END
+EnglishSynonymTest.java
+K 25
+svn:wc:ra_dav:version-url
+V 86
+/svn/wbzhang/!svn/ver/389/OntoQA/trunk/test/cn/edu/hit/ir/dict/EnglishSynonymTest.java
+END

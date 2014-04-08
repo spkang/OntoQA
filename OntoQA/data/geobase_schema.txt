@@ -1,0 +1,92 @@
+null
+http://ir.hit.edu/nli/geo/road
+http://ir.hit.edu/nli/geo/state
+http://ir.hit.edu/nli/geo/river
+http://ir.hit.edu/nli/geo/point
+http://ir.hit.edu/nli/geo/mountain
+http://ir.hit.edu/nli/geo/city
+http://ir.hit.edu/nli/geo/lake
+http://www.w3.org/2000/01/rdf-schema#Literal
+([road, state, river, point, mountain, city, lake, Literal], [(city -inState-> state)={city,state}, (city -hasName-> Literal)={city,Literal}, (city -label-> Literal)={city,Literal}, (city -hasPopulation-> Literal)={city,Literal}, (point -label-> Literal)={point,Literal}, (point -hasName-> Literal)={point,Literal}, (point -hasElevation-> Literal)={point,Literal}, (lake -inState-> state)={lake,state}, (lake -hasName-> Literal)={lake,Literal}, (lake -hasArea-> Literal)={lake,Literal}, (lake -label-> Literal)={lake,Literal}, (state -border-> state)={state,state}, (state -hasPopulation-> Literal)={state,Literal}, (state -hasLowestPoint-> point)={state,point}, (state -majorCity-> city)={state,city}, (state -hasArea-> Literal)={state,Literal}, (state -hasPopDensity-> Literal)={state,Literal}, (state -inCountry-> Literal)={state,Literal}, (state -hasNumber-> Literal)={state,Literal}, (state -hasName-> Literal)={state,Literal}, (state -hasHighestPoint-> point)={state,point}, (state -label-> Literal)={state,Literal}, (state -hasAbbreviation-> Literal)={state,Literal}, (state -hasCapital-> Literal)={state,Literal}, (mountain -inState-> state)={mountain,state}, (mountain -hasName-> Literal)={mountain,Literal}, (mountain -hasHeight-> Literal)={mountain,Literal}, (mountain -label-> Literal)={mountain,Literal}, (road -runThrough-> state)={road,state}, (road -label-> Literal)={road,Literal}, (road -hasNumber-> Literal)={road,Literal}, (river -runThrough-> state)={river,state}, (river -hasLength-> Literal)={river,Literal}, (river -hasName-> Literal)={river,Literal}, (river -label-> Literal)={river,Literal}])
+8, 35
+http://ir.hit.edu/nli/geo/road
+http://ir.hit.edu/nli/geo/state
+http://ir.hit.edu/nli/geo/river
+http://ir.hit.edu/nli/geo/point
+http://ir.hit.edu/nli/geo/mountain
+http://ir.hit.edu/nli/geo/city
+http://ir.hit.edu/nli/geo/lake
+http://www.w3.org/2000/01/rdf-schema#Literal
+@testGetSet
+http://ir.hit.edu/nli/geo/hasLength
+[http://ir.hit.edu/nli/geo/river]
+[http://www.w3.org/2000/01/rdf-schema#Literal]
+
+http://ir.hit.edu/nli/geo/hasCapital
+[http://ir.hit.edu/nli/geo/state]
+[http://www.w3.org/2000/01/rdf-schema#Literal]
+
+http://ir.hit.edu/nli/geo/inState
+[http://ir.hit.edu/nli/geo/mountain, http://ir.hit.edu/nli/geo/city, http://ir.hit.edu/nli/geo/lake]
+[http://ir.hit.edu/nli/geo/state]
+
+http://ir.hit.edu/nli/geo/hasLowestPoint
+[http://ir.hit.edu/nli/geo/state]
+[http://ir.hit.edu/nli/geo/point]
+
+http://www.w3.org/2000/01/rdf-schema#label
+[http://ir.hit.edu/nli/geo/road, http://ir.hit.edu/nli/geo/state, http://ir.hit.edu/nli/geo/river, http://ir.hit.edu/nli/geo/point, http://ir.hit.edu/nli/geo/mountain, http://ir.hit.edu/nli/geo/city, http://ir.hit.edu/nli/geo/lake]
+[http://www.w3.org/2000/01/rdf-schema#Literal]
+
+http://ir.hit.edu/nli/geo/majorCity
+[http://ir.hit.edu/nli/geo/state]
+[http://ir.hit.edu/nli/geo/city]
+
+http://ir.hit.edu/nli/geo/border
+[http://ir.hit.edu/nli/geo/state]
+[http://ir.hit.edu/nli/geo/state]
+
+http://ir.hit.edu/nli/geo/hasHighestPoint
+[http://ir.hit.edu/nli/geo/state]
+[http://ir.hit.edu/nli/geo/point]
+
+http://ir.hit.edu/nli/geo/hasArea
+[http://ir.hit.edu/nli/geo/state, http://ir.hit.edu/nli/geo/lake]
+[http://www.w3.org/2000/01/rdf-schema#Literal]
+
+http://ir.hit.edu/nli/geo/hasPopDensity
+[http://ir.hit.edu/nli/geo/state]
+[http://www.w3.org/2000/01/rdf-schema#Literal]
+
+http://ir.hit.edu/nli/geo/hasElevation
+[http://ir.hit.edu/nli/geo/point]
+[http://www.w3.org/2000/01/rdf-schema#Literal]
+
+http://ir.hit.edu/nli/geo/hasNumber
+[http://ir.hit.edu/nli/geo/road, http://ir.hit.edu/nli/geo/state]
+[http://www.w3.org/2000/01/rdf-schema#Literal]
+
+http://ir.hit.edu/nli/geo/hasName
+[http://ir.hit.edu/nli/geo/state, http://ir.hit.edu/nli/geo/river, http://ir.hit.edu/nli/geo/point, http://ir.hit.edu/nli/geo/mountain, http://ir.hit.edu/nli/geo/city, http://ir.hit.edu/nli/geo/lake]
+[http://www.w3.org/2000/01/rdf-schema#Literal]
+
+http://ir.hit.edu/nli/geo/hasAbbreviation
+[http://ir.hit.edu/nli/geo/state]
+[http://www.w3.org/2000/01/rdf-schema#Literal]
+
+http://ir.hit.edu/nli/geo/hasPopulation
+[http://ir.hit.edu/nli/geo/state, http://ir.hit.edu/nli/geo/city]
+[http://www.w3.org/2000/01/rdf-schema#Literal]
+
+http://ir.hit.edu/nli/geo/runThrough
+[http://ir.hit.edu/nli/geo/road, http://ir.hit.edu/nli/geo/river]
+[http://ir.hit.edu/nli/geo/state]
+
+http://ir.hit.edu/nli/geo/inCountry
+[http://ir.hit.edu/nli/geo/state]
+[http://www.w3.org/2000/01/rdf-schema#Literal]
+
+http://ir.hit.edu/nli/geo/hasHeight
+[http://ir.hit.edu/nli/geo/mountain]
+[http://www.w3.org/2000/01/rdf-schema#Literal]
+

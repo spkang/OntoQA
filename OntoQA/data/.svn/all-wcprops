@@ -1,0 +1,239 @@
+K 25
+svn:wc:ra_dav:version-url
+V 43
+/svn/wbzhang/!svn/ver/451/OntoQA/trunk/data
+END
+geo880.chunck
+K 25
+svn:wc:ra_dav:version-url
+V 57
+/svn/wbzhang/!svn/ver/333/OntoQA/trunk/data/geo880.chunck
+END
+geo880.txt
+K 25
+svn:wc:ra_dav:version-url
+V 54
+/svn/wbzhang/!svn/ver/333/OntoQA/trunk/data/geo880.txt
+END
+geo880.qtriple
+K 25
+svn:wc:ra_dav:version-url
+V 58
+/svn/wbzhang/!svn/ver/333/OntoQA/trunk/data/geo880.qtriple
+END
+wrong.xml
+K 25
+svn:wc:ra_dav:version-url
+V 53
+/svn/wbzhang/!svn/ver/449/OntoQA/trunk/data/wrong.xml
+END
+hard.txt
+K 25
+svn:wc:ra_dav:version-url
+V 52
+/svn/wbzhang/!svn/ver/434/OntoQA/trunk/data/hard.txt
+END
+geobase_new.txt
+K 25
+svn:wc:ra_dav:version-url
+V 59
+/svn/wbzhang/!svn/ver/378/OntoQA/trunk/data/geobase_new.txt
+END
+geo880.mes
+K 25
+svn:wc:ra_dav:version-url
+V 54
+/svn/wbzhang/!svn/ver/371/OntoQA/trunk/data/geo880.mes
+END
+pre_wrong.xml
+K 25
+svn:wc:ra_dav:version-url
+V 57
+/svn/wbzhang/!svn/ver/449/OntoQA/trunk/data/pre_wrong.xml
+END
+small_corpus.xml
+K 25
+svn:wc:ra_dav:version-url
+V 60
+/svn/wbzhang/!svn/ver/403/OntoQA/trunk/data/small_corpus.xml
+END
+geobase_schema.txt
+K 25
+svn:wc:ra_dav:version-url
+V 62
+/svn/wbzhang/!svn/ver/393/OntoQA/trunk/data/geobase_schema.txt
+END
+useful_sqarql.txt
+K 25
+svn:wc:ra_dav:version-url
+V 61
+/svn/wbzhang/!svn/ver/451/OntoQA/trunk/data/useful_sqarql.txt
+END
+samples.sparql
+K 25
+svn:wc:ra_dav:version-url
+V 58
+/svn/wbzhang/!svn/ver/382/OntoQA/trunk/data/samples.sparql
+END
+us-states.jpg
+K 25
+svn:wc:ra_dav:version-url
+V 57
+/svn/wbzhang/!svn/ver/387/OntoQA/trunk/data/us-states.jpg
+END
+corpus.xml
+K 25
+svn:wc:ra_dav:version-url
+V 54
+/svn/wbzhang/!svn/ver/449/OntoQA/trunk/data/corpus.xml
+END
+geo880.pos
+K 25
+svn:wc:ra_dav:version-url
+V 54
+/svn/wbzhang/!svn/ver/346/OntoQA/trunk/data/geo880.pos
+END
+geo880.sparql
+K 25
+svn:wc:ra_dav:version-url
+V 57
+/svn/wbzhang/!svn/ver/382/OntoQA/trunk/data/geo880.sparql
+END
+geobase.0.rdf
+K 25
+svn:wc:ra_dav:version-url
+V 57
+/svn/wbzhang/!svn/ver/378/OntoQA/trunk/data/geobase.0.rdf
+END
+test.tree
+K 25
+svn:wc:ra_dav:version-url
+V 53
+/svn/wbzhang/!svn/ver/333/OntoQA/trunk/data/test.tree
+END
+too_hard.txt
+K 25
+svn:wc:ra_dav:version-url
+V 56
+/svn/wbzhang/!svn/ver/405/OntoQA/trunk/data/too_hard.txt
+END
+geobase.txt
+K 25
+svn:wc:ra_dav:version-url
+V 55
+/svn/wbzhang/!svn/ver/411/OntoQA/trunk/data/geobase.txt
+END
+note.txt
+K 25
+svn:wc:ra_dav:version-url
+V 52
+/svn/wbzhang/!svn/ver/404/OntoQA/trunk/data/note.txt
+END
+corpus_nlp.xml
+K 25
+svn:wc:ra_dav:version-url
+V 58
+/svn/wbzhang/!svn/ver/382/OntoQA/trunk/data/corpus_nlp.xml
+END
+literal_properties.txt
+K 25
+svn:wc:ra_dav:version-url
+V 66
+/svn/wbzhang/!svn/ver/421/OntoQA/trunk/data/literal_properties.txt
+END
+geobase_new.rdf
+K 25
+svn:wc:ra_dav:version-url
+V 59
+/svn/wbzhang/!svn/ver/378/OntoQA/trunk/data/geobase_new.rdf
+END
+sparql_all.xml
+K 25
+svn:wc:ra_dav:version-url
+V 58
+/svn/wbzhang/!svn/ver/434/OntoQA/trunk/data/sparql_all.xml
+END
+corpus2.xml
+K 25
+svn:wc:ra_dav:version-url
+V 55
+/svn/wbzhang/!svn/ver/381/OntoQA/trunk/data/corpus2.xml
+END
+usa.gif
+K 25
+svn:wc:ra_dav:version-url
+V 51
+/svn/wbzhang/!svn/ver/387/OntoQA/trunk/data/usa.gif
+END
+result.txt
+K 25
+svn:wc:ra_dav:version-url
+V 54
+/svn/wbzhang/!svn/ver/449/OntoQA/trunk/data/result.txt
+END
+corpus3.xml
+K 25
+svn:wc:ra_dav:version-url
+V 55
+/svn/wbzhang/!svn/ver/411/OntoQA/trunk/data/corpus3.xml
+END
+output.xml
+K 25
+svn:wc:ra_dav:version-url
+V 54
+/svn/wbzhang/!svn/ver/449/OntoQA/trunk/data/output.xml
+END
+corpus_analysiss.xml
+K 25
+svn:wc:ra_dav:version-url
+V 64
+/svn/wbzhang/!svn/ver/413/OntoQA/trunk/data/corpus_analysiss.xml
+END
+geobase1.5.rdf
+K 25
+svn:wc:ra_dav:version-url
+V 58
+/svn/wbzhang/!svn/ver/411/OntoQA/trunk/data/geobase1.5.rdf
+END
+cur_wrong.xml
+K 25
+svn:wc:ra_dav:version-url
+V 57
+/svn/wbzhang/!svn/ver/449/OntoQA/trunk/data/cur_wrong.xml
+END
+geo880.tree
+K 25
+svn:wc:ra_dav:version-url
+V 55
+/svn/wbzhang/!svn/ver/333/OntoQA/trunk/data/geo880.tree
+END
+noanswer.txt
+K 25
+svn:wc:ra_dav:version-url
+V 56
+/svn/wbzhang/!svn/ver/449/OntoQA/trunk/data/noanswer.txt
+END
+wrong.txt
+K 25
+svn:wc:ra_dav:version-url
+V 53
+/svn/wbzhang/!svn/ver/449/OntoQA/trunk/data/wrong.txt
+END
+geo880.analysiss
+K 25
+svn:wc:ra_dav:version-url
+V 60
+/svn/wbzhang/!svn/ver/386/OntoQA/trunk/data/geo880.analysiss
+END
+geobase.rdf
+K 25
+svn:wc:ra_dav:version-url
+V 55
+/svn/wbzhang/!svn/ver/411/OntoQA/trunk/data/geobase.rdf
+END
+dissertion_sparql.txt
+K 25
+svn:wc:ra_dav:version-url
+V 65
+/svn/wbzhang/!svn/ver/451/OntoQA/trunk/data/dissertion_sparql.txt
+END

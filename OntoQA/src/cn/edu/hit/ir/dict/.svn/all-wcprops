@@ -1,0 +1,77 @@
+K 25
+svn:wc:ra_dav:version-url
+V 61
+/svn/wbzhang/!svn/ver/440/OntoQA/trunk/src/cn/edu/hit/ir/dict
+END
+EnglishSynonym.java
+K 25
+svn:wc:ra_dav:version-url
+V 81
+/svn/wbzhang/!svn/ver/389/OntoQA/trunk/src/cn/edu/hit/ir/dict/EnglishSynonym.java
+END
+SynonymOntology.java
+K 25
+svn:wc:ra_dav:version-url
+V 82
+/svn/wbzhang/!svn/ver/387/OntoQA/trunk/src/cn/edu/hit/ir/dict/SynonymOntology.java
+END
+Tokenizer.java
+K 25
+svn:wc:ra_dav:version-url
+V 76
+/svn/wbzhang/!svn/ver/363/OntoQA/trunk/src/cn/edu/hit/ir/dict/Tokenizer.java
+END
+Entity.java
+K 25
+svn:wc:ra_dav:version-url
+V 73
+/svn/wbzhang/!svn/ver/389/OntoQA/trunk/src/cn/edu/hit/ir/dict/Entity.java
+END
+StringToEntitiesMap.java
+K 25
+svn:wc:ra_dav:version-url
+V 86
+/svn/wbzhang/!svn/ver/389/OntoQA/trunk/src/cn/edu/hit/ir/dict/StringToEntitiesMap.java
+END
+Synonym.java
+K 25
+svn:wc:ra_dav:version-url
+V 74
+/svn/wbzhang/!svn/ver/387/OntoQA/trunk/src/cn/edu/hit/ir/dict/Synonym.java
+END
+DefaultTokenizer.java
+K 25
+svn:wc:ra_dav:version-url
+V 83
+/svn/wbzhang/!svn/ver/363/OntoQA/trunk/src/cn/edu/hit/ir/dict/DefaultTokenizer.java
+END
+MatchedEntitiesSentence.java
+K 25
+svn:wc:ra_dav:version-url
+V 90
+/svn/wbzhang/!svn/ver/413/OntoQA/trunk/src/cn/edu/hit/ir/dict/MatchedEntitiesSentence.java
+END
+EntityMatcher.java
+K 25
+svn:wc:ra_dav:version-url
+V 80
+/svn/wbzhang/!svn/ver/440/OntoQA/trunk/src/cn/edu/hit/ir/dict/EntityMatcher.java
+END
+WordNetSynonymAdapter.java
+K 25
+svn:wc:ra_dav:version-url
+V 88
+/svn/wbzhang/!svn/ver/387/OntoQA/trunk/src/cn/edu/hit/ir/dict/WordNetSynonymAdapter.java
+END
+MatchedEntity.java
+K 25
+svn:wc:ra_dav:version-url
+V 80
+/svn/wbzhang/!svn/ver/417/OntoQA/trunk/src/cn/edu/hit/ir/dict/MatchedEntity.java
+END
+PrefixToEntitiesMap.java
+K 25
+svn:wc:ra_dav:version-url
+V 86
+/svn/wbzhang/!svn/ver/389/OntoQA/trunk/src/cn/edu/hit/ir/dict/PrefixToEntitiesMap.java
+END

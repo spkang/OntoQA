@@ -1,0 +1,49 @@
+10
+
+dir
+460
+http://192.168.3.128:8081/svn/wbzhang/OntoQA/trunk/lib
+http://192.168.3.128:8081/svn/wbzhang
+
+
+
+2011-06-20T18:28:21.718750Z
+438
+wbzhang
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+5422cd85-820b-d346-924d-4de73f33fa3d
+
+graph
+dir
+
+wordnet
+dir
+
+demo
+dir
+
+nlp
+dir
+
+opennlp
+dir
+
+jena
+dir
+
+util
+dir
+

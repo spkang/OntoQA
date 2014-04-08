@@ -1,0 +1,1834 @@
+<examples>
+ <example id="1" status="wrong">
+  <query>
+   what are the high points of states surrounding mississippi ?
+  </query>
+  <sparql>
+   SELECT ?highestPoint WHERE { ?state geo:hasHighestPoint ?highestPoint . ?state a geo:state . ?state geo:border ?state2 . ?state2 geo:hasName &quot;mississippi&quot; . }
+  </sparql>
+  <answer>
+  </answer>
+  <sparqlout>
+   SELECT DISTINCT ?high_point_0 WHERE { ?mississippi_8 rdfs:label &quot;mississippi&quot; . ?mississippi_8 a geo:state . ?state_6 a geo:state . ?mississippi_8 geo:border ?state_6 . ?high_point_0 rdfs:label &quot;high point&quot; . ?high_point_0 a geo:city . ?high_point_0 geo:inState ?state_6 . } 
+  </sparqlout>
+ </example>
+ <example id="4" status="noanswer">
+  <query>
+   can you tell me the capital of texas ?
+  </query>
+  <sparql>
+   SELECT ?capital WHERE { ?state geo:hasCapital ?capital . ?state geo:hasName &quot;texas&quot; . ?state rdf:type geo:state . }
+  </sparql>
+  <answer>
+  </answer>
+  <sparqlout>
+  </sparqlout>
+ </example>
+ <example id="5" status="noanswer">
+  <query>
+   could you tell me what is the highest point in the state of oregon ?
+  </query>
+  <sparql>
+   SELECT ?highestPoint WHERE { ?state geo:hasHighestPoint ?highestPoint . ?state rdf:type geo:state . ?state geo:hasName &quot;oregon&quot; . }
+  </sparql>
+  <answer>
+  </answer>
+  <sparqlout>
+  </sparqlout>
+ </example>
+ <example id="15" status="noanswer">
+  <query>
+   give me the number of rivers in california ?
+  </query>
+  <sparql>
+   SELECT (COUNT(DISTINCT ?r) AS ?cnt) WHERE { ?r a geo:river . ?r geo:runThrough ?s . ?s geo:hasName &quot;california&quot; . }
+  </sparql>
+  <answer>
+  </answer>
+  <sparqlout>
+  </sparqlout>
+ </example>
+ <example id="22" status="noanswer">
+  <query>
+   how big is the city of new york ?
+  </query>
+  <sparql>
+   SELECT ?area WHERE { ?city rdf:type geo:city . ?city geo:hasArea ?area . ?city geo:hasName &quot;new york&quot; . }
+  </sparql>
+  <answer>
+  </answer>
+  <sparqlout>
+  </sparqlout>
+ </example>
+ <example id="26" status="wrong">
+  <query>
+   how high is the highest point in america ?
+  </query>
+  <sparql>
+   SELECT ?e WHERE { ?s geo:hasHighestPoint ?h . ?h geo:hasElevation ?e . } ORDER BY DESC(?e) LIMIT 1
+  </sparql>
+  <answer>
+  </answer>
+  <sparqlout>
+   SELECT DISTINCT ?x_0 WHERE { ?_point_1000011 a geo:point . ?_point_1000011 geo:hasElevation ?x_0 . } 
+  </sparqlout>
+ </example>
+ <example id="65" status="wrong">
+  <query>
+   how many inhabitants does montgomery have ?
+  </query>
+  <sparql>
+   SELECT ?p WHERE { ?s geo:hasPopulation ?p . ?s geo:hasName &quot;montgomery&quot; . }
+  </sparql>
+  <answer>
+  </answer>
+  <sparqlout>
+   SELECT DISTINCT (COUNT(DISTINCT ?montgomery_0) AS ?montgomery_0_count) WHERE { ?montgomery_0 rdfs:label &quot;montgomery&quot; . ?montgomery_0 a geo:city . } 
+  </sparqlout>
+ </example>
+ <example id="68" status="wrong">
+  <query>
+   how many major cities are in states bordering nebraska ?
+  </query>
+  <sparql>
+   SELECT (COUNT(DISTINCT ?c) AS ?cnt) WHERE { ?s geo:majorCity ?c . ?s geo:border ?s2 . ?s2 geo:hasName &quot;nebraska&quot; . }
+  </sparql>
+  <answer>
+  </answer>
+  <sparqlout>
+   SELECT DISTINCT (COUNT(DISTINCT ?_state_1000047) AS ?_state_1000047_count) WHERE { ?nebraska_8 rdfs:label &quot;nebraska&quot; . ?nebraska_8 a geo:state . ?_state_1000049 a geo:state . ?nebraska_8 geo:border ?_state_1000049 . ?_city_1000046 a geo:city . ?_city_1000046 geo:inState ?_state_1000049 . ?_state_1000047 a geo:state . ?_state_1000047 geo:majorCity ?_city_1000046 . } 
+  </sparqlout>
+ </example>
+ <example id="69" status="wrong">
+  <query>
+   how many major cities are in states bordering utah ?
+  </query>
+  <sparql>
+   SELECT (COUNT(DISTINCT ?c) AS ?cnt) WHERE { ?s geo:majorCity ?c . ?s geo:border ?s2 . ?s2 geo:hasName &quot;utah&quot; . }
+  </sparql>
+  <answer>
+  </answer>
+  <sparqlout>
+   SELECT DISTINCT (COUNT(DISTINCT ?_state_1000053) AS ?_state_1000053_count) WHERE { ?utah_8 rdfs:label &quot;utah&quot; . ?utah_8 a geo:state . ?_state_1000055 a geo:state . ?utah_8 geo:border ?_state_1000055 . ?_city_1000052 a geo:city . ?_city_1000052 geo:inState ?_state_1000055 . ?_state_1000053 a geo:state . ?_state_1000053 geo:majorCity ?_city_1000052 . } 
+  </sparqlout>
+ </example>
+ <example id="71" status="noanswer">
+  <query>
+   how many major cities are there ?
+  </query>
+  <sparql>
+   SELECT (COUNT(DISTINCT ?c) AS ?cnt) WHERE { ?s geo:majorCity ?c . }
+  </sparql>
+  <answer>
+  </answer>
+  <sparqlout>
+  </sparqlout>
+ </example>
+ <example id="76" status="wrong">
+  <query>
+   how many people are there in new york ?
+  </query>
+  <sparql>
+   SELECT ?p WHERE { ?s geo:hasPopulation ?p . ?s geo:hasName &quot;new york&quot; . }
+  </sparql>
+  <answer>
+  </answer>
+  <sparqlout>
+   SELECT DISTINCT ?x_0 WHERE { ?new_york_6 rdfs:label &quot;new york&quot; . ?new_york_6 a geo:city . ?new_york_6 geo:hasPopulation ?x_0 . } 
+  </sparqlout>
+ </example>
+ <example id="92" status="wrong">
+  <query>
+   how many people live in new york ?
+  </query>
+  <sparql>
+   SELECT ?p WHERE { ?s geo:hasPopulation ?p . ?s geo:hasName &quot;new york&quot; . }
+  </sparql>
+  <answer>
+  </answer>
+  <sparqlout>
+   SELECT DISTINCT ?x_0 WHERE { ?new_york_5 rdfs:label &quot;new york&quot; . ?new_york_5 a geo:city . ?new_york_5 geo:hasPopulation ?x_0 . } 
+  </sparqlout>
+ </example>
+ <example id="439" status="noanswer">
+  <query>
+   what is the length of the river that runs through the most number of states ?
+  </query>
+  <sparql>
+   SELECT ?l WHERE{ { SELECT ?r (count(?s) AS ?n) WHERE{ ?r rdf:type geo:river . ?s rdf:type geo:state . ?r geo:runThrough ?s. } GROUP BY ?r ORDER BY DESC(?n) LIMIT 1 } ?r geo:hasLength ?l . }
+  </sparql>
+  <answer>
+  </answer>
+  <sparqlout>
+  </sparqlout>
+ </example>
+ <example id="451" status="wrong">
+  <query>
+   what is the longest river in the largest state ?
+  </query>
+  <sparql>
+   SELECT DISTINCT ?r WHERE{ ?r rdf:type geo:river . ?r geo:hasLength ?l . ?r geo:runThrough ?s . { SELECT * WHERE{ ?s rdf:type geo:state . ?s geo:hasArea ?a . } ORDER BY DESC(?a) LIMIT 1 } } ORDER BY DESC(?l) LIMIT 1
+  </sparql>
+  <answer>
+  </answer>
+  <sparqlout>
+   SELECT DISTINCT ?river_0 WHERE { { SELECT DISTINCT ?x_1 ?river_0 WHERE { ?river_0 a geo:river . ?river_0 geo:runThrough ?state_8 . ?river_0 geo:hasLength ?x_1 . { SELECT DISTINCT ?x_0 ?state_8 WHERE { ?state_8 geo:hasArea ?x_0 . ?state_8 a geo:state . } ORDER BY DESC(?x_0) LIMIT 1 } } ORDER BY DESC(?x_1) LIMIT 1 } } 
+  </sparqlout>
+ </example>
+ <example id="452" status="wrong">
+  <query>
+   what is the longest river in the smallest state in the usa ?
+  </query>
+  <sparql>
+   SELECT DISTINCT ?r WHERE{ ?r rdf:type geo:river . ?r geo:hasLength ?l . ?r geo:runThrough ?s . { SELECT * WHERE{ ?s rdf:type geo:state . ?s geo:hasArea ?a . } ORDER BY ASC(?a) LIMIT 1 } } ORDER BY DESC(?l) LIMIT 1
+  </sparql>
+  <answer>
+  </answer>
+  <sparqlout>
+   SELECT DISTINCT ?river_0 WHERE { { SELECT DISTINCT ?x_1 ?river_0 WHERE { ?river_0 a geo:river . ?river_0 geo:runThrough ?state_8 . ?river_0 geo:hasLength ?x_1 . { SELECT DISTINCT ?x_0 ?state_8 WHERE { ?state_8 geo:hasArea ?x_0 . ?state_8 a geo:state . } ORDER BY ASC(?x_0) LIMIT 1 } } ORDER BY DESC(?x_1) LIMIT 1 } } 
+  </sparqlout>
+ </example>
+ <example id="453" status="wrong">
+  <query>
+   what is the longest river in the state with the highest point ?
+  </query>
+  <sparql>
+   SELECT DISTINCT ?r WHERE{ ?r rdf:type geo:river . ?r geo:hasLength ?l . ?r geo:runThrough ?s . { SELECT * WHERE{ ?s rdf:type geo:state . ?s geo:hasHighestPoint ?p . ?p geo:hasElevation ?e . } ORDER BY DESC(?e) LIMIT 1 } } ORDER BY DESC(?l) LIMIT 1
+  </sparql>
+  <answer>
+  </answer>
+  <sparqlout>
+   SELECT DISTINCT ?river_0 WHERE { { SELECT DISTINCT ?x_0 ?river_0 WHERE { ?river_0 a geo:river . ?state_7 a geo:state . ?river_0 geo:runThrough ?state_7 . ?river_0 geo:hasLength ?x_0 . } ORDER BY DESC(?x_0) LIMIT 1 } } 
+  </sparqlout>
+ </example>
+ <example id="458" status="wrong">
+  <query>
+   what is the longest river that does not run through texas ?
+  </query>
+  <sparql>
+   SELECT DISTINCT ?r WHERE{ ?r rdf:type geo:river . NOT EXISTS{?s rdf:type geo:state . ?r geo:runThrough ?s . ?s geo:hasName &quot;texas&quot; . } ?r geo:hasLength ?l . } ORDER BY DESC(?l) LIMIT 1
+  </sparql>
+  <answer>
+  </answer>
+  <sparqlout>
+   SELECT DISTINCT ?river_0 WHERE { { SELECT DISTINCT ?x_0 ?river_0 WHERE { ?river_0 a geo:river . ?texas_10 rdfs:label &quot;texas&quot; . ?texas_10 a geo:state . ?river_0 geo:runThrough ?texas_10 . ?river_0 geo:hasLength ?x_0 . } ORDER BY DESC(?x_0) LIMIT 1 } } 
+  </sparqlout>
+ </example>
+ <example id="463" status="noanswer">
+  <query>
+   what is the lowest elevation in pennsylvania ?
+  </query>
+  <sparql>
+   SELECT ?e WHERE { ?state rdf:type geo:state . ?state geo:hasName &quot;pennsylvania&quot; . ?state geo:hasLowestPoint ?point . ?point geo:hasElevation ?e }
+  </sparql>
+  <answer>
+  </answer>
+  <sparqlout>
+  </sparqlout>
+ </example>
+ <example id="474" status="wrong">
+  <query>
+   what is the lowest point in the united states ?
+  </query>
+  <sparql>
+   SELECT ?point WHERE { ?state rdf:type geo:state . ?state geo:hasLowestPoint ?point . ?point geo:hasElevation ?elevation } ORDER BY ASC(?elevation) LIMIT 1
+  </sparql>
+  <answer>
+  </answer>
+  <sparqlout>
+   SELECT DISTINCT ?_point_1000099 WHERE { ?state_8 a geo:state . ?_point_1000099 a geo:point . ?state_8 geo:hasLowestPoint ?_point_1000099 . } 
+  </sparqlout>
+ </example>
+ <example id="475" status="noanswer">
+  <query>
+   what is the lowest point in usa ?
+  </query>
+  <sparql>
+   SELECT ?point WHERE { ?state rdf:type geo:state . ?state geo:hasLowestPoint ?point . ?point geo:hasElevation ?elevation } ORDER BY ASC(?elevation) LIMIT 1
+  </sparql>
+  <answer>
+  </answer>
+  <sparqlout>
+  </sparqlout>
+ </example>
+ <example id="477" status="wrong">
+  <query>
+   what is the lowest point of all states through which the colorado river runs through ?
+  </query>
+  <sparql>
+   SELECT ?point WHERE { ?state rdf:type geo:state . ?state geo:hasLowestPoint ?point . ?point geo:hasElevation ?elevation . ?r rdf:type geo:river . ?r geo:runThrough ?state . ?r geo:hasName &quot;colorado&quot; . } ORDER BY ASC(?elevation) LIMIT 1
+  </sparql>
+  <answer>
+  </answer>
+  <sparqlout>
+   SELECT DISTINCT ?_point_1000101 WHERE { ?colorado_11 rdfs:label &quot;colorado&quot; . ?colorado_11 a geo:river . ?state_7 a geo:state . ?colorado_11 geo:runThrough ?state_7 . ?_point_1000101 a geo:point . ?state_7 geo:hasLowestPoint ?_point_1000101 . } 
+  </sparqlout>
+ </example>
+ <example id="480" status="noanswer">
+  <query>
+   what is the lowest point of the us ?
+  </query>
+  <sparql>
+   SELECT ?point WHERE { ?state rdf:type geo:state . ?state geo:hasLowestPoint ?point . ?point geo:hasElevation ?elevation } ORDER BY ASC(?elevation) LIMIT 1
+  </sparql>
+  <answer>
+  </answer>
+  <sparqlout>
+  </sparqlout>
+ </example>
+ <example id="484" status="noanswer">
+  <query>
+   what is the most populated capital in the usa ?
+  </query>
+  <sparql>
+   SELECT ?c WHERE { ?c rdf:type geo:city . ?c geo:hasPopulation ?p . ?s rdf:type geo:state . ?s geo:hasCapital ?c . } ORDER BY DESC(?p) LIMIT 1
+  </sparql>
+  <answer>
+  </answer>
+  <sparqlout>
+  </sparqlout>
+ </example>
+ <example id="491" status="wrong">
+  <query>
+   what is the most populous state through which the mississippi runs ?
+  </query>
+  <sparql>
+   SELECT ?s WHERE { ?s rdf:type geo:state . ?s geo:hasPopulation ?p . ?r rdf:type geo:river . ?r geo:runThrough ?s . ?r geo:hasName &quot;mississippi&quot; . } ORDER BY DESC(?p) LIMIT 1
+  </sparql>
+  <answer>
+  </answer>
+  <sparqlout>
+   SELECT DISTINCT ?state_0 WHERE { { SELECT DISTINCT ?x_0 ?state_0 WHERE { ?state_0 a geo:state . ?mississippi_9 rdfs:label &quot;mississippi&quot; . ?mississippi_9 a geo:state . ?state_0 geo:border ?mississippi_9 . ?state_0 geo:hasPopulation ?x_0 . } ORDER BY DESC(?x_0) LIMIT 1 } } 
+  </sparqlout>
+ </example>
+ <example id="492" status="wrong">
+  <query>
+   what is the name of the state with the lowest point ?
+  </query>
+  <sparql>
+   SELECT ?n WHERE { ?state rdf:type geo:state . ?state geo:hasLowestPoint ?point . ?state geo:hasName ?n . ?point geo:hasElevation ?e . } ORDER BY DESC(?e) LIMIT 1
+  </sparql>
+  <answer>
+  </answer>
+  <sparqlout>
+   SELECT DISTINCT ?x_0 WHERE { ?state_6 a geo:state . ?state_6 geo:hasName ?x_0 . } 
+  </sparqlout>
+ </example>
+ <example id="493" status="wrong">
+  <query>
+   what is the number of neighboring states for kentucky ?
+  </query>
+  <sparql>
+   SELECT (count(?s) AS ?num) WHERE { ?s rdf:type geo:state . ?s2 rdf:type geo:state . ?s2 geo:hasName &quot;kentucky&quot; . ?s geo:border ?s2 . }
+  </sparql>
+  <answer>
+  </answer>
+  <sparqlout>
+   SELECT DISTINCT ?x_0 WHERE { ?state_6 a geo:state . ?kentucky_8 rdfs:label &quot;kentucky&quot; . ?kentucky_8 a geo:state . ?state_6 geo:border ?kentucky_8 . ?state_6 geo:hasNumber ?x_0 . } 
+  </sparqlout>
+ </example>
+ <example id="525" status="wrong">
+  <query>
+   what is the population of new york ?
+  </query>
+  <sparql>
+   SELECT ?p WHERE { ?s rdf:type geo:state . ?s geo:hasName &quot;new york&quot; . ?s geo:hasPopulation ?p . }
+  </sparql>
+  <answer>
+  </answer>
+  <sparqlout>
+   SELECT DISTINCT ?x_0 WHERE { ?new_york_5 rdfs:label &quot;new york&quot; . ?new_york_5 a geo:city . ?new_york_5 geo:hasPopulation ?x_0 . } 
+  </sparqlout>
+ </example>
+ <example id="539" status="wrong">
+  <query>
+   what is the population of the capital of the largest state ?
+  </query>
+  <sparql>
+   SELECT ?p WHERE{ ?s rdf:type geo:state . ?s geo:hasArea ?a . ?c rdf:type geo:city . ?s geo:hasCapital ?c . ?c geo:hasPopulation ?p } ORDER BY DESC(?a) LIMIT 1
+  </sparql>
+  <answer>
+  </answer>
+  <sparqlout>
+   SELECT DISTINCT ?x_1 WHERE { ?_city_1000183 a geo:city . ?state_10 geo:hasCapital ?_city_1000183 . ?_city_1000183 geo:hasPopulation ?x_1 . { SELECT DISTINCT ?x_0 ?state_10 WHERE { ?state_10 geo:hasArea ?x_0 . ?state_10 a geo:state . } ORDER BY DESC(?x_0) LIMIT 1 } } 
+  </sparqlout>
+ </example>
+ <example id="540" status="wrong">
+  <query>
+   what is the population of the capital of the largest state through which the mississippi runs ?
+  </query>
+  <sparql>
+   SELECT ?p WHERE{ ?s rdf:type geo:state . ?s geo:hasArea ?a . ?c rdf:type geo:city . ?s geo:hasCapital ?c . ?c geo:hasPopulation ?p . ?r rdf:type geo:river . ?r geo:hasName &quot;mississippi&quot; . ?r geo:runThrough ?s . } ORDER BY DESC(?a) LIMIT 1
+  </sparql>
+  <answer>
+  </answer>
+  <sparqlout>
+   SELECT DISTINCT ?x_1 WHERE { ?_city_1000187 a geo:city . ?state_10 geo:hasCapital ?_city_1000187 . ?_city_1000187 geo:hasPopulation ?x_1 . { SELECT DISTINCT ?x_0 ?state_10 WHERE { ?state_10 a geo:state . ?mississippi_14 rdfs:label &quot;mississippi&quot; . ?mississippi_14 a geo:state . ?state_10 geo:border ?mississippi_14 . ?state_10 geo:hasArea ?x_0 . } ORDER BY DESC(?x_0) LIMIT 1 } } 
+  </sparqlout>
+ </example>
+ <example id="542" status="wrong">
+  <query>
+   what is the population of the largest city in the state with the largest area ?
+  </query>
+  <sparql>
+   SELECT ?p WHERE{ ?c rdf:type geo:city . { SELECT * WHERE { ?s rdf:type geo:state . ?s geo:hasArea ?a . } ORDER BY DESC(?a) LIMIT 1 } ?c geo:hasPopulation ?p . } ORDER BY DESC(?p) LIMIT 1
+  </sparql>
+  <answer>
+  </answer>
+  <sparqlout>
+   SELECT DISTINCT ?x_2 WHERE { ?city_7 geo:hasPopulation ?x_2 . { SELECT DISTINCT ?x_1 ?city_7 WHERE { ?city_7 a geo:city . ?state_10 geo:majorCity ?city_7 . ?city_7 geo:hasPopulation ?x_1 . { SELECT DISTINCT ?x_0 ?state_10 WHERE { ?state_10 a geo:state . ?state_10 geo:hasArea ?x_0 . } ORDER BY DESC(?x_0) LIMIT 1 } } ORDER BY DESC(?x_1) LIMIT 1 } } 
+  </sparqlout>
+ </example>
+ <example id="547" status="wrong">
+  <query>
+   what is the population of the state that borders the most states ?
+  </query>
+  <sparql>
+   SELECT ?p (count(?state2) AS ?num) WHERE { ?state rdf:type geo:state . ?state2 rdf:type geo:state . ?state geo:border ?state2 . ?state geo:hasPopulation ?p . } GROUP BY ?state ORDER BY DESC(?num) LIMIT 1
+  </sparql>
+  <answer>
+  </answer>
+  <sparqlout>
+   SELECT DISTINCT ?x_0 WHERE { ?state_6 geo:hasPopulation ?x_0 . { SELECT DISTINCT (COUNT(DISTINCT ?state_11) AS ?state_11_count) ?state_6 WHERE { ?state_11 a geo:state . ?state_6 a geo:state . ?state_11 geo:border ?state_6 . } GROUP BY ?state_6 ORDER BY DESC(?state_11_count) LIMIT 1 } } 
+  </sparqlout>
+ </example>
+ <example id="553" status="wrong">
+  <query>
+   what is the population of washington dc ?
+  </query>
+  <sparql>
+   SELECT ?p WHERE { ?c rdf:type geo:city . ?c geo:hasName &quot;washington&quot; . ?c geo:hasPopulation ?p . }
+  </sparql>
+  <answer>
+  </answer>
+  <sparqlout>
+   SELECT DISTINCT ?x_0 WHERE { ?washington_5 rdfs:label &quot;washington&quot; . ?washington_5 a geo:state . ?washington_5 geo:hasPopulation ?x_0 . } 
+  </sparqlout>
+ </example>
+ <example id="555" status="wrong">
+  <query>
+   what is the shortest river ?
+  </query>
+  <sparql>
+   SELECT ?river WHERE { ?river rdf:type geo:river . ?river geo:hasLength ?l. } ORDER BY ASC(?l) LIMIT 1
+  </sparql>
+  <answer>
+  </answer>
+  <sparqlout>
+   SELECT DISTINCT ?river_0 WHERE { ?river_0 a geo:river . } 
+  </sparqlout>
+ </example>
+ <example id="571" status="wrong">
+  <query>
+   what is the smallest city in the largest state ?
+  </query>
+  <sparql>
+   SELECT ?c WHERE{ ?c rdf:type geo:city . ?city geo:inState ?s . { SELECT * WHERE { ?s rdf:type geo:state . ?s geo:hasArea ?a . } ORDER BY DESC(?a) LIMIT 1 } ?c geo:hasPopulation ?p . } ORDER BY ASC(?p) LIMIT 1
+  </sparql>
+  <answer>
+  </answer>
+  <sparqlout>
+   SELECT DISTINCT ?city_0 WHERE { { SELECT DISTINCT ?x_1 ?city_0 WHERE { ?city_0 a geo:city . ?city_0 geo:inState ?state_8 . ?city_0 geo:hasPopulation ?x_1 . { SELECT DISTINCT ?x_0 ?state_8 WHERE { ?state_8 geo:hasArea ?x_0 . ?state_8 a geo:state . } ORDER BY DESC(?x_0) LIMIT 1 } } ORDER BY ASC(?x_1) LIMIT 1 } } 
+  </sparqlout>
+ </example>
+ <example id="575" status="wrong">
+  <query>
+   what is the smallest city of the smallest state in the us ?
+  </query>
+  <sparql>
+   SELECT ?c WHERE{ ?c rdf:type geo:city . ?c geo:inState ?s. {SELECT * WHERE { ?s rdf:type geo:state . ?s geo:hasArea ?a . } ORDER BY ASC(?a) LIMIT 1 } ?c geo:hasPopulation ?p . } ORDER BY ASC(?p) LIMIT 1
+  </sparql>
+  <answer>
+  </answer>
+  <sparqlout>
+   SELECT DISTINCT ?city_0 WHERE { { SELECT DISTINCT ?x_1 ?city_0 WHERE { ?city_0 a geo:city . ?city_0 geo:inState ?state_8 . ?city_0 geo:hasPopulation ?x_1 . { SELECT DISTINCT ?x_0 ?state_8 WHERE { ?state_8 geo:hasArea ?x_0 . ?state_8 a geo:state . } ORDER BY ASC(?x_0) LIMIT 1 } } ORDER BY ASC(?x_1) LIMIT 1 } } 
+  </sparqlout>
+ </example>
+ <example id="583" status="wrong">
+  <query>
+   what is the smallest state through which the longest river runs ?
+  </query>
+  <sparql>
+   SELECT ?s WHERE{ ?s rdf:type geo:state . { SELECT * { ?r rdf:type geo:river . ?r geo:hasLength ?l . } ORDER BY DESC(?l) LIMIT 1 } ?r geo:runThrough ?s . ?s geo:hasArea ?a } ORDER BY ASC(?a) LIMIT 1
+  </sparql>
+  <answer>
+  </answer>
+  <sparqlout>
+   SELECT DISTINCT ?state_0 WHERE { { SELECT DISTINCT ?x_1 ?state_0 WHERE { ?state_0 a geo:state . ?river_9 geo:runThrough ?state_0 . ?state_0 geo:hasArea ?x_1 . { SELECT DISTINCT ?x_0 ?river_9 WHERE { ?river_9 geo:hasLength ?x_0 . ?river_9 a geo:river . } ORDER BY DESC(?x_0) LIMIT 1 } } ORDER BY ASC(?x_1) LIMIT 1 } } 
+  </sparqlout>
+ </example>
+ <example id="584" status="wrong">
+  <query>
+   what is the state that contains the highest point ?
+  </query>
+  <sparql>
+   SELECT ?state WHERE { ?state rdf:type geo:state . ?state geo:hasHighestPoint ?point . ?point geo:hasElevation ?elevation } ORDER BY DESC(?elevation) LIMIT 1
+  </sparql>
+  <answer>
+  </answer>
+  <sparqlout>
+   SELECT DISTINCT ?state_0 WHERE { ?state_0 a geo:state . } 
+  </sparqlout>
+ </example>
+ <example id="585" status="noanswer">
+  <query>
+   what is the state with the highest elevation in the united states ?
+  </query>
+  <sparql>
+   SELECT ?state WHERE { ?state rdf:type geo:state . ?state geo:hasHighestPoint ?point . ?point geo:hasElevation ?elevation } ORDER BY DESC(?elevation) LIMIT 1
+  </sparql>
+  <answer>
+  </answer>
+  <sparqlout>
+  </sparqlout>
+ </example>
+ <example id="589" status="wrong">
+  <query>
+   what is the state with the lowest point ?
+  </query>
+  <sparql>
+   SELECT ?state WHERE { ?state rdf:type geo:state . ?state geo:hasLowestPoint ?point . ?point geo:hasElevation ?elevation } ORDER BY ASC(?elevation) LIMIT 1
+  </sparql>
+  <answer>
+  </answer>
+  <sparqlout>
+   SELECT DISTINCT ?state_0 WHERE { ?state_0 a geo:state . } 
+  </sparqlout>
+ </example>
+ <example id="595" status="noanswer">
+  <query>
+   what is the total area of the usa ?
+  </query>
+  <sparql>
+   SELECT DISTINCT sum(?a) WHERE{ ?s rdf:type geo:state. ?s geo:hasArea ?a . }
+  </sparql>
+  <answer>
+  </answer>
+  <sparqlout>
+  </sparqlout>
+ </example>
+ <example id="596" status="wrong">
+  <query>
+   what is the total length of all rivers in the usa ?
+  </query>
+  <sparql>
+   SELECT DISTINCT sum(?l) WHERE{ ?r rdf:type geo:river . ?r geo:hasLength ?l . }
+  </sparql>
+  <answer>
+  </answer>
+  <sparqlout>
+   SELECT DISTINCT ?x_0 WHERE { ?river_7 a geo:river . ?river_7 geo:hasLength ?x_0 . } 
+  </sparqlout>
+ </example>
+ <example id="597" status="wrong">
+  <query>
+   what is the total population of the states that border texas ?
+  </query>
+  <sparql>
+   SELECT DISTINCT sum(?p) WHERE{ ?s rdf:type geo:state . ?s geo:hasName &quot;texas&quot; . ?s2 rdf:type geo:state . ?s2 geo:border ?s . ?s2 geo:hasPopulation ?p . }
+  </sparql>
+  <answer>
+  </answer>
+  <sparqlout>
+   SELECT DISTINCT ?x_0 WHERE { ?texas_10 rdfs:label &quot;texas&quot; . ?texas_10 a geo:state . ?state_7 a geo:state . ?texas_10 geo:border ?state_7 . ?state_7 geo:hasPopulation ?x_0 . } 
+  </sparqlout>
+ </example>
+ <example id="605" status="wrong">
+  <query>
+   what river is the longest one in the united states ?
+  </query>
+  <sparql>
+   SELECT ?river WHERE { ?river rdf:type geo:river . ?river geo:hasLength ?length . } ORDER BY DESC(?length) LIMIT 1
+  </sparql>
+  <answer>
+  </answer>
+  <sparqlout>
+   SELECT DISTINCT ?river_0 WHERE { ?river_0 a geo:river . ?state_9 a geo:state . ?river_0 geo:runThrough ?state_9 . } 
+  </sparqlout>
+ </example>
+ <example id="608" status="wrong">
+  <query>
+   what river runs through the state with the most cities ?
+  </query>
+  <sparql>
+   SELECT DISTINCT ?river WHERE{ ?river rdf:type geo:river . { SELECT ?state (count(?city) AS ?num) WHERE { ?state rdf:type geo:state . ?city rdf:type geo:city . ?city geo:inState ?state . } GROUP BY ?state ORDER BY DESC(?num) LIMIT 1 } ?river geo:runThrough ?state }
+  </sparql>
+  <answer>
+  </answer>
+  <sparqlout>
+   SELECT DISTINCT ?river_0 WHERE { ?river_0 a geo:river . ?river_0 geo:runThrough ?state_5 . { SELECT DISTINCT (COUNT(DISTINCT ?city_9) AS ?city_9_count) ?state_5 WHERE { ?state_5 a geo:state . ?city_9 a geo:city . ?state_5 geo:hasCapital ?city_9 . } GROUP BY ?state_5 ORDER BY DESC(?city_9_count) LIMIT 1 } } 
+  </sparqlout>
+ </example>
+ <example id="615" status="noanswer">
+  <query>
+   what rivers are in states that border texas ?
+  </query>
+  <sparql>
+   SELECT DISTINCT ?river WHERE{ ?river rdf:type geo:river . ?state rdf:type geo:state . ?state geo:hasName &quot;texas&quot; . ?state2 rdf:type geo:state . ?state2 geo:border ?state . ?river geo:runThrough ?state2 }
+  </sparql>
+  <answer>
+  </answer>
+  <sparqlout>
+  </sparqlout>
+ </example>
+ <example id="619" status="wrong">
+  <query>
+   what rivers do not run through tennessee ?
+  </query>
+  <sparql>
+   SELECT DISTINCT ?river WHERE{ ?river rdf:type geo:river . ?state rdf:type geo:state . ?state geo:hasName &quot;tennessee&quot; . NOT EXISTS{?river geo:runThrough ?state . } }
+  </sparql>
+  <answer>
+  </answer>
+  <sparqlout>
+   SELECT DISTINCT ?river_0 WHERE { ?river_0 a geo:river . ?tennessee_6 rdfs:label &quot;tennessee&quot; . ?tennessee_6 a geo:state . ?river_0 geo:runThrough ?tennessee_6 . } 
+  </sparqlout>
+ </example>
+ <example id="623" status="wrong">
+  <query>
+   what rivers flow through states that border the state with the largest population ?
+  </query>
+  <sparql>
+   SELECT DISTINCT ?river WHERE { ?river rdf:type geo:river . { SELECT * WHERE{ ?state2 rdf:type geo:state . ?state2 geo:hasPopulation ?p . } GROUP BY ?state2 ORDER BY DESC(?p) LIMIT 1 } ?river geo:runThrough ?state3 . ?state3 rdf:type geo:state . ?state3 geo:border ?state2 . }
+  </sparql>
+  <answer>
+  </answer>
+  <sparqlout>
+   SELECT DISTINCT ?river_0 WHERE { ?state_4 a geo:state . ?state_4 geo:border ?state_8 . ?river_0 a geo:river . ?river_0 geo:runThrough ?state_4 . { SELECT DISTINCT ?x_0 ?state_8 WHERE { ?state_8 a geo:state . ?state_8 geo:hasPopulation ?x_0 . } ORDER BY DESC(?x_0) LIMIT 1 } } 
+  </sparqlout>
+ </example>
+ <example id="625" status="wrong">
+  <query>
+   what rivers flow through the state with the largest population ?
+  </query>
+  <sparql>
+   SELECT ?river WHERE { ?river rdf:type geo:river . { SELECT * WHERE{ ?state2 rdf:type geo:state . ?state2 geo:hasPopulation ?p . } GROUP BY ?state2 ORDER BY DESC(?p) LIMIT 1 } ?river geo:runThrough ?state2 . }
+  </sparql>
+  <answer>
+  </answer>
+  <sparqlout>
+   SELECT DISTINCT ?river_0 WHERE { ?river_0 a geo:river . ?river_0 geo:runThrough ?state_5 . { SELECT DISTINCT ?x_0 ?state_5 WHERE { ?state_5 a geo:state . ?state_5 geo:hasPopulation ?x_0 . } ORDER BY DESC(?x_0) LIMIT 1 } } 
+  </sparqlout>
+ </example>
+ <example id="632" status="wrong">
+  <query>
+   what rivers run through the state with the lowest point in the usa ?
+  </query>
+  <sparql>
+   SELECT DISTINCT ?river WHERE{ ?river rdf:type geo:river . { SELECT * WHERE{ ?state rdf:type geo:state . ?state geo:hasLowestPoint ?point . ?point geo:hasElevation ?e . } ORDER BY ASC(?e) LIMIT 1 } ?river geo:runThrough ?state . }
+  </sparql>
+  <answer>
+  </answer>
+  <sparqlout>
+   SELECT DISTINCT ?river_0 WHERE { ?river_0 a geo:river . ?state_5 a geo:state . ?river_0 geo:runThrough ?state_5 . } 
+  </sparqlout>
+ </example>
+ <example id="636" status="wrong">
+  <query>
+   what state bordering nevada has the largest population ?
+  </query>
+  <sparql>
+   SELECT ?state WHERE { ?state rdf:type geo:state . ?state2 rdf:type geo:state . ?state geo:border ?state2 . ?state2 geo:hasName &quot;nevada&quot; . ?state geo:hasPopulation ?p . } ORDER BY DESC(?p) LIMIT 1
+  </sparql>
+  <answer>
+  </answer>
+  <sparqlout>
+   SELECT DISTINCT ?state_0 WHERE { ?state_0 a geo:state . ?nevada_3 rdfs:label &quot;nevada&quot; . ?nevada_3 a geo:state . ?state_0 geo:border ?nevada_3 . } 
+  </sparqlout>
+ </example>
+ <example id="638" status="wrong">
+  <query>
+   what state borders most other states ?
+  </query>
+  <sparql>
+   SELECT ?state (count(?state2) AS ?num) WHERE { ?state rdf:type geo:state . ?state2 rdf:type geo:state . ?state geo:border ?state2 . FILTER(?state2 != ?state) } GROUP BY ?state ORDER BY DESC(?num) LIMIT 1
+  </sparql>
+  <answer>
+  </answer>
+  <sparqlout>
+   SELECT DISTINCT ?state_0 WHERE { ?state_0 a geo:state . ?state_5 geo:border ?state_0 . { SELECT DISTINCT ?x_0 ?state_5 WHERE { ?state_5 geo:hasNumber ?x_0 . ?state_5 a geo:state . } ORDER BY DESC(?x_0) LIMIT 1 } } 
+  </sparqlout>
+ </example>
+ <example id="641" status="wrong">
+  <query>
+   what state borders the least states excluding alaska and excluding hawaii ?
+  </query>
+  <sparql>
+   SELECT ?state (count(?state2) AS ?num) WHERE { ?state rdf:type geo:state . ?state2 rdf:type geo:state . ?state geo:border ?state2 . NOT EXISTS{?state2 geo:hasName &quot;alaska&quot; . } NOT EXISTS{?state2 geo:hasName &quot;hawaii&quot;. } } GROUP BY ?state ORDER BY ASC(?num) LIMIT 1
+  </sparql>
+  <answer>
+  </answer>
+  <sparqlout>
+   SELECT DISTINCT ?state_0 WHERE { ?state_0 a geo:state . ?state_5 geo:border ?state_0 . { SELECT DISTINCT ?x_0 ?state_5 WHERE { ?alaska_7 rdfs:label &quot;alaska&quot; . ?alaska_7 a geo:state . ?hawaii_10 rdfs:label &quot;hawaii&quot; . ?hawaii_10 a geo:state . ?alaska_7 geo:border ?hawaii_10 . ?state_5 a geo:state . ?state_5 geo:border ?alaska_7 . ?state_5 geo:hasPopDensity ?x_0 . } ORDER BY ASC(?x_0) LIMIT 1 } } 
+  </sparqlout>
+ </example>
+ <example id="643" status="wrong">
+  <query>
+   what state borders the state with the smallest population ?
+  </query>
+  <sparql>
+   SELECT ?state WHERE { ?state rdf:type geo:state . { SELECT * WHERE{ ?state2 rdf:type geo:state . ?state2 geo:hasPopulation ?p . } GROUP BY ?state2 ORDER BY ASC(?p) LIMIT 1 } ?state geo:border ?state2 . }
+  </sparql>
+  <answer>
+  </answer>
+  <sparqlout>
+   SELECT DISTINCT ?state_0 WHERE { ?state_0 a geo:state . ?state_0 geo:border ?state_4 . { SELECT DISTINCT ?x_0 ?state_4 WHERE { ?state_4 a geo:state . ?state_4 geo:hasPopulation ?x_0 . } ORDER BY ASC(?x_0) LIMIT 1 } } 
+  </sparqlout>
+ </example>
+ <example id="644" status="wrong">
+  <query>
+   what state contains the highest point in the us ?
+  </query>
+  <sparql>
+   SELECT ?state WHERE { ?state rdf:type geo:state . ?state geo:hasHighestPoint ?point . ?point geo:hasElevation ?elevation . } ORDER BY DESC(?elevation) LIMIT 1
+  </sparql>
+  <answer>
+  </answer>
+  <sparqlout>
+   SELECT DISTINCT ?state_0 WHERE { ?state_0 a geo:state . } 
+  </sparqlout>
+ </example>
+ <example id="645" status="wrong">
+  <query>
+   what state contains the highest point of those the colorado river traverses ?
+  </query>
+  <sparql>
+   SELECT DISTINCT ?state WHERE { ?state rdf:type geo:state . ?river rdf:type geo:river . ?river geo:hasName &quot;colorado&quot; . ?river geo:runThrough ?state . ?state geo:hasHighestPoint ?p . ?p geo:hasElevation ?e . } ORDER BY DESC(?e) LIMIT 1
+  </sparql>
+  <answer>
+  </answer>
+  <sparqlout>
+   SELECT DISTINCT ?state_0 WHERE { ?state_0 a geo:state . ?colorado_river_in_arizona_low_9 rdfs:label &quot;colorado river&quot; . ?colorado_river_in_arizona_low_9 a geo:point . ?state_0 geo:hasHighestPoint ?colorado_river_in_arizona_low_9 . } 
+  </sparqlout>
+ </example>
+ <example id="646" status="noanswer">
+  <query>
+   what state has highest elevation ?
+  </query>
+  <sparql>
+   SELECT ?state WHERE { ?state rdf:type geo:state . ?state geo:hasHighestPoint ?point . ?point geo:hasElevation ?elevation . } ORDER BY DESC(?elevation) LIMIT 1
+  </sparql>
+  <answer>
+  </answer>
+  <sparqlout>
+  </sparqlout>
+ </example>
+ <example id="647" status="wrong">
+  <query>
+   what state has no rivers ?
+  </query>
+  <sparql>
+   SELECT DISTINCT ?state WHERE { ?state rdf:type geo:state . NOT EXISTS{?river rdf:type geo:river . ?river geo:runThrough ?state . } }
+  </sparql>
+  <answer>
+  </answer>
+  <sparqlout>
+   SELECT DISTINCT ?state_0 WHERE { ?river_4 a geo:river . ?state_0 a geo:state . ?river_4 geo:runThrough ?state_0 . } 
+  </sparqlout>
+ </example>
+ <example id="649" status="noanswer">
+  <query>
+   what state has the city flint ?
+  </query>
+  <sparql>
+   SELECT ?state WHERE { ?state rdf:type geo:state. ?city rdf:type geo:city . ?city geo:hasName &quot;flint&quot; . ?city geo:inState ?state . }
+  </sparql>
+  <answer>
+  </answer>
+  <sparqlout>
+  </sparqlout>
+ </example>
+ <example id="651" status="wrong">
+  <query>
+   what state has the city with the most population ?
+  </query>
+  <sparql>
+   SELECT ?state WHERE { ?state rdf:type geo:state . ?city rdf:type geo:city . ?city geo:hasPopulation ?p . ?city geo:inState ?state . } ORDER BY DESC(?p) LIMIT 1
+  </sparql>
+  <answer>
+  </answer>
+  <sparqlout>
+   SELECT DISTINCT ?state_0 WHERE { ?city_4 a geo:city . ?city_4 geo:hasPopulation ?x_0 . ?state_0 a geo:state . ?city_4 geo:inState ?state_0 . } 
+  </sparqlout>
+ </example>
+ <example id="653" status="noanswer">
+  <query>
+   what state has the highest elevation ?
+  </query>
+  <sparql>
+   SELECT ?state WHERE { ?state rdf:type geo:state . ?state geo:hasHighestPoint ?point . ?point geo:hasElevation ?elevation . } ORDER BY DESC(?elevation) LIMIT 1
+  </sparql>
+  <answer>
+  </answer>
+  <sparqlout>
+  </sparqlout>
+ </example>
+ <example id="657" status="wrong">
+  <query>
+   what state has the largest capital ?
+  </query>
+  <sparql>
+   SELECT ?s WHERE{ ?c rdf:type geo:city . ?s rdf:type geo:state . ?s geo:hasCapital ?c . ?c geo:hasPopulation ?p . } ORDER BY DESC(?p) LIMIT 1
+  </sparql>
+  <answer>
+  </answer>
+  <sparqlout>
+   SELECT DISTINCT ?state_0 WHERE { ?state_0 a geo:state . } 
+  </sparqlout>
+ </example>
+ <example id="658" status="wrong">
+  <query>
+   what state has the largest city ?
+  </query>
+  <sparql>
+   SELECT ?s WHERE{ ?c rdf:type geo:city . ?s rdf:type geo:state . ?c geo:inState ?s . ?c geo:hasPopulation ?p . } ORDER BY DESC(?p) LIMIT 1
+  </sparql>
+  <answer>
+  </answer>
+  <sparqlout>
+   SELECT DISTINCT ?state_0 WHERE { ?state_0 a geo:state . ?state_0 geo:hasCapital ?city_5 . { SELECT DISTINCT ?x_0 ?city_5 WHERE { ?city_5 geo:hasPopulation ?x_0 . ?city_5 a geo:city . } ORDER BY DESC(?x_0) LIMIT 1 } } 
+  </sparqlout>
+ </example>
+ <example id="663" status="wrong">
+  <query>
+   what state has the longest river ?
+  </query>
+  <sparql>
+   WHERE { ?state rdf:type geo:state . ?river rdf:type geo:river . ?river geo:runThrough ?state . ?river geo:hasLength ?l. } ORDER BY DESC(?l) LIMIT 1
+  </sparql>
+  <answer>
+  </answer>
+  <sparqlout>
+   SELECT DISTINCT ?state_0 WHERE { ?state_0 a geo:state . ?river_5 geo:runThrough ?state_0 . { SELECT DISTINCT ?x_0 ?river_5 WHERE { ?river_5 geo:hasLength ?x_0 . ?river_5 a geo:river . } ORDER BY DESC(?x_0) LIMIT 1 } } 
+  </sparqlout>
+ </example>
+ <example id="665" status="wrong">
+  <query>
+   what state has the most cities ?
+  </query>
+  <sparql>
+   SELECT ?state (count(?city) AS ?num) WHERE { ?state rdf:type geo:state . ?city rdf:type geo:city . ?city geo:inState ?state . } GROUP BY ?state ORDER BY DESC(?num) LIMIT 1
+  </sparql>
+  <answer>
+  </answer>
+  <sparqlout>
+   SELECT DISTINCT ?state_0 WHERE { { SELECT DISTINCT (COUNT(DISTINCT ?city_5) AS ?city_5_count) ?state_0 WHERE { ?state_0 a geo:state . ?city_5 a geo:city . ?state_0 geo:hasCapital ?city_5 . } GROUP BY ?state_0 ORDER BY DESC(?city_5_count) LIMIT 1 } } 
+  </sparqlout>
+ </example>
+ <example id="666" status="wrong">
+  <query>
+   what state has the most major cities ?
+  </query>
+  <sparql>
+   SELECT ?state (count(?city) AS ?num) WHERE { ?state rdf:type geo:state . ?city rdf:type geo:city . ?state geo:majorCity ?city . } GROUP BY ?state ORDER BY DESC(?num) LIMIT 1
+  </sparql>
+  <answer>
+  </answer>
+  <sparqlout>
+   SELECT DISTINCT ?state_0 WHERE { ?state_0 a geo:state . } 
+  </sparqlout>
+ </example>
+ <example id="668" status="wrong">
+  <query>
+   what state has the most people ?
+  </query>
+  <sparql>
+   SELECT ?state WHERE { ?state rdf:type geo:state . ?state geo:hasPopulation ?pop } ORDER BY DESC(?pop) LIMIT 1
+  </sparql>
+  <answer>
+  </answer>
+  <sparqlout>
+   SELECT DISTINCT ?state_0 WHERE { ?state_0 a geo:state . } 
+  </sparqlout>
+ </example>
+ <example id="671" status="wrong">
+  <query>
+   what state has the shortest river ?
+  </query>
+  <sparql>
+   WHERE { ?state rdf:type geo:state . ?river rdf:type geo:river . ?river geo:runThrough ?state . ?river geo:hasLength ?l. } ORDER BY ASC(?l) LIMIT 1
+  </sparql>
+  <answer>
+  </answer>
+  <sparqlout>
+   SELECT DISTINCT ?state_0 WHERE { ?river_5 a geo:river . ?state_0 a geo:state . ?river_5 geo:runThrough ?state_0 . } 
+  </sparqlout>
+ </example>
+ <example id="673" status="wrong">
+  <query>
+   what state has the smallest capital ?
+  </query>
+  <sparql>
+   SELECT ?s WHERE{ ?c rdf:type geo:city . ?s rdf:type geo:state . ?s geo:hasCapital ?c . ?c geo:hasPopulation ?p . } ORDER BY DESC(?p) LIMIT 1
+  </sparql>
+  <answer>
+  </answer>
+  <sparqlout>
+   SELECT DISTINCT ?state_0 WHERE { ?state_0 a geo:state . } 
+  </sparqlout>
+ </example>
+ <example id="677" status="wrong">
+  <query>
+   what state has the sparsest population density ?
+  </query>
+  <sparql>
+   SELECT ?state WHERE { ?state rdf:type geo:state . ?state geo:hasPopDensity ?PopDen . } ORDER BY ASC(?PopDen) LIMIT 1
+  </sparql>
+  <answer>
+  </answer>
+  <sparqlout>
+   SELECT DISTINCT ?state_0 WHERE { ?state_0 a geo:state . ?state_0 geo:hasPopDensity ?x_0 . } 
+  </sparqlout>
+ </example>
+ <example id="682" status="wrong">
+  <query>
+   what state is dallas in ?
+  </query>
+  <sparql>
+   SELECT DISTINCT ?state WHERE { ?state rdf:type geo:state . ?city rdf:type geo:city . ?city geo:inState ?state . ?city geo:hasName &quot;dallas&quot; . }
+  </sparql>
+  <answer>
+  </answer>
+  <sparqlout>
+   SELECT DISTINCT ?state_0 WHERE { ?state_0 a geo:state . ?dallas_3 rdfs:label &quot;dallas&quot; . ?dallas_3 a geo:city . ?state_0 geo:hasCapital ?dallas_3 . } 
+  </sparqlout>
+ </example>
+ <example id="684" status="wrong">
+  <query>
+   what state is miami in ?
+  </query>
+  <sparql>
+   SELECT DISTINCT ?state WHERE { ?state rdf:type geo:state . ?city rdf:type geo:city . ?city geo:inState ?state . ?city geo:hasName &quot;miami&quot; . }
+  </sparql>
+  <answer>
+  </answer>
+  <sparqlout>
+   SELECT DISTINCT ?state_0 WHERE { ?state_0 a geo:state . ?miami_3 rdfs:label &quot;miami&quot; . ?miami_3 a geo:city . ?state_0 geo:hasCapital ?miami_3 . } 
+  </sparqlout>
+ </example>
+ <example id="685" status="wrong">
+  <query>
+   what state is pittsburgh in ?
+  </query>
+  <sparql>
+   SELECT DISTINCT ?state WHERE { ?state rdf:type geo:state . ?city rdf:type geo:city . ?city geo:inState ?state . ?city geo:hasName &quot;pittsburgh&quot; . }
+  </sparql>
+  <answer>
+  </answer>
+  <sparqlout>
+   SELECT DISTINCT ?state_0 WHERE { ?state_0 a geo:state . ?pittsburgh_3 rdfs:label &quot;pittsburgh&quot; . ?pittsburgh_3 a geo:city . ?state_0 geo:hasCapital ?pittsburgh_3 . } 
+  </sparqlout>
+ </example>
+ <example id="686" status="wrong">
+  <query>
+   what state is the biggest ?
+  </query>
+  <sparql>
+   SELECT ?state WHERE { ?state rdf:type geo:state . ?state geo:hasArea ?a . } ORDER BY DESC(?a) LIMIT 1
+  </sparql>
+  <answer>
+  </answer>
+  <sparqlout>
+   SELECT DISTINCT ?state_0 WHERE { ?state_0 a geo:state . } 
+  </sparqlout>
+ </example>
+ <example id="688" status="wrong">
+  <query>
+   what state is the state with the most rivers ?
+  </query>
+  <sparql>
+   SELECT ?state (count(?river) AS ?num) WHERE { ?state rdf:type geo:state . ?river rdf:type geo:river . ?river geo:runThrough ?state . } GROUP BY (?state) ORDER BY DESC(?num) LIMIT 1
+  </sparql>
+  <answer>
+  </answer>
+  <sparqlout>
+   SELECT DISTINCT ?state_0 WHERE { ?state_0 a geo:state . ?state_0 geo:border ?state_4 . { SELECT DISTINCT (COUNT(DISTINCT ?river_8) AS ?river_8_count) ?state_4 WHERE { ?river_8 a geo:river . ?state_4 a geo:state . ?river_8 geo:runThrough ?state_4 . } GROUP BY ?state_4 ORDER BY DESC(?river_8_count) LIMIT 1 } } 
+  </sparqlout>
+ </example>
+ <example id="689" status="wrong">
+  <query>
+   what state that borders texas has the highest population ?
+  </query>
+  <sparql>
+   SELECT DISTINCT ?state WHERE { ?state rdf:type geo:state . ?state2 rdf:type geo:state . ?state2 geo:hasName &quot;texas&quot; . ?state geo:hasPopulation ?p . ?state geo:border ?state2 . } ORDER BY DESC(?p) LIMIT 1
+  </sparql>
+  <answer>
+  </answer>
+  <sparqlout>
+   SELECT DISTINCT ?state_0 WHERE { ?texas_4 rdfs:label &quot;texas&quot; . ?texas_4 a geo:state . ?state_0 a geo:state . ?texas_4 geo:border ?state_0 . } 
+  </sparqlout>
+ </example>
+ <example id="690" status="wrong">
+  <query>
+   what state that borders texas is the largest ?
+  </query>
+  <sparql>
+   SELECT DISTINCT ?state WHERE { ?state rdf:type geo:state . ?state2 rdf:type geo:state . ?state2 geo:hasName &quot;texas&quot; . ?state geo:hasArea ?a . ?state geo:border ?state2 . } ORDER BY DESC(?a) LIMIT 1
+  </sparql>
+  <answer>
+  </answer>
+  <sparqlout>
+   SELECT DISTINCT ?state_0 WHERE { ?texas_4 rdfs:label &quot;texas&quot; . ?texas_4 a geo:state . ?state_0 a geo:state . ?texas_4 geo:border ?state_0 . } 
+  </sparqlout>
+ </example>
+ <example id="691" status="wrong">
+  <query>
+   what state which the mississippi runs through has the largest population ?
+  </query>
+  <sparql>
+   SELECT DISTINCT ?state WHERE { ?state rdf:type geo:state . ?river rdf:type geo:river . ?river geo:runThrough ?state . ?river geo:hasName &quot;mississippi&quot; . ?state geo:hasPopulation ?p . } ORDER BY DESC(?p) LIMIT 1
+  </sparql>
+  <answer>
+  </answer>
+  <sparqlout>
+   SELECT DISTINCT ?state_0 WHERE { ?mississippi_4 rdfs:label &quot;mississippi&quot; . ?mississippi_4 a geo:river . ?mississippi_4 geo:runThrough ?_state_1000264 . ?state_0 a geo:state . ?mississippi_4 geo:runThrough ?state_0 . { SELECT DISTINCT ?x_0 ?_state_1000264 WHERE { ?_state_1000264 a geo:state . ?_state_1000264 geo:hasPopulation ?x_0 . } ORDER BY DESC(?x_0) LIMIT 1 } } 
+  </sparqlout>
+ </example>
+ <example id="697" status="wrong">
+  <query>
+   what states border delaware ?
+  </query>
+  <sparql>
+   SELECT WHERE { } SELECT ?state WHERE { ?state rdf:type geo:state . ?state2 rdf:type geo:state . ?state geo:border ?state2 . ?state2 geo:hasName &quot;delaware&quot; . }
+  </sparql>
+  <answer>
+  </answer>
+  <sparqlout>
+   SELECT DISTINCT ?state_0 WHERE { ?delaware_3 rdfs:label &quot;delaware&quot; . ?delaware_3 a geo:state . ?state_0 a geo:state . ?delaware_3 geo:border ?state_0 . } 
+  </sparqlout>
+ </example>
+ <example id="714" status="wrong">
+  <query>
+   what states border states that border the state with the largest population ?
+  </query>
+  <sparql>
+   SELECT ?state WHERE { ?state rdf:type geo:state . { SELECT * WHERE{ ?state2 rdf:type geo:state . ?state2 geo:hasPopulation ?p . } GROUP BY ?state2 ORDER BY DESC(?p) LIMIT 1 } ?state geo:border ?state2 . }
+  </sparql>
+  <answer>
+  </answer>
+  <sparqlout>
+   SELECT DISTINCT ?state_0 WHERE { ?state_3 a geo:state . ?state_3 geo:border ?state_7 . ?state_0 a geo:state . ?state_0 geo:border ?state_3 . { SELECT DISTINCT ?x_0 ?state_7 WHERE { ?state_7 a geo:state . ?state_7 geo:hasPopulation ?x_0 . } ORDER BY DESC(?x_0) LIMIT 1 } } 
+  </sparqlout>
+ </example>
+ <example id="715" status="wrong">
+  <query>
+   what states border states that the mississsippi runs through ?
+  </query>
+  <sparql>
+   SELECT DISTINCT ?state WHERE { ?state rdf:type geo:state . ?state2 rdf:type geo:state . ?state geo:border ?state2 . ?river rdf:type geo:river . ?river geo:runThrough ?state2 . ?river geo:hasName &quot;mississippi&quot; . }
+  </sparql>
+  <answer>
+  </answer>
+  <sparqlout>
+   SELECT DISTINCT ?state_0 WHERE { ?state_3 a geo:state . ?state_0 a geo:state . ?state_3 geo:border ?state_0 . } 
+  </sparqlout>
+ </example>
+ <example id="721" status="wrong">
+  <query>
+   what states border the most populous state ?
+  </query>
+  <sparql>
+   SELECT ?state WHERE { ?state rdf:type geo:state . { SELECT * WHERE{ ?state2 rdf:type geo:state . ?state2 geo:hasPopulation ?p . } GROUP BY ?state2 ORDER BY DESC(?p) LIMIT 1 } ?state geo:border ?state2 . }
+  </sparql>
+  <answer>
+  </answer>
+  <sparqlout>
+   SELECT DISTINCT ?state_0 WHERE { ?state_0 a geo:state . ?state_6 geo:border ?state_0 . { SELECT DISTINCT ?x_0 ?state_6 WHERE { ?state_6 geo:hasPopulation ?x_0 . ?state_6 a geo:state . } ORDER BY DESC(?x_0) LIMIT 1 } } 
+  </sparqlout>
+ </example>
+ <example id="723" status="wrong">
+  <query>
+   what states border the state with the most cities ?
+  </query>
+  <sparql>
+   SELECT ?state WHERE { ?state rdf:type geo:state . ?state2 rdf:type geo:state . { SELECT ?state2 (count(?city) AS ?num) WHERE{ ?city rdf:type geo:city . ?city geo:inState ?state2 . } GROUP BY ?state2 ORDER BY DESC(?num) LIMIT 1 } ?state geo:border ?state2 . }
+  </sparql>
+  <answer>
+  </answer>
+  <sparqlout>
+   SELECT DISTINCT ?state_0 WHERE { ?state_0 a geo:state . ?state_4 geo:border ?state_0 . { SELECT DISTINCT (COUNT(DISTINCT ?city_8) AS ?city_8_count) ?state_4 WHERE { ?state_4 a geo:state . ?city_8 a geo:city . ?state_4 geo:hasCapital ?city_8 . } GROUP BY ?state_4 ORDER BY DESC(?city_8_count) LIMIT 1 } } 
+  </sparqlout>
+ </example>
+ <example id="724" status="wrong">
+  <query>
+   what states border the state with the most major cities ?
+  </query>
+  <sparql>
+   SELECT ?state WHERE { ?state rdf:type geo:state . ?state2 rdf:type geo:state . { SELECT ?state2 (count(?city) AS ?num) WHERE{ ?city rdf:type geo:city . ?state2 geo:majorCity ?city } GROUP BY ?state2 ORDER BY DESC(?num) LIMIT 1 } ?state geo:border ?state2 . }
+  </sparql>
+  <answer>
+  </answer>
+  <sparqlout>
+   SELECT DISTINCT ?state_0 WHERE { ?state_4 a geo:state . ?state_0 a geo:state . ?state_4 geo:border ?state_0 . } 
+  </sparqlout>
+ </example>
+ <example id="726" status="wrong">
+  <query>
+   what states border the states with the most cities ?
+  </query>
+  <sparql>
+   SELECT ?state WHERE { ?state rdf:type geo:state . ?state2 rdf:type geo:state . { SELECT ?state2 (count(?city) AS ?num) WHERE{ ?city rdf:type geo:city . ?city geo:inState ?state2 . } GROUP BY ?state2 ORDER BY DESC(?num) LIMIT 1 } ?state geo:border ?state2 . }
+  </sparql>
+  <answer>
+  </answer>
+  <sparqlout>
+   SELECT DISTINCT ?state_0 WHERE { ?state_0 a geo:state . ?state_4 geo:border ?state_0 . { SELECT DISTINCT (COUNT(DISTINCT ?city_8) AS ?city_8_count) ?state_4 WHERE { ?state_4 a geo:state . ?city_8 a geo:city . ?state_4 geo:hasCapital ?city_8 . } GROUP BY ?state_4 ORDER BY DESC(?city_8_count) LIMIT 1 } } 
+  </sparqlout>
+ </example>
+ <example id="736" status="wrong">
+  <query>
+   what states does the ohio river go through ?
+  </query>
+  <sparql>
+   SELECT DISTINCT ?state WHERE { ?state rdf:type geo:state . ?river rdf:type geo:river . ?river geo:runThrough ?state . ?river geo:hasName &quot;ohio&quot; . }
+  </sparql>
+  <answer>
+  </answer>
+  <sparqlout>
+   SELECT DISTINCT ?state_0 WHERE { ?state_0 a geo:state . ?ohio_river_in_indiana_low_4 rdfs:label &quot;ohio river&quot; . ?ohio_river_in_indiana_low_4 a geo:point . ?state_0 geo:hasHighestPoint ?ohio_river_in_indiana_low_4 . } 
+  </sparqlout>
+ </example>
+ <example id="742" status="wrong">
+  <query>
+   what states have cities named dallas ?
+  </query>
+  <sparql>
+   SELECT ?state WHERE { ?state rdf:type geo:state. ?city rdf:type geo:city . ?city geo:hasName &quot;dallas&quot; . ?city geo:inState ?state . }
+  </sparql>
+  <answer>
+  </answer>
+  <sparqlout>
+   SELECT DISTINCT ?state_0 WHERE { ?city_3 a geo:city . ?city_3 geo:hasName &quot;dallas&quot; . ?state_0 a geo:state . ?state_0 geo:hasCapital ?city_3 . } 
+  </sparqlout>
+ </example>
+ <example id="743" status="wrong">
+  <query>
+   what states have cities named plano ?
+  </query>
+  <sparql>
+   SELECT ?state WHERE { ?state rdf:type geo:state. ?city rdf:type geo:city . ?city geo:hasName &quot;plano&quot; . ?city geo:inState ?state . }
+  </sparql>
+  <answer>
+  </answer>
+  <sparqlout>
+   SELECT DISTINCT ?state_0 WHERE { ?city_3 a geo:city . ?city_3 geo:hasName &quot;plano&quot; . ?state_0 a geo:state . ?state_0 geo:hasCapital ?city_3 . } 
+  </sparqlout>
+ </example>
+ <example id="744" status="wrong">
+  <query>
+   what states have cities named portland ?
+  </query>
+  <sparql>
+   SELECT ?state WHERE { ?state rdf:type geo:state. ?city rdf:type geo:city . ?city geo:hasName &quot;portland&quot; . ?city geo:inState ?state . }
+  </sparql>
+  <answer>
+  </answer>
+  <sparqlout>
+   SELECT DISTINCT ?state_0 WHERE { ?city_3 a geo:city . ?city_3 geo:hasName &quot;portland&quot; . ?state_0 a geo:state . ?state_0 geo:hasCapital ?city_3 . } 
+  </sparqlout>
+ </example>
+ <example id="745" status="wrong">
+  <query>
+   what states have cities named rochester ?
+  </query>
+  <sparql>
+   SELECT ?state WHERE { ?state rdf:type geo:state. ?city rdf:type geo:city . ?city geo:hasName &quot;rochester&quot; . ?city geo:inState ?state . }
+  </sparql>
+  <answer>
+  </answer>
+  <sparqlout>
+   SELECT DISTINCT ?state_0 WHERE { ?city_3 a geo:city . ?city_3 geo:hasName &quot;rochester&quot; . ?state_0 a geo:state . ?state_0 geo:hasCapital ?city_3 . } 
+  </sparqlout>
+ </example>
+ <example id="747" status="wrong">
+  <query>
+   what states have no bordering state ?
+  </query>
+  <sparql>
+   SELECT DISTINCT ?state WHERE { ?state rdf:type geo:state . NOT EXISTS {?state2 rdf:type geo:state . ?state geo:border ?state2} }
+  </sparql>
+  <answer>
+  </answer>
+  <sparqlout>
+   SELECT DISTINCT ?state_0 WHERE { ?state_5 a geo:state . ?state_0 a geo:state . ?state_5 geo:border ?state_0 . } 
+  </sparqlout>
+ </example>
+ <example id="750" status="noanswer">
+  <query>
+   what states have towns named springfield ?
+  </query>
+  <sparql>
+   SELECT ?state WHERE { ?state rdf:type geo:state. ?city rdf:type geo:city . ?city geo:hasName &quot;springfield&quot; . ?city geo:inState ?state . }
+  </sparql>
+  <answer>
+  </answer>
+  <sparqlout>
+  </sparqlout>
+ </example>
+ <example id="751" status="wrong">
+  <query>
+   what states high point are higher than that of colorado ?
+  </query>
+  <sparql>
+   SELECT ?state WHERE{ ?state rdf:type geo:state . ?state2 rdf:type geo:state . ?state2 geo:hasName &quot;colorado&quot; . ?state geo:hasHighestPoint ?point . ?state2 geo:hasHighestPoint ?point2 . ?point geo:hasElevation ?h . ?point2 geo:hasElevation ?h2 . FILTER (?h &gt; ?h2) }
+  </sparql>
+  <answer>
+  </answer>
+  <sparqlout>
+   SELECT DISTINCT ?state_0 WHERE { ?high_point_2 rdfs:label &quot;high point&quot; . ?high_point_2 a geo:city . ?colorado_9 rdfs:label &quot;colorado&quot; . ?colorado_9 a geo:state . ?high_point_2 geo:inState ?colorado_9 . ?state_0 a geo:state . ?state_0 geo:majorCity ?high_point_2 . } 
+  </sparqlout>
+ </example>
+ <example id="752" status="wrong">
+  <query>
+   what states in the united states have a city of springfield ?
+  </query>
+  <sparql>
+   SELECT ?state WHERE { ?state rdf:type geo:state. ?city rdf:type geo:city . ?city geo:hasName &quot;springfield&quot; . ?city geo:inState ?state . }
+  </sparql>
+  <answer>
+  </answer>
+  <sparqlout>
+   SELECT DISTINCT ?state_0 WHERE { ?state_5 a geo:state . ?springfield_8 rdfs:label &quot;springfield&quot; . ?springfield_8 a geo:city . ?state_5 geo:hasCapital ?springfield_8 . ?state_0 a geo:state . ?state_0 geo:border ?state_5 . } 
+  </sparqlout>
+ </example>
+ <example id="755" status="wrong">
+  <query>
+   what texas city has the largest population ?
+  </query>
+  <sparql>
+   SELECT ?city WHERE{ ?city rdf:type geo:city . ?state rdf:type geo:state . ?city geo:inState ?state . ?state geo:hasName &quot;texas&quot; . ?city geo:hasPopulation ?p . } ORDER BY DESC(?p) LIMIT 1
+  </sparql>
+  <answer>
+  </answer>
+  <sparqlout>
+   SELECT DISTINCT ?texas_0 WHERE { ?texas_0 rdfs:label &quot;texas&quot; . ?texas_0 a geo:state . ?city_2 geo:inState ?texas_0 . { SELECT DISTINCT ?x_0 ?city_2 WHERE { ?city_2 a geo:city . ?city_2 geo:hasPopulation ?x_0 . } ORDER BY DESC(?x_0) LIMIT 1 } } 
+  </sparqlout>
+ </example>
+ <example id="760" status="wrong">
+  <query>
+   where is dallas ?
+  </query>
+  <sparql>
+   SELECT ?state WHERE { ?state rdf:type geo:state. ?city rdf:type geo:city . ?city geo:hasName &quot;dallas&quot; . ?city geo:inState ?state . }
+  </sparql>
+  <answer>
+  </answer>
+  <sparqlout>
+   SELECT DISTINCT ?state_0 WHERE { ?state_0 a geo:state . ?dallas_2 rdfs:label &quot;dallas&quot; . ?dallas_2 a geo:city . ?state_0 geo:hasCapital ?dallas_2 . } 
+  </sparqlout>
+ </example>
+ <example id="761" status="wrong">
+  <query>
+   where is fort wayne ?
+  </query>
+  <sparql>
+   SELECT ?state WHERE { ?state rdf:type geo:state. ?city rdf:type geo:city . ?city geo:hasName &quot;fort wayne&quot; . ?city geo:inState ?state . }
+  </sparql>
+  <answer>
+  </answer>
+  <sparqlout>
+   SELECT DISTINCT ?state_0 WHERE { ?state_0 a geo:state . ?fort_wayne_2 rdfs:label &quot;fort wayne&quot; . ?fort_wayne_2 a geo:city . ?state_0 geo:hasCapital ?fort_wayne_2 . } 
+  </sparqlout>
+ </example>
+ <example id="762" status="wrong">
+  <query>
+   where is houston ?
+  </query>
+  <sparql>
+   SELECT ?state WHERE { ?state rdf:type geo:state. ?city rdf:type geo:city . ?city geo:hasName &quot;houston&quot; . ?city geo:inState ?state . }
+  </sparql>
+  <answer>
+  </answer>
+  <sparqlout>
+   SELECT DISTINCT ?state_0 WHERE { ?state_0 a geo:state . ?houston_2 rdfs:label &quot;houston&quot; . ?houston_2 a geo:city . ?state_0 geo:hasCapital ?houston_2 . } 
+  </sparqlout>
+ </example>
+ <example id="768" status="wrong">
+  <query>
+   where is new orleans ?
+  </query>
+  <sparql>
+   SELECT ?state WHERE { ?state rdf:type geo:state. ?city rdf:type geo:city . ?city geo:hasName &quot;new orleans&quot; . ?city geo:inState ?state . }
+  </sparql>
+  <answer>
+  </answer>
+  <sparqlout>
+   SELECT DISTINCT ?state_0 WHERE { ?state_0 a geo:state . ?new_orleans_in_louisiana_low_2 rdfs:label &quot;new orleans&quot; . ?new_orleans_in_louisiana_low_2 a geo:point . ?state_0 geo:hasHighestPoint ?new_orleans_in_louisiana_low_2 . } 
+  </sparqlout>
+ </example>
+ <example id="769" status="wrong">
+  <query>
+   where is portland ?
+  </query>
+  <sparql>
+   SELECT ?state WHERE { ?state rdf:type geo:state. ?city rdf:type geo:city . ?city geo:hasName &quot;portland&quot; . ?city geo:inState ?state . }
+  </sparql>
+  <answer>
+  </answer>
+  <sparqlout>
+   SELECT DISTINCT ?state_0 WHERE { ?state_0 a geo:state . ?portland_2 rdfs:label &quot;portland&quot; . ?portland_2 a geo:city . ?state_0 geo:hasCapital ?portland_2 . } 
+  </sparqlout>
+ </example>
+ <example id="770" status="wrong">
+  <query>
+   where is san diego ?
+  </query>
+  <sparql>
+   SELECT ?state WHERE { ?state rdf:type geo:state. ?city rdf:type geo:city . ?city geo:hasName &quot;san diego&quot; . ?city geo:inState ?state . }
+  </sparql>
+  <answer>
+  </answer>
+  <sparqlout>
+   SELECT DISTINCT ?state_0 WHERE { ?state_0 a geo:state . ?san_diego_2 rdfs:label &quot;san diego&quot; . ?san_diego_2 a geo:city . ?state_0 geo:hasCapital ?san_diego_2 . } 
+  </sparqlout>
+ </example>
+ <example id="771" status="wrong">
+  <query>
+   where is san jose ?
+  </query>
+  <sparql>
+   SELECT ?state WHERE { ?state rdf:type geo:state. ?city rdf:type geo:city . ?city geo:hasName &quot;san jose&quot; . ?city geo:inState ?state . }
+  </sparql>
+  <answer>
+  </answer>
+  <sparqlout>
+   SELECT DISTINCT ?state_0 WHERE { ?state_0 a geo:state . ?san_jose_2 rdfs:label &quot;san jose&quot; . ?san_jose_2 a geo:city . ?state_0 geo:hasCapital ?san_jose_2 . } 
+  </sparqlout>
+ </example>
+ <example id="772" status="wrong">
+  <query>
+   where is scotts valley ?
+  </query>
+  <sparql>
+   SELECT ?state WHERE { ?state rdf:type geo:state. ?city rdf:type geo:city . ?city geo:hasName &quot;scotts valley&quot; . ?city geo:inState ?state . }
+  </sparql>
+  <answer>
+  </answer>
+  <sparqlout>
+   SELECT DISTINCT ?state_0 WHERE { ?state_0 a geo:state . ?scotts_valley_2 rdfs:label &quot;scotts valley&quot; . ?scotts_valley_2 a geo:city . ?state_0 geo:hasCapital ?scotts_valley_2 . } 
+  </sparqlout>
+ </example>
+ <example id="773" status="wrong">
+  <query>
+   where is springfield ?
+  </query>
+  <sparql>
+   SELECT ?state WHERE { ?state rdf:type geo:state. ?city rdf:type geo:city . ?city geo:hasName &quot;springfield&quot; . ?city geo:inState ?state . }
+  </sparql>
+  <answer>
+  </answer>
+  <sparqlout>
+   SELECT DISTINCT ?state_0 WHERE { ?state_0 a geo:state . ?springfield_2 rdfs:label &quot;springfield&quot; . ?springfield_2 a geo:city . ?state_0 geo:hasCapital ?springfield_2 . } 
+  </sparqlout>
+ </example>
+ <example id="775" status="wrong">
+  <query>
+   where is the highest mountain of the united states ?
+  </query>
+  <sparql>
+   SELECT ?mount WHERE { ?mount rdf:type geo:mountain . ?mount geo:hasHeight ?h . } ORDER BY DESC(?h) LIMIT 1
+  </sparql>
+  <answer>
+  </answer>
+  <sparqlout>
+   SELECT DISTINCT ?state_0 WHERE { ?state_0 a geo:state . ?mountain_4 geo:inState ?state_0 . { SELECT DISTINCT ?x_0 ?mountain_4 WHERE { ?mountain_4 a geo:mountain . ?state_8 a geo:state . ?mountain_4 geo:inState ?state_8 . ?mountain_4 geo:hasHeight ?x_0 . } ORDER BY DESC(?x_0) LIMIT 1 } } 
+  </sparqlout>
+ </example>
+ <example id="776" status="noanswer">
+  <query>
+   where is the highest point in hawaii ?
+  </query>
+  <sparql>
+   SELECT ?point WHERE { ?state rdf:type geo:state . ?state geo:hasName &quot;hawaii&quot; . ?state geo:hasHighestPoint ?point . }
+  </sparql>
+  <answer>
+  </answer>
+  <sparqlout>
+  </sparqlout>
+ </example>
+ <example id="777" status="noanswer">
+  <query>
+   where is the highest point in montana ?
+  </query>
+  <sparql>
+   SELECT ?point WHERE { ?state rdf:type geo:state . ?state geo:hasName &quot;montana&quot; . ?state geo:hasLowestPoint ?point . }
+  </sparql>
+  <answer>
+  </answer>
+  <sparqlout>
+  </sparqlout>
+ </example>
+ <example id="778" status="noanswer">
+  <query>
+   where is the lowest point in maryland ?
+  </query>
+  <sparql>
+   SELECT ?point WHERE { ?state rdf:type geo:state . ?state geo:hasName &quot;maryland&quot; . ?state geo:hasLowestPoint ?point . }
+  </sparql>
+  <answer>
+  </answer>
+  <sparqlout>
+  </sparqlout>
+ </example>
+ <example id="779" status="wrong">
+  <query>
+   where is the lowest point in the us ?
+  </query>
+  <sparql>
+   SELECT ?point WHERE { ?state rdf:type geo:state . ?state geo:hasLowestPoint ?point . ?point geo:hasElevation ?elevation } ORDER BY ASC(?elevation) LIMIT 1
+  </sparql>
+  <answer>
+  </answer>
+  <sparqlout>
+   SELECT DISTINCT ?state_0 WHERE { ?state_0 a geo:state . } 
+  </sparqlout>
+ </example>
+ <example id="780" status="wrong">
+  <query>
+   where is the lowest spot in iowa ?
+  </query>
+  <sparql>
+   SELECT ?point WHERE { ?state rdf:type geo:state . ?state geo:hasName &quot;iowa&quot; . ?state geo:hasLowestPoint ?point . }
+  </sparql>
+  <answer>
+  </answer>
+  <sparqlout>
+   SELECT DISTINCT ?state_0 WHERE { ?state_0 a geo:state . ?iowa_6 rdfs:label &quot;iowa&quot; . ?iowa_6 a geo:state . ?state_0 geo:border ?iowa_6 . } 
+  </sparqlout>
+ </example>
+ <example id="781" status="wrong">
+  <query>
+   where is the most populated area of new mexico ?
+  </query>
+  <sparql>
+   SELECT ?city WHERE { ?state rdf:type geo:state . ?city rdf:type geo:city . ?state geo:hasName &quot;new mexico&quot; . ?city geo:hasPopulation ?pop . ?city geo:inState ?state . } ORDER BY DESC(?pop) LIMIT 1
+  </sparql>
+  <answer>
+  </answer>
+  <sparqlout>
+   SELECT DISTINCT ?state_0 WHERE { ?state_0 a geo:state . ?state_0 geo:hasArea &quot;new mexico&quot; . } 
+  </sparqlout>
+ </example>
+ <example id="782" status="wrong">
+  <query>
+   where is the smallest city ?
+  </query>
+  <sparql>
+   SELECT ?city WHERE{ ?city rdf:type geo:city . ?city geo:hasPopulation ?p . } ORDER BY ASC(?p) LIMIT 1
+  </sparql>
+  <answer>
+  </answer>
+  <sparqlout>
+   SELECT DISTINCT ?state_0 WHERE { ?state_0 a geo:state . ?state_0 geo:hasCapital ?city_4 . { SELECT DISTINCT ?x_0 ?city_4 WHERE { ?city_4 geo:hasPopulation ?x_0 . ?city_4 a geo:city . } ORDER BY ASC(?x_0) LIMIT 1 } } 
+  </sparqlout>
+ </example>
+ <example id="784" status="wrong">
+  <query>
+   which capitals are not major cities ?
+  </query>
+  <sparql>
+   SELECT ?city WHERE { ?state rdf:type geo:state . ?city rdf:type geo:city . ?state geo:hasCapital ?city . NOT EXISTS {?state geo:majorCity ?city . } }
+  </sparql>
+  <answer>
+  </answer>
+  <sparqlout>
+   SELECT DISTINCT ?_city_1000306 WHERE { ?_state_1000305 a geo:state . ?_city_1000306 a geo:city . ?_state_1000305 geo:hasCapital ?_city_1000306 . } 
+  </sparqlout>
+ </example>
+ <example id="785" status="wrong">
+  <query>
+   which city in california has the largest population ?
+  </query>
+  <sparql>
+   SELECT ?city WHERE { ?state rdf:type geo:state . ?city rdf:type geo:city . ?state geo:hasName &quot;california&quot; . ?city geo:inState ?state . ?city geo:hasPopulation ?pop . } ORDER BY DESC(?pop) LIMIT 1
+  </sparql>
+  <answer>
+  </answer>
+  <sparqlout>
+   SELECT DISTINCT ?city_0 WHERE { ?city_0 a geo:city . ?california_3 rdfs:label &quot;california&quot; . ?california_3 a geo:state . ?city_0 geo:inState ?california_3 . } 
+  </sparqlout>
+ </example>
+ <example id="787" status="wrong">
+  <query>
+   which is the highest peak not in alaska ?
+  </query>
+  <sparql>
+   SELECT ?point WHERE { ?state rdf:type geo:state . ?state geo:hasHighestPoint ?point . ?point geo:hasElevation ?elevation . NOT EXISTS {?state geo:hasName &quot;alaska&quot; .} } ORDER BY DESC(?elevation) LIMIT 1
+  </sparql>
+  <answer>
+  </answer>
+  <sparqlout>
+   SELECT DISTINCT ?alaska_0 WHERE { ?alaska_0 rdfs:label &quot;alaska&quot; . ?alaska_0 a geo:state . } 
+  </sparqlout>
+ </example>
+ <example id="790" status="wrong">
+  <query>
+   which is the shortest river ?
+  </query>
+  <sparql>
+   SELECT ?river WHERE { ?river rdf:type geo:river . ?river geo:hasLength ?length . } ORDER BY ASC(?length) LIMIT 1
+  </sparql>
+  <answer>
+  </answer>
+  <sparqlout>
+   SELECT DISTINCT ?river_0 WHERE { ?river_0 a geo:river . } 
+  </sparqlout>
+ </example>
+ <example id="792" status="wrong">
+  <query>
+   which of the states bordering pennsylvania has the largest population ?
+  </query>
+  <sparql>
+   SELECT ?state WHERE { ?state rdf:type geo:state . ?state geo:hasPopulation ?pop . ?state geo:border ?state2 . ?state2 rdf:type geo:state . ?state2 geo:hasName &quot;pennsylvania&quot; . } ORDER BY DESC(?pop) LIMIT 1
+  </sparql>
+  <answer>
+  </answer>
+  <sparqlout>
+   SELECT DISTINCT ?state_0 WHERE { ?pennsylvania_5 rdfs:label &quot;pennsylvania&quot; . ?pennsylvania_5 a geo:state . ?state_0 a geo:state . ?pennsylvania_5 geo:border ?state_0 . } 
+  </sparqlout>
+ </example>
+ <example id="794" status="wrong">
+  <query>
+   which river runs through most states ?
+  </query>
+  <sparql>
+   SELECT ?river (count(?state) AS ?num) WHERE{ ?river rdf:type geo:river . ?state rdf:type geo:state . ?river geo:runThrough ?state . } GROUP BY ?river ORDER BY DESC(?num) LIMIT 1
+  </sparql>
+  <answer>
+  </answer>
+  <sparqlout>
+   SELECT DISTINCT ?river_0 WHERE { ?river_0 a geo:river . ?river_0 geo:runThrough ?state_5 . { SELECT DISTINCT ?x_0 ?state_5 WHERE { ?state_5 geo:hasArea ?x_0 . ?state_5 a geo:state . } ORDER BY DESC(?x_0) LIMIT 1 } } 
+  </sparqlout>
+ </example>
+ <example id="798" status="wrong">
+  <query>
+   which rivers do not run through texas ?
+  </query>
+  <sparql>
+   SELECT DISTINCT ?river WHERE{ ?river rdf:type geo:river . ?state rdf:type geo:state . ?river geo:runThrough ?state . NOT EXISTS { ?state geo:hasName &quot;alaska&quot; .} }
+  </sparql>
+  <answer>
+  </answer>
+  <sparqlout>
+   SELECT DISTINCT ?river_0 WHERE { ?river_0 a geo:river . ?texas_6 rdfs:label &quot;texas&quot; . ?texas_6 a geo:state . ?river_0 geo:runThrough ?texas_6 . } 
+  </sparqlout>
+ </example>
+ <example id="803" status="wrong">
+  <query>
+   which rivers run through states with fewest cities ?
+  </query>
+  <sparql>
+   SELECT ?river WHERE{ { SELECT (count(?city) AS ?num2) WHERE { ?state rdf:type geo:state . ?city rdf:type geo:city . ?city geo:inState ?state . } GROUP BY (?state) ORDER BY ASC(?num2) LIMIT 1 } { SELECT ?state (count(?city) AS ?num) WHERE { ?state rdf:type geo:state . ?city rdf:type geo:city . ?city geo:inState ?state . } GROUP BY (?state) } FILTER(?num = ?num2) ?river rdf:type geo:river . ?river geo:runThrough ?state . }
+  </sparql>
+  <answer>
+  </answer>
+  <sparqlout>
+   SELECT DISTINCT ?river_0 WHERE { ?state_4 a geo:state . ?state_4 geo:hasCapital ?city_7 . ?river_0 a geo:river . ?river_0 geo:runThrough ?state_4 . { SELECT DISTINCT ?x_0 ?city_7 WHERE { ?city_7 geo:hasPopulation ?x_0 . ?city_7 a geo:city . } ORDER BY DESC(?x_0) LIMIT 1 } } 
+  </sparqlout>
+ </example>
+ <example id="805" status="noanswer">
+  <query>
+   which rivers run through the state with the lowest elevation in the usa ?
+  </query>
+  <sparql>
+   SELECT ?river ?state WHERE { ?river rdf:type geo:river . ?river geo:runThrough ?state . { SELECT * WHERE { ?state rdf:type geo:state . ?state geo:hasLowestPoint ?point . ?point geo:hasElevation ?elevation . } ORDER BY ASC(?elevation) LIMIT 1 } }
+  </sparql>
+  <answer>
+  </answer>
+  <sparqlout>
+  </sparqlout>
+ </example>
+ <example id="811" status="wrong">
+  <query>
+   which state capital has the smallest population ?
+  </query>
+  <sparql>
+   SELECT ?s WHERE{ ?c rdf:type geo:city . ?s rdf:type geo:state . ?s geo:hasCapital ?c . ?c geo:hasPopulation ?p . } ORDER BY ASC(?p) LIMIT 1
+  </sparql>
+  <answer>
+  </answer>
+  <sparqlout>
+   SELECT DISTINCT ?state_0 WHERE { ?state_0 a geo:state . ?state_0 geo:hasCapital ?_city_1000309 . { SELECT DISTINCT ?x_0 ?_city_1000309 WHERE { ?_city_1000309 a geo:city . ?_city_1000309 geo:hasPopulation ?x_0 . } ORDER BY ASC(?x_0) LIMIT 1 } } 
+  </sparqlout>
+ </example>
+ <example id="816" status="noanswer">
+  <query>
+   which state has the highest elevation ?
+  </query>
+  <sparql>
+   SELECT ?state WHERE { ?state rdf:type geo:state . ?state geo:hasHighestPoint ?point . ?point geo:hasElevation ?elevation . } ORDER BY DESC(?elevation) LIMIT 1
+  </sparql>
+  <answer>
+  </answer>
+  <sparqlout>
+  </sparqlout>
+ </example>
+ <example id="817" status="wrong">
+  <query>
+   which state has the highest peak in the country ?
+  </query>
+  <sparql>
+   SELECT ?state WHERE { ?state rdf:type geo:state . ?state geo:hasHighestPoint ?point . ?point geo:hasElevation ?elevation . } ORDER BY DESC(?elevation) LIMIT 1
+  </sparql>
+  <answer>
+  </answer>
+  <sparqlout>
+   SELECT DISTINCT ?state_0 WHERE { ?state_0 a geo:state . ?state_8 a geo:state . ?state_0 geo:border ?state_8 . } 
+  </sparqlout>
+ </example>
+ <example id="818" status="wrong">
+  <query>
+   which state has the highest point ?
+  </query>
+  <sparql>
+   SELECT ?state WHERE { ?state rdf:type geo:state . ?state geo:hasHighestPoint ?point . ?point geo:hasElevation ?elevation . } ORDER BY DESC(?elevation) LIMIT 1
+  </sparql>
+  <answer>
+  </answer>
+  <sparqlout>
+   SELECT DISTINCT ?state_0 WHERE { ?state_0 a geo:state . } 
+  </sparqlout>
+ </example>
+ <example id="823" status="wrong">
+  <query>
+   which state has the longest river ?
+  </query>
+  <sparql>
+   SELECT ?state WHERE { ?state rdf:type geo:state . ?river rdf:type geo:river . ?river geo:hasLength ?length . ?river geo:runThrough ?state . } ORDER BY DESC(?length) LIMIT 1
+  </sparql>
+  <answer>
+  </answer>
+  <sparqlout>
+   SELECT DISTINCT ?state_0 WHERE { ?state_0 a geo:state . ?river_5 geo:runThrough ?state_0 . { SELECT DISTINCT ?x_0 ?river_5 WHERE { ?river_5 geo:hasLength ?x_0 . ?river_5 a geo:river . } ORDER BY DESC(?x_0) LIMIT 1 } } 
+  </sparqlout>
+ </example>
+ <example id="824" status="noanswer">
+  <query>
+   which state has the lowest elevation ?
+  </query>
+  <sparql>
+   SELECT ?state WHERE { ?state rdf:type geo:state . ?state geo:hasLowestPoint ?point . ?point geo:hasElevation ?elevation . } #GROUP BY (?state) ORDER BY ASC(?elevation) LIMIT 1
+  </sparql>
+  <answer>
+  </answer>
+  <sparqlout>
+  </sparqlout>
+ </example>
+ <example id="827" status="wrong">
+  <query>
+   which state has the most major cities ?
+  </query>
+  <sparql>
+   SELECT ?state (count(?city) AS ?num) WHERE { ?state rdf:type geo:state . ?state geo:majorCity ?city . ?city rdf:type geo:city . } GROUP BY (?state) ORDER BY DESC(?num) LIMIT 1
+  </sparql>
+  <answer>
+  </answer>
+  <sparqlout>
+   SELECT DISTINCT ?state_0 WHERE { ?state_0 a geo:state . } 
+  </sparqlout>
+ </example>
+ <example id="830" status="wrong">
+  <query>
+   which state has the most people ?
+  </query>
+  <sparql>
+   SELECT ?state WHERE { ?state rdf:type geo:state . ?state geo:hasPopulation ?pop } ORDER BY DESC(?pop) LIMIT 1
+  </sparql>
+  <answer>
+  </answer>
+  <sparqlout>
+   SELECT DISTINCT ?state_0 WHERE { ?state_0 a geo:state . } 
+  </sparqlout>
+ </example>
+ <example id="834" status="wrong">
+  <query>
+   which state has the red river ?
+  </query>
+  <sparql>
+   SELECT ?state WHERE { ?state rdf:type geo:state . ?river rdf:type geo:river . ?river geo:runThrough ?state . ?river geo:hasName &quot;red&quot; . }
+  </sparql>
+  <answer>
+  </answer>
+  <sparqlout>
+   SELECT DISTINCT ?state_0 WHERE { ?state_0 a geo:state . ?red_river_in_north_dakota_low_4 rdfs:label &quot;red river&quot; . ?red_river_in_north_dakota_low_4 a geo:point . ?state_0 geo:hasHighestPoint ?red_river_in_north_dakota_low_4 . } 
+  </sparqlout>
+ </example>
+ <example id="835" status="noanswer">
+  <query>
+   which state has the smallest area that borders texas ?
+  </query>
+  <sparql>
+   SELECT ?state WHERE { ?state rdf:type geo:state . ?state2 rdf:type geo:state . ?state geo:border ?state2 . ?state2 geo:hasName &quot;texas&quot; . ?state geo:hasArea ?area . } ORDER BY ASC(?area) LIMIT 1
+  </sparql>
+  <answer>
+  </answer>
+  <sparqlout>
+  </sparqlout>
+ </example>
+ <example id="838" status="wrong">
+  <query>
+   which state has the sparsest population density ?
+  </query>
+  <sparql>
+   SELECT ?state WHERE { ?state rdf:type geo:state . ?state geo:hasPopDensity ?PopDen . } ORDER BY ASC(?PopDen) LIMIT 1
+  </sparql>
+  <answer>
+  </answer>
+  <sparqlout>
+   SELECT DISTINCT ?state_0 WHERE { ?state_0 a geo:state . ?state_0 geo:hasPopDensity ?x_0 . } 
+  </sparqlout>
+ </example>
+ <example id="839" status="wrong">
+  <query>
+   which state is kalamazoo in ?
+  </query>
+  <sparql>
+   SELECT ?state WHERE { ?state rdf:type geo:state . ?city rdf:type geo:city . ?city geo:inState ?state . ?city geo:hasName &quot;kalamazoo&quot; . }
+  </sparql>
+  <answer>
+  </answer>
+  <sparqlout>
+   SELECT DISTINCT ?state_0 WHERE { ?state_0 a geo:state . ?kalamazoo_3 rdfs:label &quot;kalamazoo&quot; . ?kalamazoo_3 a geo:city . ?state_0 geo:hasCapital ?kalamazoo_3 . } 
+  </sparqlout>
+ </example>
+ <example id="841" status="noanswer">
+  <query>
+   which state is the city denver located in ?
+  </query>
+  <sparql>
+   SELECT ?state WHERE { ?state rdf:type geo:state . ?city rdf:type geo:city . ?city geo:inState ?state . ?city geo:hasName &quot;denver&quot; . }
+  </sparql>
+  <answer>
+  </answer>
+  <sparqlout>
+  </sparqlout>
+ </example>
+ <example id="843" status="wrong">
+  <query>
+   which state is the smallest ?
+  </query>
+  <sparql>
+   SELECT ?state WHERE { ?state rdf:type geo:state . ?state geo:hasArea ?area . } ORDER BY ASC(?area) LIMIT 1
+  </sparql>
+  <answer>
+  </answer>
+  <sparqlout>
+   SELECT DISTINCT ?state_0 WHERE { ?state_0 a geo:state . } 
+  </sparqlout>
+ </example>
+ <example id="855" status="wrong">
+  <query>
+   which states border no other states ?
+  </query>
+  <sparql>
+   SELECT DISTINCT ?state WHERE { ?state rdf:type geo:state . NOT EXISTS{?state2 rdf:type geo:state . ?state geo:border ?state2} }
+  </sparql>
+  <answer>
+  </answer>
+  <sparqlout>
+   SELECT DISTINCT ?state_0 WHERE { ?state_5 a geo:state . ?state_0 a geo:state . ?state_5 geo:border ?state_0 . } 
+  </sparqlout>
+ </example>
+ <example id="857" status="wrong">
+  <query>
+   which states border states through which the mississippi traverses ?
+  </query>
+  <sparql>
+   SELECT DISTINCT ?state WHERE { ?state rdf:type geo:state . ?state2 rdf:type geo:state . ?river rdf:type geo:river . ?river geo:runThrough ?state2 . ?state geo:border ?state2 . ?river geo:hasName &quot;mississippi&quot; . }
+  </sparql>
+  <answer>
+  </answer>
+  <sparqlout>
+   SELECT DISTINCT ?state_0 WHERE { ?state_3 a geo:state . ?mississippi_7 rdfs:label &quot;mississippi&quot; . ?mississippi_7 a geo:state . ?state_3 geo:border ?mississippi_7 . ?state_0 a geo:state . ?state_3 geo:border ?state_0 . } 
+  </sparqlout>
+ </example>
+ <example id="862" status="wrong">
+  <query>
+   which states capital city is the largest ?
+  </query>
+  <sparql>
+   SELECT ?s WHERE{ ?c rdf:type geo:city . ?s rdf:type geo:state . ?s geo:hasCapital ?c . ?c geo:hasPopulation ?p . } ORDER BY DESC(?p) LIMIT 1
+  </sparql>
+  <answer>
+  </answer>
+  <sparqlout>
+   SELECT DISTINCT ?state_0 WHERE { ?state_0 a geo:state . ?city_3 a geo:city . ?state_0 geo:hasCapital ?city_3 . } 
+  </sparqlout>
+ </example>
+ <example id="863" status="wrong">
+  <query>
+   which states do colorado river flow through ?
+  </query>
+  <sparql>
+   SELECT ?state WHERE { ?state rdf:type geo:state . ?river geo:runThrough ?state . ?river rdf:type geo:river . ?river geo:hasName &quot;colorado&quot; . }
+  </sparql>
+  <answer>
+  </answer>
+  <sparqlout>
+   SELECT DISTINCT ?state_0 WHERE { ?state_0 a geo:state . ?colorado_river_in_arizona_low_3 rdfs:label &quot;colorado river&quot; . ?colorado_river_in_arizona_low_3 a geo:point . ?state_0 geo:hasHighestPoint ?colorado_river_in_arizona_low_3 . } 
+  </sparqlout>
+ </example>
+ <example id="864" status="wrong">
+  <query>
+   which states does not border texas ?
+  </query>
+  <sparql>
+   SELECT ?state2 WHERE { ?state rdf:type geo:state . ?state2 rdf:type geo:state . NOT EXISTS{?state2 geo:border ?state} ?state geo:hasName &quot;texas&quot; . }
+  </sparql>
+  <answer>
+  </answer>
+  <sparqlout>
+   SELECT DISTINCT ?state_0 WHERE { ?texas_5 rdfs:label &quot;texas&quot; . ?texas_5 a geo:state . ?state_0 a geo:state . ?texas_5 geo:border ?state_0 . } 
+  </sparqlout>
+ </example>
+ <example id="876" status="noanswer">
+  <query>
+   which states have points higher than the highest point in colorado ?
+  </query>
+  <sparql>
+   SELECT ?state2 WHERE { ?point rdf:type geo:point . ?point geo:hasElevation ?height . ?state rdf:type geo:state . ?state geo:hasName &quot;colorado&quot; . ?state2 rdf:type geo:state . ?state2 geo:hasHighestPoint ?point2 . ?point2 geo:hasElevation ?height2 . FILTER(?height2 &gt; ?height) . } ORDER BY DESC(?height2)
+  </sparql>
+  <answer>
+  </answer>
+  <sparqlout>
+  </sparqlout>
+ </example>
+ <example id="877" status="noanswer">
+  <query>
+   which states have points that are higher than the highest point in texas ?
+  </query>
+  <sparql>
+   SELECT ?state2 WHERE { ?point rdf:type geo:point . ?point geo:hasElevation ?height . ?state rdf:type geo:state . ?state geo:hasName &quot;texas&quot; . ?state2 rdf:type geo:state . ?state2 geo:hasHighestPoint ?point2 . ?point2 geo:hasElevation ?height2 . FILTER(?height2 &gt; ?height) . } ORDER BY DESC(?height2)
+  </sparql>
+  <answer>
+  </answer>
+  <sparqlout>
+  </sparqlout>
+ </example>
+ <example id="878" status="wrong">
+  <query>
+   which states lie on the largest river in the united states ?
+  </query>
+  <sparql>
+   SELECT ?state WHERE { ?river rdf:type geo:river . ?state rdf:type geo:state . ?river geo:runThrough ?state . ?river geo:hasLength ?length . } ORDER BY DESC(?length) LIMIT 1
+  </sparql>
+  <answer>
+  </answer>
+  <sparqlout>
+   SELECT DISTINCT ?state_0 WHERE { ?state_0 a geo:state . ?river_6 geo:runThrough ?state_0 . { SELECT DISTINCT ?x_0 ?river_6 WHERE { ?river_6 a geo:river . ?state_10 a geo:state . ?river_6 geo:runThrough ?state_10 . ?river_6 geo:hasLength ?x_0 . } ORDER BY DESC(?x_0) LIMIT 1 } } 
+  </sparqlout>
+ </example>
+ <example id="879" status="wrong">
+  <query>
+   which us city has the highest population density ?
+  </query>
+  <sparql>
+   SELECT ?city ?PopDen WHERE { ?city rdf:type geo:state . ?city geo:hasPopDensity ?PopDen . } ORDER BY DESC(?PopDen) LIMIT 1
+  </sparql>
+  <answer>
+  </answer>
+  <sparqlout>
+   SELECT DISTINCT ?city_0 WHERE { { SELECT DISTINCT ?x_0 ?city_0 WHERE { ?city_0 a geo:city . ?city_0 geo:hasPopulation ?x_0 . } ORDER BY DESC(?x_0) LIMIT 1 } } 
+  </sparqlout>
+ </example>
+</examples>

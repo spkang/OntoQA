@@ -1,0 +1,13 @@
+[Jena的一些与我的想当然不一致的地方]
+
+1.Jena RDF model中，从RDF文件中读入的都是Resource和Literal类，即使在RDF中是Property的资源也只是Resource。
+只有当调用Statement.getPredicate()时，返回的才是Property类型。
+如以下资源，
+<rdf:Description rdf:about="http://ir.hit.edu/nli/geo/hasHighestPoint">
+    <rdfs:label>highest point</rdfs:label>
+    <rdf:type rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#Property"/>
+</rdf:Description>
+调用Model.getResource()和IndexLARQ.searchModelByIndex()返回的都是Resource类，而不是想当然的Property类。
+只有对将该资源作为Predicate的Statement调用Statement.getPredicate()时，返回的才是Property类。
+
+2.调用Model.getProperty(uri)时，如果model中不存在有该uri的Property，将生成一个该uri的Property.

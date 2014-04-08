@@ -1,0 +1,47 @@
+K 25
+svn:wc:ra_dav:version-url
+V 43
+/svn/wbzhang/!svn/ver/441/OntoQA/trunk/conf
+END
+cn.edu.hit.ir.dict.englishsynonym.properties
+K 25
+svn:wc:ra_dav:version-url
+V 88
+/svn/wbzhang/!svn/ver/383/OntoQA/trunk/conf/cn.edu.hit.ir.dict.englishsynonym.properties
+END
+cn.edu.hit.ir.demo.ontoqademo.properties
+K 25
+svn:wc:ra_dav:version-url
+V 84
+/svn/wbzhang/!svn/ver/438/OntoQA/trunk/conf/cn.edu.hit.ir.demo.ontoqademo.properties
+END
+cn.edu.hit.ir.nlp.wordnet.properties
+K 25
+svn:wc:ra_dav:version-url
+V 80
+/svn/wbzhang/!svn/ver/335/OntoQA/trunk/conf/cn.edu.hit.ir.nlp.wordnet.properties
+END
+cn.edu.hit.ir.graph.graphsearcher.properties
+K 25
+svn:wc:ra_dav:version-url
+V 88
+/svn/wbzhang/!svn/ver/404/OntoQA/trunk/conf/cn.edu.hit.ir.graph.graphsearcher.properties
+END
+cn.edu.hit.ir.nlp.vocabulary.properties
+K 25
+svn:wc:ra_dav:version-url
+V 83
+/svn/wbzhang/!svn/ver/421/OntoQA/trunk/conf/cn.edu.hit.ir.nlp.vocabulary.properties
+END
+cn.edu.hit.ir.dict.entitymatcher.properties
+K 25
+svn:wc:ra_dav:version-url
+V 87
+/svn/wbzhang/!svn/ver/384/OntoQA/trunk/conf/cn.edu.hit.ir.dict.entitymatcher.properties
+END
+cn.edu.hit.ir.ontology.ontology.properties
+K 25
+svn:wc:ra_dav:version-url
+V 86
+/svn/wbzhang/!svn/ver/441/OntoQA/trunk/conf/cn.edu.hit.ir.ontology.ontology.properties
+END

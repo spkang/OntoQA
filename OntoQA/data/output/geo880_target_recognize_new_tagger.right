@@ -1,0 +1,782 @@
+give me the cities in virginia .	cities-3
+what are the high points of states surrounding mississippi ?	points-4
+name all the rivers in colorado .	rivers-3
+can you tell me the capital of texas ?	capital-5
+could you tell me what is the highest point in the state of oregon ?	point-8
+count the states which have elevations lower than what alabama has ?	states-2
+give me all the states of usa ?	states-4
+give me the cities in texas ?	cities-3
+give me the cities in usa ?	cities-3
+give me the cities in virginia ?	cities-3
+give me the cities which are in texas ?	cities-3
+give me the lakes in california ?	lakes-3
+give me the largest state ?	state-4
+give me the longest river that passes through the us ?	river-4
+give me the number of rivers in california ?	number-3
+how high are the highest points of all the states ?	points-5
+how high is the highest point in america ?	point-5
+how high is the highest point in montana ?	point-5
+how high is the highest point in the largest state ?	point-5
+how high is the highest point of alabama ?	point-5
+how high is the highest point of delaware ?	point-5
+how high is the highest point of florida ?	point-5
+how high is the highest point of louisiana ?	point-5
+how many big cities are in pennsylvania ?	cities-4
+how many capitals does rhode island have ?	capitals-3
+how many cities are in louisiana ?	cities-3
+how many cities are in montana ?	cities-3
+how many cities are there in the united states ?	cities-3
+how many cities are there in the us ?	cities-3
+how many cities are there in us ?	cities-3
+how many cities are there in usa ?	cities-3
+how many cities does texas have ?	cities-3
+how many cities does the usa have ?	cities-3
+how many cities named austin are there in the usa ?	cities-3
+how many citizens does the biggest city have in the usa ?	citizens-3
+how many citizens in alabama ?	citizens-3
+how many citizens in boulder ?	citizens-3
+how many citizens live in california ?	citizens-3
+how many colorado rivers are there ?	rivers-4
+how many inhabitants does montgomery have ?	inhabitants-3
+how many major cities are in arizona ?	cities-4
+how many major cities are in florida ?	cities-4
+how many major cities are in states bordering nebraska ?	cities-4
+how many major cities are in states bordering utah ?	cities-4
+how many major cities are in texas ?	cities-4
+how many major cities are there ?	cities-4
+how many major cities are there in oregon ?	cities-4
+how many major rivers cross ohio ?	rivers-4
+how many people are in the state of nevada ?	people-3
+how many people are there in iowa ?	people-3
+how many people are there in new york ?	people-3
+how many people in boulder ?	people-3
+how many people live in austin ?	people-3
+how many people live in austin texas ?	people-3
+how many people live in california ?	people-3
+how many people live in chicago ?	people-3
+how many people live in detroit ?	people-3
+how many people live in hawaii ?	people-3
+how many people live in houston ?	people-3
+how many people live in kalamazoo ?	people-3
+how many people live in kansas ?	people-3
+how many people live in minneapolis minnesota ?	people-3
+how many people live in mississippi ?	people-3
+how many people live in montana ?	people-3
+how many people live in new hampshire ?	people-3
+how many people live in new mexico ?	people-3
+how many people live in new york ?	people-3
+how many people live in rhode island ?	people-3
+how many people live in riverside ?	people-3
+how many people live in san francisco ?	people-3
+how many people live in south dakota ?	people-3
+how many people live in spokane washington ?	people-3
+how many people live in texas ?	people-3
+how many people live in the biggest city in new york state ?	people-3
+how many people live in the capital of georgia ?	people-3
+how many people live in the capital of texas ?	people-3
+how many people live in the smallest state bordering wyoming ?	people-3
+how many people live in the state with the largest population density ?	people-3
+how many people live in the united states ?	people-3
+how many people live in washington ?	people-3
+how many people live in washington dc ?	people-3
+how many people lived in austin ?	people-3
+how many people reside in utah ?	people-3
+how many people stay in utah ?	people-3
+how many residents live in texas ?	residents-3
+how many rivers are found in colorado ?	rivers-3
+how many rivers are in colorado ?	rivers-3
+how many rivers are in iowa ?	rivers-3
+how many rivers are in missouri ?	rivers-3
+how many rivers are in new york ?	rivers-3
+how many rivers are in the state with the highest point ?	rivers-3
+how many rivers are in the state with the largest population ?	rivers-3
+how many rivers are there in idaho ?	rivers-3
+how many rivers are there in texas ?	rivers-3
+how many rivers are there in us ?	rivers-3
+how many rivers do not traverse the state with the capital albany ?	rivers-3
+how many rivers does alaska have ?	rivers-3
+how many rivers does colorado have ?	rivers-3
+how many rivers in texas are longer than the red ?	rivers-3
+how many rivers in washington ?	rivers-3
+how many rivers run through texas ?	rivers-3
+how many rivers run through the states bordering colorado ?	rivers-3
+how many square kilometers in the us ?	kilometers-4
+how many states are in the united states ?	states-3
+how many states are in the usa ?	states-3
+how many states are next to major rivers ?	states-3
+how many states are there ?	states-3
+how many states are there in the usa ?	states-3
+how many states are there in united states ?	states-3
+how many states border alaska ?	states-3
+how many states border at least one other state ?	states-3
+how many states border hawaii ?	states-3
+how many states border iowa ?	states-3
+how many states border on the state whose capital is boston ?	states-3
+how many states border tennessee ?	states-3
+how many states border texas ?	states-3
+how many states border the largest state ?	states-3
+how many states border the mississippi river ?	states-3
+how many states border the state that borders the most states ?	states-3
+how many states border the state with the largest population ?	states-3
+how many states do not have rivers ?	states-3
+how many states does iowa border ?	states-3
+how many states does missouri border ?	states-3
+how many states does tennessee border ?	states-3
+how many states does the colorado river flow through ?	states-3
+how many states does the colorado river run through ?	states-3
+how many states does the mississippi river run through ?	states-3
+how many states does the mississippi run through ?	states-3
+how many states does the missouri river run through ?	states-3
+how many states does usa have ?	states-3
+how many states have a city called rochester ?	states-3
+how many states have a city named springfield ?	states-3
+how many states have a higher point than the highest point of the state with the largest capital city in the us ?	states-3
+how many states have cites named austin ?	states-3
+how many states have cities or towns named springfield ?	states-3
+how many states have major rivers ?	states-3
+how many states in the us does the shortest river run through ?	states-3
+how much population does texas have ?	population-3
+how tall is the highest point in montana ?	point-5
+in what state is mount mckinley ?	state-3
+in which state is rochester ?	state-3
+iowa borders how many states ?	states-5
+name all the lakes of us ?	lakes-3
+name all the rivers in colorado ?	rivers-3
+name the longest river in us ?	river-3
+name the major lakes in michigan ?	lakes-3
+name the major rivers in florida ?	rivers-3
+number of states bordering iowa ?	states-3
+of the states washed by the mississippi river which has the lowest point ?	states-2
+people in boulder ?	people-1
+population of boulder ?	population-1
+rivers in new york ?	york-4
+sacramento is the capital of which state ?	state-6
+san antonio is in what state ?	state-6
+show major cities in colorado ?	cities-3
+show me all the major lakes in the us ?	lakes-5
+states bordering iowa ?	states-1
+tell me what cities are in texas ?	cities-4
+what are all the rivers in texas ?	rivers-4
+what are major rivers in texas ?	rivers-4
+what are the biggest rivers in texas ?	rivers-4
+what are the capital cities of the states which border texas ?	cities-4
+what are the capital city in texas ?	city-4
+what are the capitals of states that border missouri ?	capitals-3
+what are the capitals of the states that border texas ?	capitals-3
+what are the cities in california ?	cities-3
+what are the cities in states through which the mississippi runs ?	cities-3
+what are the cities of the state with the highest point ?	cities-3
+what are the highest points of all the states ?	points-4
+what are the highest points of states surrounding mississippi ?	points-4
+what are the lakes in states bordering texas ?	lakes-3
+what are the largest cities in the states that border the largest state ?	cities-4
+what are the major cities in alabama ?	cities-4
+what are the major cities in alaska ?	cities-4
+what are the major cities in california ?	cities-4
+what are the major cities in delaware ?	cities-4
+what are the major cities in kansas ?	cities-4
+what are the major cities in missouri ?	cities-4
+what are the major cities in new mexico ?	cities-4
+what are the major cities in new york ?	cities-4
+what are the major cities in north carolina ?	cities-4
+what are the major cities in ohio ?	cities-4
+what are the major cities in oklahoma ?	cities-4
+what are the major cities in rhode island ?	cities-4
+what are the major cities in states through which the mississippi runs ?	cities-4
+what are the major cities in texas ?	cities-4
+what are the major cities in the largest state ?	cities-4
+what are the major cities in the smallest state in the us ?	cities-4
+what are the major cities in the state of california ?	cities-4
+what are the major cities in the states through which the major river in virginia runs ?	cities-4
+what are the major cities in the usa ?	cities-4
+what are the major cities in vermont ?	cities-4
+what are the major cities in wyoming ?	cities-4
+what are the major cities of texas ?	cities-4
+what are the major cities of the united states ?	cities-4
+what are the major cities of the us ?	cities-4
+what are the major lakes in united states ?	lakes-4
+what are the major rivers in ohio ?	rivers-4
+what are the major rivers in the us ?	rivers-4
+what are the neighboring states for michigan ?	states-4
+what are the population densities of each us state ?	densities-4
+what are the population of mississippi ?	population-3
+what are the populations of all the major cities in montana ?	populations-3
+what are the populations of states through which the mississippi river run ?	populations-3
+what are the populations of states through which the mississippi river runs ?	populations-3
+what are the populations of states through which the mississippi run ?	populations-3
+what are the populations of states through which the mississippi runs ?	populations-3
+what are the populations of states which border texas ?	populations-3
+what are the populations of the major cities of texas ?	populations-3
+what are the populations of the states through which the mississippi river run ?	populations-3
+what are the populations of the states through which the mississippi river runs ?	populations-3
+what are the populations of the states through which the mississippi run ?	populations-3
+what are the populations of the states through which the mississippi runs ?	populations-3
+what are the rivers in alaska ?	rivers-3
+what are the rivers in the state of indiana ?	rivers-3
+what are the rivers in the state of texas ?	rivers-3
+what are the rivers of montana ?	rivers-3
+what are the states ?	states-3
+what are the states that border the state with the greatest population ?	states-3
+what are the states that the potomac run through ?	states-3
+what are the states through which the longest river runs ?	states-3
+what can you tell me about the population of missouri ?	population-7
+what capital has the largest population ?	capital-2
+what capital is the largest in the us ?	capital-2
+what cities are located in pennsylvania ?	cities-2
+what cities in california ?	cities-2
+what cities in texas have the highest number of citizens ?	cities-2
+what cities in texas have the highest populations ?	cities-2
+what city has the largest population ?	city-2
+what city has the least population ?	city-2
+what city has the most people ?	city-2
+what city in the united states has the highest population density ?	city-2
+what is capital of iowa ?	capital-3
+what is capital of the state with the lowest point ?	capital-3
+what is largest capital ?	capital-4
+what is the adjacent state of california ?	state-4
+what is the area of alaska ?	area-3
+what is the area of california ?	area-3
+what is the area of florida ?	area-3
+what is the area of idaho ?	area-3
+what is the area of maine ?	area-3
+what is the area of maryland in square kilometers ?	area-3
+what is the area of new mexico ?	area-3
+what is the area of ohio ?	area-3
+what is the area of seattle ?	area-3
+what is the area of south carolina ?	area-3
+what is the area of texas ?	area-3
+what is the area of the largest state ?	area-3
+what is the area of the smallest state ?	area-3
+what is the area of the state with the capital albany ?	area-3
+what is the area of the states ?	area-3
+what is the area of the texas state ?	area-3
+what is the area of wisconsin ?	area-3
+what is the average population of the us by state ?	population-4
+what is the average population per square km in pennsylvania ?	population-4
+what is the average population per square km in the us ?	population-4
+what is the biggest american city in a state with a river ?	city-5
+what is the biggest capital city in the us ?	city-5
+what is the biggest city in arizona ?	city-4
+what is the biggest city in georgia ?	city-4
+what is the biggest city in kansas ?	city-4
+what is the biggest city in louisiana ?	city-4
+what is the biggest city in nebraska ?	city-4
+what is the biggest city in oregon ?	city-4
+what is the biggest city in texas ?	city-4
+what is the biggest city in the smallest state ?	city-4
+what is the biggest city in the us ?	city-4
+what is the biggest city in the usa ?	city-4
+what is the biggest city in usa ?	city-4
+what is the biggest city in wyoming ?	city-4
+what is the biggest river in illinois ?	river-4
+what is the biggest state ?	state-4
+what is the biggest state in continental us ?	state-4
+what is the biggest state in the usa ?	state-4
+what is the capital city of the largest state in the us ?	city-4
+what is the capital of california ?	capital-3
+what is the capital of colorado ?	capital-3
+what is the capital of georgia ?	capital-3
+what is the capital of hawaii ?	capital-3
+what is the capital of illinois ?	capital-3
+what is the capital of indiana ?	capital-3
+what is the capital of iowa ?	capital-3
+what is the capital of maine ?	capital-3
+what is the capital of maryland ?	capital-3
+what is the capital of massachusetts ?	capital-3
+what is the capital of michigan ?	capital-3
+what is the capital of new hampshire ?	capital-3
+what is the capital of new jersey ?	capital-3
+what is the capital of new york ?	capital-3
+what is the capital of north dakota ?	capital-3
+what is the capital of ohio ?	capital-3
+what is the capital of pennsylvania ?	capital-3
+what is the capital of states that have cities named durham ?	capital-3
+what is the capital of texas ?	capital-3
+what is the capital of the alabama state ?	capital-3
+what is the capital of the florida state ?	capital-3
+what is the capital of the largest state ?	capital-3
+what is the capital of the smallest state ?	capital-3
+what is the capital of the state texas ?	capital-3
+what is the capital of the state that borders the most states ?	capital-3
+what is the capital of the state with the highest elevation ?	capital-3
+what is the capital of the state with the highest point ?	capital-3
+what is the capital of the state with the largest population ?	capital-3
+what is the capital of the state with the longest river ?	capital-3
+what is the capital of the state with the most inhabitants ?	capital-3
+what is the capital of utah ?	capital-3
+what is the capital of vermont ?	capital-3
+what is the capital of washington ?	capital-3
+what is the city in texas with the largest population ?	city-3
+what is the city with the smallest population ?	city-3
+what is the combined area of all 50 states ?	area-4
+what is the combined population of all 50 states ?	population-4
+what is the density of texas ?	density-3
+what is the density of the new york ?	density-3
+what is the elevation of death valley ?	elevation-3
+what is the elevation of the highest point in the usa ?	elevation-3
+what is the height of mount mckinley ?	height-3
+what is the height of the highest mountain in texas ?	height-3
+what is the height of the highest point in the usa ?	height-3
+what is the high point of wyoming ?	point-4
+what is the highest elevation in new mexico ?	elevation-4
+what is the highest elevation in south carolina ?	elevation-4
+what is the highest elevation in texas ?	elevation-4
+what is the highest elevation in the united states ?	elevation-4
+what is the highest mountain in alaska ?	mountain-4
+what is the highest mountain in texas ?	mountain-4
+what is the highest mountain in the us ?	mountain-4
+what is the highest mountain in us ?	mountain-4
+what is the highest point in colorado ?	point-4
+what is the highest point in delaware ?	point-4
+what is the highest point in each state whose lowest point is sea level ?	point-4
+what is the highest point in florida ?	point-4
+what is the highest point in iowa ?	point-4
+what is the highest point in kansas ?	point-4
+what is the highest point in maine ?	point-4
+what is the highest point in montana ?	point-4
+what is the highest point in nevada in meters ?	point-4
+what is the highest point in new mexico ?	point-4
+what is the highest point in ohio ?	point-4
+what is the highest point in rhode island ?	point-4
+what is the highest point in states bordering georgia ?	point-4
+what is the highest point in texas ?	point-4
+what is the highest point in the country ?	point-4
+what is the highest point in the smallest state ?	point-4
+what is the highest point in the state with capital austin ?	point-4
+what is the highest point in the state with capital des moines ?	point-4
+what is the highest point in the state with the capital des moines ?	point-4
+what is the highest point in the state with the most rivers ?	point-4
+what is the highest point in the state with the smallest population ?	point-4
+what is the highest point in the states bordering colorado ?	point-4
+what is the highest point in the united states ?	point-4
+what is the highest point in the us ?	point-4
+what is the highest point in the usa ?	point-4
+what is the highest point in virginia ?	point-4
+what is the highest point in wyoming ?	point-4
+what is the highest point of the state with the largest area ?	point-4
+what is the highest point of the usa ?	point-4
+what is the largest capital ?	capital-4
+what is the largest capital city in the usa ?	city-5
+what is the largest city in a state that borders texas ?	city-4
+what is the largest city in alabama ?	city-4
+what is the largest city in california ?	city-4
+what is the largest city in michigan ?	city-4
+what is the largest city in minnesota by population ?	city-4
+what is the largest city in missouri ?	city-4
+what is the largest city in rhode island ?	city-4
+what is the largest city in smallest state through which the mississippi runs ?	city-4
+what is the largest city in states that border california ?	city-4
+what is the largest city in texas ?	city-4
+what is the largest city in the smallest state in the usa ?	city-4
+what is the largest city in wisconsin ?	city-4
+what is the largest city of kansas ?	city-4
+what is the largest of the state that the rio grande runs through ?	state-5
+what is the largest river in washington state ?	river-4
+what is the largest state ?	state-4
+what is the largest state capital in population ?	capital-5
+what is the largest state in the us ?	state-4
+what is the largest state in usa ?	state-4
+what is the largest state that borders california ?	state-4
+what is the largest state that borders texas ?	state-4
+what is the largest state that borders the state with the highest population ?	state-4
+what is the largest state that borders the state with the lowest point in the usa ?	state-4
+what is the largest state traversed by the mississippi river ?	state-4
+what is the least populous state ?	state-5
+what is the length of the colorado river ?	length-3
+what is the length of the colorado river in texas ?	length-3
+what is the length of the longest river in the usa ?	length-3
+what is the length of the longest river that runs through texas ?	length-3
+what is the length of the mississippi river ?	length-3
+what is the length of the river that flows through the most states ?	length-3
+what is the length of the river that runs through the most number of states ?	length-3
+what is the length of the river that runs through the most states ?	length-3
+what is the length of the river that traverses the most states ?	length-3
+what is the longest river ?	river-4
+what is the longest river flowing through new york ?	river-4
+what is the longest river in america ?	river-4
+what is the longest river in california ?	river-4
+what is the longest river in florida ?	river-4
+what is the longest river in mississippi ?	river-4
+what is the longest river in new york ?	river-4
+what is the longest river in pennsylvania ?	river-4
+what is the longest river in texas ?	river-4
+what is the longest river in the largest state ?	river-4
+what is the longest river in the smallest state in the usa ?	river-4
+what is the longest river in the state with the highest point ?	river-4
+what is the longest river in the state with the most major cities ?	river-4
+what is the longest river in the states that border nebraska ?	river-4
+what is the longest river in the united states ?	river-4
+what is the longest river in the us ?	river-4
+what is the longest river that does not run through texas ?	river-4
+what is the longest river that flows through a state that borders indiana ?	river-4
+what is the longest river that flows through colorado ?	river-4
+what is the longest river that passes the states that border the state that borders the most states ?	river-4
+what is the longest river that runs through a state that borders tennessee ?	river-4
+what is the lowest elevation in pennsylvania ?	elevation-4
+what is the lowest point in arkansas ?	point-4
+what is the lowest point in california ?	point-4
+what is the lowest point in louisiana ?	point-4
+what is the lowest point in massachusetts ?	point-4
+what is the lowest point in mississippi ?	point-4
+what is the lowest point in nebraska in meters ?	point-4
+what is the lowest point in oregon ?	point-4
+what is the lowest point in texas ?	point-4
+what is the lowest point in the state of california ?	point-4
+what is the lowest point in the state of texas ?	point-4
+what is the lowest point in the united states ?	point-4
+what is the lowest point in usa ?	point-4
+what is the lowest point in wisconsin ?	point-4
+what is the lowest point of all states through which the colorado river runs through ?	point-4
+what is the lowest point of colorado ?	point-4
+what is the lowest point of the state with the largest area ?	point-4
+what is the lowest point of the us ?	point-4
+what is the major cities in montana ?	cities-4
+what is the maximum elevation of san francisco ?	elevation-4
+what is the most dense state in the usa ?	state-5
+what is the most populated capital in the usa ?	capital-5
+what is the most populated state bordering oklahoma ?	state-5
+what is the most populous city ?	city-5
+what is the most populous city in texas ?	city-5
+what is the most populous city in wyoming ?	city-5
+what is the most populous state ?	state-5
+what is the most populous state in the us ?	state-5
+what is the most populous state through which the mississippi runs ?	state-5
+what is the name of the state with the lowest point ?	name-3
+what is the number of neighboring states for kentucky ?	number-3
+what is the population density in the state with capital austin ?	density-4
+what is the population density of maine ?	density-4
+what is the population density of south dakota ?	density-4
+what is the population density of texas ?	density-4
+what is the population density of the largest state ?	density-4
+what is the population density of the smallest state ?	density-4
+what is the population density of the state with the smallest area ?	density-4
+what is the population density of the state with the smallest population ?	density-4
+what is the population density of wyoming ?	density-4
+what is the population in boston ?	population-3
+what is the population of alaska ?	population-3
+what is the population of arizona ?	population-3
+what is the population of atlanta ?	population-3
+what is the population of atlanta ga ?	population-3
+what is the population of austin ?	population-3
+what is the population of austin texas ?	population-3
+what is the population of boston massachusetts ?	population-3
+what is the population of boulder ?	population-3
+what is the population of california ?	population-3
+what is the population of dallas ?	population-3
+what is the population of denver ?	population-3
+what is the population of erie pennsylvania ?	population-3
+what is the population of hawaii ?	population-3
+what is the population of houston ?	population-3
+what is the population of idaho ?	population-3
+what is the population of illinois ?	population-3
+what is the population of maine ?	population-3
+what is the population of maryland ?	population-3
+what is the population of minnesota ?	population-3
+what is the population of montana ?	population-3
+what is the population of new mexico ?	population-3
+what is the population of new york ?	population-3
+what is the population of oregon ?	population-3
+what is the population of portland maine ?	population-3
+what is the population of rhode island ?	population-3
+what is the population of sacramento ?	population-3
+what is the population of san antonio ?	population-3
+what is the population of seattle ?	population-3
+what is the population of seattle washington ?	population-3
+what is the population of south dakota ?	population-3
+what is the population of springfield missouri ?	population-3
+what is the population of springfield south dakota ?	population-3
+what is the population of tempe arizona ?	population-3
+what is the population of texas ?	population-3
+what is the population of the capital of the largest state ?	population-3
+what is the population of the capital of the largest state through which the mississippi runs ?	population-3
+what is the population of the capital of the smallest state ?	population-3
+what is the population of the largest city in the state with the largest area ?	population-3
+what is the population of the largest state ?	population-3
+what is the population of the largest state that borders texas ?	population-3
+what is the population of the major cities in wisconsin ?	population-3
+what is the population of the smallest state ?	population-3
+what is the population of the state that borders the most states ?	population-3
+what is the population of the state with the largest area ?	population-3
+what is the population of tucson ?	population-3
+what is the population of utah ?	population-3
+what is the population of washington ?	population-3
+what is the population of washington dc ?	population-3
+what is the river that cross over ohio ?	river-3
+what is the shortest river ?	river-4
+what is the shortest river in alaska ?	river-4
+what is the shortest river in iowa ?	river-4
+what is the shortest river in nebraska ?	river-4
+what is the shortest river in texas ?	river-4
+what is the shortest river in the united states ?	river-4
+what is the shortest river in the us ?	river-4
+what is the shortest river in the usa ?	river-4
+what is the size of california ?	size-3
+what is the size of florida ?	size-3
+what is the size of texas ?	size-3
+what is the size of the capital of texas ?	size-3
+what is the size of the largest state in the usa ?	size-3
+what is the smallest city in alaska ?	city-4
+what is the smallest city in arkansas ?	city-4
+what is the smallest city in hawaii ?	city-4
+what is the smallest city in the largest state ?	city-4
+what is the smallest city in the us ?	city-4
+what is the smallest city in the usa ?	city-4
+what is the smallest city in washington ?	city-4
+what is the smallest city of the smallest state in the us ?	city-4
+what is the smallest state bordering ohio ?	state-4
+what is the smallest state bordering wyoming ?	state-4
+what is the smallest state by area ?	state-4
+what is the smallest state in the usa ?	state-4
+what is the smallest state that borders texas ?	state-4
+what is the smallest state that borders the most states ?	state-4
+what is the smallest state that the mississippi river runs through ?	state-4
+what is the state that contains the highest point ?	state-3
+what is the state with the highest elevation in the united states ?	state-3
+what is the state with the largest area ?	state-3
+what is the state with the largest density in usa ?	state-3
+what is the state with the lowest point ?	state-3
+what is the state with the lowest population ?	state-3
+what is the state with the smallest area ?	state-3
+what is the tallest mountain in america ?	mountain-4
+what is the tallest mountain in the united states ?	mountain-4
+what is the total area of the usa ?	area-4
+what is the total length of all rivers in the usa ?	length-4
+what is the total population of the states that border texas ?	population-4
+what length is the mississippi ?	length-2
+what major cities are located in pennsylvania ?	cities-3
+what major rivers run through illinois ?	rivers-3
+what mountains are in alaska ?	mountains-2
+what river flows through kansas ?	river-2
+what river flows through texas ?	river-2
+what river flows through the most states ?	river-2
+what river is the longest one in the united states ?	river-2
+what river runs through illinois ?	river-2
+what river runs through the most states ?	river-2
+what river runs through the state with the most cities ?	river-2
+what river runs through virginia ?	river-2
+what river traverses the most states ?	river-2
+what rivers are in nevada ?	rivers-2
+what rivers are in new mexico ?	rivers-2
+what rivers are in oregon ?	rivers-2
+what rivers are in texas ?	rivers-2
+what rivers are in utah ?	rivers-2
+what rivers are there in texas ?	rivers-2
+what rivers do not run through tennessee ?	rivers-2
+what rivers flow though colorado ?	rivers-2
+what rivers flow through missouri ?	rivers-2
+what rivers flow through the state with the largest population ?	rivers-2
+what rivers run through arizona ?	rivers-2
+what rivers run through austin texas ?	rivers-2
+what rivers run through colorado ?	rivers-2
+what rivers run through louisiana ?	rivers-2
+what rivers run through maine ?	rivers-2
+what rivers run through new york ?	rivers-2
+what rivers run through the state with the lowest point in the usa ?	rivers-2
+what rivers run through west virginia ?	rivers-2
+what rivers traverses the state which borders the most states ?	state-4
+what state borders michigan ?	state-2
+what state contains the highest point in the us ?	state-2
+what state contains the highest point of those the colorado river traverses ?	state-2
+what state has highest elevation ?	state-2
+what state has no rivers ?	state-2
+what state has the capital salem ?	state-2
+what state has the city flint ?	state-2
+what state has the city with the largest population ?	state-2
+what state has the city with the most population ?	state-2
+what state has the greatest population density ?	state-2
+what state has the highest elevation ?	state-2
+what state has the highest population ?	state-2
+what state has the highest population density ?	state-2
+what state has the largest area ?	state-2
+what state has the largest capital ?	state-2
+what state has the largest city ?	state-2
+what state has the largest population ?	state-2
+what state has the largest population density ?	state-2
+what state has the largest urban population ?	state-2
+what state has the least population density ?	state-2
+what state has the longest river ?	state-2
+what state has the lowest population density ?	state-2
+what state has the most cities ?	state-2
+what state has the most major cities ?	state-2
+what state has the most major rivers running through it ?	state-2
+what state has the most people ?	state-2
+what state has the most rivers ?	state-2
+what state has the most rivers running through it ?	state-2
+what state has the shortest river ?	state-2
+what state has the smallest area ?	state-2
+what state has the smallest capital ?	state-2
+what state has the smallest population ?	state-2
+what state has the smallest population density ?	state-2
+what state has the smallest urban population ?	state-2
+what state has the sparsest population density ?	state-2
+what state is austin in ?	state-2
+what state is austin the capital of ?	state-2
+what state is boston in ?	state-2
+what state is columbus the capital of ?	state-2
+what state is dallas in ?	state-2
+what state is des moines located in ?	state-2
+what state is miami in ?	state-2
+what state is pittsburgh in ?	state-2
+what state is the biggest ?	state-2
+what state is the largest in population ?	state-2
+what state is the state with the most rivers ?	state-2
+what state that borders texas has the highest population ?	state-2
+what state that borders texas is the largest ?	state-2
+what state which the mississippi runs through has the largest population ?	state-2
+what states are next to arizona ?	states-2
+what states are next to texas ?	states-2
+what states are next to the mississippi ?	states-2
+what states border alaska ?	states-2
+what states border arkansas ?	states-2
+what states border delaware ?	states-2
+what states border florida ?	states-2
+what states border georgia ?	states-2
+what states border hawaii ?	states-2
+what states border indiana ?	states-2
+what states border kentucky ?	states-2
+what states border michigan ?	states-2
+what states border missouri ?	states-2
+what states border montana ?	states-2
+what states border new hampshire ?	states-2
+what states border new jersey ?	states-2
+what states border ohio ?	states-2
+what states border rhode island ?	states-2
+what states border states that border colorado ?	states-2
+what states border states that border states that border florida ?	states-2
+what states border states that border states that border states that border texas ?	states-2
+what states border states that border the state with the largest population ?	states-2
+what states border states that the mississsippi runs through ?	states-2
+what states border states that the ohio runs through ?	states-2
+what states border states which the mississippi runs through ?	states-2
+what states border texas ?	states-2
+what states border texas and have a major river ?	states-2
+what states border the mississippi river ?	states-2
+what states border the most populous state ?	states-2
+what states border the state that borders the most states ?	states-2
+what states border the state with the most cities ?	states-2
+what states border the state with the most major cities ?	states-2
+what states border the state with the smallest area ?	states-2
+what states border wisconsin ?	states-2
+what states capital is dover ?	capital-3
+what states contain at least one major rivers ?	states-2
+what states does the colorado river run through ?	states-2
+what states does the delaware river run through ?	states-2
+what states does the mississippi river run through ?	states-2
+what states does the mississippi run through ?	states-2
+what states does the missouri river run through ?	states-2
+what states does the missouri run through ?	states-2
+what states does the ohio river go through ?	states-2
+what states does the ohio river run through ?	states-2
+what states does the shortest river run through ?	states-2
+what states have a capital that is the highest point in the state ?	states-2
+what states have a city named austin ?	states-2
+what states have cities named austin ?	states-2
+what states have cities named dallas ?	states-2
+what states have cities named plano ?	states-2
+what states have cities named portland ?	states-2
+what states have cities named rochester ?	states-2
+what states have cities named salt lake city ?	states-2
+what states have no bordering state ?	states-2
+what states have rivers named colorado ?	states-2
+what states have rivers running through them ?	states-2
+what states have towns named springfield ?	states-2
+what states in the united states have a city of springfield ?	states-2
+what states neighbor maine ?	states-2
+what states surround kentucky ?	states-2
+what texas city has the largest population ?	city-3
+whats the largest city ?	city-3
+where are mountains ?	mountains-3
+where is austin ?	austin-3
+where is baton rouge ?	rouge-4
+where is dallas ?	dallas-3
+where is fort wayne ?	wayne-4
+where is houston ?	houston-3
+where is indianapolis ?	indianapolis-3
+where is massachusetts ?	massachusetts-3
+where is mount whitney ?	whitney-4
+where is mount whitney located ?	whitney-4
+where is new hampshire ?	hampshire-4
+where is new orleans ?	orleans-4
+where is portland ?	portland-3
+where is san diego ?	diego-4
+where is san jose ?	jose-4
+where is scotts valley ?	valley-4
+where is springfield ?	springfield-3
+where is the chattahoochee river ?	river-4
+where is the highest mountain of the united states ?	mountain-4
+where is the highest point in hawaii ?	point-4
+where is the highest point in montana ?	point-4
+where is the lowest point in maryland ?	point-4
+where is the lowest point in the us ?	point-4
+where is the lowest spot in iowa ?	spot-4
+where is the most populated area of new mexico ?	area-5
+where is the smallest city ?	city-4
+which capitals are in the states that border texas ?	capitals-2
+which capitals are not major cities ?	capitals-2
+which city in california has the largest population ?	city-2
+which is the highest peak not in alaska ?	peak-4
+which is the longest river in usa ?	river-4
+which is the lowest point of the states that the mississippi runs through ?	point-4
+which is the shortest river ?	river-4
+which is the smallest state ?	state-4
+which river goes through the most states ?	river-2
+which river runs through most states ?	river-2
+which river runs through the most states ?	river-2
+which river traverses most states ?	river-2
+which rivers are in alaska ?	rivers-2
+which rivers do not run through texas ?	rivers-2
+which rivers do not run through usa ?	rivers-2
+which rivers flow through alaska ?	rivers-2
+which rivers run through states with fewest cities ?	rivers-2
+which rivers run through the state with the largest city in the us ?	rivers-2
+which rivers run through the state with the lowest elevation in the usa ?	rivers-2
+which state border kentucky ?	state-2
+which state capital has the smallest population ?	capital-3
+which state contains most rivers ?	state-2
+which state has the biggest population ?	state-2
+which state has the greatest density ?	state-2
+which state has the greatest population ?	state-2
+which state has the highest elevation ?	state-2
+which state has the highest peak in the country ?	state-2
+which state has the highest point ?	state-2
+which state has the highest population density ?	state-2
+which state has the largest city ?	state-2
+which state has the largest density ?	state-2
+which state has the least population density ?	state-2
+which state has the longest river ?	state-2
+which state has the lowest elevation ?	state-2
+which state has the lowest population density ?	state-2
+which state has the most major cities ?	state-2
+which state has the most major rivers ?	state-2
+which state has the most major rivers running through it ?	state-2
+which state has the most people ?	state-2
+which state has the most population ?	state-2
+which state has the most rivers ?	state-2
+which state has the most rivers running through it ?	state-2
+which state has the red river ?	state-2
+which state has the smallest average urban population ?	state-2
+which state has the smallest population density ?	state-2
+which state has the sparsest population density ?	state-2
+which state is kalamazoo in ?	state-2
+which state is mount mckinley in ?	state-2
+which state is the city denver located in ?	state-2
+which state is the largest city in montana in ?	state-2
+which state is the smallest ?	state-2
+which states adjoin alabama ?	states-2
+which states border south dakota ?	states-2
+which states do colorado river flow through ?	states-2
+which states does not border texas ?	states-2
+which states does the chattahoochee river run through ?	states-2
+which states does the colorado river run through ?	states-2
+which states does the longest river cross ?	states-2
+which states does the longest river run through ?	states-2
+which states does the mississippi river run through ?	states-2
+which states does the mississippi run through ?	states-2
+which states does the missouri river pass through ?	states-2
+which states does the missouri river run through ?	states-2
+which states have a river ?	states-2
+which states have cities named austin ?	states-2
+which states have points higher than the highest point in colorado ?	states-2
+which states have points that are higher than the highest point in texas ?	states-2
+which states lie on the largest river in the united states ?	states-2
+which us city has the highest population density ?	city-3

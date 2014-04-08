@@ -1,0 +1,40 @@
+SELECT DISTINCT ?city
+WHERE { 
+	?city a geo:city . 
+	?city geo:inState ?state . 
+	?state geo:hasName "louisiana" . 
+}
+
+SELECT (COUNT(DISTINCT ?city) AS ?city_cnt) 
+WHERE { 
+	?city a geo:city . 
+	?city geo:inState ?state . 
+	?state geo:hasName "louisiana" . 
+}
+
+
+SELECT DISTINCT ?state 
+WHERE { 
+	?state a geo:state . 
+} 
+
+SELECT DISTINCT ?state 
+WHERE { 
+	?state a geo:state . 
+	?state geo:hasArea ?area . 
+} 
+ORDER BY DESC(?area) 
+LIMIT 1
+
+
+SELECT DISTINCT ?state_0
+WHERE {
+	?state_0 a geo:state .
+	?state_1 a geo:state .
+	?state_2 a geo:state .
+	?state_3 a geo:state .
+	?state_0 geo:border ?state_1 .
+	?state_1 geo:border ?state_2 .
+	?state_2 geo:border ?state_3 .
+	?state_3 geo:hasName "florida" .
+}

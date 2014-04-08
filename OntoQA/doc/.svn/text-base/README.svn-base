@@ -1,0 +1,20 @@
+运行OntoQADemo
+
+1.首先确保根目录下有由OntoQADemo类生成的可执行的jar文件OntoQADemo.jar，
+双击根目录下的OntoQADemo.bat运行OntoQADemo.jar。OntoQADemo使用Jetty提供
+HTTP服务，绑定的端口在conf/cn.edu.hit.ir.demo.ontoqademo.properties中由
+属性server.port设置，设为10080。
+
+2.使用SVN将http://192.168.3.128:8081/svn/wbzhang/ontoqa/trunk的代码
+check out到apache的htdocs目录下。这是Web程序ontoqa。
+
+3.Web程序ontoqa使用ajax向OntoQADemo服务器提交问题获取答案。为解决ajax的跨
+域问题，需要进行一些URL设置。先在ontoqa/js/ontoqa.js中设置ajax请求的
+OntoQADemo服务器的URL ONTOQA_URL为'./qasrv'。然后在在apache配置文件
+conf/httpd.conf中设置URL转发，先开启mod_proxy模块，去掉如下2行代码前的#号：
+	LoadModule proxy_module modules/mod_proxy.so
+	LoadModule proxy_http_module modules/mod_proxy_http.so
+再添加如下代码设置URL转发：
+	ProxyPass /ontoqa/qasrv http://127.0.0.1:10080
+	
+4.完成以上操作后，访问ontoqa/index.html即可使用OntoQADemo。
