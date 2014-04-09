@@ -361,11 +361,17 @@ public class SemanticGraph {
 			return ;
 		path.add(this.sgVertexs.get(v).getCoreWords().get(0).toString());
 		//path.add(String.valueOf(v));
+		String tmp = "";
 		for (int u = 0; u < this.graphSize; ++u ) {
 			SemanticEdge edge = getEdge (v, u);
 			if (edge.isConnected() && visited[u] == false) {
 				//path.add(edge.getLinkWords().get(0).toString());
-				path.add(String.valueOf(edge.getLinkWords().get(0).word));
+				List<DGNode> linkWords  = edge.getLinkWords();
+				tmp = "";
+				for (DGNode node : linkWords ) { 
+					tmp += node.word + " ";
+				}
+				path.add(tmp.trim());
 				dfs(u, path);
 			}
 		}	
