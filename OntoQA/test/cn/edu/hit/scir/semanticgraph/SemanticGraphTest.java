@@ -71,18 +71,18 @@ public class SemanticGraphTest {
 //		logger.info("answer : " + testSemanticGraph("give me the longest river that passes through the us ?"));
 //		logger.info("answer : " + testSemanticGraph("which states have points that are higher than the highest point in texas ?"));
 //		logger.info("answer : " + testSemanticGraph("how many cities named austin are there in the usa ?"));
-//		logger.info("\nanswer : \n" + testSemanticGraph ("what rivers run through the states that border the state with the capital atlanta ?"));
+//		logger.info("answer : " + testSemanticGraph ("what rivers run through the states that border the state with the capital atlanta ?"));
 //		logger.info("answer : " + testSemanticGraph ("how many cities named austin are there in the usa ?"));
 //		logger.info("answer : " + testSemanticGraph ("how many states border on the state whose capital is boston ?"));
 //		logger.info("answer : " + testSemanticGraph ("what is the capital city of the largest state in the us ?"));
 //		logger.info("answer : " + testSemanticGraph ("what states have no bordering state ?"));
-		logger.info("answer : " + testSemanticGraph ("how long is the delaware river ?"));
+//		logger.info("answer : " + testSemanticGraph ("how long is the delaware river ?"));
 //		logger.info("answer : " + testSemanticGraph ("how big is new mexico ?"));
-//		logger.info("answer : " + testSemanticGraph(" name all the rivers in colorado ?"));
-		
+//		logger.info("answer : " + testSemanticGraph (" name all the rivers in colorado ?"));
 //		logger.info("answer : " + testSemanticGraph ("people in boulder ?"));
 //		logger.info("answer : " + testSemanticGraph ("rivers in new york ?"));
-		
+//		logger.info("answer : " + testSemanticGraph ("how many rivers run through texas ?"));
+		logger.info("answer : " + testSemanticGraph ("through which states does the longest river in texas run ?"));
 		logger.info("graph : \n" + this.sgraph.toString());
 		
 		//logger.info("path : " + StringUtils.join(this.sgraph.searchSemanticGraph(0), " -> "));

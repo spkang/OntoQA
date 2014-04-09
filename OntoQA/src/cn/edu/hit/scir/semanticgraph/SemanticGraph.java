@@ -142,6 +142,9 @@ public class SemanticGraph {
 		
 		SemanticEdge edge = getEdge (this.vertexMap.get(lhsNode).getIndex(), this.vertexMap.get(rhsNode).getIndex());
 		
+		modifySemanticEdge(linkWords, preEdgeModifiers);
+		modifySemanticEdge(linkWords, postEdgeModifiers);
+		
 		edge.setLhsNode(lhsSemanticNode);
 		edge.setRhsNode(rhsSemanticNode);
 		edge.setLinkWords(linkWords);
@@ -153,6 +156,37 @@ public class SemanticGraph {
 		return edge;
 	}
 
+	public void modifySemanticNode (List<DGNode> coreWord, List<DGNode> modifiers , boolean isPreModifier) {
+		;
+	}
+	
+	
+	/**
+	 * modify the semantic edge by the relation of "prep"
+	 *
+	 * @param  List<DGNode> linkNode , the link node list of the semantic graph edge 
+	 * @param  List<DGNode> edgeModifiers, the edge modifiers 
+	 * @return void 
+	 */
+	public void modifySemanticEdge (List<DGNode> linkNode, List<DGNode> edgeModifiers) {
+		if (linkNode == null || linkNode.isEmpty())
+			return ;
+		DGNode ln = linkNode.get(0);
+		if (edgeModifiers != null ) {
+			for (int i = 0; i < edgeModifiers.size(); ++i ) {
+				DGNode node = edgeModifiers.get(i);
+				DGEdge edge = this.dependencyGraph.getEdge(ln.idx, node.idx);
+				if (edge != null && edge.status && edge.reln.toLowerCase().equals("prep") 
+						&& ln.tag.toUpperCase().startsWith(this.dependencyGraph.VERB) 
+						&& node.tag.toUpperCase().equals(this.dependencyGraph.IN)) {
+					linkNode.add(node);
+					edgeModifiers.remove(i);
+					--i; // move forward
+				}
+			}
+		}
+	}
+	
 	public void setEdge (int row , int col, SemanticEdge edge) {
 		if (!isDimLegal(row, col)) {
 			String msg = "the input parameters are illegal! " +" row = " + row + ", col = " + col ;
@@ -211,6 +245,7 @@ public class SemanticGraph {
 //	private Integer generateNextSemanticNodeIndex () {
 //		return (this.semanticNodeIndex++);
 //	}
+	
 	
 	
 	/**

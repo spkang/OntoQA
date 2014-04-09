@@ -108,6 +108,7 @@ public class QuestionAnalyzer {
 	
 	public QueryGraph getQueryGraph(String question) {
 		MatchedEntitiesSentence sentence = getMatchedEntitiesSentence(question);
+		System.out.println("matched entity sentence : " + sentence.toString()); // debug
 		QueryGraph queryGraph = graphSeracher.bestMatch(sentence);
 		return queryGraph;
 	}

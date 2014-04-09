@@ -166,4 +166,11 @@ public class SparqlGeneratorTest {
 		testGenerateSparql("what state borders the most states ?");
 		testGenerateSparql("what rivers traverses the state which borders the most states ?");
 	}
+	
+	
+	@Test
+	public void testNN () {
+		//testGenerateSparql ("how many states border the mississippi river ?");
+		testGenerateSparql ("how many states does the missouri river run through ?");
+	}
 }

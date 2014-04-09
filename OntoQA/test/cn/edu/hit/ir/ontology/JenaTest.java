@@ -69,6 +69,15 @@ public class JenaTest {
 		jena.read(geoFilename);
 		testSearch("customers");
 		testSearch("state_texas");
+		testSearch("mississippi");
+		testSearch("river");
+		testSearch("mississippi river");
+		testSearch("river mississippi");
+		testSearch("river_mississippi");
+		testSearch("mississippi_river");
+		testSearch("state_mississippi");
+		testSearch("rio grande");
+		testSearch("grande rio");
 	}
 
 }
