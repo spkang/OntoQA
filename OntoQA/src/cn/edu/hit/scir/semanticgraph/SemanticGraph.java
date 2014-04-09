@@ -94,8 +94,6 @@ public class SemanticGraph {
 			logger.info("key : " + node );
 			logger.info("value : " + this.vertexMap.get(node));
 		} 
-//		logger.info("root index : " + this.dependencyGraph.getRootIndex());
-//		logger.info("root note is : " + this.dependencyGraph.getVertexNode(this.dependencyGraph.getRootIndex()));
 	}
 	
 	
@@ -110,6 +108,12 @@ public class SemanticGraph {
 	}
 	
 	
+	/**
+	 * generate the semantic node by the given dependency graph node 
+	 *
+	 * @param DGNode, node, the core noun node which in the dependency graph
+	 * @return SemanticNode, return the semanticnode generate by the dependency graph  
+	 */
 	private SemanticNode generateSemanticNode (DGNode node) {
 		if (node == null )
 			return null;
@@ -122,6 +126,10 @@ public class SemanticGraph {
 		List<DGNode> postModifiers = this.dependencyGraph.search(node, GraphSearchType.POST_NOUN_DFS);
 		List<DGNode> coreWords = new ArrayList<DGNode>();
 		coreWords.add(node);
+		
+		modifySemanticNode(coreWords, preModifiers);
+		modifySemanticNode(coreWords, postModifiers);
+
 		snode.setPreModifiers(preModifiers);
 		snode.setPostModifiers(postModifiers);
 		snode.setCoreWords(coreWords);
@@ -156,8 +164,39 @@ public class SemanticGraph {
 		return edge;
 	}
 
-	public void modifySemanticNode (List<DGNode> coreWord, List<DGNode> modifiers , boolean isPreModifier) {
-		;
+	public void modifySemanticNode (List<DGNode> coreWords, List<DGNode> modifiers ) {
+		if (coreWords == null || coreWords.isEmpty()) 
+			return ;
+		DGNode cw = coreWords.get(0);
+		if (modifiers != null ) {
+			for (int i = 0 ; i < modifiers.size(); ++i ) {
+				DGNode node = modifiers.get(i);
+				logger.info("modifier node : " + node.toString());
+				DGEdge edge = this.dependencyGraph.getEdge(cw.idx, node.idx);
+				if ( edge != null && edge.status && (  (edge.reln.toLowerCase().equals("nn") && node.tag.toUpperCase().startsWith("NN"))
+													 || ( edge.reln.toLowerCase().equals("amod") && node.tag.toUpperCase().equals("JJ") 
+															 && this.dependencyGraph.getDGNodeInDegree(node) == 1 
+															 && this.dependencyGraph.getDGNodeOutDegree(node) == 0) )) {
+					
+					logger.info("in if node : " + node.toString());
+					int insertPos = -1;
+					for (DGNode nd : coreWords) {
+						if (node.idx < nd.idx)
+							++insertPos;
+						else 
+							break;
+					}
+					if (insertPos == -1) {
+						coreWords.add(node);
+					}
+					else {
+						coreWords.add(insertPos, node);
+					}
+					modifiers.remove(i);
+					--i;
+				}
+			}
+		}
 	}
 	
 	
@@ -176,9 +215,10 @@ public class SemanticGraph {
 			for (int i = 0; i < edgeModifiers.size(); ++i ) {
 				DGNode node = edgeModifiers.get(i);
 				DGEdge edge = this.dependencyGraph.getEdge(ln.idx, node.idx);
-				if (edge != null && edge.status && edge.reln.toLowerCase().equals("prep") 
-						&& ln.tag.toUpperCase().startsWith(this.dependencyGraph.VERB) 
-						&& node.tag.toUpperCase().equals(this.dependencyGraph.IN)) {
+				if (edge != null && edge.status && ln.tag.toUpperCase().startsWith(this.dependencyGraph.VERB)
+						&& ((edge.reln.toLowerCase().equals("prep") && node.tag.toUpperCase().equals(this.dependencyGraph.IN)) 
+							/*|| (edge.reln.toLowerCase().equals("auxpass") && node.tag.toUpperCase().startsWith(this.dependencyGraph.VERB))*/
+								)) {
 					linkNode.add(node);
 					edgeModifiers.remove(i);
 					--i; // move forward
@@ -359,9 +399,14 @@ public class SemanticGraph {
 			return ;
 		if (this.sgVertexs.get(v).getCoreWords() == null)
 			return ;
-		path.add(this.sgVertexs.get(v).getCoreWords().get(0).toString());
-		//path.add(String.valueOf(v));
+		List<DGNode> coreWords = this.sgVertexs.get(v).getCoreWords();
 		String tmp = "";
+		for (DGNode nd : coreWords)
+			tmp += nd.toString() + "~";
+		tmp = tmp.endsWith("~") ? tmp.substring(0, tmp.length() - 1) : tmp;
+		path.add(tmp);
+		//path.add(String.valueOf(v));
+		//String tmp = "";
 		for (int u = 0; u < this.graphSize; ++u ) {
 			SemanticEdge edge = getEdge (v, u);
 			if (edge.isConnected() && visited[u] == false) {
