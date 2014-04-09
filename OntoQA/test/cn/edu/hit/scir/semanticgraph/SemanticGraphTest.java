@@ -82,7 +82,14 @@ public class SemanticGraphTest {
 //		logger.info("answer : " + testSemanticGraph ("people in boulder ?"));
 //		logger.info("answer : " + testSemanticGraph ("rivers in new york ?"));
 //		logger.info("answer : " + testSemanticGraph ("how many rivers run through texas ?"));
-		logger.info("answer : " + testSemanticGraph ("through which states does the longest river in texas run ?"));
+//		logger.info("answer : " + testSemanticGraph ("through which states does the longest river in texas run ?"));
+//		logger.info("answer : " + testSemanticGraph ("how many rivers are found in colorado ?"));
+//		logger.info("answer : " + testSemanticGraph ("how many people are there in new york ?"));
+//		logger.info("answer : " + testSemanticGraph ("how many citizens in boulder ?"));
+//		logger.info("answer : " + testSemanticGraph ("how many people live in the biggest city in new york state ?"));
+		
+		logger.info("answer : " + testSemanticGraph ("give me the largest state ?"));
+		
 		logger.info("graph : \n" + this.sgraph.toString());
 		
 		//logger.info("path : " + StringUtils.join(this.sgraph.searchSemanticGraph(0), " -> "));
@@ -91,7 +98,7 @@ public class SemanticGraphTest {
 	
 	public void testBatchFiels () throws IOException {
 		final String inputFileName = "data/output/geoquestions.txt";
-		final String outputFileName = "data/output/geoquestions.path_expand_noun";
+		final String outputFileName = "data/output/geoquestions.path_modify_noun";
 		List<String> questions = FileUtils.readLines(new File(inputFileName));
 		List<String> output = new ArrayList<String>();
 	

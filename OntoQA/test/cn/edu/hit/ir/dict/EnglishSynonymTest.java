@@ -73,5 +73,6 @@ public class EnglishSynonymTest {
 		testGetSet ("in");
 		testGetSet ("evelation");
 		testGetSet("high");
+		testGetSet("of");
 	}
 }

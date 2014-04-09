@@ -170,7 +170,8 @@ public class SparqlGeneratorTest {
 	
 	@Test
 	public void testNN () {
-		//testGenerateSparql ("how many states border the mississippi river ?");
+		testGenerateSparql ("how many states border the mississippi river ?");
 		testGenerateSparql ("how many states does the missouri river run through ?");
+		testGenerateSparql ("how big is the city of new york ?");
 	}
 }

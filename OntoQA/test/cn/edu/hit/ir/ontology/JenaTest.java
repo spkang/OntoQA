@@ -78,6 +78,9 @@ public class JenaTest {
 		testSearch("state_mississippi");
 		testSearch("rio grande");
 		testSearch("grande rio");
+		testSearch("new york");
+		testSearch("new york city");
+		testSearch("city_new_york");
 	}
 
 }

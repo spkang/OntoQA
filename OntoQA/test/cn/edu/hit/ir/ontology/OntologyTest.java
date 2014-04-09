@@ -278,4 +278,18 @@ public class OntologyTest {
 		}
 	}
 	
+	@Test
+	public void testForSparql () {
+		String query = "SELECT ?city_0 WHERE { ?city_0 a geo:city . ?city_0 rdfs:label \"new york\" . } limit 10";
+		testQuery (query);
+	}
+	
+	
+	public void testQuery (String query) {
+		System.out.println("test query : " + query);
+		for (String s : ontology.getResults(query)) {
+			System.out.println(s);
+		}
+	} 
+	
 }
