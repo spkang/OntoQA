@@ -10,15 +10,16 @@ package cn.edu.hit.scir.semanticgraph;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 import org.apache.commons.configuration.Configuration;
 import org.apache.commons.configuration.ConfigurationException;
 import org.apache.commons.configuration.PropertiesConfiguration;
 import org.apache.commons.io.FileUtils;
-import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
 
 import cn.edu.hit.ir.questionanalysis.QuestionNormalizer;
@@ -49,6 +50,8 @@ public class DependencyGraph {
 	private String[] tags = null;
 	private String[] stems = null;
 	private List<TypedDependency> typedDependency = null;
+	
+	private Map<DGNode, DegreeNode> dpDegreeMap = null;
 
 	private boolean[] visited = null;
 	private List<DGNode> subPath = null;
@@ -136,6 +139,36 @@ public class DependencyGraph {
 	}
 
 	/**
+	 * initialize the dependency graph degree map, call this method must after the call the <em>buildGraph</em>
+	 *
+	 * @param null
+	 * @return void 
+	 */
+	private void initDegreeMap () {
+		if (this.dpDegreeMap == null )
+			this.dpDegreeMap = new HashMap <DGNode, DegreeNode> ();
+
+		for (DGNode node : this.getVertexs()) {
+			if (this.dpDegreeMap.containsKey(node)) {
+				continue;
+			}
+			else {
+				int inDegree = 0;
+				int outDegree = 0;
+				for (int i = 0; i < this.dgraphSize; ++i) {
+					if (this.graph[node.idx][i] != null && this.graph[node.idx][i].isDirected )
+						++outDegree;
+					if (this.graph[i][node.idx] != null && this.graph[i][node.idx].isDirected)
+						++inDegree;
+				}
+				DegreeNode dn = new DegreeNode(inDegree, outDegree);
+				this.dpDegreeMap.put(node, dn);
+			}
+		}
+		
+	}
+	
+	/**
 	 * init the whole resource of the graph, used when setOrgQuestion
 	 * 
 	 * @param null
@@ -145,6 +178,7 @@ public class DependencyGraph {
 
 		initConfig();
 		loadExpandNounDict();
+		
 		
 		this.isStopedByNoun = false;
 		this.rootIndex = 0;
@@ -177,6 +211,8 @@ public class DependencyGraph {
 
 		initDfs();
 
+		initDegreeMap ();
+		
 //		for (DGNode node : this.vertexs) {
 //			logger.info("node: " + node.toString());
 //		}
@@ -230,7 +266,6 @@ public class DependencyGraph {
 			vertexs.add(node);
 			if (tags[i].toUpperCase().startsWith(NOUN) || this.expandNounSet.contains(tokens[i].toLowerCase()) 
 						|| this.expandNounSet.contains(stems[i].toLowerCase())) {
-				logger.info("add node : " + node);
 				nounVertexs.add(node);
 			}
 			else if (tags[i].toUpperCase().startsWith(VERB)) {
@@ -406,7 +441,6 @@ public class DependencyGraph {
 			this.stopNounNode = new DGNode (vertexs.get(v));
 			return;
 		}
-		logger.info("pre visit node : " + v);
 		if (v != bound)
 			subPath.add(getVertexNode(v));
 
@@ -649,6 +683,38 @@ public class DependencyGraph {
 		else {
 			dfs(v);
 		}
+	}
+	
+
+	/**
+	 * get the in degree value the specific node
+	 *
+	 * @param DGNode, node, the dependency graph node to get in degree 
+	 * @return int ,the in degree of the given node
+	 */
+	public int getDGNodeInDegree (DGNode node) {
+		if (node  == null )
+			return -1;
+		if (this.dpDegreeMap.containsKey(node)) {
+			return this.dpDegreeMap.get(node).inDegree;
+		}
+		return 0;
+	}
+	
+	
+	/**
+	 * get the out degree value the specific node
+	 *
+	 * @param DGNode, node, the dependency graph node to get out degree
+	 * @return int, the out degre of the given node
+	 */
+	public int getDGNodeOutDegree (DGNode node ) {
+		if (node  == null )
+			return -1;
+		if (this.dpDegreeMap.containsKey(node)) {
+			return this.dpDegreeMap.get(node).outDegree;
+		}
+		return 0;
 	}
 	
 	public List<DGNode> getSubPath() {
@@ -937,6 +1003,19 @@ public class DependencyGraph {
 	public void setStopNounNode(DGNode stopNounNode) {
 		this.stopNounNode = stopNounNode;
 	}
+}
+
+class DegreeNode {
+	public int inDegree; // in degree 
+	public int outDegree; // out degree
 	
+	public DegreeNode () {
+		this.inDegree = 0;
+		this.outDegree = 0;
+	}
 	
+	public DegreeNode (int inDegree, int outDegree ) {
+		this.inDegree = inDegree;
+		this.outDegree = outDegree;
+	}
 }
