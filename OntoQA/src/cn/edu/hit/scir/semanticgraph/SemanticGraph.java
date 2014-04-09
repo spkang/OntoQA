@@ -171,14 +171,13 @@ public class SemanticGraph {
 		if (modifiers != null ) {
 			for (int i = 0 ; i < modifiers.size(); ++i ) {
 				DGNode node = modifiers.get(i);
-				logger.info("modifier node : " + node.toString());
 				DGEdge edge = this.dependencyGraph.getEdge(cw.idx, node.idx);
 				if ( edge != null && edge.status && (  (edge.reln.toLowerCase().equals("nn") && node.tag.toUpperCase().startsWith("NN"))
 													 || ( edge.reln.toLowerCase().equals("amod") && node.tag.toUpperCase().equals("JJ") 
 															 && this.dependencyGraph.getDGNodeInDegree(node) == 1 
 															 && this.dependencyGraph.getDGNodeOutDegree(node) == 0) )) {
-					
-					logger.info("in if node : " + node.toString());
+					if (node.word.toLowerCase().equals("many"))
+						continue;
 					int insertPos = -1;
 					for (DGNode nd : coreWords) {
 						if (node.idx < nd.idx)
@@ -303,7 +302,6 @@ public class SemanticGraph {
 		
 		StringBuffer bf = new StringBuffer ();
 		String line = "";
-		logger.info("loopNode size : " + loopNode.size());
 		for (DGNode lnode : loopNode ) {
 			if (lnode.tag.toUpperCase().startsWith(this.dependencyGraph.VERB)) {
 				logger.info("lnode: " + lnode);
