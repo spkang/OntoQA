@@ -369,6 +369,71 @@ public class SemanticGraph {
 	}
 	
 	
+	
+	/**
+	 * search a path for the semantic graph 
+	 *
+	 * @param null
+	 * @return List<SemanticEdge> , the path of the semantic graph
+	 */
+	public List<SemanticEdge> searchSemanticGraphPath () {
+		List<SemanticEdge> path = searchPath (0);
+		if (path == null || path.isEmpty()) {
+			for (int v = 1; v < this.graphSize; ++v ) {
+				path = searchPath (v);
+				if (path != null && !path.isEmpty())
+					break;
+			}
+		}
+		return path;
+	}  
+	
+	/**
+	 * search the path by the given point v
+	 *
+	 * @param Integer , v, the start search point 
+	 * @return List<SemanticEdge> 
+	 */
+	public List<SemanticEdge> searchPath (Integer v) {
+		for (int i = 0; i < this.graphSize; ++i ) {
+			visited[i] = false;
+		}
+		List<SemanticEdge> path = new ArrayList<SemanticEdge>();
+		dfsSemanticGraph (v, path);
+		return path;
+	}
+	
+	/**
+	 * deep first search the semantic graph 
+	 * 
+	 * @param Integer v, the start searching point 
+	 * @param List<SemanticEdge> path , the return search path
+	 * @return void 
+	 */
+	public void dfsSemanticGraph (Integer v, List<SemanticEdge> path ) {
+		if (v < 0 || v >= this.graphSize) {
+			String msg = "the parameter v is out of range! v = " + v;
+			throw new IllegalArgumentException (msg);
+		}
+		
+		visited[v] = true;
+		for (int u = 0; u < this.graphSize; ++u) {
+			SemanticEdge edge = this.getEdge(v,  u);
+			if (edge.isConnected() && visited[u] == false) {
+				path.add(edge);
+				dfsSemanticGraph (u, path);
+			}
+		}
+	}
+	
+	
+	/**
+	 *  for test
+	 *
+	 *
+	 * @param  
+	 * @return List<String> the path which begin at the node v
+	 */
 	public List<String> searchSemanticGraph (int v) {
 		if (this.graphSize < 2)
 			return null;
