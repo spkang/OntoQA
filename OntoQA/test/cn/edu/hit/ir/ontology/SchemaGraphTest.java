@@ -55,7 +55,7 @@ public class SchemaGraphTest {
 	public void tearDown() throws Exception {
 	}
 
-	//@Test
+	@Test
 	public void testSchemaGraph() {
 		System.out.println(schemaGraph);
 		Set<SchemaNode> nodes = graph.vertexSet();
@@ -63,7 +63,7 @@ public class SchemaGraphTest {
 		System.out.println(nodes.size() + ", " + edges.size());
 	}
 	
-	//@Test
+	@Test
 	public void testGetSet() {
 		System.out.println("@testGetSet");
 		
@@ -78,7 +78,7 @@ public class SchemaGraphTest {
 		}
 	}
 	
-	//@Test
+	@Test
 	public void testGetObjectSet() {
 		System.out.println("@testGetObjectSet");
 		
@@ -97,7 +97,7 @@ public class SchemaGraphTest {
 		}
 	}
 	
-	//@Test
+	@Test
 	public void testPropertyPairMap() {
 		System.out.println("@testPropertyPairMap");
 		
@@ -106,7 +106,7 @@ public class SchemaGraphTest {
 		System.out.println(schemaGraph.getSubjobjMap());
 	}
 	
-	//@Test
+	@Test
 	public void testGetPropertySet() {
 		System.out.println("@testGetPropertySet");
 		
@@ -123,7 +123,7 @@ public class SchemaGraphTest {
 		}
 	}
 	
-	//@Test
+	@Test
 	public void testGetLiteralSet() {
 		System.out.println("@testGetLiteralSet");
 		

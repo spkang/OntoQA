@@ -88,8 +88,9 @@ public class SemanticGraphTest {
 //		logger.info("answer : " + testSemanticGraph ("how many citizens in boulder ?"));
 //		logger.info("answer : " + testSemanticGraph ("how many people live in the biggest city in new york state ?"));
 		
-		logger.info("answer : " + testSemanticGraph ("give me the largest state ?"));
-		
+//		logger.info("answer : " + testSemanticGraph ("give me the largest state ?"));
+//		logger.info("answer : " + testSemanticGraph ("which states have cities named austin ?"));
+		logger.info("answer : " + testSemanticGraph ("give me the largest state"));
 		logger.info("graph : \n" + this.sgraph.toString());
 		
 		//logger.info("path : " + StringUtils.join(this.sgraph.searchSemanticGraph(0), " -> "));
@@ -125,5 +126,21 @@ public class SemanticGraphTest {
 			bf.append("null");
 		return bf.toString();
 	} 
+	
+	@Test
+	public void testSearchPath () {
+		//testSearchPath ("how many people live in the biggest city in new york state ?");
+		testSearchPath ("which states does the missouri river run through ?");
+	}
+	
+	public void testSearchPath(String query ) {
+		logger.info("@query : " + query);
+		sgraph = new SemanticGraph (query);
+		logger.info("\nAnswers : \n" + sgraph.buildSemanticGraph());
+		List<SemanticEdge> path = sgraph.searchSemanticGraphPath();
+		for (SemanticEdge edge : path ) {
+			logger.info("edge : " + edge.toString());
+		}
+	}
 	
 }

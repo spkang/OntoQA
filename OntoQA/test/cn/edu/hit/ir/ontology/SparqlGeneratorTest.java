@@ -74,32 +74,32 @@ public class SparqlGeneratorTest {
 	public void testGenerate() {
 		
 		testGenerate("how high are the highest points of all the states ?");
-//		
-//		testGenerate("how many rivers are in the state that has the most rivers ?");
-//		
-//		testGenerate("give me the cities in virginia .");
-//		testGenerate("name all the rivers in colorado .");
-//		testGenerate("what are the high points of states surrounding mississippi ?");
-//		testGenerate("how high is the highest point in montana ?");
-//		testGenerate("how big is alaska ?");
-//		testGenerate("how many major cities are in arizona ?");
-//		testGenerate("how many people live in austin ?");
-//		testGenerate("how many people live in austin texas ?");
-//		testGenerate("can you tell me the capital of texas ?");
-//		testGenerate("give me all the states of usa ?");
-//		testGenerate("how long is the delaware river ?");
-//		testGenerate("give me the largest state ?");
-//		testGenerate("Which river flow over the states surrounding Mississippi?");
-//		testGenerate("how many cities are in louisiana ?");
-//		testGenerate("how many major cities are in states bordering nebraska ?");
-//		testGenerate("how many people are in the state of nevada ?");
-//		testGenerate("how many major cities are in states bordering nebraska ?");/**/
-//		
-//		
-//		testGenerate("which river runs through the most states?");
-//		testGenerate("what is the population of new york city?");
-//		testGenerate("count the states which have elevations lower than what alabama has ?");
-//		testGenerate("how high is the highest point in Texas ?");
+		
+		testGenerate("how many rivers are in the state that has the most rivers ?");
+		
+		testGenerate("give me the cities in virginia .");
+		testGenerate("name all the rivers in colorado .");
+		testGenerate("what are the high points of states surrounding mississippi ?");
+		testGenerate("how high is the highest point in montana ?");
+		testGenerate("how big is alaska ?");
+		testGenerate("how many major cities are in arizona ?");
+		testGenerate("how many people live in austin ?");
+		testGenerate("how many people live in austin texas ?");
+		testGenerate("can you tell me the capital of texas ?");
+		testGenerate("give me all the states of usa ?");
+		testGenerate("how long is the delaware river ?");
+		testGenerate("give me the largest state ?");
+		testGenerate("Which river flow over the states surrounding Mississippi?");
+		testGenerate("how many cities are in louisiana ?");
+		testGenerate("how many major cities are in states bordering nebraska ?");
+		testGenerate("how many people are in the state of nevada ?");
+		testGenerate("how many major cities are in states bordering nebraska ?");/**/
+		
+		
+		testGenerate("which river runs through the most states?");
+		testGenerate("what is the population of new york city?");
+		testGenerate("count the states which have elevations lower than what alabama has ?");
+		testGenerate("how high is the highest point in Texas ?");
 		
 	}
 	
@@ -173,5 +173,6 @@ public class SparqlGeneratorTest {
 		testGenerateSparql ("how many states border the mississippi river ?");
 		testGenerateSparql ("how many states does the missouri river run through ?");
 		testGenerateSparql ("how big is the city of new york ?");
+		testGenerateSparql ("how long is the mississippi river ?");
 	}
 }
