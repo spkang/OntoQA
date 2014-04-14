@@ -49,7 +49,7 @@ public class QueryGraph
 		setCount(false);
 		
 		nodes = new Stack<QueryNode>();
-		//new Stack<QueryEdge>();
+		new Stack<QueryEdge>();
 	}
 	
 	/**

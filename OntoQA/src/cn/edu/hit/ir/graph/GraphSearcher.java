@@ -166,9 +166,11 @@ public class GraphSearcher {
 			int nextIndex = me.getEnd() + 1;
 			
 			if (me.isProperty()) {
+				logger.info("property me : " + me.toString()); // debug
 				PropertyNode pNode = new PropertyNode(me, weight);
 				searchResource(pNode, nextIndex);
 			} else if (me.isClass() || me.isInstance()) {
+				logger.info("class or instance me : " + me.toString()); // debug
 				Resource sr = schemaGraph.getSchemaResource(mr);
 				QueryNode source = new QueryNode(me, sr, 0, weight);
 				queryGraph.setSource(source);
@@ -197,24 +199,26 @@ public class GraphSearcher {
 			return;
 		}
 		Resource p = pNode.getProperty();
-		logger.debug("@searchResource\t" + p + ", " + index);	// debug
+		logger.info("@searchResource\t" + p + ", " + index);	// debug
 		
 		Set<Resource> subjects = schemaGraph.getSubjectSet(p);
 		Set<Resource> objects = schemaGraph.getObjectSet(p);
 		if (subjects == null && objects == null) return;
-		
+		logger.info("subjects of p : " + subjects.toString());
+		logger.info("objects  of p : " + objects.toString());
 		index = sentence.nextIndex(index);
 		List<MatchedEntity> mes = sentence.getEntities(index);
 		for (MatchedEntity me : mes) {
 			Resource mr = me.getResource();
 			double meWeight = getResourceDistance(me.getDistance());
-			
+			logger.info("match entity me: " + me);
 			int nextIndex = me.getEnd() + 1;
 			if (me.isProperty()) {
 				Resource p2 = mr;
 				PropertyNode pNode2 = new PropertyNode(me, meWeight);
 				Set<Resource> inters = null;
-				
+				logger.info("me is property , and p2 = " + p2.toString());
+				logger.info("p and p2 subjsubj schemaGraph set : " + schemaGraph.getSubjobjSet(p,  p2));
 				// 如果有resource是p的subject,且是p2的subject
 				inters = Util.intersect(subjects, 
 						schemaGraph.getSubjsubjSet(p, p2));
