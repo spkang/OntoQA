@@ -74,5 +74,9 @@ public class EnglishSynonymTest {
 		testGetSet ("evelation");
 		testGetSet("high");
 		testGetSet("of");
+		testGetSet ("cross");
+		testGetSet("run", "VB");
+		testGetSet("run through" );
+		testGetSet("point" );
 	}
 }

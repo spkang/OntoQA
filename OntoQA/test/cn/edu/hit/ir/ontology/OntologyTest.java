@@ -187,11 +187,11 @@ public class OntologyTest {
 		assertEquals(null, texasProperty);	// TODO
 	}
 	
-	//@Test
+	@Test
 	public void testSearch() {
 		System.out.println("@testSearch");
 		
-		RDFNode[] nodes = ontology.search("highest point");
+		RDFNode[] nodes = ontology.search("point");
 		for (int i = 0; i < nodes.length; i++) {
 			System.out.println(nodes[i]);
 			checkResourceOrProperty(nodes[i]);
@@ -247,7 +247,7 @@ public class OntologyTest {
 		Resource state = ontology.getResource("http://ir.hit.edu/nli/geo/state");
 		Resource texas = ontology.getResource("http://ir.hit.edu/nli/geo/state/texas");
 		Resource highestPoint = ontology.getResource("http://ir.hit.edu/nli/geo/hasHighestPoint");
-		
+
 		assertTrue(ontology.isInstanceOf(texas, state));
 		assertFalse(ontology.isInstanceOf(state, state));
 		assertFalse(ontology.isInstanceOf(state, texas));
@@ -267,8 +267,9 @@ public class OntologyTest {
 		}
 		
 		
-		String query = "which river runs through the most states?";
-		
+		//String query = "which river runs through the most states?";
+		//String query = "what are the high points of states surrounding mississippi ?";
+		String query = "what are the states surrounding mississippi ?";
 		QuestionAnalyzer analyzer = new QuestionAnalyzer();
 		String sparqlOut = analyzer.getSparql(query);			
 		System.out.println("sparqlOut : " + sparqlOut);
@@ -276,6 +277,7 @@ public class OntologyTest {
 		for (String s : ontology.getResults(sparqlOut)) {
 			System.out.println(s);
 		}
+		System.out.println("end for our result");
 	}
 	
 	@Test

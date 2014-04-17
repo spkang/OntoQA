@@ -8,6 +8,12 @@
 package cn.edu.hit.ir.dict;
 
 
+import java.io.File;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+
+import org.apache.commons.io.FileUtils;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -78,6 +84,11 @@ public class EntityMatcherTest {
 	public void testMerge() {
 		testMatch("how many people are in the state of nevada ?");
 		testMatch("how many people are in the nevada state?");
+		testMatch("mississippi");
+		testMatch("mississippi state");
+		testMatch("state");
+		testMatch("point");
+		testMatch("high point");
+		testMatch ("name");
 	}
-
 }

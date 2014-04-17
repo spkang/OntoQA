@@ -90,7 +90,8 @@ public class SemanticGraphTest {
 		
 //		logger.info("answer : " + testSemanticGraph ("give me the largest state ?"));
 //		logger.info("answer : " + testSemanticGraph ("which states have cities named austin ?"));
-		logger.info("answer : " + testSemanticGraph ("give me the largest state"));
+//		logger.info("answer : " + testSemanticGraph ("give me the largest state"));
+		logger.info("answer : " + testSemanticGraph ("name all the rivers in the clolorado .")); 
 		logger.info("graph : \n" + this.sgraph.toString());
 		
 		//logger.info("path : " + StringUtils.join(this.sgraph.searchSemanticGraph(0), " -> "));

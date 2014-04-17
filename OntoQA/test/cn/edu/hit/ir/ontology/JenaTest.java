@@ -81,6 +81,8 @@ public class JenaTest {
 		testSearch("new york");
 		testSearch("new york city");
 		testSearch("city_new_york");
+		testSearch("point");
+		testSearch("geo points");
 	}
 
 }

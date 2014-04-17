@@ -100,6 +100,7 @@ public class SparqlGeneratorTest {
 		testGenerate("what is the population of new york city?");
 		testGenerate("count the states which have elevations lower than what alabama has ?");
 		testGenerate("how high is the highest point in Texas ?");
+		testGenerate("what are the high points of states surrounding mississippi ?");
 		
 	}
 	
@@ -174,5 +175,7 @@ public class SparqlGeneratorTest {
 		testGenerateSparql ("how many states does the missouri river run through ?");
 		testGenerateSparql ("how big is the city of new york ?");
 		testGenerateSparql ("how long is the mississippi river ?");
+		testGenerateSparql ("where is the highest mountain of the united states ?");
+		testGenerateSparql ("which states does the longest river cross ?");
 	}
 }
