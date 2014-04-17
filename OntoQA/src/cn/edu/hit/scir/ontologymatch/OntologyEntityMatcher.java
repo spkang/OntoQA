@@ -170,7 +170,7 @@ public class OntologyEntityMatcher {
 				//System.out.println ("i : " + i + "\tj : " + j + "\ttokens : " + tokens);
 				String phrase = StringUtils.join(tokens.toArray(), " ", i, j);
 				String stemedPhrase = StringUtils.join(stems.toArray(), " ", i, j);
-				System.out.println ("phrase : " + phrase);
+//				System.out.println ("phrase : " + phrase);
 				// completely match
 				List<String> phrases = new ArrayList<String> ();
 				phrases.add(phrase);

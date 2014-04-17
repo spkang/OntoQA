@@ -615,7 +615,8 @@ public class GenerateGraph {
 
 //		index = sentence.nextIndex(index);
 		index = index + 1;
-		List<MatchedEntity> mes = sentence.getEntities(index);
+//		List<MatchedEntity> mes = sentence.getEntities(index);
+		List<MatchedEntity> mes = this.matchedPath.getPathNodeMap().get(this.matchedPath.getPathNode(index));
 		for (MatchedEntity me : mes) {
 			Resource mr = me.getResource();
 			double meWeight = getResourceDistance(me.getDistance());

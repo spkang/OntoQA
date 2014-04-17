@@ -188,6 +188,14 @@ public class MatchedPath {
 		return this.pathNode.get(index);
 	}
 	
+	public SemanticGraph getSemanticGraph() {
+		return semanticGraph;
+	}
+
+	public void setSemanticGraph(SemanticGraph semanticGraph) {
+		this.semanticGraph = semanticGraph;
+	}
+
 	@Override
 	public String toString() {
 		return "MatchedPath [path=" + path + ", pathNode=" + pathNode

@@ -26,7 +26,7 @@ public class QueryAnalyzer {
 	private MatchedPath matchedPath;
 //	private OntologyEntityMatcher oeMathcer;
 	private GenerateGraph generateGraph;
-	private SparqlGenerator sparqlGenerator;
+	private GenerateSparql sparqlGenerator;
 	
 	public QueryAnalyzer () {
 		initResource ();
@@ -39,7 +39,8 @@ public class QueryAnalyzer {
 	
 	private void initResource  () {
 		generateGraph = new GenerateGraph (ontology);
-		sparqlGenerator = new SparqlGenerator (ontology);
+		sparqlGenerator = new GenerateSparql (ontology);
+		sparqlGenerator.addPrefix("http://ir.hit.edu/nli/geo/", "geo");
 	}
 	
 	public MatchedPath getMatchedPath (String sentence ) {
@@ -81,7 +82,7 @@ public class QueryAnalyzer {
 		System.out.println ("queryGraph : " + queryGraph);
 		if (queryGraph == null )
 			return null;
-		return sparqlGenerator.generate(queryGraph);
+		return sparqlGenerator.generate(queryGraph,this.matchedPath.getSemanticGraph().getDependencyGraph().getVertexs());
 	}
 	
 	public Object analyze(String question) {

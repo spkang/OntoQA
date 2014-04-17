@@ -16,6 +16,7 @@ import org.apache.log4j.Logger;
 
 import cn.edu.hit.ir.ontology.Ontology;
 import cn.edu.hit.ir.questionanalysis.QuestionAnalyzer;
+import cn.edu.hit.scir.ontologymatch.QueryAnalyzer;
 
 /**
  * The evaluator which evaluate the performance of the whole OntoQA system.
@@ -29,9 +30,9 @@ public class Evaluator {
 
 	public static final String corpusFilename = CorpusTool.DATA_DIR + "corpus.xml";
 	//public static final String corpusFilename = CorpusTool.DATA_DIR + "small_corpus.xml";
-	public static final String outputFilename = CorpusTool.DATA_DIR + "output.xml";
-	public static final String wrongFilename = CorpusTool.DATA_DIR + "wrong.xml";
-	public static final String sparqloutFilename = CorpusTool.DATA_DIR + "sparql_out.xml";
+	public static final String outputFilename = CorpusTool.DATA_DIR + "output_spkang.xml";
+	public static final String wrongFilename = CorpusTool.DATA_DIR + "wrong_spkang.xml";
+	public static final String sparqloutFilename = CorpusTool.DATA_DIR + "sparql_out_spkang.xml";
 	
 	private static Logger logger = Logger.getLogger(Evaluator.class);
 	
@@ -81,7 +82,8 @@ public class Evaluator {
 		int answered = 0;
 		List<String> failureIds = new ArrayList<String>();
 		
-		QuestionAnalyzer analyzer = new QuestionAnalyzer();
+//		QuestionAnalyzer analyzer = new QuestionAnalyzer(); // bin3
+		QueryAnalyzer analyzer = new QueryAnalyzer (); // spakng
 		Ontology ontology = Ontology.getInstance();
 		
 		List<Example> examples = CorpusTool.readCorpus(corpusFilename);
