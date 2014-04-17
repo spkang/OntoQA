@@ -11,12 +11,11 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Set;
+
 import org.apache.commons.configuration.Configuration;
 import org.apache.commons.configuration.ConfigurationException;
 import org.apache.commons.configuration.PropertiesConfiguration;
 import org.apache.log4j.Logger;
-
-import com.hp.hpl.jena.rdf.model.Resource;
 
 import cn.edu.hit.ir.dict.MatchedEntitiesSentence;
 import cn.edu.hit.ir.dict.MatchedEntity;
@@ -24,6 +23,9 @@ import cn.edu.hit.ir.ontology.Ontology;
 import cn.edu.hit.ir.ontology.SchemaGraph;
 import cn.edu.hit.ir.util.ConfigUtil;
 import cn.edu.hit.ir.util.Util;
+import cn.edu.hit.scir.ontologymatch.MatchedPath;
+
+import com.hp.hpl.jena.rdf.model.Resource;
 
 /**
  * A searcher which can find optimal sub-graph in an entity graph for a given
@@ -138,6 +140,7 @@ public class GraphSearcher {
 		logger.debug("@searchEnding queryGraph: " + queryGraph);	// debug
 		graphs.add((QueryGraph)queryGraph.clone());
 	}
+	
 	
 	public QueryGraph bestMatch(MatchedEntitiesSentence sentence) {
 		if (sentence == null) {

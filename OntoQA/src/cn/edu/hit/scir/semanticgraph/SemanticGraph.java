@@ -88,12 +88,12 @@ public class SemanticGraph {
 			}
 		}
 		
-		logger.info("vertex map : ");
-		Set<DGNode> keySet = this.vertexMap.keySet();
-		for (DGNode node : keySet ) {
-			logger.info("key : " + node );
-			logger.info("value : " + this.vertexMap.get(node));
-		} 
+//		logger.info("vertex map : ");
+//		Set<DGNode> keySet = this.vertexMap.keySet();
+//		for (DGNode node : keySet ) {
+//			logger.info("key : " + node );
+//			logger.info("value : " + this.vertexMap.get(node));
+//		} 
 	}
 	
 	
@@ -142,8 +142,8 @@ public class SemanticGraph {
 		SemanticNode lhsSemanticNode = generateSemanticNode (lhsNode);
 		SemanticNode rhsSemanticNode = generateSemanticNode (rhsNode);
 		
-		logger.info("lhsSemanticNode : " + lhsSemanticNode);
-		logger.info("rhsSemanticNode : " + rhsSemanticNode);
+//		logger.info("lhsSemanticNode : " + lhsSemanticNode);
+//		logger.info("rhsSemanticNode : " + rhsSemanticNode);
 		
 		List<DGNode>  linkWords = new ArrayList<DGNode> ();
 		linkWords.add( linkNode);
@@ -304,7 +304,7 @@ public class SemanticGraph {
 		String line = "";
 		for (DGNode lnode : loopNode ) {
 			if (lnode.tag.toUpperCase().startsWith(this.dependencyGraph.VERB)) {
-				logger.info("lnode: " + lnode);
+//				logger.info("lnode: " + lnode);
 				List<DGNode> preModifiers = this.dependencyGraph.search(lnode, GraphSearchType.PRE_VERB_DFS);
 				boolean isPreStopedByNoun = this.dependencyGraph.isStopedByNoun();
 				DGNode preNounNode = null;
@@ -319,20 +319,20 @@ public class SemanticGraph {
 				// situation one : stop at noun same time
 				
 				if (isPreStopedByNoun && isPostStopedByNoun) {
-					logger.info("preNoun : " + preNounNode);
-					logger.info("postNoun : " + postNounNode);
+//					logger.info("preNoun : " + preNounNode);
+//					logger.info("postNoun : " + postNounNode);
 					
 					SemanticEdge edge = generateEdge (preNounNode, postNounNode, lnode, preModifiers, postModifiers);
 					this.setEdge(this.vertexMap.get(preNounNode).getIndex(), this.vertexMap.get(postNounNode).getIndex(), edge);
 					
 				}
 				else if ( !isPreStopedByNoun && isPostStopedByNoun) {
-					logger.info("preNoun : " + preNounNode);
-					logger.info("postNoun : " + postNounNode);
+//					logger.info("preNoun : " + preNounNode);
+//					logger.info("postNoun : " + postNounNode);
 				}
 				else if (isPreStopedByNoun && !isPostStopedByNoun){
-					logger.info("preNoun : " + preNounNode);
-					logger.info("postNoun : " + postNounNode);
+//					logger.info("preNoun : " + preNounNode);
+//					logger.info("postNoun : " + postNounNode);
 				}
 				
 				line = "Modifiers : {" + StringUtils.join(preModifiers, " ~ ") + " flag: " + isPreStopedByNoun + " SN: " + preNounNode + " }" + " -> { " + lnode.toString() + " } <- {" + StringUtils.join(postModifiers, " ~ ") + " flag: " + isPostStopedByNoun + " SN: " + postNounNode +" }" ;
@@ -353,15 +353,15 @@ public class SemanticGraph {
 				bf.append(line).append("\n");
 				
 				if (isPreStopedByNoun && isPostStopedByNoun) {
-					logger.info("in preNoun : " + preNounNode);
-					logger.info("in postNoun : " + postNounNode);
+//					logger.info("in preNoun : " + preNounNode);
+//					logger.info("in postNoun : " + postNounNode);
 					
 					SemanticEdge edge = generateEdge (preNounNode, postNounNode, lnode, preModifiers, postModifiers);
 					this.setEdge(this.vertexMap.get(preNounNode).getIndex(), this.vertexMap.get(postNounNode).getIndex(), edge);
 				}
 				else {
-					logger.info("in preNoun : " + preNounNode);
-					logger.info("in postNoun : " + postNounNode);
+//					logger.info("in preNoun : " + preNounNode);
+//					logger.info("in postNoun : " + postNounNode);
 				}
 			}
 		}

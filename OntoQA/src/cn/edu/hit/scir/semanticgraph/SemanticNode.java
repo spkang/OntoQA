@@ -8,6 +8,8 @@
 package cn.edu.hit.scir.semanticgraph;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 import org.apache.commons.lang.StringUtils;
@@ -23,6 +25,7 @@ public class SemanticNode {
 	private List<DGNode> preModifiers = null; // the modifiers of core word before the core word
 	private List<DGNode> postModifiers = null;
 	private List<DGNode> coreWords = null; // store core word of this semantic node , e.g. : the largest river, river is the core word, 
+	private List<DGNode> semanticUnit = null;
 	private int index = -1;
 	private boolean isQueryNode = false;
 	private boolean isBlankNode = false;// used for sign the blank node 
@@ -31,6 +34,7 @@ public class SemanticNode {
 		preModifiers = new ArrayList<DGNode>();
 		postModifiers = new ArrayList<DGNode>();
 		coreWords = new ArrayList<DGNode>();
+	//	semanticUnit  = new ArrayList <DGNode>();
 	}
 	
 	public SemanticNode (List<DGNode> preModifiers, List<DGNode> postModifiers, List<DGNode> coreWords, int index, boolean isQueryNode, boolean isBlankNode)  {
@@ -105,6 +109,69 @@ public class SemanticNode {
 
 	public void setBlankNode(boolean isBlankNode) {
 		this.isBlankNode = isBlankNode;
+	}
+	
+	public List<DGNode> getAllDGNodes (List<DGNode> preModifiers, List<DGNode> coreWords, List<DGNode> postModifiers) {
+		List<DGNode> tmpList = new ArrayList<DGNode>();
+		 if (this.preModifiers != null )
+			 tmpList.addAll(this.preModifiers);
+		 if (this.coreWords != null )
+			 tmpList.addAll (this.coreWords);
+		 if (this.postModifiers != null )
+			 tmpList.addAll (this.postModifiers);
+		 Collections.sort (tmpList, new Comparator () {
+			@Override
+			public int compare(Object o1, Object o2) {
+				// TODO Auto-generated method stub
+				DGNode lhs = (DGNode) o1;
+				DGNode rhs = (DGNode) o2;
+				return lhs.idx - rhs.idx;
+			} 
+		 });
+		return tmpList;
+	}
+	
+	
+	public List<DGNode> getSemanticUnit () {
+		if (this.semanticUnit == null ) {
+			return this.semanticUnit = this.getAllDGNodes(preModifiers, coreWords, postModifiers);
+		}
+		return this.semanticUnit;
+	}
+	
+	
+	public List<String> getWordPhrase (List<DGNode> nodeList) {
+		if (nodeList == null )
+			return null;
+		List<String> phrase = new ArrayList<String> ();
+		for (DGNode node  : nodeList ) {
+			phrase.add(node.word);
+		}
+		return phrase;
+	}
+	
+	
+	public List<String> getStemPhrase (List<DGNode> nodeList) {
+		if (nodeList == null )
+			return null;
+		List<String> phrase = new ArrayList<String> ();
+		for (DGNode node  : nodeList ) {
+			phrase.add(node.stem);
+		}
+		return phrase;
+	}
+	
+	public boolean isCount () {
+		 List<DGNode> tmpList = getSemanticUnit ();
+		 String phrase = "";
+		 for (DGNode node : tmpList ) {
+			 phrase += node.word + " ";
+		 }
+		 phrase = phrase.trim();
+		 if (-1 != phrase.indexOf("how many")) {
+			 return true;
+		 }
+		 return false;
 	}
 
 	public String toString () {

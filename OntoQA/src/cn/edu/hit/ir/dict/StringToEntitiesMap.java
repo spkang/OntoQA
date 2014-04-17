@@ -16,6 +16,7 @@ import com.hp.hpl.jena.rdf.model.StmtIterator;
 import cn.edu.hit.ir.ontology.Ontology;
 import cn.edu.hit.ir.ontology.RDFNodeType;
 import cn.edu.hit.ir.util.ObjectToSet;
+import cn.edu.hit.ir.util.Util;
 
 /**
  * A map which maps string to its relevant entity set.

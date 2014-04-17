@@ -130,6 +130,7 @@ public class QuestionAnalyzer {
 	}
 	
 	
+	
 	/**
 	 * For test. 
 	 */
@@ -138,6 +139,7 @@ public class QuestionAnalyzer {
 		System.out.println("qn : " + qn);
 		NlpSentence nlps = NlpSentence.process(nlpTool, qn);
 		MatchedEntitiesSentence mes = entityMatcher.match(ontology, nlps);
+		System.out.println("matched entitis : " + mes);
 		QueryGraph queryGraph = graphSeracher.bestMatch(mes);
 		return queryGraph;
 	}

@@ -628,7 +628,7 @@ public class DependencyGraph {
 			} 
 		}
 		
-		logger.info("search type : " + gsType.toString() + " idx : " + node.idx + "  bound : " + bound);
+//		logger.info("search type : " + gsType.toString() + " idx : " + node.idx + "  bound : " + bound);
 		
 		DFS(node.idx, bound, gsType);
 		return new ArrayList<DGNode>(getSubPath());

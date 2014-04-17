@@ -90,7 +90,7 @@ public class DGNode  {
 			return false;
 		return true;
 	}
-
+	
 	public String toString () {
 		StringBuffer sb = new StringBuffer ();
 		sb.append("[").append (this.word + ", " + this.stem + ", " + this.tag + ", " + this.idx.toString() ).append("]");

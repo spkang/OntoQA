@@ -133,7 +133,8 @@ public class DataAnalyzer {
 		//testSth();
 		//analyzeData();
 		//String line = "can you tell me the capital of texas ?";
-		String line = "how high is the highest point in america ?";
+		//String line = "how high is the highest point in america ?";
+		String line  = "what are the points of states surrounding mississippi ?";
 		QuestionAnalyzer analyzer = new QuestionAnalyzer();
 		Object res = analyzer.analyzeData(line);
 		System.out.println(res);
