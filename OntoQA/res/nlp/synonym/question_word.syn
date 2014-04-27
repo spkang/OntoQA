@@ -13,6 +13,9 @@ how long, length
 density, population density
 size, area
 where, state
-run, flow
+flow, run
+cross, run
 town, city
 towns, city
+inhabitants, population
+inhabitant, population
