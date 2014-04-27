@@ -193,10 +193,38 @@ public class EntityMatcherEngine {
 		}
 	} 
 	
+	private List<Integer> getMatchedEntityDGNodeIndexes (MatchedEntity me) {
+		List<Integer> nodeIndex = new ArrayList<Integer> ();
+		int next = me.getBegin();
+		
+		while (next != -1 ){
+			nodeIndex.add(next);
+			next = this.semanticGraph.getDependencyGraph().getVertexNode(next).nextIndex;
+		}
+		return nodeIndex;
+	}
+	
+	private boolean isExistsVerbBetweenMatchedEntities (MatchedEntity lhs, MatchedEntity rhs) {
+		List<Integer> lhsIndex = this.getMatchedEntityDGNodeIndexes(lhs);
+		List<Integer> rhsIndex = this.getMatchedEntityDGNodeIndexes(rhs);
+		
+		for (Integer i : lhsIndex) {
+			for (Integer j : rhsIndex) {
+				if (this.semanticGraph.getDependencyGraph().isContainVerbInPath(i,  j)) {
+					return true;
+				}
+			}
+		}
+		return false;
+	}
+	
 	public boolean isCanMerge (MatchedEntity lhs, MatchedEntity rhs)  {
 		if (lhs == null || rhs == null )
 			return false;
 		MatchedEntity mergedEntity = null;
+		if (this.isExistsVerbBetweenMatchedEntities(lhs, rhs)) {
+			return false;
+		}
 		if (lhs.isClass() && rhs.isInstance() && ontology.isInstanceOf(rhs.getResource(), lhs.getResource())) {
 			this.connectMatchedEntiies(lhs, rhs, true);
 			return true;
@@ -470,8 +498,8 @@ public class EntityMatcherEngine {
 								break;
 							}
 							else if (e.isProperty()) {
-								//isRemoveCurrentProperty = true;
-							//	break;
+								isRemoveCurrentProperty = true;
+								break;
 							}
 						}
 					}

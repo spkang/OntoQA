@@ -10,11 +10,16 @@ package cn.edu.hit.scir.semanticgraph;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.Stack;
+
+import javax.swing.event.ListSelectionEvent;
 
 import org.apache.commons.configuration.Configuration;
 import org.apache.commons.configuration.ConfigurationException;
@@ -27,6 +32,7 @@ import cn.edu.hit.ir.util.ConfigUtil;
 import cn.edu.hit.scir.dependency.GraphSearchType;
 import cn.edu.hit.scir.dependency.StanfordNlpTool;
 import edu.stanford.nlp.trees.TypedDependency;
+import edu.stanford.nlp.util.StringUtils;
 
 /**
  * a dependency graph for the origin question , it help constructing the
@@ -77,6 +83,7 @@ public class DependencyGraph {
 			.getInstance();
 	// store the dependency relations
 	public DGEdge[][] graph = null;
+	
 
 	public DependencyGraph(StanfordNlpTool tool, String orgQuestion) {
 		if (orgQuestion == null || orgQuestion.isEmpty())
@@ -141,6 +148,8 @@ public class DependencyGraph {
 			processedQuestion = processedQuestion.replace("can you tell me about", " ");
 			processedQuestion = processedQuestion.replace("tell me", " ");
 			processedQuestion = processedQuestion.replace("number of", "how many");
+			processedQuestion = processedQuestion.replace("high point", "highest point");
+			processedQuestion = processedQuestion.replace("high points", "highest point");
 			processedQuestion = qtNormalizer.normalize(processedQuestion);
 		}
 	}
@@ -706,6 +715,69 @@ public class DependencyGraph {
 			dfs(v);
 		}
 	}
+	
+	
+	/**
+	 * 深度优先查找两点之间的路径
+	 *
+	 * @param 
+	 * @return void 
+	 */
+	private void dfsShortestPath (int src, int des, List<Integer> path ) {
+		if (src ==  des) {
+			return ;
+		}
+		this.visited[src] = true;
+		for (int u = 0; u < this.dgraphSize; ++u) {
+			if ( src != u && this.graph[src][u] != null && this.graph[src][u].status && this.visited[u] == false) {
+				path.set(u, src);
+				dfsShortestPath (u, des, path);
+			}
+		}
+	} 
+	
+	/**
+	 * find the shortest path between src and des
+	 *
+	 * @param int src, the start point
+	 * @param int des, the destination point
+	 * @return List<Integer> the shortest path between src and des
+	 */
+	public List<Integer> searchPath (int src, int des ){
+		List<Integer> path = new ArrayList<Integer> ();
+		for (int i = 0; i < this.dgraphSize; ++i ) {
+			this.visited[i] =false;
+			path.add(0);
+		}
+		dfsShortestPath (src, des, path);
+		List<Integer> resPath = new ArrayList<Integer> ();
+		int pre = des;
+		resPath.add(des);
+		while (pre != src) {
+			pre = path.get(pre);
+			resPath.add(pre);
+		}
+		Collections.reverse(resPath);
+		return resPath;
+	}
+	
+	/**
+	 * 判断在 src 到 des 的路径上是否存在动词，用来区分两个实体是否可以合并，如果存在，则不能合并
+	 *
+	 * @param int src, the search start point
+	 * @param int des, the search end point
+	 * @return boolean 
+	 */
+	public boolean isContainVerbInPath (int src, int des) {
+		List<Integer> path = searchPath (src, des);
+		for (Integer i : path ) {
+			if (i != src && i != des && this.getVertexNode(i).tag.toUpperCase().startsWith(this.VERB)) {
+				return true;
+			}
+		}
+		return false;
+	}
+	
 	
 
 	/**
