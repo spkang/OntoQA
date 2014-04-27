@@ -139,6 +139,18 @@ public class EntityMatcherEngine {
 		//synonymMatchScore = config.getDouble(SYNONYM_MATCH_SCORE);
 	}
 	
+	public void runEntityMatcherEngine (SemanticGraph smtcGraph ) {
+		this.setSemanticGraph(smtcGraph);
+		
+		// 匹配单个实体
+		this.matchQuery(this.semanticGraph.getDependencyGraph().getVertexs());
+		
+		// 匹配两个单词实体
+		this.mergeEntities(this.semanticGraph.getDependencyGraph().getVertexs());
+		
+		// 合并实体
+		this.mergeEntities();
+	}
 	
 	
 	public List<List<MatchedEntity>> getMatchedQuery() {
@@ -151,10 +163,10 @@ public class EntityMatcherEngine {
 	
 	private void connectMatchedEntiies (MatchedEntity lhs, MatchedEntity rhs, boolean isLhsClass ) {
 		String [] tokens = this.semanticGraph.getDependencyGraph().getTokens();
-		System.out.println ("tokens : " + StringUtils.join(tokens, " "));
+//		System.out.println ("tokens : " + StringUtils.join(tokens, " "));
 		int numTokens = rhs.getBegin() + rhs.getNumTokens() - lhs.getBegin();
 		String query = StringUtils.join (tokens, " ", lhs.getBegin(), lhs.getBegin() + numTokens);
-		System.out.println ("merge query : " + query + "\tbegin : " + lhs.getBegin() + "\tnumToken : " + numTokens);
+//		System.out.println ("merge query : " + query + "\tbegin : " + lhs.getBegin() + "\tnumToken : " + numTokens);
 		MatchedEntity mergedEntity = null;
 		if (isLhsClass) {
 			mergedEntity= new MatchedEntity (rhs.getResource(), rhs.getLabel(), RDFNodeType.INSTANCE, query, rhs.getScore(), lhs.getBegin(), numTokens);
@@ -216,8 +228,12 @@ public class EntityMatcherEngine {
 		return cnt;
 	}
 	
+	
+	
 	/**
-	 * 对经过连续两个词匹配后的两个匹配的实体进行匹配
+	 * 对经过连续两个词匹配后的两个匹配的实体进行合并
+	 * 如： city of new york, new york city, mississippi river, and so on 
+	 *
 	 *
 	 * @param 
 	 * @return void 
@@ -228,7 +244,7 @@ public class EntityMatcherEngine {
 			List<MatchedEntity> meLhs = this.matchedQuery.get(i);
 			if (meLhs == null || meLhs.isEmpty() || queryNodes.get(i).prevIndex != -1)
 				continue;
-			System.out.println("i = " + i + "\t mes: " + meLhs);
+//			System.out.println("i = " + i + "\t mes: " + meLhs);
 			// 查找下一个匹配得实体列表
 			int j = i + 1;
 			while (j < this.matchedQuery.size() ) {
@@ -288,10 +304,15 @@ public class EntityMatcherEngine {
 				if (intersectSet != null && stringPhraseMatchedEntities.equals(Util.intersect(intersectSet, stringPhraseMatchedEntities)))  { //  合并 
 					List<MatchedEntity> matchedEntities = this.getMatchedEntities(stringPhraseMatchedEntities, queryNodes.get(i).word + " " + queryNodes.get(i + 1).word, this.completeMatchScore,queryNodes.get(i).idx, 2);
 					this.matchedQuery.get(i).addAll(matchedEntities);
-					this.matchedQuery.get(i + 1).addAll(matchedEntities);
-//					System.out.println ("stringPhraseMatchedEntities  is not null, 合并1" + "\tbefore connect : node (i) : " +  queryNodes.get(i) + "\tnode(i + 1) : " + queryNodes.get(i + 1));				
-					connectDGNode (queryNodes.get(i), queryNodes.get(i + 1));
-//					System.out.println ("stringPhraseMatchedEntities  is not null, 合并1" + "\t after connect : node (i) : " +  queryNodes.get(i) + "\tnode(i + 1) : " + queryNodes.get(i + 1));
+					if (matchedEntities.size() == 1 && matchedEntities.get(0).getResource().equals(ontology.getResource("http://ir.hit.edu/nli/geo/inState"))) {
+						; // 不做处理
+					}
+					else {
+						this.matchedQuery.get(i + 1).addAll(matchedEntities);
+//						System.out.println ("stringPhraseMatchedEntities  is not null, 合并1" + "\tbefore connect : node (i) : " +  queryNodes.get(i) + "\tnode(i + 1) : " + queryNodes.get(i + 1));				
+						connectDGNode (queryNodes.get(i), queryNodes.get(i + 1));
+//						System.out.println ("stringPhraseMatchedEntities  is not null, 合并1" + "\t after connect : node (i) : " +  queryNodes.get(i) + "\tnode(i + 1) : " + queryNodes.get(i + 1));
+					}
 				}
 			}
 			//  like , run -> runThrough , through -> runThroungh
@@ -370,6 +391,12 @@ public class EntityMatcherEngine {
 	}
 	
 	
+	/**
+	 *   对问句中的每个词进行匹配
+	 *
+	 * @param 
+	 * @return void 
+	 */
 	public void matchQuery (List<DGNode> queryNodes ) {
 		if (queryNodes == null )
 			return ;
@@ -400,6 +427,8 @@ public class EntityMatcherEngine {
 				}
 			}
 			
+						
+			
 			// only use synonym match when the complete matching is not work
 			Set<Entity> synonymMatchSet = null;
 			if (prefixCompleteMatchSet == null && stringCompleteMatchSet == null && suffixCompleteMatchSet == null )
@@ -409,6 +438,52 @@ public class EntityMatcherEngine {
 				node.isSynonymMatch = true;
 			}
 			node.matchedEntitySet = (matchSet.isEmpty() ? null : matchSet);
+			
+			
+			// 如果当前是Instate，前一个实体是mountain， city， lake 则保留，否则不进行保留
+			if (node.matchedEntitySet != null && !node.matchedEntitySet.isEmpty() && node.matchedEntitySet.size() == 1 ) {
+				List<Entity> tmpEntityList = new ArrayList<Entity> (node.matchedEntitySet);
+				System.out.println ("inState : " + tmpEntityList.get(0));
+				if (tmpEntityList.get(0).getResource().equals(ontology.getResource("http://ir.hit.edu/nli/geo/inState"))){
+					System.out.println ("inState : " + tmpEntityList.get(0));
+					int i = node.idx - 1;
+					while (i >= 0) {
+						if (queryNodes.get(i).matchedEntitySet != null && !queryNodes.get(i).matchedEntitySet.isEmpty()) {
+							break;
+						}
+						--i;
+					}
+					boolean isRemoveCurrentProperty = false;
+					Resource mountain = ontology.getResource("http://ir.hit.edu/nli/geo/mountain");
+					Resource lake = ontology.getResource("http://ir.hit.edu/nli/geo/lake");
+					Resource city = ontology.getResource("http://ir.hit.edu/nli/geo/city");
+					if (i >= 0 ) {
+						tmpEntityList.clear();
+						tmpEntityList.addAll(queryNodes.get(i).matchedEntitySet);
+						for (Entity e : tmpEntityList) {
+							if (e.isClass() &&  !e.getResource().equals(mountain) && !e.getResource().equals(lake) && !e.getResource().equals(city)) {
+								isRemoveCurrentProperty = true;
+								break;
+							}
+							else if (e.isInstance() && !ontology.isInstanceOf(e.getResource(), mountain) && !ontology.isInstanceOf(e.getResource(), lake) && !ontology.isInstanceOf(e.getResource(), city)){
+								isRemoveCurrentProperty = true;
+								break;
+							}
+							else if (e.isProperty()) {
+								//isRemoveCurrentProperty = true;
+							//	break;
+							}
+						}
+					}
+					else if (i < 0) {
+						isRemoveCurrentProperty = true;
+					}
+					if (isRemoveCurrentProperty) {
+						node.matchedEntitySet =null;
+					}
+				}
+			}
+
 		}
 	}
 	

@@ -40,6 +40,7 @@ public class SemanticGraph {
 			this.graphSize = 0;
 		this.vertexMap = new HashMap <DGNode, SemanticNode> ();
 		initGraph();
+		this.buildSemanticGraph();
 	}
 	
 
@@ -56,6 +57,7 @@ public class SemanticGraph {
 			this.graphSize = 0;
 		this.vertexMap = new HashMap <DGNode, SemanticNode> ();
 		initGraph();
+		this.buildSemanticGraph();
 	}
 	
 	
