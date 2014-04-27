@@ -7,7 +7,13 @@
 
 package cn.edu.hit.ir.dict;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Set;
+
+import cn.edu.hit.ir.ontology.Ontology;
+import cn.edu.hit.ir.ontology.RDFNodeType;
+import cn.edu.hit.ir.util.ObjectToSet;
 
 import com.hp.hpl.jena.rdf.model.Literal;
 import com.hp.hpl.jena.rdf.model.RDFNode;
@@ -15,9 +21,7 @@ import com.hp.hpl.jena.rdf.model.Resource;
 import com.hp.hpl.jena.rdf.model.Statement;
 import com.hp.hpl.jena.rdf.model.StmtIterator;
 
-import cn.edu.hit.ir.ontology.Ontology;
-import cn.edu.hit.ir.ontology.RDFNodeType;
-import cn.edu.hit.ir.util.ObjectToSet;
+import edu.stanford.nlp.util.StringUtils;
 
 /**
  * A map which maps all the prefixes of the label 
@@ -31,7 +35,8 @@ import cn.edu.hit.ir.util.ObjectToSet;
 public class PrefixToEntitiesMap {
 	
 	private ObjectToSet<String, Entity> prefexToEntities;
-	
+	int max = -1;
+	List<String> labelArray = new ArrayList<String>();
 	/**
 	 * Creates a new instance of PrefixToEntityMap.
 	 *
@@ -50,6 +55,11 @@ public class PrefixToEntitiesMap {
 	public void index(Ontology ontology, String label, Resource resource) {
 		String[] tokens = label.split("\\s+");
 		StringBuffer sb = new StringBuffer();
+		if (tokens.length > max) {
+			max = tokens.length;
+			if (max > 2)
+				labelArray.add(label);
+		}
 		for (int i = 0; i < tokens.length; i++) {		
 			if (i > 0) {
 				sb.append(' ');
@@ -81,6 +91,8 @@ public class PrefixToEntitiesMap {
 				}
 			}
 		}
+		System.out.println("maxLabelWordNum : " + max + "\tlabels : " + StringUtils.join(labelArray, ", ") );
+		
 	}
 	
 	/**

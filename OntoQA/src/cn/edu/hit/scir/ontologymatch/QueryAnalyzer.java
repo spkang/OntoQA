@@ -82,7 +82,7 @@ public class QueryAnalyzer {
 		System.out.println ("queryGraph : " + queryGraph);
 		if (queryGraph == null )
 			return null;
-		return sparqlGenerator.generate(queryGraph,this.matchedPath.getSemanticGraph().getDependencyGraph().getVertexs());
+		return sparqlGenerator.generate(queryGraph,this.matchedPath.getSemanticGraph().getDependencyGraph().getVertexs(), this.matchedPath);
 	}
 	
 	public Object analyze(String question) {

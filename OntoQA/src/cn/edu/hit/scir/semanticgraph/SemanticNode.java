@@ -26,6 +26,7 @@ public class SemanticNode {
 	private List<DGNode> postModifiers = null;
 	private List<DGNode> coreWords = null; // store core word of this semantic node , e.g. : the largest river, river is the core word, 
 	private List<DGNode> semanticUnit = null;
+	private DGNode superlativeModifier = null;
 	private int index = -1;
 	private boolean isQueryNode = false;
 	private boolean isBlankNode = false;// used for sign the blank node 
@@ -34,7 +35,7 @@ public class SemanticNode {
 		preModifiers = new ArrayList<DGNode>();
 		postModifiers = new ArrayList<DGNode>();
 		coreWords = new ArrayList<DGNode>();
-	//	semanticUnit  = new ArrayList <DGNode>();
+		semanticUnit  = new ArrayList <DGNode>();
 	}
 	
 	public SemanticNode (List<DGNode> preModifiers, List<DGNode> postModifiers, List<DGNode> coreWords, int index, boolean isQueryNode, boolean isBlankNode)  {
@@ -53,6 +54,24 @@ public class SemanticNode {
 	public SemanticNode (SemanticNode other) {
 		this(other.getPreModifiers(), other.getPostModifiers(), other.getCoreWords(), other.getIndex(), other.isQueryNode(), other.isBlankNode());
 	}
+	
+	private void initSuperlativeModifier () {
+		if (this.superlativeModifier == null ) {
+			if (this.semanticUnit == null )
+				this.semanticUnit = this.getSemanticUnit();
+			for (DGNode node : this.semanticUnit) {
+				if (node.tag.toUpperCase().equals("JJS")) {
+					this.superlativeModifier = new DGNode(node);
+					break;
+				}
+				else if (node.tag.toUpperCase().equals("RBS")) {
+					this.superlativeModifier = new DGNode(node);
+					break;
+				}
+			}
+		}
+	}
+	
 
 	public List<DGNode> getPreModifiers() {
 		return preModifiers;
@@ -128,6 +147,7 @@ public class SemanticNode {
 				return lhs.idx - rhs.idx;
 			} 
 		 });
+		System.out.println("getAllNodes : " + tmpList);
 		return tmpList;
 	}
 	
@@ -161,6 +181,8 @@ public class SemanticNode {
 		return phrase;
 	}
 	
+	
+	
 	public boolean isCount () {
 		 List<DGNode> tmpList = getSemanticUnit ();
 		 String phrase = "";
@@ -174,6 +196,24 @@ public class SemanticNode {
 		 return false;
 	}
 
+	public DGNode getSuperlativeModifier () {
+		return this.superlativeModifier;
+	}
+	
+	public boolean existsSuperModifer (String modifierTag ) {
+		if (this.superlativeModifier == null )
+			this.initSuperlativeModifier();
+		if (modifierTag == null )
+			return false;
+		if (this.superlativeModifier == null )
+			initSuperlativeModifier();
+		if (this.superlativeModifier == null)
+			return false;
+		if (this.superlativeModifier.tag.toUpperCase().equals(modifierTag.toUpperCase()))
+			return true;
+		return false;
+	}
+	
 	public String toString () {
 		StringBuffer sb = new StringBuffer ();
 		sb.append("[\n").append("preModifiers : " + StringUtils.join(preModifiers, ", ") + "\n");

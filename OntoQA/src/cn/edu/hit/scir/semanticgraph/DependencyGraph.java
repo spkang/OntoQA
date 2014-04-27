@@ -134,8 +134,15 @@ public class DependencyGraph {
 		if (orgQuestion == null)
 			return;
 		processedQuestion = qtNormalizer.dropPunctuationMarks(this.orgQuestion);
-		if (processedQuestion != null)
+		if (processedQuestion != null) {
+			processedQuestion = processedQuestion.toLowerCase();
+			processedQuestion = processedQuestion.replace("can you tell me", " ");
+			processedQuestion = processedQuestion.replace("could you tell me", " ");
+			processedQuestion = processedQuestion.replace("can you tell me about", " ");
+			processedQuestion = processedQuestion.replace("tell me", " ");
+			processedQuestion = processedQuestion.replace("number of", "how many");
 			processedQuestion = qtNormalizer.normalize(processedQuestion);
+		}
 	}
 
 	/**
@@ -186,7 +193,18 @@ public class DependencyGraph {
 
 		setTokens(tool.token(processedQuestion));
 		setTags(tool.defaultTag(processedQuestion));
-		setStems(tool.stem(tokens, tags));
+		boolean defaultTaggerFlag = true;
+		for (int i = 0; i < this.tokens.length; ++i ) {
+			if (this.tokens[i].equals("border")) {
+				this.tags[i] = "VBG";
+				defaultTaggerFlag = false;
+			}
+			if (this.tokens[i].equals("borders") ) {
+				this.tags[i] = "VBZ";
+				defaultTaggerFlag = false;
+			}
+		}
+		setStems(tool.stem(this.tokens, this.tags));
 
 		if (tokens == null || tags == null || stems == null
 				|| tokens.length != tags.length
@@ -194,9 +212,13 @@ public class DependencyGraph {
 			logger.error("the tokens,tags, stems error");
 
 		setDgraphSize(tokens.length);
-
+		if (defaultTaggerFlag ) {
 		// using default tagger for dependency parsing
-		setTypedDependency(tool.typedDependencies(tool.tokenize(processedQuestion)));
+			setTypedDependency(tool.typedDependencies(tool.tokenize(processedQuestion)));
+		}
+		else {
+			setTypedDependency(tool.typedDependencies(tool.taggedWord(this.tokens, this.tags)));
+		}
 		
 		//setTypedDependency(tool.typedDependencies(tool.taggedWord(processedQuestion)));
 		// malloc the graph with the size of N*N, where N is the number of

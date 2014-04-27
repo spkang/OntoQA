@@ -14,8 +14,10 @@ import java.util.Set;
 
 import org.apache.log4j.Logger;
 
+import cn.edu.hit.ir.nlp.EnglishNlpTool;
 import cn.edu.hit.ir.ontology.Ontology;
 import cn.edu.hit.ir.questionanalysis.QuestionAnalyzer;
+import cn.edu.hit.scir.dependency.StanfordEnglishNlpTool;
 import cn.edu.hit.scir.ontologymatch.QueryAnalyzer;
 
 /**
@@ -89,6 +91,8 @@ public class Evaluator {
 		List<Example> examples = CorpusTool.readCorpus(corpusFilename);
 		List<Example> wrongExamples = new ArrayList<Example>();
 		
+//		EnglishNlpTool nlpTool = EnglishNlpTool.getInstance();
+//		StanfordEnglishNlpTool tool = StanfordEnglishNlpTool.getInstance();
 		for (Example example : examples) {
 			if (testFlag) {
 				if (total >= numTestExamples) break;
@@ -96,6 +100,21 @@ public class Evaluator {
 			
 			String id = example.getId();
 			String query = example.getQuery();
+			
+//			String[] tags = tool.tag(query);
+			
+			//String[] tags = nlpTool.tag(query);
+//			boolean flag= false;
+//			for (int i = 0; i < tags.length && ! flag; ++i ) {
+//				if (tags[i].toUpperCase().equals("JJS") || tags[i].toUpperCase().equals("RBS") )
+//					flag  = true;
+//			}
+//			
+//			if (flag) {
+//				logger.info("query : " + query);
+//				continue;
+//			}
+			
 			String sparql = example.getSparql();
 			
 			if (!Ontology.isLegalSparql(sparql) 

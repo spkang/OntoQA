@@ -94,7 +94,6 @@ public class Ontology {
 	public static Ontology getInstance() {
 		if (instance == null) {
 			instance = new Ontology();
-			System.out.println ("ontology new instance-------------------");
 		}
 		return instance;
 	}

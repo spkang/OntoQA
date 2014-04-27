@@ -7,6 +7,11 @@
 
 package cn.edu.hit.scir.semanticgraph;
 
+import java.util.Set;
+
+import cn.edu.hit.ir.dict.Entity;
+import edu.stanford.nlp.util.StringUtils;
+
 /**
  * the node of semantic graph
  *
@@ -19,7 +24,10 @@ public class DGNode  {
 	public String stem = null;
 	public String tag = null;
 	public Integer idx = null; 
-	
+	public Set<Entity> matchedEntitySet = null;
+	public boolean isSynonymMatch = false;
+	public int prevIndex = -1;
+	public int nextIndex = -1;
 	/**
 	 * construct dependency node
 	 *
@@ -33,11 +41,19 @@ public class DGNode  {
 		this.stem = stem;
 		this.tag = tag;
 		this.idx = idx;
+		this.matchedEntitySet = null;
+		this.isSynonymMatch = false;
+		this.prevIndex = -1;
+		this.nextIndex = -1;
 	}
 	
 	public DGNode (DGNode other) {
 		this(other.word, other.stem, other.tag, other.idx);
-	} 
+		this.matchedEntitySet = other.matchedEntitySet;
+		this.isSynonymMatch = other.isSynonymMatch;
+		this.prevIndex = other.prevIndex;
+		this.nextIndex = other.nextIndex;
+	}
 	
 //	@Override
 //	public boolean equals (Object obj ) {
@@ -93,7 +109,7 @@ public class DGNode  {
 	
 	public String toString () {
 		StringBuffer sb = new StringBuffer ();
-		sb.append("[").append (this.word + ", " + this.stem + ", " + this.tag + ", " + this.idx.toString() ).append("]");
+		sb.append("[").append (this.word + ", " + this.stem + ", " + this.tag + ", " + this.idx.toString() + ", (" + (this.matchedEntitySet == null ? "null" : StringUtils.join(this.matchedEntitySet, ", ")) + "), " + this.isSynonymMatch  + ", " + this.prevIndex + ", " + this.nextIndex).append("]");
 		return sb.toString();
 	}
 	

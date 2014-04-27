@@ -7,6 +7,9 @@
 
 package cn.edu.hit.scir.semanticgraph;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 import edu.stanford.nlp.util.StringUtils;
@@ -117,6 +120,28 @@ public class SemanticEdge {
 		this.postEdgeModifiers = postEdgeModifiers;
 	}
 
+	public List<DGNode> getAllDGNodes (List<DGNode> preModifiers, List<DGNode> coreWords, List<DGNode> postModifiers) {
+		List<DGNode> tmpList = new ArrayList<DGNode>();
+		 if (this.preEdgeModifiers != null )
+			 tmpList.addAll(this.preEdgeModifiers);
+		 if (this.linkWords != null )
+			 tmpList.addAll (this.linkWords);
+		 if (this.postEdgeModifiers != null )
+			 tmpList.addAll (this.postEdgeModifiers );
+		 Collections.sort (tmpList, new Comparator () {
+			@Override
+			public int compare(Object o1, Object o2) {
+				// TODO Auto-generated method stub
+				DGNode lhs = (DGNode) o1;
+				DGNode rhs = (DGNode) o2;
+				return lhs.idx - rhs.idx;
+			} 
+		 });
+		System.out.println("getAllNodes : " + tmpList);
+		return tmpList;
+	}
+
+	
 //	@Override
 //	public String toString() {
 //		return "SemanticEdge [lhsNode=" + lhsNode + ", rhsNode=" + rhsNode

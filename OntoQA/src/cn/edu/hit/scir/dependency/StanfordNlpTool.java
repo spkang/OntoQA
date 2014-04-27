@@ -112,6 +112,15 @@ public interface StanfordNlpTool {
 	
 	
 	/**
+	 * get the taggedword list by the given word and tag
+	 *
+	 * @param String [] words, the tokens of the sentence
+	 * @param String [] tags, the tags of tokens 
+	 * @return List<TaggedWord> 
+	 */
+	public List<TaggedWord> taggedWord (String [] words, String [] tags);
+	
+	/**
 	 *	using the tagged words to get a dependency relations
 	 *
 	 * @param  words, the tagged words

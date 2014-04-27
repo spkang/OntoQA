@@ -8,6 +8,7 @@
 package cn.edu.hit.ir.dict;
 
 import cn.edu.hit.ir.ontology.RDFNodeType;
+import cn.edu.hit.scir.ontologymatch.PathNode;
 
 import com.hp.hpl.jena.rdf.model.Resource;
 
@@ -43,6 +44,14 @@ public class MatchedEntity extends Entity {
 	private int numTokens;
 	
 	/**
+	 * the mathced PathNode
+	 * 
+	 * */
+	
+	private PathNode pathNode = null;
+	
+	
+	/**
 	 * Creates a new instance of MatchedEntity.
 	 *
 	 */
@@ -61,6 +70,16 @@ public class MatchedEntity extends Entity {
 				query, score, begin, numTokens);
 	}
 
+	public void setPathNode (PathNode pathNode ) {
+		this.pathNode = pathNode;
+	}	
+	
+	public PathNode getPathNode () {
+		return this.pathNode;
+	}
+	
+	
+	
 	/**
 	 * Get the query.
 	 *

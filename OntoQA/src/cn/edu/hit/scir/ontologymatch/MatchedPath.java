@@ -92,14 +92,14 @@ public class MatchedPath {
 //			logger.info("pathNode : " + pn.toString());
 			if ( ! this.pathNodeMap.containsKey(pn) ) {
 				this.pathNodeMap.put(pn,  oeMatcher.mathPathNode(ontology, pn));
+				for (MatchedEntity me : this.pathNodeMap.get(pn)) {
+					me.setPathNode(pn);
+				}
 			}
 		}
 		
 	}
 	
-	public void matchPathNode (SemanticEdge edge ) {
-		
-	}
 	
 	public  void  matchNode (SemanticNode node ) {
 		if (node == null )
@@ -196,6 +196,26 @@ public class MatchedPath {
 		this.semanticGraph = semanticGraph;
 	}
 
+	public String pathNodeToLineString () {
+		StringBuffer bf = new StringBuffer ();
+		List<DGNode> allNodes = new ArrayList<DGNode>();
+		for (PathNode pNode : this.pathNode) {
+			//List<MatchedEntity> mes = this.pathNodeMap.get(pNode);
+			if (pNode.isSemanticEdge()) {
+				SemanticEdge edge = (SemanticEdge)pNode.getNode();
+				allNodes.addAll(edge.getAllDGNodes(edge.getPreEdgeModifiers(), edge.getLinkWords(), edge.getPostEdgeModifiers()));
+			}
+			else {
+				SemanticNode node = (SemanticNode) pNode.getNode();
+				allNodes.addAll(node.getAllDGNodes(node.getPreModifiers(), node.getCoreWords(), node.getPostModifiers()));
+			}
+		}
+		
+		bf.append(StringUtils.join(allNodes, " ")); 
+		
+		return bf.toString();
+	}
+	
 	@Override
 	public String toString() {
 		return "MatchedPath [path=" + path + ", pathNode=" + pathNode

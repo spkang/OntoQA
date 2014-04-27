@@ -15,7 +15,6 @@ import java.util.Set;
 
 import org.apache.log4j.Logger;
 
-
 import cn.edu.hit.ir.dict.MatchedEntity;
 import cn.edu.hit.ir.graph.PropertyNode;
 import cn.edu.hit.ir.graph.QueryEdge;
@@ -26,6 +25,7 @@ import cn.edu.hit.ir.ontology.Ontology;
 import cn.edu.hit.ir.ontology.SchemaGraph;
 import cn.edu.hit.ir.ontology.Sparql;
 import cn.edu.hit.scir.semanticgraph.DGNode;
+import cn.edu.hit.scir.semanticgraph.SemanticNode;
 
 import com.hp.hpl.jena.rdf.model.Resource;
 
@@ -59,6 +59,8 @@ public class GenerateSparql {
 	private Set<String> nameSet;
 	
 	private Map<QueryNode, String> node2varMap;
+	
+	private MatchedPath matchedPath = null;
 	
 	private String[] tokens;
 	private String[] tags;
@@ -191,7 +193,11 @@ public class GenerateSparql {
 		if (ontology.isLiteralClass(object) 
 				&& schemaGraph.isComparableProperty(subject, property)) {
 			int begin = p.getEntity().getBegin();
+			logger.info("p entity : " + p.getEntity());
 			int idx = begin - 1;
+//			SemanticNode smtcNode  = (SemanticNode)tEntity.getPathNode().getNode();
+//			if (( !tEntity.getPathNode().isSemanticEdge()) && ( smtcNode.existsSuperModifer("JJS") || smtcNode.existsSuperModifer("RBS") )) { //idx1 > sEnd && tags[idx1].equals("RBS")
+				
 			if (idx >= 0 && tags[idx].equals("JJS")) {
 				String abj = stems[idx];
 				String var = getLiteralVar(o);
@@ -208,7 +214,7 @@ public class GenerateSparql {
 		return false;
 	}
 
-	public String generate(QueryGraph graph, List<DGNode > vertexs) {
+	public String generate(QueryGraph graph, List<DGNode > vertexs, MatchedPath matchePath ) {
 		/*sparql = new Sparql();
 		
 		if (graph == null || !graph.hasQuery()) {
@@ -246,9 +252,13 @@ public class GenerateSparql {
 		}
 
 		return sparql.getString();*/
-		
+		this.setMatchedPath(matchedPath);
 		sparql = generateSparql(graph, vertexs);
 		return sparql.getString();
+	}
+	
+	public void setMatchedPath (MatchedPath matchedPath ) {
+		this.matchedPath = matchedPath;
 	}
 
 	
@@ -387,14 +397,18 @@ public class GenerateSparql {
 		MatchedEntity tEntity = t.getEntity();
 		if (sEntity == null || tEntity == null) return false;
 		
-		int sEnd = sEntity.getEnd();
-		int tBegin = tEntity.getBegin();
-		int idx1 = tBegin - 1;
+//		int sEnd = sEntity.getEnd();
+//		int tBegin = tEntity.getBegin();
+//		int idx1 = tBegin - 1;
 
+		
 		// Handle query like "the state borders the most states".
-		if (idx1 > sEnd && tags[idx1].equals("RBS")) {
-			String abj = stems[idx1];
-
+		if (tEntity.getPathNode() == null || tEntity.getPathNode().isSemanticEdge() )
+			return false;
+		SemanticNode smtcNode  = (SemanticNode)tEntity.getPathNode().getNode();
+		if (( !tEntity.getPathNode().isSemanticEdge()) && ( smtcNode.existsSuperModifer("JJS") || smtcNode.existsSuperModifer("RBS") )) { //idx1 > sEnd && tags[idx1].equals("RBS")
+			//String abj = stems[idx1];
+			String abj = smtcNode.getSuperlativeModifier().stem;
 			String groupName = "?" + s.toString();
 			String countName = "?" + t.toString();
 			
@@ -459,7 +473,7 @@ public class GenerateSparql {
 		if (handleMaxOrMin(cur)) {
 			generateSubQuery(cur);
 		}
-		
+		logger.info("cur : " + cur.toString());
 		QueryEdge preEdge = null;
 		while (!cur.equals(source)) {
 			Set<QueryEdge> edges = graph.edgesOf(cur);
