@@ -91,7 +91,8 @@ public class SemanticGraphTest {
 //		logger.info("answer : " + testSemanticGraph ("give me the largest state ?"));
 //		logger.info("answer : " + testSemanticGraph ("which states have cities named austin ?"));
 //		logger.info("answer : " + testSemanticGraph ("give me the largest state"));
-		logger.info("answer : " + testSemanticGraph ("name all the rivers in the clolorado .")); 
+//		logger.info("answer : " + testSemanticGraph ("name all the rivers in the clolorado ."));
+		logger.info("answer : " + testSemanticGraph ("which state capital has the smallest population ?"));
 		logger.info("graph : \n" + this.sgraph.toString());
 		
 		//logger.info("path : " + StringUtils.join(this.sgraph.searchSemanticGraph(0), " -> "));
@@ -115,6 +116,7 @@ public class SemanticGraphTest {
 		sgraph = new SemanticGraph  (sentence);
 		logger.info("\nAnswers : \n" + sgraph.buildSemanticGraph());
 		List<String> res = new ArrayList<String>();
+		
 		for (int i = 0; i < this.sgraph.getGraphSize()  ; ++i) {
 			res = this.sgraph.searchSemanticGraph(i);
 			if (res != null && !res.isEmpty() )

@@ -69,14 +69,22 @@ public class EnglishSynonymTest {
 		testGetSet("many states");
 		testGetSet("surrounding", "VBG");
 		testGetSet("surround", "VB");
+		testGetSet("surrounding");
 		testGetSet("surrounding xxx");
 		testGetSet ("in");
 		testGetSet ("evelation");
+		testGetSet ("evelation", "VB");
+		testGetSet ("evelations", "NNS");
 		testGetSet("high");
 		testGetSet("of");
 		testGetSet ("cross");
 		testGetSet("run", "VB");
 		testGetSet("run through" );
 		testGetSet("point" );
+		testGetSet("flow" );
+		testGetSet("flow", "VB" );
+		testGetSet("flow", "VBG" );
+		testGetSet("flow through" );
+		
 	}
 }

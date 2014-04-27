@@ -8,14 +8,18 @@
 package cn.edu.hit.ir.ontology;
 
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
+
+import java.util.HashSet;
+import java.util.Set;
 
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
 import cn.edu.hit.ir.questionanalysis.Clause;
-import cn.edu.hit.ir.questionanalysis.QuestionAnalyzer;
 
 import com.hp.hpl.jena.rdf.model.Model;
 import com.hp.hpl.jena.rdf.model.Property;
@@ -59,7 +63,8 @@ public class OntologyTest {
 		System.out.println("\nquery: " + query);
 		if (nodes != null && nodes.length > 0) {
 			for (int i = 0; i < nodes.length; i++) {
-				System.out.println(nodes[i]);
+				
+				System.out.println(nodes[i] + "\t is Resource : " + nodes[i].isResource() + "\t type : " + ontology.getRDFNodeType(nodes[i]));
 			}
 		} else {
 			System.out.println("No result.");
@@ -187,23 +192,42 @@ public class OntologyTest {
 		assertEquals(null, texasProperty);	// TODO
 	}
 	
-	@Test
-	public void testSearch() {
-		System.out.println("@testSearch");
-		
-		RDFNode[] nodes = ontology.search("point");
-		for (int i = 0; i < nodes.length; i++) {
-			System.out.println(nodes[i]);
-			checkResourceOrProperty(nodes[i]);
-		}
+//	@Test
+	public void testReadChineseRdf () {
+		System.out.println ("@testReadChineseRdf");
+
+		testSearch("哈尔滨");
+		testSearch("纽约") ;
+		testSearch ("哈尔");
+		testSearch ("约");
+		testSearch ("哈尔滨隶属于");
+		testSearch ("隶属于");
+		testSearch ("隶属");
+		testSearch ("属于");
+		testSearch("hasName");
+		testSearch("belongto");
+		testSearch("belong");
+		testSearch("hasArea");
+		testSearch("hasHeight");
+		testSearch("river");
+		testSearch("rivers");
+		testSearch("hightest point");
+		testSearch("new mexico");
+		testSearch("new_mexico");
 	}
+	
 	
 	//@Test
 	public void testProperty() {
 		Model model = ontology.getModel();
 		
-		String uri = "http://ir.hit.edu/nli/geo/hasHighestPoint";
+//		String uri = "http://ir.hit.edu/nli/geo/hasHighestPoint";
+		String uri = "http://ir.hit.edu/nli/geo/隶属于";
 		Resource highestPoint = ontology.getResource(uri);
+		if (highestPoint == null ) {
+			System.out.println("null");
+			return ;
+		}
 		Property highestPointProperty = ontology.asProperty(highestPoint);
 		
 		StmtIterator sit;
@@ -231,7 +255,7 @@ public class OntologyTest {
 		}
 	}
 	
-	@Test
+//	@Test
 	public void testGetRDFNodeType() {
 		Resource state = ontology.getResource("http://ir.hit.edu/nli/geo/state");
 		Resource texas = ontology.getResource("http://ir.hit.edu/nli/geo/state/texas");
@@ -244,6 +268,7 @@ public class OntologyTest {
 	
 	@Test
 	public void testIsInstanceOf() {
+		System.out.println("@testIsInstanceOf");
 		Resource state = ontology.getResource("http://ir.hit.edu/nli/geo/state");
 		Resource texas = ontology.getResource("http://ir.hit.edu/nli/geo/state/texas");
 		Resource highestPoint = ontology.getResource("http://ir.hit.edu/nli/geo/hasHighestPoint");
@@ -254,12 +279,26 @@ public class OntologyTest {
 		assertFalse(ontology.isInstanceOf(highestPoint, state));
 	}
 	
-	@Test
+//	@Test
 	public void testQueryResult () {
 		System.out.println("@testQueryResult");
-		String querySparql = "SELECT ?a WHERE { ?a rdf:type geo:city . ?a geo:inState ?c . ?c geo:hasName + \"virginia\" .}";
+		//String querySparql = "SELECT ?a WHERE { ?a rdf:type geo:city . ?a geo:inState ?c . ?c geo:hasName + \"virginia\" .}";
+		String querySparql = "SELECT DISTINCT (COUNT(DISTINCT ?city_0) AS ?city_0_count) WHERE { ?city_0 a geo:city . ?state_8 a geo:state . ?city_0 geo:inState ?state_8 .}";
+		String querySparqlStd = "SELECT (COUNT(DISTINCT ?c) AS ?cnt) WHERE {?c a geo:city .}";
 		
-		String qs = "SELECT DISTINCT ?river_0 (COUNT(DISTINCT ?state_6) AS ?state_6_count) WHERE { ?river_0 a geo:river . ?state_6 a geo:state . ?river_0 geo:runThrough ?state_6 . }GROUP BY ?river_0 ORDER BY DESC(?state_6_count) LIMIT 1";
+		Set<String> a = new HashSet<String>(ontology.getResults(querySparql));
+		Set<String> b = new HashSet<String>(ontology.getResults(querySparqlStd));
+		if(a.equals( b))
+			System.out.println("yes");
+		
+		String querySparqltest1 = "SELECT DISTINCT ?c  WHERE {?c a geo:city . ?c geo:hasName \"springfield\" .}";
+		//String querySparqltest1 = "SELECT (DISTINCT ?c)  WHERE {?c a geo:city . ?c geo:hasName \"springfield\" .}";
+		System.out.println("querySparqltest1: ");
+		for (String s : ontology.getResults(querySparqltest1)) {
+			System.out.println(s);
+		}
+		
+		/*String qs = "SELECT DISTINCT ?river_0 (COUNT(DISTINCT ?state_6) AS ?state_6_count) WHERE { ?river_0 a geo:river . ?state_6 a geo:state . ?river_0 geo:runThrough ?state_6 . }GROUP BY ?river_0 ORDER BY DESC(?state_6_count) LIMIT 1";
 		
 		System.out.println("Standard: ");
 		for (String s : ontology.getResults(qs)) {
@@ -269,23 +308,28 @@ public class OntologyTest {
 		
 		//String query = "which river runs through the most states?";
 		//String query = "what are the high points of states surrounding mississippi ?";
-		String query = "what are the states surrounding mississippi ?";
+		String query = "name all the rivers in mississippi";
 		QuestionAnalyzer analyzer = new QuestionAnalyzer();
 		String sparqlOut = analyzer.getSparql(query);			
 		System.out.println("sparqlOut : " + sparqlOut);
 		System.out.println("Our   : ");
 		for (String s : ontology.getResults(sparqlOut)) {
 			System.out.println(s);
-		}
+		}*/
 		System.out.println("end for our result");
 	}
 	
-	@Test
+	//@Test
 	public void testForSparql () {
 		String query = "SELECT ?city_0 WHERE { ?city_0 a geo:city . ?city_0 rdfs:label \"new york\" . } limit 10";
 		testQuery (query);
 	}
 	
+	@Test
+	public  void testMerge () {
+		//testQuery ("what states in the united states have a city of springfield ?");
+		//testQuery ("what states have a city of springfield ?");
+	}
 	
 	public void testQuery (String query) {
 		System.out.println("test query : " + query);

@@ -29,6 +29,8 @@ public class SparqlGeneratorTest {
 	
 	SparqlGenerator generator;
 	
+	Ontology ontology = Ontology.getInstance();
+	
 	/**
 	 * Creates a new instance of SparqlGeneratorTest.
 	 */
@@ -70,7 +72,7 @@ public class SparqlGeneratorTest {
 		System.out.println("------------------------------------------------------------------------------------------------\n");
 	}
 
-	@Test
+	//@Test
 	public void testGenerate() {
 		
 		testGenerate("how high are the highest points of all the states ?");
@@ -159,7 +161,9 @@ public class SparqlGeneratorTest {
 		Sparql sparql = generator.generateSparql(queryGraph);
 		System.out.println("\n@sparql");
 		System.out.println(sparql);
+		testQuery (sparql.toString());
 		System.out.println("------------------------------------------------------------------------------------------------\n");
+		
 	}
 	
 	//@Test
@@ -168,6 +172,12 @@ public class SparqlGeneratorTest {
 		testGenerateSparql("what rivers traverses the state which borders the most states ?");
 	}
 	
+	public void testQuery (String query) {
+		System.out.println("test query : " + query);
+		for (String s : ontology.getResults(query)) {
+			System.out.println(s);
+		}
+	}
 	
 	@Test
 	public void testNN () {
@@ -177,5 +187,12 @@ public class SparqlGeneratorTest {
 		testGenerateSparql ("how long is the mississippi river ?");
 		testGenerateSparql ("where is the highest mountain of the united states ?");
 		testGenerateSparql ("which states does the longest river cross ?");
+		testGenerateSparql ("how many people live in austin texas ?");
+		testGenerateSparql ("what are the high points of states surrounding mississippi ?");
+		testGenerateSparql ("could you tell me what is the highest point in the state of oregon ?");
+		testGenerateSparql ("how many cities are there in the united states ?");
+		testGenerateSparql ("what city has the most people ?");
+		testGenerateSparql ("what states in the united states have a city of springfield ?");
+		testGenerateSparql ("what states have a city of springfield ?");
 	}
 }

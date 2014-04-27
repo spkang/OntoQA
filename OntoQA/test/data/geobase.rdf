@@ -2883,6 +2883,10 @@
     <rdfs:label>state</rdfs:label>
     <rdf:type rdf:resource="http://www.w3.org/2000/01/rdf-schema#Class"/>
   </rdf:Description>
+  <rdf:Description rdf:about="http://ir.hit.edu/nli/geo/point">
+    <rdfs:label rdf:parseType="Literal">point</rdfs:label>
+    <rdf:type rdf:resource="http://www.w3.org/2000/01/rdf-schema#Class"/>
+  </rdf:Description>
   <rdf:Description rdf:about="http://ir.hit.edu/nli/geo/mountain/bona">
     <geo:inState rdf:resource="http://ir.hit.edu/nli/geo/state/alaska"/>
     <geo:hasName>bona</geo:hasName>

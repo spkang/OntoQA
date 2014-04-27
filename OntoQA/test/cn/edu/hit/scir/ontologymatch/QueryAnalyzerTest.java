@@ -33,7 +33,10 @@ public class QueryAnalyzerTest {
 	@Test
 	public void testQueryAnalyzer () {
 		System.out.println ("@testQueryAnalyzer");
-		queryAnalyzer("how many rivers in mississippi?");
+//		queryAnalyzer("how many rivers in mississippi?");
+//		queryAnalyzer("name all the rivers in mississippi?");
+//		queryAnalyzer("which state border the most state ?");
+		queryAnalyzer("what state has the smallest area ?");
 	}
 	
 	public void queryAnalyzer  (String query ) {

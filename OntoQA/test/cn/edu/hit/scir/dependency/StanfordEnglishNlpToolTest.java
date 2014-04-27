@@ -47,6 +47,8 @@ public class StanfordEnglishNlpToolTest {
 		
 	}
 	
+	
+	
 	public void testStanfordEnglishNlpTool (String sentence) {
 		System.out.println ("@testStanfordEnglishNlpTool");
 		QuestionNormalizer qn = QuestionNormalizer.getInstance ();

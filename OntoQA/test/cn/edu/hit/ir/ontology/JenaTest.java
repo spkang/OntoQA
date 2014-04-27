@@ -57,7 +57,26 @@ public class JenaTest {
 		}
 	}
 	
+	
+	
 	@Test
+	public void testReadChineseRdf () {
+		//String testRDFFileName = DATA_DIR + "chinesetest.rdf";
+		String testRDFFileName = DATA_DIR + "ontology.owl";
+		System.out.println ("@testReadChineseRdf");
+		jena.read(testRDFFileName);
+		testSearch("哈尔滨");
+		testSearch("纽约") ;
+		testSearch ("哈尔");
+		testSearch ("约");
+		testSearch ("哈尔滨隶属于");
+		testSearch ("隶属于");
+		testSearch ("隶属");
+		testSearch ("属于");
+		testSearch("周杰伦");
+	}
+	
+	//@Test
 	public void testRead() {
 		String businessFilename = DATA_DIR + "business.rdf";
 		String geoFilename = DATA_DIR + "geobase.rdf";

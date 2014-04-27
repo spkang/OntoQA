@@ -34,13 +34,16 @@ public class MatchedPathTest {
 		testMatchedPath ("how many rivers run through texas ?");
 		testMatchedPath ("how many rivers run texas ?");
 		testMatchedPath ("what are the high points of states surrounding mississippi ?");
+		testMatchedPath ("how many people live in the biggest city in new york state ?");
+		testMatchedPath ("what are the populations of states through which the mississippi river runs ?");
 	}
 	
 	public void testMatchedPath (String sentence ) {
 		mpath = new MatchedPath (sentence);
 		mpath.match();
+		System.out.println("path : " + mpath.pathNodeToLineString());
 	//	System.out.println ("pathNodeMap : " + mpath.getPathNodeMap());
-		System.out.println("mpath : \n" + mpath.toString());
+//		System.out.println("mpath : \n" + mpath.toString());
 	}
 	
 
