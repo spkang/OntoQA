@@ -284,6 +284,13 @@ public class EntityMatcherEngine {
 			if ( j == this.matchedQuery.size() )
 				break;
 			List<MatchedEntity> meRhs = this.matchedQuery.get(j);
+			
+			// deal with: majorCity , inState
+			if (meLhs.size() == 1 && meLhs.get(0).isProperty() && meRhs.size() == 1 && meRhs.get(0).getResource().equals(ontology.getResource("http://ir.hit.edu/nli/geo/inState"))) {
+				this.matchedQuery.get(j).clear();
+				continue;
+			}
+			
 			boolean stop = false;
 			for (int k = 0; k < meLhs.size() && !stop; ++k ) {
 				for (int m = 0; m < meRhs.size(); ++m) {
@@ -292,7 +299,7 @@ public class EntityMatcherEngine {
 						break;
 					}
 				}
-			}
+			} 
 		}
 	}
 
@@ -305,12 +312,8 @@ public class EntityMatcherEngine {
 	public void mergeEntities (List<DGNode> queryNodes ) {
 		if (queryNodes == null )
 			return ;
-		String wordPhrase = "";
-		String stemPhrase = "";
 		Set<String> phrase = new HashSet<String> ();
-		
 		for (int i = 0; i < queryNodes.size() - 1; ++i ) {
-			List<MatchedEntity> matchedEntityUnit = new ArrayList<MatchedEntity>();
 			phrase.clear();
 			phrase.add(queryNodes.get(i).word + " " + queryNodes.get(i + 1).word);
 			phrase.add(queryNodes.get(i).stem + " " + queryNodes.get(i + 1).stem);
@@ -365,7 +368,16 @@ public class EntityMatcherEngine {
 					connectDGNode (queryNodes.get(i), queryNodes.get(i + 1));
 //					System.out.println ("stringPhraseMatchedEntities  is NULL, 合并2" + "\t after connect : node (i) : " +  queryNodes.get(i) + "\tnode(i + 1) : " + queryNodes.get(i + 1));
 				}
-				//else 
+				else {
+//					System.out.println ("prefix : " + prefixMatchedEntities.toString());
+					// majar river, majar -> majarCity, 
+					if (prefixMatchedEntities.size() == 1) {
+						List<Entity> tmpMes = new ArrayList<Entity> (prefixMatchedEntities);
+						if (tmpMes.get(0).getResource().equals(ontology.getResource("http://ir.hit.edu/nli/geo/majorCity"))) {
+							queryNodes.get(i).matchedEntitySet.clear();
+						}
+					}
+				} 
 			}
 			// synonym 
 			else {
@@ -405,7 +417,6 @@ public class EntityMatcherEngine {
 				else 
 					this.matchedQuery.get(i + 1).addAll(this.getMatchedEntities(queryNodes.get(i + 1).matchedEntitySet, queryNodes.get( i + 1 ).word, this.synonymMatchScore, queryNodes.get(i + 1).idx, 1));
 			}
-		
 		}
 	}
 	
