@@ -181,7 +181,7 @@ public class SparqlGeneratorTest {
 	
 	@Test
 	public void testNN () {
-		testGenerateSparql ("how many states border the mississippi river ?");
+		/*testGenerateSparql ("how many states border the mississippi river ?");
 		testGenerateSparql ("how many states does the missouri river run through ?");
 		testGenerateSparql ("how big is the city of new york ?");
 		testGenerateSparql ("how long is the mississippi river ?");
@@ -194,5 +194,7 @@ public class SparqlGeneratorTest {
 		testGenerateSparql ("what city has the most people ?");
 		testGenerateSparql ("what states in the united states have a city of springfield ?");
 		testGenerateSparql ("what states have a city of springfield ?");
+		*/
+		testGenerateSparql ("what is the largest city in states that border california ?");
 	}
 }

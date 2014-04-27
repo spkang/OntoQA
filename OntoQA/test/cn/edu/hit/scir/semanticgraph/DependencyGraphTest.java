@@ -50,10 +50,20 @@ public class DependencyGraphTest {
 		//initGraph ("how many rivers are in the state ?");
 		//initGraph("count the states which have elevations lower than what alabama has ?");
 		//initGraph ("how high are the highest points of all the states ?");
-		initGraph ("how many states border colorado and border new mexico ?");
+		//initGraph ("how many states border colorado and border new mexico ?");
+		initGraph ("through which states does the mississippi flow ?");
 		
-		testVertexs();
-		testDfs();
+		
+		List<Integer> path = this.dgraph.searchPath(2, 5);
+		String out = "";
+		for (Integer i : path) {
+			out += this.dgraph.getVertexs().get(i).word + " -> "; 
+		}
+		out = out.substring(0, out.length() - 3).trim();
+		System.out.println ("path : " + out);
+		logger.info("is exists verbs : " + this.dgraph.isContainVerbInPath(2, 5));
+		//testVertexs();
+		//testDfs();
 	}
 	
 	public void testVertexs () {
