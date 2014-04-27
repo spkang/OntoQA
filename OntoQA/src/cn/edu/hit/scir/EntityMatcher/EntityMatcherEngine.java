@@ -186,56 +186,10 @@ public class EntityMatcherEngine {
 			return false;
 		MatchedEntity mergedEntity = null;
 		if (lhs.isClass() && rhs.isInstance() && ontology.isInstanceOf(rhs.getResource(), lhs.getResource())) {
-			/*String [] tokens = this.semanticGraph.getDependencyGraph().getTokens();
-			System.out.println ("tokens : " + StringUtils.join(tokens, " "));
-			int numTokens = rhs.getBegin() + rhs.getNumTokens() - lhs.getBegin();
-			String query = StringUtils.join (tokens, " ", lhs.getBegin(), lhs.getBegin() + numTokens);
-			System.out.println ("merge query : " + query + "\tbegin : " + lhs.getBegin() + "\tnumToken : " + numTokens);
-			mergedEntity = new MatchedEntity (rhs.getResource(), rhs.getLabel(), RDFNodeType.INSTANCE, query, rhs.getScore(), lhs.getBegin(), numTokens);
-			
-			List<DGNode> queryNodes = this.semanticGraph.getDependencyGraph().getVertexs ();
-			int nextIndex = lhs.getBegin();
-			int prevIndex = -1;
-			while (nextIndex != -1) {
-				prevIndex = nextIndex;
-				nextIndex = queryNodes.get(nextIndex).nextIndex;
-			}
-			queryNodes.get(prevIndex).nextIndex =  rhs.getBegin();
-			queryNodes.get(rhs.getBegin()).prevIndex = prevIndex;
-			
-			nextIndex = lhs.getBegin();
-			while (nextIndex != -1) {
-				this.matchedQuery.get(nextIndex).clear();
-				this.matchedQuery.get(nextIndex).add(mergedEntity);
-				nextIndex = queryNodes.get(nextIndex).nextIndex;
-			}*/
 			this.connectMatchedEntiies(lhs, rhs, true);
 			return true;
 		}
 		else if (lhs.isInstance() && rhs.isClass() && ontology.isInstanceOf(lhs.getResource(), rhs.getResource())) {
-			/*String [] tokens = this.semanticGraph.getDependencyGraph().getTokens();
-			System.out.println ("tokens : " + StringUtils.join(tokens, " "));
-			int numTokens = rhs.getBegin() + rhs.getNumTokens() - lhs.getBegin();
-			String query = StringUtils.join (tokens, " ", lhs.getBegin(),lhs.getBegin() + numTokens);
-			System.out.println ("merge query : " + query + "\tbegin : " + lhs.getBegin() + "\tnumToken : " + numTokens);
-			mergedEntity = new MatchedEntity (lhs.getResource(), lhs.getLabel(), RDFNodeType.INSTANCE, query, lhs.getScore(), rhs.getBegin(), numTokens);
-			
-			List<DGNode> queryNodes = this.semanticGraph.getDependencyGraph().getVertexs ();
-			int nextIndex = lhs.getBegin();
-			int prevIndex = -1;
-			while (nextIndex != -1) {
-				prevIndex = nextIndex;
-				nextIndex = queryNodes.get(nextIndex).nextIndex;
-			}
-			queryNodes.get(prevIndex).nextIndex =  rhs.getBegin();
-			queryNodes.get(rhs.getBegin()).prevIndex = prevIndex;
-			
-			nextIndex = lhs.getBegin();
-			while (nextIndex != -1) {
-				this.matchedQuery.get(nextIndex).clear();
-				this.matchedQuery.get(nextIndex).add(mergedEntity);
-				nextIndex = queryNodes.get(nextIndex).nextIndex;
-			}*/
 			this.connectMatchedEntiies(lhs, rhs, false);
 			return true;
 		}
