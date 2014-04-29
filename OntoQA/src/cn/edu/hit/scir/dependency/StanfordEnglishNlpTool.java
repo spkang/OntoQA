@@ -200,6 +200,7 @@ public class StanfordEnglishNlpTool implements StanfordNlpTool {
 	 * (non-Javadoc)
 	 * @see cn.edu.hit.scir.dependency.StanfordNlpTool#taggedWord(java.lang.String[], java.lang.String[])
 	 */
+	@Override
 	public List<TaggedWord> taggedWord (String [] words, String [] tags) {
 		if (words == null || tags == null || words.length != tags.length)
 			return null;

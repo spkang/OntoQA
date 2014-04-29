@@ -84,7 +84,8 @@ public class DependencyGraph {
 	// store the dependency relations
 	public DGEdge[][] graph = null;
 	
-
+	private StanfordNlpTool nlpTool = null;
+	
 	public DependencyGraph(StanfordNlpTool tool, String orgQuestion) {
 		if (orgQuestion == null || orgQuestion.isEmpty())
 			return;
@@ -194,7 +195,7 @@ public class DependencyGraph {
 
 		initConfig();
 		loadExpandNounDict();
-		
+		this.nlpTool = tool;
 		
 		this.isStopedByNoun = false;
 		this.rootIndex = 0;
@@ -212,6 +213,14 @@ public class DependencyGraph {
 				this.tags[i] = "VBZ";
 				defaultTaggerFlag = false;
 			}
+			if (this.tokens[i].equals("state")) {
+				this.tags[i] = "NN";
+				defaultTaggerFlag = false;
+			}
+			if (this.tokens[i].equals("states")) {
+				this.tags[i] = "NNS";
+				defaultTaggerFlag = false;
+			} 
 		}
 		setStems(tool.stem(this.tokens, this.tags));
 
@@ -795,6 +804,99 @@ public class DependencyGraph {
 		return 0;
 	}
 	
+	/**
+	 * 获得和一个词链接的所有的词，不考虑方向
+	 *
+	 * @param 
+	 * @return List<DGNode> 
+	 */
+	public List<DGNode> getLinkedWords ( int pos ) {
+		if ( pos < 0 || pos >= this.dgraphSize )
+			return null;
+		
+		List<DGNode> linkWords = new ArrayList<DGNode>();
+		for (int i = 0; i < this.dgraphSize; ++i ) {
+			if (pos != i && this.graph[pos][i] != null && this.graph[pos][i].status ) {
+				linkWords.add(getVertexNode (i));
+			}
+		}
+		return linkWords;
+	}
+	
+	
+	
+	
+	/**
+	 * 获得给定pos位置的verb之后，计算其链接的sub和obj
+	 *
+	 * @param 
+	 * @return List<DGNode> 
+	 */
+	public List<DGNode> getSubObjNode (int pos) {
+		if (pos < 0 || pos >= this.dgraphSize)
+			return null;
+		
+		//    获得和这个动词链接的词
+		List<DGNode> linkedWords = this.getLinkedWords(pos);
+		if (linkedWords== null || linkedWords.isEmpty())
+			return null;
+		DGNode nsubjNode = null;
+		DGNode objNode = null;
+		for (DGNode node : linkedWords) {
+			if (node.tag.toUpperCase().startsWith(this.NOUN)) {
+				//nsubj
+				if (this.graph[pos][node.idx] != null && this.graph[pos][node.idx].isDirected && this.graph[pos][node.idx].reln.toLowerCase().equals("nsubj")) {
+					nsubjNode = this.getVertexNode(node.idx);
+				}
+				// rcmod
+				else if (this.graph[pos][node.idx] != null && this.graph[node.idx][pos].isDirected && this.graph[node.idx][pos].reln.toLowerCase().equals("rcmod")) {
+					objNode = node;
+				}
+			}
+			else if (node.tag.toUpperCase ().startsWith(this.IN)) {
+				for (int i = 0; i < this.dgraphSize; ++i ) {
+					if (i != node.idx && this.graph[node.idx][i] != null && this.graph[node.idx][i].isDirected && this.graph[node.idx][i].reln.toLowerCase().equals("pobj") 
+							&& this.getVertexNode(i).tag.toUpperCase().startsWith(this.NOUN)){
+						
+						objNode = this.getVertexNode(i);
+						break;
+					}
+				}
+ 			}
+			// 及时停止循环
+			if (nsubjNode != null && objNode != null )
+				break;
+		}
+		if (nsubjNode != null && objNode != null ) {
+			List<DGNode> subobjNodes = new ArrayList<DGNode>();
+			subobjNodes.add(nsubjNode);
+			subobjNodes.add(objNode);
+			return subobjNodes;
+		}
+		return null;
+	}
+	
+	/**
+	 * 判断pos为位置的动词是否在它链接的两个名词中间，
+	 * 如果不是，如果动词在两个名词前面不需要处理，
+	 * 如果在两个名词后面，则需要处理
+	 * VB a b，返回false，
+	 * a VB b，返回false
+	 * a b VB，返回true 
+	 * @param pos, verpos,
+	 * @return boolean 
+	 */
+	public boolean isVerbPositionIllegal (int pos ) {
+		return  this.isVerbPositionIllegal(pos, this.getSubObjNode(pos));
+	}
+	
+	public boolean isVerbPositionIllegal (int pos, List<DGNode> subobjNodes) {
+		if (pos < 0 || pos >= this.dgraphSize || subobjNodes == null)
+			return false;
+		if (subobjNodes != null && subobjNodes.size() == 2 && subobjNodes.get(0) != null && subobjNodes.get(1) != null && subobjNodes.get(0).idx < pos && subobjNodes.get(1).idx < pos)
+			return true;
+		return false;
+	}
 	
 	/**
 	 * get the out degree value the specific node
