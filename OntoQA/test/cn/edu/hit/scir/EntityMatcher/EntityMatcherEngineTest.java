@@ -57,6 +57,31 @@ public class EntityMatcherEngineTest {
 		
 	}
 	
+	@Test
+	public void testRearrange () {
+		System.out.println (testRearrangeMatchedEntity ( 0 , "through which states does the mississippi run ?"));
+		System.out.println (testRearrangeMatchedEntity ( 0 , "which is the density of the state that the largest river in the united states runs through ?"));
+		System.out.println (testRearrangeMatchedEntity ( 0 , "through which states does the longest river in texas run ?"));
+		System.out.println (testRearrangeMatchedEntity ( 0 , "what states border states which the mississippi runs through ?"));
+	}
+	
+	private String testRearrangeMatchedEntity (int pos, String query) {
+		StringBuffer bf = new StringBuffer ();
+		bf.append("@query #" + pos + " : " + query + "\n");
+		SemanticGraph smtcGraph = new SemanticGraph (query);
+		List<List<MatchedEntity>> mes = emEngine.runEntityMatcherEngine(smtcGraph);
+		for (List<MatchedEntity> me : mes ) {
+			if (me.isEmpty()) {
+				bf.append("me : " + me);
+				continue;
+			}
+			bf.append("node : " + me.get(0).getQuery() + "\tme : " + "(" + StringUtils.join(me, ", ") + ")\n"); 
+		}
+		bf.append("-----------------------------------------split line--------------------------------------\n");
+		return bf.toString().replaceAll("http://ir.hit.edu/nli/geo/", "geo:");
+	}
+	
+	
 	private String mergeEntities (String query ) {
 		System.out.println("@query : " + query);
 		SemanticGraph smtcGraph = new SemanticGraph (query);
@@ -67,8 +92,11 @@ public class EntityMatcherEngineTest {
 //		emEngine.mergeEntities(smtcGraph.getDependencyGraph().getVertexs());
 //		emEngine.mergeEntities();
 		StringBuffer bf = new StringBuffer();
-		bf.append("@query : " + query + "\n");
+		//bf.append("@query : " + query + "\n");
 		for (int i = 0 ; i < smtcGraph.getDependencyGraph().getVertexs().size(); ++i ) {
+			if (emEngine.getMatchedQuery().get(i) == null || emEngine.getMatchedQuery().get(i).isEmpty() || smtcGraph.getDependencyGraph().getVertexNode(i).prevIndex != -1) {
+				continue;
+			}
 			bf.append("node : " + smtcGraph.getDependencyGraph().getVertexNode(i).word + "\tmerge : (" + StringUtils.join(emEngine.getMatchedQuery().get(i), ",") + ")" + "\n");
 		}
 		bf.append("-----------------------------------------split line--------------------------------------\n");
@@ -78,15 +106,18 @@ public class EntityMatcherEngineTest {
 //	@Test
 	public void testMergeEntitiesBatchFiels () throws IOException {
 		System.out.println("@testMergeEntitiesBatchFiels");
-		final String inputFileName = "data/output/geoquestions.txt";
-		final String outputFileName = "data/output/geoquestionsMergeEntity6.txt";
+		final String inputFileName = "data/geo880.txt";
+		final String outputFileName = "data/output/geoquestionsMergeEntityRearrange.txt";
 		List<String> questions = FileUtils.readLines(new File(inputFileName));
 		List<String> output = new ArrayList<String>();
 		String res = "";
 		for (String s : questions) {
-			res = mergeEntities (s);
+			//res = "@query #" + output.size() + " : " + s + "\n";
+			//res += mergeEntities (s);
 			//res = res.replaceAll("http://ir.hit.edu/nli/geo/", "geo:");
+			res = testRearrangeMatchedEntity(output.size(), s);
 			output.add(res);
+			
 		}
 		FileUtils.writeLines(new File (outputFileName), output);
 	}
@@ -95,31 +126,36 @@ public class EntityMatcherEngineTest {
 	@Test
 	public void testMatchQuery () {
 		System.out.println("@testMatchQuery");
-		System.out.println(matchQuery ("how many rivers run through the mississippi state ?"));
-		System.out.println(mergeEntities ("how many rivers run through the mississippi state ?"));
-		System.out.println(matchQuery ("how many rivers flow through the new york state ?"));
-		System.out.println(mergeEntities ("how many rivers flow through the new york state ?"));
-		System.out.println(matchQuery ("how big is the city of new york ?"));
-		System.out.println(mergeEntities ("how big is the city of new york ?"));
-		System.out.println(matchQuery ("what is the population of new york city ?"));
-		System.out.println(mergeEntities ("what is the population of new york city ?"));
-		System.out.println(matchQuery ("how big is north dakota ?"));
-		System.out.println(mergeEntities ("how big is north dakota ?"));
-		System.out.println(matchQuery ("what is the highest point in the state of oregon ?"));
-		System.out.println(mergeEntities ("what is the highest point in the state of oregon ?"));
-		System.out.println(mergeEntities ("which states does the mississippi river run through ?"));
-		
-		System.out.println(matchQuery ("what cities are in states that border texas ?"));
-		System.out.println(mergeEntities ("what cities are in states that border texas ?"));
-		
-		System.out.println(matchQuery ("what rivers are in states that border texas ?"));
-		System.out.println(mergeEntities ("what rivers are in states that border texas ?"));
-		
-		System.out.println(mergeEntities ("what are the high points of states surrounding mississippi ?"));
-		System.out.println(mergeEntities ("how many inhabitants does montgomery have ?"));
-		System.out.println(mergeEntities ("what is the river that cross over ohio ?"));
-		System.out.println(mergeEntities ("how many citizens in boulder ?"));
-		
+//		System.out.println(matchQuery ("how many rivers run through the mississippi state ?"));
+//		System.out.println(mergeEntities ("how many rivers run through the mississippi state ?"));
+//		System.out.println(matchQuery ("how many rivers flow through the new york state ?"));
+//		System.out.println(mergeEntities ("how many rivers flow through the new york state ?"));
+//		System.out.println(matchQuery ("how big is the city of new york ?"));
+//		System.out.println(mergeEntities ("how big is the city of new york ?"));
+//		System.out.println(matchQuery ("what is the population of new york city ?"));
+//		System.out.println(mergeEntities ("what is the population of new york city ?"));
+//		System.out.println(matchQuery ("how big is north dakota ?"));
+//		System.out.println(mergeEntities ("how big is north dakota ?"));
+//		System.out.println(matchQuery ("what is the highest point in the state of oregon ?"));
+//		System.out.println(mergeEntities ("what is the highest point in the state of oregon ?"));
+//		System.out.println(mergeEntities ("which states does the mississippi river run through ?"));
+//		
+//		System.out.println(matchQuery ("what cities are in states that border texas ?"));
+//		System.out.println(mergeEntities ("what cities are in states that border texas ?"));
+//		
+//		System.out.println(matchQuery ("what rivers are in states that border texas ?"));
+//		System.out.println(mergeEntities ("what rivers are in states that border texas ?"));
+//		
+//		System.out.println(mergeEntities ("what are the high points of states surrounding mississippi ?"));
+//		System.out.println(mergeEntities ("how many inhabitants does montgomery have ?"));
+//		System.out.println(mergeEntities ("what is the river that cross over ohio ?"));
+//		System.out.println(mergeEntities ("how many citizens in boulder ?"));
+//		System.out.println(mergeEntities ("how many major cities are in texas ?"));
+//		System.out.println(mergeEntities ("how many major rivers cross ohio ?"));
+//		System.out.println(mergeEntities ("what is the adjacent state of california ?"));
+//		System.out.println(mergeEntities ("of the states washed by the mississippi river which has the lowest point ?"));
+//		System.out.println(mergeEntities ("how many states border colorado and border new mexico ?"));
+	
 	}
 	
 	public String matchQuery (String query) {
@@ -137,6 +173,10 @@ public class EntityMatcherEngineTest {
 		
 		return bf.toString().replaceAll("http://ir.hit.edu/nli/geo/", "geo:");
 	}
+	
+	
+	
+	
 	
 	//@Test
 	public void testStr2EntityMap () {

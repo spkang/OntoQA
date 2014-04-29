@@ -126,7 +126,7 @@ public class SparqlGeneratorTest {
 		testGenerate("what state has the smallest area ?");
 	}
 	
-	@Test
+//	@Test
 	public void testMaxOrMin3() {
 		testGenerate("what is the longest river in the largest state ?");
 		testGenerate("which state has the longest river ?");
@@ -172,6 +172,13 @@ public class SparqlGeneratorTest {
 		testGenerateSparql("what rivers traverses the state which borders the most states ?");
 	}
 	
+	@Test 
+	public void testSparql () {
+		testQuery ("SELECT ?p WHERE { ?s geo:hasPopulation ?p . ?s geo:hasName \"new york\" .}");
+		testQuery ("SELECT ?p WHERE { ?s geo:hasPopulation ?p . ?s geo:hasName \"new york\" . ?s a geo:city .}");
+		testQuery ("SELECT ?p WHERE { ?s geo:hasPopulation ?p . ?s geo:hasName \"new york\" . ?s a geo:state .}");
+	}
+	
 	public void testQuery (String query) {
 		System.out.println("test query : " + query);
 		for (String s : ontology.getResults(query)) {
@@ -194,7 +201,19 @@ public class SparqlGeneratorTest {
 		testGenerateSparql ("what city has the most people ?");
 		testGenerateSparql ("what states in the united states have a city of springfield ?");
 		testGenerateSparql ("what states have a city of springfield ?");
-		*/
 		testGenerateSparql ("what is the largest city in states that border california ?");
+		*/
+//		testGenerateSparql ("which state has the smallest area that borders texas ?");
+//		testGenerateSparql ("what rivers run through the states that border the state with the capital atlanta ?");
+//		testGenerateSparql ("what is the height of the highest point in the usa ?");	
+		testGenerateSparql ("how many people are there in new york ?");
+//		testGenerateSparql ("which state is mount mckinley in ?");
+//		testGenerateSparql ("how many major cities are there in oregon ?");
+//		testGenerateSparql ("which states have a major city named austin ?");
+//		testGenerateSparql ("what states have a capital that is the highest point in the state ?");
+//		testGenerateSparql ("what are the populations of the states through which the mississippi run ?");
+//		testGenerateSparql ("how many states does the mississippi run through ?");
+//		testGenerateSparql ("how many states border on the state whose capital is boston ?");
+		testGenerateSparql ("name the state washed by mississippi and has a major city named texas.");
 	}
 }

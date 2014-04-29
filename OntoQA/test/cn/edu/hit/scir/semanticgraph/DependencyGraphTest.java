@@ -6,9 +6,12 @@
  */
 package cn.edu.hit.scir.semanticgraph;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.commons.io.FileUtils;
 import org.apache.log4j.Logger;
 import org.junit.After;
 import org.junit.Before;
@@ -51,19 +54,78 @@ public class DependencyGraphTest {
 		//initGraph("count the states which have elevations lower than what alabama has ?");
 		//initGraph ("how high are the highest points of all the states ?");
 		//initGraph ("how many states border colorado and border new mexico ?");
-		initGraph ("through which states does the mississippi flow ?");
+//		initGraph ("through which states does the mississippi flow ?");
+		//initGraph ("which state has the most rivers running through it ?");
+		//initGraph ("which state is kalamazoo in ?");
+//		initGraph ("what state borders texas and have a major river ?");
+//		initGraph ("of the states washed by the mississippi river which has the lowest point ?");
+//		initGraph ("what are the populations of the states through which the mississippi run ?");
+		initGraph ("through which states does the longest river in texas run ?");
+//		initGraph ("which is the lowest point of the states that the mississippi runs through ?");
+		/*for (int i = 0; i < this.dgraph.getDgraphSize(); ++i) {
+			for (int j = i + 1; j < this.dgraph.getDgraphSize(); ++j ) {
+				
+				List<Integer> path = this.dgraph.searchPath(i, j);
+				String out = "";
+				for (Integer t : path) {
+					out += this.dgraph.getVertexs().get(t).word + " -> "; 
+				}
+				out = out.substring(0, out.length() - 3).trim();
+				System.out.println ("path : " + out);
+				logger.info("is exists verbs : " + this.dgraph.isContainVerbInPath(i, j));
+			}
+		}*/
 		
-		
-		List<Integer> path = this.dgraph.searchPath(2, 5);
-		String out = "";
-		for (Integer i : path) {
-			out += this.dgraph.getVertexs().get(i).word + " -> "; 
+		List<DGNode> verbNodes = this.dgraph.getVerbVertexs();
+		for (DGNode node : verbNodes ) {
+			List<DGNode> subobj = this.dgraph.getSubObjNode(node.idx);
+			if (subobj != null )
+				logger.info ("subobj : " + StringUtils.join(subobj, ", "));
+			logger.info("verbNode : " + node.toString() + "\t illegal : " + this.dgraph.isVerbPositionIllegal(node.idx, subobj) );
+			
 		}
-		out = out.substring(0, out.length() - 3).trim();
-		System.out.println ("path : " + out);
-		logger.info("is exists verbs : " + this.dgraph.isContainVerbInPath(2, 5));
+		//logger.info("is legal pos " + this.dgraph.isVerbPositionIllegal(3));
 		//testVertexs();
 		//testDfs();
+	}
+	
+//	@Test
+	public void testBatchFiels () throws IOException {
+		System.out.println("@testBatchFiles");
+		final String inputFileName = "data/geo880.txt";
+		final String outputFileName = "data/output/geoquestionsVerbIllegal.txt";
+		List<String> questions = FileUtils.readLines(new File(inputFileName));
+		List<String> output = new ArrayList<String>();
+		String res = "";
+		for (String s : questions) {
+			res = testVerbIllegal (output.size(), s);
+			//res = res.replaceAll("http://ir.hit.edu/nli/geo/", "geo:");
+			output.add(res);
+		}
+		FileUtils.writeLines(new File (outputFileName), output);
+	}
+	
+	public String testVerbIllegal (int pos, String query ) {
+		StringBuffer bf = new StringBuffer ();
+		bf.append("@query #" + pos + " : " + query + "\n");
+		initGraph (query);
+		List<DGNode> verbNodes = this.dgraph.getVerbVertexs();
+		if (verbNodes == null ) {
+			bf.append ("null\n");
+			return bf.toString();
+		}
+		for (DGNode node : verbNodes ) {
+			List<DGNode> subobj = this.dgraph.getSubObjNode(node.idx);
+			if (subobj != null ) {
+				//logger.info ("subobj : " + StringUtils.join(subobj, ", "));
+				bf.append("subobj : " + StringUtils.join(subobj, ", ") + "\n");
+			}
+			//logger.info("verbNode : " + node.toString() + "\t illegal : " + this.dgraph.isVerbPositionIllegal(node.idx, subobj) );
+			
+			bf.append (("verbNode : " + node.word + "\t illegal : " + this.dgraph.isVerbPositionIllegal(node.idx, subobj)) + "\n");
+			//logger.info("verbNode : " + node.toString() + "\t illegal : " + this.dgraph.isVerbPositionIllegal(node.idx));
+		}
+		return bf.toString ();
 	}
 	
 	public void testVertexs () {

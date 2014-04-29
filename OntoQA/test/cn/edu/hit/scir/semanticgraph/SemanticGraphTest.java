@@ -142,7 +142,7 @@ public class SemanticGraphTest {
 		logger.info("\nAnswers : \n" + sgraph.buildSemanticGraph());
 		List<SemanticEdge> path = sgraph.searchSemanticGraphPath();
 		for (SemanticEdge edge : path ) {
-			logger.info("edge : " + edge.toString());
+			logger.info("edge : " + edge.getAllDGNodes(edge.getPreEdgeModifiers(), edge.getLinkWords(), edge.getPostEdgeModifiers()).toString());
 		}
 	}
 	

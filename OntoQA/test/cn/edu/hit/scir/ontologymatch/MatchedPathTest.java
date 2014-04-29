@@ -36,6 +36,11 @@ public class MatchedPathTest {
 		testMatchedPath ("what are the high points of states surrounding mississippi ?");
 		testMatchedPath ("how many people live in the biggest city in new york state ?");
 		testMatchedPath ("what are the populations of states through which the mississippi river runs ?");
+		testMatchedPath ("which state has the smallest area that borders texas ?");
+		testMatchedPath ("which state is the smallest ?");
+		testMatchedPath ("the cities in texa ?");
+		testMatchedPath ("give me the largest state?");
+		testMatchedPath ("the largest state?");
 	}
 	
 	public void testMatchedPath (String sentence ) {
