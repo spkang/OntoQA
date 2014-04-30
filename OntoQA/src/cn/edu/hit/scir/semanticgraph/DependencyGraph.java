@@ -46,6 +46,17 @@ public class DependencyGraph {
 	public final String NOUN = "NN";
 	public final String VERB = "VB";
 	public final String IN   = "IN";
+	
+	public final String JJS = "JJS"; // JJS Adjective, superlative
+	public final String JJ = "JJ"; // Adjective
+	public final String JJR = "JJR"; // JJR Adjective, comparative
+	
+	public final String RB = "RB"; // RB Adverb
+	public final String RBR = "RBR"; // RBR Adverb, comparative
+	public final String RBS = "RBS"; // RBS Adverb, superlative
+	
+	
+	
 	private static Logger logger = Logger.getLogger(DependencyGraph.class);
 	private static Configuration config = null;
 	private static final String EXPAND_NOUN_DICT_PATH = "dict.files";
@@ -897,6 +908,76 @@ public class DependencyGraph {
 			return true;
 		return false;
 	}
+	
+	/**
+	 * 判断一个tag是不是最高级修饰符
+	 *
+	 * @param String modifierTag
+	 * @return boolean 
+	 */
+	public boolean isSuperModifier (String modifierTag ) {
+		if (modifierTag == null || modifierTag.isEmpty() )
+			return false;
+		if (modifierTag.toUpperCase().equals(this.JJS) || modifierTag.toUpperCase().equals(this.RBS))
+			return true;
+		return false;
+	}
+	
+	/**
+	 *  判断一个DGNode 是不是最高级修饰符
+	 *
+	 * @param 
+	 * @return boolean 
+	 */
+	public boolean isSuperModifier (DGNode node) {
+		if (node == null )
+			return false;
+		return isSuperModifier (node.tag);
+	}
+	
+	/**
+	 * 判断一个词和词性组合成的对是不是否定修饰符
+	 *
+	 * @param 
+	 * @return boolean 
+	 */
+	public boolean isNegativeModifier (String word, String tag) {
+		if (word == null || tag == null )
+			return false;
+		if (word.toLowerCase().equals("not") && tag.toUpperCase().equals (this.RB)) {
+			return true;
+		}
+		
+		if (word.toLowerCase().equals("no") && tag.toUpperCase().equals("DT")) {
+			return true;
+		}
+		return false;
+	}
+	
+
+	/**
+	 *  判断一个给定的DGNode是不是一个否定修饰符
+	 *
+	 * @param 
+	 * @return boolean 
+	 */
+	public boolean isNegativeModifier (DGNode node ) {
+		if (node == null )
+			return false;
+		return isNegativeModifier (node.word, node.tag);
+	}
+	
+	
+	public List<DGNode> getModifiers () {
+		List<DGNode> modifiers = new ArrayList<DGNode>();
+		for (DGNode node : this.getVertexs()) {
+			if (isSuperModifier (node) || isNegativeModifier (node)) {
+				modifiers.add (new DGNode (node));
+			}
+		}
+		return (modifiers.isEmpty() ? null : modifiers);
+	}
+	
 	
 	/**
 	 * get the out degree value the specific node
