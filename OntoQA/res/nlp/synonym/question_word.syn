@@ -19,3 +19,7 @@ town, city
 towns, city
 inhabitants, population
 inhabitant, population
+adjacent, border
+wash, run
+traverse, run
+next to, border
