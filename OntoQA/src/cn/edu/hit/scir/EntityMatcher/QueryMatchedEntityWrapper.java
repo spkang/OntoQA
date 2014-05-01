@@ -6,9 +6,14 @@
  */
 package cn.edu.hit.scir.EntityMatcher;
 
+import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import cn.edu.hit.ir.dict.MatchedEntity;
+import cn.edu.hit.scir.semanticgraph.DGEdge;
+import cn.edu.hit.scir.semanticgraph.DGNode;
 import cn.edu.hit.scir.semanticgraph.DependencyGraph;
 import cn.edu.hit.scir.semanticgraph.SemanticGraph;
 
@@ -62,8 +67,169 @@ public class QueryMatchedEntityWrapper {
 		setDepGraph(this.smtcGraph.getDependencyGraph());
 		setMatchEntityWrapper(this.emEngine.runEntityMatcherEngine(smtcGraph));
 		setOrgMatchedQuery(this.emEngine.getMatchedQuery());
+		initMatchedEntityModifiers();
 	}
 	
+	/**
+	 * 最终匹配的实体列表里面的实体的修饰词进行提取
+	 *
+	 * @param 
+	 * @return void 
+	 */
+	private void initMatchedEntityModifiers () {
+		List<DGNode> modifiers = this.depGraph.getModifiers();
+		if (modifiers == null )
+			return ;
+		
+		for (DGNode node : modifiers ) {
+			int findIndex = -1;
+			int minPathLen = 1000000;
+			for (int idx = 0; idx < this.matchEntityWrapper.size(); ++idx ) {
+				List<MatchedEntity> mes  = this.matchEntityWrapper.get(idx);
+				MatchedEntity me = mes.get(0);
+				List<Integer> meIndexes = this.emEngine.getMatchedEntityDGNodeIndexes(me);
+				for (int j = meIndexes.size() - 1; j >= 0; --j ) {
+					List<Integer> path = this.depGraph.searchPath(meIndexes.get(j), node.idx);
+//					System.out.println ("-----------------------------");
+//					for (Integer p : path ) {
+//						System.out.println ("path : " + this.depGraph.getVertexNode(p));
+//					}
+					if (this.isDepConnnectModify(path) || this.isNegativeConnectModify(path)) {
+						if (minPathLen >= path.size()) {
+//							for (Integer p : path ) {
+//								System.out.println ("path : " + this.depGraph.getVertexNode(p));
+//							}
+							minPathLen = path.size();
+							findIndex = idx;
+						}
+					}
+				}
+ 			}
+			if (findIndex != -1) {
+				for (MatchedEntity me : this.matchEntityWrapper.get(findIndex)) {
+					if (me.getModifizers() == null) {
+						List<DGNode> mdf = new ArrayList<DGNode>();
+						mdf.add(node);
+						me.setModifiers (mdf);
+					}
+					else {
+						if (!me.getModifizers().contains(node) ) {
+							List<DGNode> mdf = me.getModifizers();
+							mdf.add(node);
+							me.setModifiers(mdf);
+						}
+					}
+				}
+			}
+		}
+		
+		/*for (int idx = this.matchEntityWrapper.size() - 1; idx >= 0; --idx) {
+			List<MatchedEntity> mes  = this.matchEntityWrapper.get(idx);
+			for (MatchedEntity me : mes ) {
+				List<Integer> meIndexes = this.emEngine.getMatchedEntityDGNodeIndexes(me);
+				Set<DGNode> meModifiers = new HashSet<DGNode>();
+				for (DGNode node : modifiers ) {
+					System.out.println ( "modifier : " + node.toString());
+					for (Integer meIndex : meIndexes) {
+						List<Integer> path = this.depGraph.searchPath(meIndex, node.idx);
+						
+						for (Integer p : path ) {
+							System.out.println ("path : " + this.depGraph.getVertexNode(p));
+						}
+						// 对path的内容进行限定
+						// dep -> advmod : handle : the most how many state
+						// dep 
+						// advmod -> amod
+						if ( this.isDepConnnectModify(path)  ) {
+							meModifiers.add(node);
+						}
+						if ( this.isNegativeConnectModify(path))
+							meModifiers.add(node);
+					}
+				}
+				me.setModifiers(new ArrayList<DGNode> (meModifiers));
+			}
+		}*/
+	} 
+	
+	
+	/**
+	 * 判断path链接的最高级形容词和名词实体
+	 * 
+	 * JSS_modifier --> advmod -> amod 	--> core_word
+	 * RBS_modifier --> advmod -> amod 	--> core_word
+	 * JJS_modifier --> amod 			--> core_word
+	 * RBS_modifier --> amod 			--> core_word
+	 * JJS_modifier --> advmod -> dep	--> core_word
+	 * RBS_modifier --> advmod -> dep	--> core_word
+	 * JJS_modifier --> dep				--> core_word
+	 * 
+	 * @param 
+	 * @return boolean 
+	 */
+	private boolean isDepConnnectModify(List<Integer> path ) {
+		if (path == null || path.size () < 2 )
+			return false;
+		
+		// 只判断从core_word出发的两条边或者是一条
+		int next = 1;
+		int prev = 0;
+		int cnt = 0;
+		while (next < path.size() ) {
+			DGEdge edge = this.depGraph.getEdge(path.get(prev), path.get(next));
+			if (edge != null && ( (edge.reln.toLowerCase().equals ("amod") && edge.isDirected) || edge.reln.toLowerCase().equals ("advmod")  || edge.reln.toLowerCase().equals("dep")) ) {
+				++cnt;
+			}
+			prev = next;
+			next = next + 1;
+			if (cnt >= 1)
+				return true;
+		}
+		return false;
+	}
+	
+	/**
+	 * 判断path链接的是不是否定词和实体或是属性
+	 * 
+	 * no -> det -> core_words
+	 * not -> neg -> core_words
+	 * @param 
+	 * @return boolean 
+	 */
+	private boolean isNegativeConnectModify (List<Integer> path ) {
+		if (path == null || path.size() < 2)
+			return false;
+		if (   this.depGraph.getEdge(path.get(path.size() - 2), path.get(path.size()-1)).reln.toLowerCase().equals ("det") 
+			|| this.depGraph.getEdge(path.get(path.size() - 2), path.get(path.size()-1)).reln.toLowerCase().equals("neg") 
+			|| (path.size () < 4 &&  path.get(0) > path.get(path.size() - 1))) {
+			return true;
+		}
+		return false;
+	}
+	
+	
+	/**
+	 * 判断这个句子是不是应该进行count操作
+	 *
+	 * @param 
+	 * @return boolean 
+	 */
+	public boolean isCount () {
+		if (this.matchEntityWrapper == null || this.matchEntityWrapper.isEmpty())
+			return false;
+		int index = this.depGraph.getProcessedQuestion().toLowerCase().indexOf("how many");
+		if (index != - 1 ) {
+			for (int i = 0; i < this.depGraph.getDgraphSize(); ++i ) {
+				if (this.depGraph.getVertexNode(i).word.toLowerCase().equals("how")) 
+				{
+					if (i + 1 < this.getEntities(0).get(0).getBegin()) {
+						return true;
+					}
+				}
+			}
+		}
+		return false;
+	}
 	
 	
 	/**
@@ -95,7 +261,7 @@ public class QueryMatchedEntityWrapper {
 	 * @return boolean 
 	 */
 	public boolean hasNextIndex ( int index ) {
-		return isWrapperIndexLegal ( index + 1);
+		return isWrapperIndexLegal ( index );
 	}
 	
 	/**

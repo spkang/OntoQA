@@ -24,6 +24,7 @@ import cn.edu.hit.ir.nlp.Vocabulary;
 import cn.edu.hit.ir.ontology.Ontology;
 import cn.edu.hit.ir.ontology.SchemaGraph;
 import cn.edu.hit.ir.ontology.Sparql;
+import cn.edu.hit.scir.EntityMatcher.QueryMatchedEntityWrapper;
 import cn.edu.hit.scir.semanticgraph.DGNode;
 import cn.edu.hit.scir.semanticgraph.SemanticNode;
 
@@ -61,6 +62,7 @@ public class GenerateSparql {
 	private Map<QueryNode, String> node2varMap;
 	
 	private MatchedPath matchedPath = null;
+	private QueryMatchedEntityWrapper meWrapper = null;
 	
 	private String[] tokens;
 	private String[] tags;

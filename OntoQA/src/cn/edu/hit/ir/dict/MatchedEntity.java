@@ -7,8 +7,10 @@
 
 package cn.edu.hit.ir.dict;
 
+import java.util.List;
+
 import cn.edu.hit.ir.ontology.RDFNodeType;
-import cn.edu.hit.scir.ontologymatch.PathNode;
+import cn.edu.hit.scir.semanticgraph.DGNode;
 
 import com.hp.hpl.jena.rdf.model.Resource;
 
@@ -44,11 +46,11 @@ public class MatchedEntity extends Entity {
 	private int numTokens;
 	
 	/**
-	 * the mathced PathNode
+	 * store the matched entity modifiers 
 	 * 
-	 * */
+	 */
 	
-	private PathNode pathNode = null;
+	private List<DGNode> modifiers = null; 
 	
 	
 	/**
@@ -70,14 +72,14 @@ public class MatchedEntity extends Entity {
 				query, score, begin, numTokens);
 	}
 
-	public void setPathNode (PathNode pathNode ) {
-		this.pathNode = pathNode;
-	}	
-	
-	public PathNode getPathNode () {
-		return this.pathNode;
-	}
-	
+//	public void setPathNode (PathNode pathNode ) {
+//		this.pathNode = pathNode;
+//	}	
+//	
+//	public PathNode getPathNode () {
+//		return this.pathNode;
+//	}
+//	
 	
 	
 	/**
@@ -151,6 +153,7 @@ public class MatchedEntity extends Entity {
 	public int getNumTokens() {
 		return numTokens;
 	}
+	
 
 	/**
 	 * Set the numTokens.
@@ -161,6 +164,30 @@ public class MatchedEntity extends Entity {
 		this.numTokens = numTokens;
 	}
 	
+	
+	
+	
+	
+	/**
+	 * set the entity modifiers 
+	 * 
+	 * @param 
+	 * @return List<DGNode> 
+	 */
+	public List<DGNode> getModifizers() {
+		return modifiers;
+	}
+
+	/**
+	 * get the matched entity modifiers
+	 *
+	 * @param 
+	 * @return void 
+	 */
+	public void setModifiers(List<DGNode> modifiers) {
+		this.modifiers = modifiers;
+	}
+
 	public double getDistance() {
 		double dis = 1 - score;
 		if (dis < 0) {

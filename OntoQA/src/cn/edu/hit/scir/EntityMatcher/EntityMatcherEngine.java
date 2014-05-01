@@ -8,6 +8,7 @@ package cn.edu.hit.scir.EntityMatcher;
 
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Comparator;
@@ -224,21 +225,44 @@ public class EntityMatcherEngine {
 		List<Integer> pos = new ArrayList<Integer> ();
 		for (int index = 0; index < this.matchedQuery.size(); ++index ) {
 			pos.add(index);
+			logger.info("index : " + index);
 			if (isPropertyMatchVerb (index) ) {
 				// 获得verb the subj node and obj node
 				List<DGNode> nsubjObjNodes = this.semanticGraph.getDependencyGraph().getSubObjNode(index);
 				// 判断给定位置定动词次序是不合理的
+				logger.info("out nsubjObj : " + StringUtils.join(nsubjObjNodes, ", "));
 				if (isPropertyVerbPosIllegal (index, nsubjObjNodes)) { 
+					logger.info("nsubjObj : " + StringUtils.join(nsubjObjNodes, ", "));
 					// 是否有介词链接， e.g. : through which states does the mississippi run ?, 
 					// run and through匹配的属性要合并，并且将合并的属性放在obj和sub之间
 					DGNode subjNode = nsubjObjNodes.get(0);
 					DGNode objNode = nsubjObjNodes.get(1);
 					DGEdge objEdge = this.semanticGraph.getDependencyGraph().getEdge(index, objNode.idx);
 					// obj和verb之间没有介词
-					if (objEdge != null && objEdge.status && objEdge.reln.toLowerCase().equals("rcmod")) {
-						;
+					//logger.info("");
+					if (objEdge != null && objEdge.status && (objEdge.reln.toLowerCase().equals("rcmod") || objEdge.reln.toLowerCase().equals("dep"))) {
+						logger.info ("there is no preposition word in the nsubj and obj");
+						List<DGNode> linkWds = this.semanticGraph.getDependencyGraph().getLinkedWords(index);
+						for (DGNode node : linkWds ) {
+							if (this.semanticGraph.getDependencyGraph().getEdge(index, node.idx).reln.toLowerCase().equals("prep") 
+									&& this.matchedQuery.get(node.idx) != null && this.matchedQuery.get(node.idx).size() == 1 
+									&& this.matchedQuery.get(index).size() == 1
+									&& this.matchedQuery.get(node.idx).get(0).getResource().equals(this.matchedQuery.get(index).get(0).getResource())) {
+								// 合并
+								mergePropertyIndex.add(node.idx);
+								// 合并属性
+								this.semanticGraph.getDependencyGraph().getVertexNode(index).nextIndex = node.idx;
+								this.semanticGraph.getDependencyGraph().getVertexNode(node.idx).prevIndex = index;
+								this.matchedQuery.get(index).get(0).setLabel(this.matchedQuery.get(index).get(0).getLabel() + " " + this.matchedQuery.get(node.idx).get(0).getLabel());
+								this.matchedQuery.get(index).get(0).setQuery(this.matchedQuery.get(index).get(0).getQuery() + " " + this.matchedQuery.get(node.idx).get(0).getQuery());
+								this.matchedQuery.get(index).get(0).setNumTokens(this.matchedQuery.get(index).get(0).getNumTokens() +  this.matchedQuery.get(node.idx).get(0).getNumTokens());
+								this.matchedQuery.get(index).get(0).setScore((this.matchedQuery.get(index).get(0).getScore() +  this.matchedQuery.get(node.idx).get(0).getScore()) / 2.0);
+								break;
+							}
+						}
 					}
-					else {
+					else {//(this.semanticGraph.getDependencyGraph().isContainTagInPath(index, objNode.idx, this.semanticGraph.getDependencyGraph().IN)) { // 之间有介词
+						logger.info("the exists preposition between nsubj and obj");
 						List<Integer> path = this.semanticGraph.getDependencyGraph().searchPath(index,  objNode.idx);
 						for (Integer p : path ) {
 							if (p != index && p != objNode.idx && this.semanticGraph.getDependencyGraph().getVertexNode(p).tag.toUpperCase().equals(this.semanticGraph.getDependencyGraph().IN)) {
@@ -249,6 +273,7 @@ public class EntityMatcherEngine {
 										&& this.matchedQuery.get(index).size() == 1
 										&& this.matchedQuery.get(p).get(0).getResource().equals(this.matchedQuery.get(index).get(0).getResource())) 
 								{
+									logger.info("in merge : " + objEdge.toString());
 									mergePropertyIndex.add(p);
 									// 合并属性
 									this.semanticGraph.getDependencyGraph().getVertexNode(index).nextIndex = p;
@@ -264,6 +289,12 @@ public class EntityMatcherEngine {
 					} // else 
 					if (subjNode.idx < objNode.idx ) {
 						// 交换pos中objNode.idx 与 index的位置
+						// 找到obj这个实体词的最面的那个词的位置
+						// 如：   mississippi river, 这个时候objNodeFirstIndex 应该等于mississippi的位置
+						//int objNodeFirstIndex = objNode.prevIndex;
+						while (objNode.prevIndex != -1) {
+							objNode = this.semanticGraph.getDependencyGraph().getVertexNode(objNode.prevIndex);
+						}
 						for (int i = index - 1; i >= objNode.idx; --i ) {
 							int tmp  = pos.get(i);
 							pos.set(i, index);
@@ -271,6 +302,9 @@ public class EntityMatcherEngine {
 						}
 					}
 					else {
+						while (subjNode.prevIndex != -1) {
+							subjNode = this.semanticGraph.getDependencyGraph().getVertexNode(subjNode.prevIndex);
+						}
 						for (int i = index - 1; i >= subjNode.idx; --i ) {
 							int tmp  = pos.get(i);
 							pos.set(i, index);
@@ -280,6 +314,8 @@ public class EntityMatcherEngine {
 				} // if
 			} // if		
 		} // for
+		
+		logger.info("pos : " + StringUtils.join(pos, ","));
 		
 		for (int i = 0; i < this.matchedQuery.size(); ++i) {
 			if (this.matchedQuery.get(pos.get(i)) != null && ! this.matchedQuery.get(pos.get(i)).isEmpty() && ! mergePropertyIndex.contains(pos.get(i)) && this.semanticGraph.getDependencyGraph().getVertexNode(pos.get(i)).prevIndex == -1) {
@@ -308,11 +344,13 @@ public class EntityMatcherEngine {
 		int numTokens = rhs.getBegin() + rhs.getNumTokens() - lhs.getBegin();
 		String query = StringUtils.join (tokens, " ", lhs.getBegin(), lhs.getBegin() + numTokens);
 		MatchedEntity mergedEntity = null;
+		logger.info ("lhs me : " + lhs.toString());
+		logger.info ("rhs me : " + rhs.toString());
 		if (isLhsClass) {
-			mergedEntity= new MatchedEntity (rhs.getResource(), rhs.getLabel(), RDFNodeType.INSTANCE, query, rhs.getScore(), lhs.getBegin(), numTokens);
+			mergedEntity= new MatchedEntity (rhs.getResource(), rhs.getLabel(), RDFNodeType.INSTANCE, query, (lhs.getScore() + rhs.getScore())/2.0, lhs.getBegin(), numTokens);
 		}
 		else {
-			mergedEntity = new MatchedEntity (lhs.getResource(), lhs.getLabel(), RDFNodeType.INSTANCE, query, lhs.getScore(), rhs.getBegin(), numTokens);
+			mergedEntity = new MatchedEntity (lhs.getResource(), lhs.getLabel(), RDFNodeType.INSTANCE, query, (lhs.getScore() + rhs.getScore())/2.0, lhs.getBegin(), numTokens);
 		}
 		
 		List<DGNode> queryNodes = this.semanticGraph.getDependencyGraph().getVertexs ();
@@ -333,7 +371,7 @@ public class EntityMatcherEngine {
 		}
 	} 
 	
-	private List<Integer> getMatchedEntityDGNodeIndexes (MatchedEntity me) {
+	public List<Integer> getMatchedEntityDGNodeIndexes (MatchedEntity me) {
 		List<Integer> nodeIndex = new ArrayList<Integer> ();
 		int next = me.getBegin();
 		
@@ -344,7 +382,7 @@ public class EntityMatcherEngine {
 		return nodeIndex;
 	}
 	
-	private boolean isExistsVerbBetweenMatchedEntities (MatchedEntity lhs, MatchedEntity rhs) {
+	public boolean isExistsVerbBetweenMatchedEntities (MatchedEntity lhs, MatchedEntity rhs) {
 		List<Integer> lhsIndex = this.getMatchedEntityDGNodeIndexes(lhs);
 		List<Integer> rhsIndex = this.getMatchedEntityDGNodeIndexes(rhs);
 		
@@ -358,10 +396,34 @@ public class EntityMatcherEngine {
 		return false;
 	}
 	
+	/**
+	 * 判断两个实体之间是不是以介词 in 进行链接的，
+	 * handle like : what is the longest river in mississippi ?
+	 *
+	 * @param 
+	 * @return boolean 
+	 */
+	public boolean isExistsPrepositionINBetweenMatchedEntities (MatchedEntity lhs, MatchedEntity rhs ) {
+		List<Integer> lhsIndex = this.getMatchedEntityDGNodeIndexes(lhs);
+		List<Integer> rhsIndex = this.getMatchedEntityDGNodeIndexes(rhs);
+		for (Integer i : lhsIndex ) {
+			for (Integer j : rhsIndex ) {
+				if (this.semanticGraph.getDependencyGraph().isContainWordInPath(i,  j, "in", "IN"))
+					return true;
+			}
+		}
+		return false;
+	}
+	
 	public boolean isCanMerge (MatchedEntity lhs, MatchedEntity rhs)  {
 		if (lhs == null || rhs == null )
 			return false;
-		MatchedEntity mergedEntity = null;
+		
+		// handler : river in mississippi, eg : what is the longest river in mississippi ? 
+		if (this.isExistsPrepositionINBetweenMatchedEntities(lhs, rhs)) // 添加介词
+			return false;
+		
+		// verb
 		if (this.isExistsVerbBetweenMatchedEntities(lhs, rhs)) {
 			return false;
 		}
@@ -465,15 +527,16 @@ public class EntityMatcherEngine {
 			
 			Set<Entity> suffixMatchedEntities = completeMatchDGNodeEntity (queryNodes.get(i + 1), this.suffix2eMap);
 			//Set<Entity> suffixMatchedEntities = queryNodes.get(i + 1).matchedEntitySet;
-			
+//			System.out.println ("index : " + i + "\tphrase : " + phrase );
 //			System.out.println ("prefixMatchedEntities : " + StringUtils.join(prefixMatchedEntities, ", "));
 //			System.out.println ("stringPhraseMatchedEntities : " + StringUtils.join(stringPhraseMatchedEntities, ", "));
 //			System.out.println ("suffixMatchedEntities : " + StringUtils.join(suffixMatchedEntities, ", "));
 			
 			if (prefixMatchedEntities != null && suffixMatchedEntities != null && stringPhraseMatchedEntities != null ) {
 				Set<Entity> intersectSet = Util.intersect(prefixMatchedEntities, suffixMatchedEntities);
+				
 				if (intersectSet != null && stringPhraseMatchedEntities.equals(Util.intersect(intersectSet, stringPhraseMatchedEntities)))  { //  合并 
-					List<MatchedEntity> matchedEntities = this.getMatchedEntities(stringPhraseMatchedEntities, queryNodes.get(i).word + " " + queryNodes.get(i + 1).word, this.completeMatchScore,queryNodes.get(i).idx, 2);
+					List<MatchedEntity> matchedEntities = this.getMatchedEntities(stringPhraseMatchedEntities, queryNodes.get(i).word + " " + queryNodes.get(i + 1).word, this.completeMatchScore, queryNodes.get(i).idx, 2);
 					this.matchedQuery.get(i).addAll(matchedEntities);
 					if (matchedEntities.size() == 1 && matchedEntities.get(0).getResource().equals(ontology.getResource("http://ir.hit.edu/nli/geo/inState"))) {
 						; // 不做处理
@@ -490,6 +553,21 @@ public class EntityMatcherEngine {
 						connectDGNode (queryNodes.get(i), queryNodes.get(i + 1));
 //						System.out.println ("stringPhraseMatchedEntities  is not null, 合并1" + "\t after connect : node (i) : " +  queryNodes.get(i) + "\tnode(i + 1) : " + queryNodes.get(i + 1));
 //						}
+					}
+				}
+				//  handle like "popupation density" :  pre : hasPopulation, suf : hasPopDensity, string : hasPopDensity
+				else  if (stringPhraseMatchedEntities.size() == 1){ 
+					List<Entity> tmpEntity = new ArrayList<Entity>(stringPhraseMatchedEntities);
+					if (tmpEntity.get(0).getType() == RDFNodeType.PROPERTY) {
+						Set<Entity> prefixStringSet = Util.intersect(prefixMatchedEntities, stringPhraseMatchedEntities);
+						Set<Entity> suffixStringSet = Util.intersect(suffixMatchedEntities,	stringPhraseMatchedEntities);
+						
+						if (stringPhraseMatchedEntities.equals(prefixStringSet) || stringPhraseMatchedEntities.equals(suffixStringSet)) {
+							List<MatchedEntity> matchedEntities = this.getMatchedEntities(stringPhraseMatchedEntities, queryNodes.get(i).word + " " + queryNodes.get(i + 1).word, this.completeMatchScore, queryNodes.get(i).idx, 2);
+							this.matchedQuery.get(i).addAll(matchedEntities);
+							this.matchedQuery.get(i + 1).addAll(matchedEntities);
+							connectDGNode (queryNodes.get(i), queryNodes.get(i + 1));
+						}
 					}
 				}
 			}

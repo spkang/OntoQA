@@ -8,6 +8,7 @@
 package cn.edu.hit.ir.dict;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import org.apache.commons.lang.StringUtils;
@@ -354,6 +355,18 @@ public class MatchedEntitiesSentence {
 	}
 	
 	public String toString() {
+		int [] idx = new int [this.beginIndexes.length];
+		for (int i = 0; i < this.beginIndexes.length; ++i ) {
+			idx[i] = i;
+		}
+		System.out.println ("begis index : " + Arrays.toString(idx));
+		System.out.println ("begin index : " + Arrays.toString(this.beginIndexes));
+		System.out.println ("end   index : " + Arrays.toString(this.endIndexes));
+//		int index = 0;
+//		while (this.hasNextIndex(index)) {
+//			System.out.print(index + "\t");
+//			index = this.nextIndex(index);
+//		}
 		StringBuffer sb = new StringBuffer();
 		sb.append("[\n");
 		for (ArrayList<MatchedEntity> entities : beginEntitiesList) {

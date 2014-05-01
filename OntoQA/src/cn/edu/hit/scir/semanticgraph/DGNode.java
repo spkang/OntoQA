@@ -109,7 +109,7 @@ public class DGNode  {
 	
 	public String toString () {
 		StringBuffer sb = new StringBuffer ();
-		sb.append("[").append (this.word + ", " + this.stem + ", " + this.tag + ", " + this.idx.toString() + ", (" + (this.matchedEntitySet == null ? "null" : StringUtils.join(this.matchedEntitySet, ", ")) + "), " + this.isSynonymMatch  + ", " + this.prevIndex + ", " + this.nextIndex).append("]");
+		sb.append("[").append (this.word + ", " + this.stem + ", " + this.tag + ", " + this.idx.toString() + /*", (" + (this.matchedEntitySet == null ? "null" : StringUtils.join(this.matchedEntitySet, ", ")) + "), " +*/  ", " + this.isSynonymMatch  + ", " + this.prevIndex + ", " + this.nextIndex).append("]");
 		return sb.toString();
 	}
 	

@@ -799,7 +799,49 @@ public class DependencyGraph {
 	}
 	
 	
+	/**
+	 * 判断一个路径上是否包含某个tag， 不包含起点和终点
+	 *
+	 * @param 
+	 * @return boolean 
+	 */
+	public boolean isContainTagInPath (int src, int des, String tag ) {
+		if (src < 0 || src >= this.dgraphSize || des < 0 || des >= this.dgraphSize || tag == null )
+			return false;
+		List<Integer> path = searchPath (src, des);
+		for (Integer p : path ) {
+			if (p != src && p != des &&  this.getVertexNode(p).tag.toUpperCase().equals(tag.toUpperCase()))
+				return true;
+		}
+		return false;
+	}
+	
+	/**
+	 * 判断一个路径从src 到 des 的路径上是否包含一个特定的词
+	 * 
+	 *
+	 * @param int src, the start point 
+	 * @param int dex, the ent point
+	 * @param word, the search word
+	 * @param tag , the word tag
+	 * @return boolean 
+	 */
+	public boolean isContainWordInPath (int src, int des, String word, String tag) {
+		if (src < 0 || src >= this.dgraphSize || des < 0 || des >= this.dgraphSize || word == null ||tag == null)
+			return false;
+		List<Integer> path = searchPath (src, des);
+		for (Integer p : path ) {
+			if (p != src && p != des && this.getVertexNode(p).tag.toUpperCase().equals(tag.toUpperCase()) && this.getVertexNode(p).word.toLowerCase().equals(word.toLowerCase()))
+				return true;
+		}
+		return false;
+	}
 
+	public boolean isContainWordInPath (int src, int des , DGNode node) {
+		if (node == null ) return false;
+		return isContainWordInPath (src, des, node.word, node.tag); 
+	}
+	
 	/**
 	 * get the in degree value the specific node
 	 *
@@ -863,6 +905,10 @@ public class DependencyGraph {
 				else if (this.graph[pos][node.idx] != null && this.graph[node.idx][pos].isDirected && this.graph[node.idx][pos].reln.toLowerCase().equals("rcmod")) {
 					objNode = node;
 				}
+				// dep : handle how many states does the mississippi river run through ?
+				else if (this.graph[pos][node.idx] != null && this.graph[pos][node.idx].isDirected && this.graph[pos][node.idx].reln.toLowerCase().equals("dep")) {
+					objNode = node;
+				}
 			}
 			else if (node.tag.toUpperCase ().startsWith(this.IN)) {
 				for (int i = 0; i < this.dgraphSize; ++i ) {
@@ -880,6 +926,10 @@ public class DependencyGraph {
 		}
 		if (nsubjNode != null && objNode != null ) {
 			List<DGNode> subobjNodes = new ArrayList<DGNode>();
+//			while (nsubjNode.prevIndex != -1) {
+//				nsubjNode = this.getVertexNode(nsubjNode.prevIndex);
+//			}
+//			while (objNode.prevIndex)
 			subobjNodes.add(nsubjNode);
 			subobjNodes.add(objNode);
 			return subobjNodes;

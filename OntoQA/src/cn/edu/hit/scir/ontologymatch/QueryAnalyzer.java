@@ -8,11 +8,9 @@ package cn.edu.hit.scir.ontologymatch;
 
 import java.util.List;
 
-import cn.edu.hit.ir.dict.MatchedEntitiesSentence;
 import cn.edu.hit.ir.graph.QueryGraph;
-import cn.edu.hit.ir.nlp.NlpSentence;
 import cn.edu.hit.ir.ontology.Ontology;
-import cn.edu.hit.ir.ontology.SparqlGenerator;
+import cn.edu.hit.scir.EntityMatcher.QueryMatchedEntityWrapper;
 
 /**
  * a query analyzer for matching the 
@@ -27,13 +25,13 @@ public class QueryAnalyzer {
 //	private OntologyEntityMatcher oeMathcer;
 	private GenerateGraph generateGraph;
 	private GenerateSparql sparqlGenerator;
-	
+	private QueryMatchedEntityWrapper queryMeWrapper = null;
 	public QueryAnalyzer () {
 		initResource ();
 	}
 	
 	public QueryAnalyzer (String sentence) {
-		this();
+		queryMeWrapper = new QueryMatchedEntityWrapper (sentence);
 		matchedPath.setSentence(sentence);
 	}
 	
