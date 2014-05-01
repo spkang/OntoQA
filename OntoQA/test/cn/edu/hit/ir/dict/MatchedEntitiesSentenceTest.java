@@ -56,21 +56,21 @@ public class MatchedEntitiesSentenceTest {
 		System.out.println(sentence);
 	}
 
-	//@Test
+	@Test
 	public void testBestMatch() {
 		System.out.println("@testBestMatch");
 		
 		testBestMatch("give me the cities in virginia .");
 		testBestMatch("name all the rivers in colorado .");
-		testBestMatch("what are the high points of states surrounding mississippi ?");
-		testBestMatch("how high is the highest point in montana ?");
-		testBestMatch("how big is alaska ?");
-		testBestMatch("how many major cities are in arizona ?");
-		testBestMatch("how many people live in austin ?");
-		testBestMatch("how many people live in austin texas ?");
-		testBestMatch("how long is the delaware river ?");
-		testBestMatch("what is the largest city in rhode island ?");
-		testBestMatch("how many cities are there in the usa ?");
+//		testBestMatch("what are the high points of states surrounding mississippi ?");
+//		testBestMatch("how high is the highest point in montana ?");
+//		testBestMatch("how big is alaska ?");
+//		testBestMatch("how many major cities are in arizona ?");
+//		testBestMatch("how many people live in austin ?");
+//		testBestMatch("how many people live in austin texas ?");
+//		testBestMatch("how long is the delaware river ?");
+//		testBestMatch("what is the largest city in rhode island ?");
+//		testBestMatch("how many cities are there in the usa ?");
 		
 	}
 	
@@ -85,7 +85,7 @@ public class MatchedEntitiesSentenceTest {
 	}
 	
 	
-	@Test
+//	@Test
 	public void testBatchFiels () throws IOException {
 		System.out.println("@testBatchFiles");
 		final String inputFileName = "data/output/geoquestions.txt";

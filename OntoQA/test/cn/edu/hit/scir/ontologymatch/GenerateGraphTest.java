@@ -6,10 +6,6 @@
  */
 package cn.edu.hit.scir.ontologymatch;
 
-import static org.junit.Assert.*;
-
-import java.util.List;
-
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -18,6 +14,8 @@ import cn.edu.hit.ir.dict.MatchedEntitiesSentence;
 import cn.edu.hit.ir.graph.GraphSearcher;
 import cn.edu.hit.ir.graph.QueryGraph;
 import cn.edu.hit.ir.questionanalysis.QuestionAnalyzer;
+import cn.edu.hit.scir.EntityMatcher.QueryMatchedEntityWrapper;
+import edu.stanford.nlp.util.StringUtils;
 
 /**
  *
@@ -28,8 +26,8 @@ import cn.edu.hit.ir.questionanalysis.QuestionAnalyzer;
 public class GenerateGraphTest {
 
 	QuestionAnalyzer analyzer;
-	MatchedPath matchedPath;
-	
+//	MatchedPath matchedPath;
+	QueryMatchedEntityWrapper meWrapper = null;
 	GraphSearcher graphSearcher;
 	GenerateGraph generateGraph;
 	
@@ -81,10 +79,12 @@ public class GenerateGraphTest {
 	
 	public void testOptionalMatch (String sentence ) {
 		System.out.println ("\nTestOptionalMatch question ; " + sentence );
-		matchedPath = new MatchedPath (sentence);
-		matchedPath.match();
+//		matchedPath = new MatchedPath (sentence);
+//		matchedPath.match();
 //		System.out.println ("\nMatchedPath : " + matchedPath.toString());
-		QueryGraph queryGraph = generateGraph.optionalMatch(matchedPath);
+		this.meWrapper = new QueryMatchedEntityWrapper (sentence);
+		QueryGraph queryGraph = generateGraph.optionalMatch(meWrapper);
+		System.out.println ("matched entity : " + StringUtils.join(this.meWrapper.getMatchEntityWrapper(), "\n "));
 		System.out.println ("\nGenerate Graph:" + queryGraph ); 
 	}
 	
@@ -106,6 +106,9 @@ public class GenerateGraphTest {
 		
 		testBestMatch("how big is alaska ?");
 		testOptionalMatch("how big is alaska ?");
+		
+		testBestMatch("what state which the mississippi runs through has the largest population ?");
+		testOptionalMatch("what state which the mississippi runs through has the largest population ?");
 		
 		
 //		testBestMatch("how many major cities are in arizona ?");

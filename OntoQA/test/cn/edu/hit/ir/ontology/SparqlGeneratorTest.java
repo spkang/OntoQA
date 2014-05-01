@@ -207,6 +207,7 @@ public class SparqlGeneratorTest {
 //		testGenerateSparql ("what rivers run through the states that border the state with the capital atlanta ?");
 //		testGenerateSparql ("what is the height of the highest point in the usa ?");	
 		testGenerateSparql ("how many people are there in new york ?");
+		testGenerateSparql ("how many rivers are there in new york ?");
 //		testGenerateSparql ("which state is mount mckinley in ?");
 //		testGenerateSparql ("how many major cities are there in oregon ?");
 //		testGenerateSparql ("which states have a major city named austin ?");
@@ -214,6 +215,6 @@ public class SparqlGeneratorTest {
 //		testGenerateSparql ("what are the populations of the states through which the mississippi run ?");
 //		testGenerateSparql ("how many states does the mississippi run through ?");
 //		testGenerateSparql ("how many states border on the state whose capital is boston ?");
-		testGenerateSparql ("name the state washed by mississippi and has a major city named texas.");
+//		testGenerateSparql ("name the state washed by mississippi and has a major city named texas.");
 	}
 }

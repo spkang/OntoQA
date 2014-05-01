@@ -52,10 +52,10 @@ public class EntityMatcherEngineTest {
 		System.out.println ("tear Down !");
 	}
 	
-	@Test
-	public void testMergeEntities () {
-		
-	}
+//	@Test
+//	public void testMergeEntities () {
+//		
+//	}
 	
 	@Test
 	public void testRearrange () {
@@ -63,6 +63,11 @@ public class EntityMatcherEngineTest {
 		System.out.println (testRearrangeMatchedEntity ( 0 , "which is the density of the state that the largest river in the united states runs through ?"));
 		System.out.println (testRearrangeMatchedEntity ( 0 , "through which states does the longest river in texas run ?"));
 		System.out.println (testRearrangeMatchedEntity ( 0 , "what states border states which the mississippi runs through ?"));
+		System.out.println (testRearrangeMatchedEntity ( 0 , "how many rivers run through the mississippi state ?"));
+		System.out.println (testRearrangeMatchedEntity ( 0 , "how many people are there in the mississippi state ?"));
+		System.out.println (testRearrangeMatchedEntity ( 0 , "what are the populations of the states through which the mississippi runs ?"));
+		System.out.println (testRearrangeMatchedEntity ( 0 , "what state which the mississippi runs through has the largest population ?"));
+		System.out.println (testRearrangeMatchedEntity ( 0 , "which states does the mississippi river run through ?"));
 	}
 	
 	private String testRearrangeMatchedEntity (int pos, String query) {
@@ -75,7 +80,7 @@ public class EntityMatcherEngineTest {
 				bf.append("me : " + me);
 				continue;
 			}
-			bf.append("node : " + me.get(0).getQuery() + "\tme : " + "(" + StringUtils.join(me, ", ") + ")\n"); 
+			bf.append("node : " + me.get(0).getQuery() +  "\tme begin : " + me.get(0).getBegin()  +"\tlabel : " + me.get(0).getLabel() +  "\tme : " + "(" + StringUtils.join(me, ", ") + ")\n"); 
 		}
 		bf.append("-----------------------------------------split line--------------------------------------\n");
 		return bf.toString().replaceAll("http://ir.hit.edu/nli/geo/", "geo:");
@@ -107,7 +112,7 @@ public class EntityMatcherEngineTest {
 	public void testMergeEntitiesBatchFiels () throws IOException {
 		System.out.println("@testMergeEntitiesBatchFiels");
 		final String inputFileName = "data/geo880.txt";
-		final String outputFileName = "data/output/geoquestionsMergeEntityRearrange.txt";
+		final String outputFileName = "data/output/geoquestionsMergeEntityRearrange7.txt";
 		List<String> questions = FileUtils.readLines(new File(inputFileName));
 		List<String> output = new ArrayList<String>();
 		String res = "";
@@ -155,7 +160,12 @@ public class EntityMatcherEngineTest {
 //		System.out.println(mergeEntities ("what is the adjacent state of california ?"));
 //		System.out.println(mergeEntities ("of the states washed by the mississippi river which has the lowest point ?"));
 //		System.out.println(mergeEntities ("how many states border colorado and border new mexico ?"));
-	
+//		System.out.println(mergeEntities ("which state has the most rivers running through it ?"));
+//		System.out.println(mergeEntities ("what is the longest river in mississippi ?"));
+//		System.out.println(mergeEntities ("what is the length of the river that runs through the most number of states ?"));
+//		System.out.println(mergeEntities ("what is the population density in the state with capital austin ?"));
+//		System.out.println(mergeEntities ("how long is the delaware river ?"));
+		
 	}
 	
 	public String matchQuery (String query) {

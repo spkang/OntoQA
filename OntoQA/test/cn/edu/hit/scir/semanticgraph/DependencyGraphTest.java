@@ -20,6 +20,7 @@ import org.junit.Test;
 import cn.edu.hit.scir.dependency.GraphSearchType;
 import cn.edu.hit.scir.dependency.StanfordEnglishNlpTool;
 import cn.edu.hit.scir.dependency.StanfordNlpTool;
+import edu.stanford.nlp.trees.TypedDependency;
 import edu.stanford.nlp.util.StringUtils;
 
 /**
@@ -43,9 +44,41 @@ public class DependencyGraphTest {
 		logger.info("tear down dependency graph test");
 	}
 	
-	
+	private String testDep (int pos, String query) {
+		initGraph (query);
+		List<TypedDependency> dep = this.dgraph.getTypedDependency();
+		StringBuffer bf = new StringBuffer ();
+		bf.append("@query #" + pos + " : " + query + "\n");
+		bf.append("[");
+		for (int i = 0; i < this.dgraph.getVertexs().size(); ++i ) {
+			bf.append(this.dgraph.getVertexNode (i).word + "/" + this.dgraph.getVertexNode(i).tag + ", ");
+		}
+		bf.append("]\n");
+		for (TypedDependency ty : dep) {
+			bf.append(ty.toString() + "\n");
+		}
+		bf.append("----------------------------------------split line---------------------------------------\n");
+		return bf.toString();
+	} 
 	
 	@Test
+	public void testDependencyBatchFiles  () throws IOException {
+		logger.info("@testDependencyBatchFiles");
+		System.out.println (testDep (1, "which state has the most rivers running through it ?"));
+		final String inputFileName = "data/geo880.txt";
+		final String outputFileName = "data/output/geoquestionsDependency.txt";
+		List<String> questions = FileUtils.readLines(new File(inputFileName));
+		List<String> output = new ArrayList<String>();
+		String res = "";
+		for (String s : questions) {
+			res = testDep (output.size(), s);
+			//res = res.replaceAll("http://ir.hit.edu/nli/geo/", "geo:");
+			output.add(res);
+		}
+		FileUtils.writeLines(new File (outputFileName), output);
+	}
+	
+//	@Test
 	public void test() {
 		logger.info("@run test");
 		//initGraph ("which state border the state that the mississippi flows over ?");
