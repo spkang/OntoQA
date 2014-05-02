@@ -177,6 +177,7 @@ public class SparqlGeneratorTest {
 		testQuery ("SELECT ?p WHERE { ?s geo:hasPopulation ?p . ?s geo:hasName \"new york\" .}");
 		testQuery ("SELECT ?p WHERE { ?s geo:hasPopulation ?p . ?s geo:hasName \"new york\" . ?s a geo:city .}");
 		testQuery ("SELECT ?p WHERE { ?s geo:hasPopulation ?p . ?s geo:hasName \"new york\" . ?s a geo:state .}");
+		testQuery("SELECT ?area WHERE {	?city rdf:type geo:city . ?city geo:hasArea ?area . ?city geo:hasName \"new york\" .}");
 	}
 	
 	public void testQuery (String query) {
@@ -206,8 +207,8 @@ public class SparqlGeneratorTest {
 //		testGenerateSparql ("which state has the smallest area that borders texas ?");
 //		testGenerateSparql ("what rivers run through the states that border the state with the capital atlanta ?");
 //		testGenerateSparql ("what is the height of the highest point in the usa ?");	
-		testGenerateSparql ("how many people are there in new york ?");
-		testGenerateSparql ("how many rivers are there in new york ?");
+//		testGenerateSparql ("how many people are there in new york ?");
+//		testGenerateSparql ("how many rivers are there in new york ?");
 //		testGenerateSparql ("which state is mount mckinley in ?");
 //		testGenerateSparql ("how many major cities are there in oregon ?");
 //		testGenerateSparql ("which states have a major city named austin ?");
@@ -216,5 +217,7 @@ public class SparqlGeneratorTest {
 //		testGenerateSparql ("how many states does the mississippi run through ?");
 //		testGenerateSparql ("how many states border on the state whose capital is boston ?");
 //		testGenerateSparql ("name the state washed by mississippi and has a major city named texas.");
+		testGenerateSparql ("what state has the highest elevation ?");
+		
 	}
 }

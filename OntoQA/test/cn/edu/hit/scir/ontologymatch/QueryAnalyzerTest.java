@@ -6,9 +6,15 @@
  */
 package cn.edu.hit.scir.ontologymatch;
 
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
+
+import cn.edu.hit.ir.questionanalysis.QuestionAnalyzer;
 
 /**
  *
@@ -18,7 +24,8 @@ import org.junit.Test;
  */
 public class QueryAnalyzerTest {
 
-	QueryAnalyzer  queryAnalyzer = new QueryAnalyzer ();
+	QueryAnalyzer  queryAnalyzer = new QueryAnalyzer (); // spkang
+	QuestionAnalyzer analyzer = new QuestionAnalyzer(); // bin3
 	
 	@Before
 	public void setUp () throws Exception {
@@ -36,12 +43,37 @@ public class QueryAnalyzerTest {
 //		queryAnalyzer("how many rivers in mississippi?");
 //		queryAnalyzer("name all the rivers in mississippi?");
 //		queryAnalyzer("which state border the most state ?");
-		queryAnalyzer("what state has the smallest area ?");
+		//System.out.println(isEqual("what state has the smallest area ?"));
+		//System.out.println(isEqual("what river flows through the most states ?"));
+		queryAnalyzer("which state border the most state ?");
+		queryAnalyzer("what river flows through the most states ?");
+		queryAnalyzer("how big is the city of new york ?");
 	}
 	
-	public void queryAnalyzer  (String query ) {
+	public boolean isEqual (String query ) {
+		System.out.println ("@isEqual, query : " + query);
+		List<String> results1 = (List<String>)queryAnalyzer(query);
+		List<String> results2 = (List<String>)queryAnalyzerBin(query);
+		
+		Set<String> set1 = new HashSet<String>();
+		Set<String> set2 = new HashSet<String>();
+		
+		set1.addAll(results1);
+		set2.addAll(results2);
+		
+		return set1.equals(set2);
+	}
+	
+	public Object queryAnalyzer  (String query ) {
 		Object obj = queryAnalyzer.analyze(query);
 		System.out.println("res : " + obj);
+		return obj;
 	}
+	
+	public Object queryAnalyzerBin  (String query ) {
+		Object obj = analyzer.analyze(query);
+		System.out.println("bin res : " + obj);
+		return obj;
+	} 
 
 }

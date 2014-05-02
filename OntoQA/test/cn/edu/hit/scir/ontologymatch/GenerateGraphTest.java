@@ -110,6 +110,12 @@ public class GenerateGraphTest {
 		testBestMatch("what state which the mississippi runs through has the largest population ?");
 		testOptionalMatch("what state which the mississippi runs through has the largest population ?");
 		
+		testOptionalMatch ("what state has the highest elevation ?");
+		
+		testBestMatch("how big is the city of new york ?");
+		testOptionalMatch("how big is the city of new york?");
+		
+		
 		
 //		testBestMatch("how many major cities are in arizona ?");
 //		testBestMatch("how many people live in austin ?");

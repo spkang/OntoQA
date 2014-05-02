@@ -22,6 +22,7 @@ import cn.edu.hit.ir.dict.Entity;
 import cn.edu.hit.ir.dict.MatchedEntity;
 import cn.edu.hit.ir.dict.StringToEntitiesMap;
 import cn.edu.hit.ir.ontology.Ontology;
+
 import cn.edu.hit.scir.semanticgraph.DGNode;
 import cn.edu.hit.scir.semanticgraph.SemanticGraph;
 import edu.stanford.nlp.util.StringUtils;
@@ -68,6 +69,7 @@ public class EntityMatcherEngineTest {
 		System.out.println (testRearrangeMatchedEntity ( 0 , "what are the populations of the states through which the mississippi runs ?"));
 		System.out.println (testRearrangeMatchedEntity ( 0 , "what state which the mississippi runs through has the largest population ?"));
 		System.out.println (testRearrangeMatchedEntity ( 0 , "which states does the mississippi river run through ?"));
+		System.out.println (testRearrangeMatchedEntity ( 0 , "how big is the city of new york ?"));
 	}
 	
 	private String testRearrangeMatchedEntity (int pos, String query) {
