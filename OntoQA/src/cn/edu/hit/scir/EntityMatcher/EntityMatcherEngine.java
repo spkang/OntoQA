@@ -830,6 +830,17 @@ public class EntityMatcherEngine {
 		return synMatchSet;
 	}
 	
+	
+	
+	
+	public Ontology getOntology() {
+		return ontology;
+	}
+
+	public void setOntology(Ontology ontology) {
+		this.ontology = ontology;
+	}
+
 	public void mather () {
 		if ( semanticGraph == null )
 			return ;

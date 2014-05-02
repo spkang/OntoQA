@@ -107,12 +107,12 @@ public class QueryMatchedEntityWrapper {
  			}
 			if (findIndex != -1) {
 				for (MatchedEntity me : this.matchEntityWrapper.get(findIndex)) {
-					if (me.getModifizers() == null) {
+					if (me.getModifizers() == null && !(me.getQuery().indexOf(node.word) != -1 || me.getQuery().indexOf(node.stem) != -1)) {
 						List<DGNode> mdf = new ArrayList<DGNode>();
 						mdf.add(node);
 						me.setModifiers (mdf);
 					}
-					else {
+					else if ( !(me.getQuery().indexOf(node.word) != -1 || me.getQuery().indexOf(node.stem) != -1)){
 						if (!me.getModifizers().contains(node) ) {
 							List<DGNode> mdf = me.getModifizers();
 							mdf.add(node);

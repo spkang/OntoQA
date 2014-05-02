@@ -63,13 +63,18 @@ public class Evaluator {
 		List<String> results1 = ontology.getResults(sparql1);
 		List<String> results2 = ontology.getResults(sparql2);
 		
+		if (	(results1 == null && results2 == null) 
+				|| (results1 != null && results1.isEmpty() && results2 == null ) 
+				|| (results1 == null && results2 != null && results2.isEmpty()) )
+			return true;
+		
 		Set<String> set1 = new HashSet<String>();
 		Set<String> set2 = new HashSet<String>();
 		
 		set1.addAll(results1);
 		set2.addAll(results2);
 		
-		return set1.equals(set2);
+		return (set1.equals(set2) || set1.containsAll(set2));
 	}
 	
 	public static void evaluate() {

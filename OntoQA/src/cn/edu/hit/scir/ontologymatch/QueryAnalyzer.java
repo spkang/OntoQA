@@ -21,8 +21,6 @@ import cn.edu.hit.scir.EntityMatcher.QueryMatchedEntityWrapper;
  */
 public class QueryAnalyzer {
 	private Ontology ontology = Ontology.getInstance();
-	private MatchedPath matchedPath;
-//	private OntologyEntityMatcher oeMathcer;
 	private GenerateGraph generateGraph;
 	private GenerateSparql sparqlGenerator;
 	private QueryMatchedEntityWrapper queryMeWrapper = null;
@@ -32,7 +30,6 @@ public class QueryAnalyzer {
 	
 	public QueryAnalyzer (String sentence) {
 		queryMeWrapper = new QueryMatchedEntityWrapper (sentence);
-		matchedPath.setSentence(sentence);
 	}
 	
 	private void initResource  () {
@@ -41,23 +38,17 @@ public class QueryAnalyzer {
 		sparqlGenerator.addPrefix("http://ir.hit.edu/nli/geo/", "geo");
 	}
 	
-	public MatchedPath getMatchedPath (String sentence ) {
-		if (sentence == null )
-			return null;
-		if (this.matchedPath == null )
-			this.matchedPath = new MatchedPath (sentence);
-		else 
-			this.matchedPath.setSentence(sentence);
-		
-		this.matchedPath.match();
-		return this.matchedPath;
-	}
 	
-	
+	public QueryMatchedEntityWrapper getQueryMatchedEntityWrapper (String sentence) {
+		if (sentence == null ) return null;
+		queryMeWrapper = new QueryMatchedEntityWrapper (sentence); 
+		return queryMeWrapper;
+	}	
 	public GenerateGraph getGenerateGraph (String sentence) {
 		if (sentence == null )
 			return null;
-		this.matchedPath = getMatchedPath (sentence);
+		
+		queryMeWrapper = getQueryMatchedEntityWrapper (sentence);
 		if (this.generateGraph == null )
 			this.generateGraph = new GenerateGraph (this.ontology);
 		return this.generateGraph;
@@ -70,7 +61,7 @@ public class QueryAnalyzer {
 	public QueryGraph getQueryGraph (String sentence) {
 		if (sentence == null )
 			return null;
-		return this.generateGraph.optionalMatch(this.getMatchedPath(sentence));
+		return this.generateGraph.optionalMatch(this.getQueryMatchedEntityWrapper(sentence));
 	}
 
 	public String getSparql (String sentence ) {
@@ -80,7 +71,7 @@ public class QueryAnalyzer {
 		System.out.println ("queryGraph : " + queryGraph);
 		if (queryGraph == null )
 			return null;
-		return sparqlGenerator.generate(queryGraph,this.matchedPath.getSemanticGraph().getDependencyGraph().getVertexs(), this.matchedPath);
+		return sparqlGenerator.generate(queryGraph,this.queryMeWrapper.getDepGraph().getVertexs(), this.queryMeWrapper);
 	}
 	
 	public Object analyze(String question) {

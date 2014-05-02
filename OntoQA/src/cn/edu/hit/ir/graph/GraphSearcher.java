@@ -158,24 +158,24 @@ public class GraphSearcher {
 		// determine whether the query require COUNT operator
 		String sent = sentence.getSentence().toLowerCase();
 		int cntIdx = sent.indexOf("how many");
-		logger.info("cntIndex : " + cntIdx  + "\tbegin : " + begin); // debug by spkang
+		logger.debug("cntIndex : " + cntIdx  + "\tbegin : " + begin); // debug by spkang
 		if (cntIdx != -1 && cntIdx < begin) {
 			queryGraph.setCount(true);
 		}
-		logger.info ("bestMatch : begin : "+  begin);
+		logger.debug ("bestMatch : begin : "+  begin);
 		List<MatchedEntity> mes = sentence.getEntities(begin);
 		for (MatchedEntity me : mes) {
 			Resource mr = me.getResource();
 			double weight = getResourceDistance(me.getDistance());
 			int nextIndex = me.getEnd() + 1;
-			logger.info ("bestMatch : me : " + me.toString());
-			logger.info ("bestMatch : nextindex : " + nextIndex);
+			logger.debug ("bestMatch : me : " + me.toString());
+			logger.debug ("bestMatch : nextindex : " + nextIndex);
 			if (me.isProperty()) {
-				logger.info("property 			me : " + me.toString()); // debug
+				logger.debug("property 			me : " + me.toString()); // debug
 				PropertyNode pNode = new PropertyNode(me, weight);
 				searchResource(pNode, nextIndex);
 			} else if (me.isClass() || me.isInstance()) {
-				logger.info("class or instance : me : " + me.toString()); // debug
+				logger.debug("class or instance : me : " + me.toString()); // debug
 				Resource sr = schemaGraph.getSchemaResource(mr);
 				QueryNode source = new QueryNode(me, sr, 0, weight);
 				queryGraph.setSource(source);
@@ -204,28 +204,28 @@ public class GraphSearcher {
 			return;
 		}
 		Resource p = pNode.getProperty();
-		logger.info("@searchResource\t" + p + ", " + index);	// debug
+		logger.debug("@searchResource\t" + p + ", " + index);	// debug
 		
 		Set<Resource> subjects = schemaGraph.getSubjectSet(p);
 		Set<Resource> objects = schemaGraph.getObjectSet(p);
 		if (subjects == null && objects == null) return;
-		logger.info("subjects of p : " + subjects.toString());
-		logger.info("objects  of p : " + objects.toString());
+		logger.debug("subjects of p : " + subjects.toString());
+		logger.debug("objects  of p : " + objects.toString());
 		index = sentence.nextIndex(index);
-		logger.info ("@searchResource\t index : " + index);
+		logger.debug ("@searchResource\t index : " + index);
 		List<MatchedEntity> mes = sentence.getEntities(index);
 		for (MatchedEntity me : mes) {
 			Resource mr = me.getResource();
 			double meWeight = getResourceDistance(me.getDistance());
-			logger.info("match entity me: " + me);
+			logger.debug("match entity me: " + me);
 			int nextIndex = me.getEnd() + 1;
-			logger.info ("@searchResource\t : nextIndex : " + nextIndex);
+			logger.debug ("@searchResource\t : nextIndex : " + nextIndex);
 			if (me.isProperty()) {
 				Resource p2 = mr;
 				PropertyNode pNode2 = new PropertyNode(me, meWeight);
 				Set<Resource> inters = null;
-				logger.info("me is property , and p2 = " + p2.toString());
-				logger.info("p and p2 subjsubj schemaGraph set : " + schemaGraph.getSubjobjSet(p,  p2));
+				logger.debug("me is property , and p2 = " + p2.toString());
+				logger.debug("p and p2 subjsubj schemaGraph set : " + schemaGraph.getSubjobjSet(p,  p2));
 				// 如果有resource是p的subject,且是p2的subject
 				inters = Util.intersect(subjects, 
 						schemaGraph.getSubjsubjSet(p, p2));
@@ -355,16 +355,16 @@ public class GraphSearcher {
 			return;
 		}
 		Resource r = source.getSchemaResource();
-		logger.info("@searchProperty\t" + r + ", " + index);	// debug
+		logger.debug("@searchProperty\t" + r + ", " + index);	// debug
 		
 		index = sentence.nextIndex(index);
-		logger.info ("@searchProperty\t index : " + index);
+		logger.debug ("@searchProperty\t index : " + index);
 		List<MatchedEntity> mes = sentence.getEntities(index);
 		for (MatchedEntity me : mes) {
 			Resource mr = me.getResource();
 			double meWeight = getResourceDistance(me.getDistance());
 			int nextIndex = me.getEnd() + 1;
-			logger.info ("@searchProperty\t nextIndex : " + nextIndex);
+			logger.debug ("@searchProperty\t nextIndex : " + nextIndex);
 			if (me.isProperty()) {
 				Resource p = mr;
 				PropertyNode pNode = new PropertyNode(me, meWeight);
@@ -425,19 +425,19 @@ public class GraphSearcher {
 		}
 		Resource src = source.getSchemaResource();
 		Resource tgt = target.getSchemaResource();
-		logger.info("@searchProperty\t" + src + ", " + tgt + ", " + index);
+		logger.debug("@searchProperty\t" + src + ", " + tgt + ", " + index);
 		
 		//Set<Resource> s2tSet = schemaGraph.getPropertySet(src, tgt);
 		Set<Resource> t2sSet = schemaGraph.getPropertySet(tgt, src);
 		if (t2sSet == null) return;
 		
 		index = sentence.nextIndex(index);
-		logger.info ("@searchProperty\t index : " + index);
+		logger.debug ("@searchProperty\t index : " + index);
 		List<MatchedEntity> mes = sentence.getEntities(index);
 		for (MatchedEntity me : mes) {
 			double meWeight = getResourceDistance(me.getDistance());
 			int nextIndex = me.getEnd() + 1;
-			logger.info ("@searchProperty\t nextIndex : " + nextIndex);
+			logger.debug ("@searchProperty\t nextIndex : " + nextIndex);
 			if (me.isProperty()) {
 				Resource p = me.getResource();
 				if (t2sSet.contains(p)) {
@@ -465,20 +465,20 @@ public class GraphSearcher {
 		}
 		Resource o = source.getSchemaResource();
 		Resource p = pNode.getProperty();
-		logger.info("@searchSubject\t" + index + ", <?, " + p + ", " + o + ">");	// debug
+		logger.debug("@searchSubject\t" + index + ", <?, " + p + ", " + o + ">");	// debug
 				
 		Set<Resource> subjects = schemaGraph.getSubjectSet(p, o);
 		if (subjects == null) return;
 		
 		index = sentence.nextIndex(index);
-		logger.info("@searchSubject\t index : " + index );
+		logger.debug("@searchSubject\t index : " + index );
 		List<MatchedEntity> mes = sentence.getEntities(index);
 		for (MatchedEntity me : mes) {
 			Resource mr = me.getResource();
 			double meWeight = getResourceDistance(me.getDistance());
 			
 			int nextIndex = me.getEnd() + 1;
-			logger.info("@searchSubject : nextIndex " + nextIndex);
+			logger.debug("@searchSubject : nextIndex " + nextIndex);
 			if (me.isProperty()) {
 				Resource p2 = mr;
 				PropertyNode pNode2 = new PropertyNode(me, meWeight);
@@ -547,20 +547,20 @@ public class GraphSearcher {
 		
 		Resource s = source.getSchemaResource();
 		Resource p = pNode.getProperty();
-		logger.info("@searchObject\t" + index + ", <" + s + ", " + p + ", ?>");	// debug
+		logger.debug("@searchObject\t" + index + ", <" + s + ", " + p + ", ?>");	// debug
 		
 		Set<Resource> objects = schemaGraph.getObjectSet(s, p);
 		if (objects == null) return;
 		
 		index = sentence.nextIndex(index);
-		logger.info("@searchObject : index : "  + index);
+		logger.debug("@searchObject : index : "  + index);
 		List<MatchedEntity> mes = sentence.getEntities(index);
 		for (MatchedEntity me : mes) {
 			Resource mr = me.getResource();
 			double meWeight = getResourceDistance(me.getDistance());
 			
 			int nextIndex = me.getEnd() + 1;
-			logger.info("@searchObject : nextIndex : "  + nextIndex);
+			logger.debug("@searchObject : nextIndex : "  + nextIndex);
 			if (me.isProperty()) {
 				Resource p2 = mr;
 				PropertyNode pNode2 = new PropertyNode(me, meWeight);

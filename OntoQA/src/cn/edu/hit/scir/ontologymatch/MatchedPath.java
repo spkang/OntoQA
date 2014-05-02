@@ -93,7 +93,7 @@ public class MatchedPath {
 			if ( ! this.pathNodeMap.containsKey(pn) ) {
 				this.pathNodeMap.put(pn,  oeMatcher.mathPathNode(ontology, pn));
 				for (MatchedEntity me : this.pathNodeMap.get(pn)) {
-					me.setPathNode(pn);
+					;//me.setPathNode(pn);
 				}
 			}
 		}

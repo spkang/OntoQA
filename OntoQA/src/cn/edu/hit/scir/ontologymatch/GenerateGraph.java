@@ -148,7 +148,7 @@ public class GenerateGraph {
 
 	private QueryEdge pushEdge(QueryNode source, PropertyNode pNode,
 			QueryNode target, boolean isReverse) {
-		logger.debug("@pushEdge " + source + ", " + pNode + ", " + target + ", " + isReverse);	// debug
+		logger.info("@pushEdge " + source + ", " + pNode + ", " + target + ", " + isReverse);	// debug
 		if (isReverse) {
 			pNode.setWeight(pNode.getWeight() + reverseTripleDistance);
 		}
@@ -160,7 +160,7 @@ public class GenerateGraph {
 	}
 
 	private void searchEnding() {
-		logger.debug("@searchEnding queryGraph: " + queryGraph);	// debug
+		logger.info("@searchEnding queryGraph: " + queryGraph);	// debug
 		graphs.add((QueryGraph)queryGraph.clone());
 	}
 

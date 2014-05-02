@@ -26,9 +26,10 @@ import cn.edu.hit.ir.ontology.SchemaGraph;
 import cn.edu.hit.ir.ontology.Sparql;
 import cn.edu.hit.scir.EntityMatcher.QueryMatchedEntityWrapper;
 import cn.edu.hit.scir.semanticgraph.DGNode;
-import cn.edu.hit.scir.semanticgraph.SemanticNode;
 
 import com.hp.hpl.jena.rdf.model.Resource;
+
+import edu.stanford.nlp.util.StringUtils;
 
 /**
  * a sparql generator
@@ -61,7 +62,7 @@ public class GenerateSparql {
 	
 	private Map<QueryNode, String> node2varMap;
 	
-	private MatchedPath matchedPath = null;
+	//private MatchedPath matchedPath = null;
 	private QueryMatchedEntityWrapper meWrapper = null;
 	
 	private String[] tokens;
@@ -128,7 +129,49 @@ public class GenerateSparql {
 	 *
 	 * @param node
 	 */
-	private boolean handleMaxOrMin(QueryNode node) {
+	private boolean handleMaxOrMin (QueryNode node ) {
+		MatchedEntity entity = node.getEntity();
+		if (entity == null ) return false;
+		
+		if (!ontology.isClass(node.getResource())) return false;
+		
+		logger.info("@handleMaxOrMin node : " + node);
+		
+		if (entity.getModifizers() != null ) {
+			// jjs or rbs
+			logger.info("node : modifier : " + StringUtils.join(entity.getModifizers(), ", "));
+			for (DGNode mNode : entity.getModifizers()) {
+				if (this.meWrapper.getDepGraph().isSuperModifier(mNode) && !mNode.word.toLowerCase().equals("most")) {
+					Resource subject = node.getResource();
+					//String abj = stems[idx1];
+					String abj = mNode.stem;
+					Resource cmpProp = schemaGraph.getComparableProperty(subject, abj);
+					String s = "?" + node.toString();
+					String p = getName(cmpProp);
+					String var = nextVar();
+					sparql.addWhere(s, p, var);
+					
+					if (vocabulary.isSmallWord(abj)) {
+						sparql.addAscOrder(var);
+					} else {
+						sparql.addDescOrder(var);
+					}
+					sparql.addSelect(var);	// TODO test
+					sparql.setLimit(1);
+					return true;
+				}
+			} // for 
+		} // if 
+		return false;
+	}
+	
+	/**
+	 * Handles query like "What is the longest river?" or 
+	 * "What is the most populous state?".
+	 *
+	 * @param node
+	 */
+	/*private boolean handleMaxOrMin(QueryNode node) {
 		MatchedEntity entity = node.getEntity();
 		if (entity == null) return false;
 		
@@ -176,7 +219,49 @@ public class GenerateSparql {
 			sparql.setLimit(1);
 			return true;
 		}
-		
+		return false;
+	}*/
+	
+	/**
+	 * Handles query like "what state has the smallest area ?".
+	 *
+	 * @param s
+	 * @param p
+	 * @param o
+	 */
+	private boolean handleMaxOrMin (QueryNode s, PropertyNode p, QueryNode o ) {
+		Resource subject = s.getResource();
+		Resource property = p.getProperty();
+		Resource object = o.getResource();
+
+		if (ontology.isLiteralClass(object) 
+				&& schemaGraph.isComparableProperty(subject, property)) {
+			int begin = p.getEntity().getBegin();
+			logger.info("handle MaxOrMin s p o :  entity : " + p.getEntity());
+			
+			MatchedEntity entity = p.getEntity();
+			if (entity == null ) return false;
+			
+			if (entity.getModifizers() != null ) {
+				for (DGNode node : entity.getModifizers()) {
+					if (this.meWrapper.getDepGraph().isSuperModifier(node)) {
+						logger.info("Modify Node : " + node.toString());
+//						String abj = stems[idx];
+						String abj = node.stem;
+						String var = getLiteralVar(o);
+						if (vocabulary.isSmallWord(abj)) {
+							sparql.addAscOrder(var);
+						} else {
+							sparql.addDescOrder(var);
+						}
+						sparql.addSelect(var);	// TODO test
+						sparql.setLimit(1);
+						return true;
+					}
+				}
+			}
+			
+		}
 		return false;
 	}
 	
@@ -187,7 +272,7 @@ public class GenerateSparql {
 	 * @param p
 	 * @param o
 	 */
-	private boolean handleMaxOrMin(QueryNode s, PropertyNode p, QueryNode o) {
+	/*private boolean handleMaxOrMin(QueryNode s, PropertyNode p, QueryNode o) {
 		Resource subject = s.getResource();
 		Resource property = p.getProperty();
 		Resource object = o.getResource();
@@ -214,9 +299,9 @@ public class GenerateSparql {
 			}
 		}
 		return false;
-	}
+	}*/
 
-	public String generate(QueryGraph graph, List<DGNode > vertexs, MatchedPath matchePath ) {
+	public String generate(QueryGraph graph, List<DGNode > vertexs, QueryMatchedEntityWrapper meWrapper ) {
 		/*sparql = new Sparql();
 		
 		if (graph == null || !graph.hasQuery()) {
@@ -254,15 +339,14 @@ public class GenerateSparql {
 		}
 
 		return sparql.getString();*/
-		this.setMatchedPath(matchedPath);
+		setQueryMatchedEntityWrapper (meWrapper);
 		sparql = generateSparql(graph, vertexs);
 		return sparql.getString();
 	}
 	
-	public void setMatchedPath (MatchedPath matchedPath ) {
-		this.matchedPath = matchedPath;
+	public void setQueryMatchedEntityWrapper (QueryMatchedEntityWrapper meWrapper ) {
+		this.meWrapper = meWrapper;
 	}
-
 	
 	public void generate(QueryNode s, PropertyNode p, QueryNode o) {
 		String subject = getName(s);
@@ -387,6 +471,7 @@ public class GenerateSparql {
 		return null;
 	}
 	
+	
 	/**
 	 * // TODO
 	 * Handles query like "the state borders the most states" or 
@@ -394,7 +479,56 @@ public class GenerateSparql {
 	 *
 	 * @param node
 	 */
+	
 	private boolean handleMaxOrMinCount(QueryNode s, QueryNode t) {
+		MatchedEntity sEntity = s.getEntity();
+		MatchedEntity tEntity = t.getEntity();
+		if (sEntity == null || tEntity == null) return false;
+		
+//		int sEnd = sEntity.getEnd();
+//		int tBegin = tEntity.getBegin();
+//		int idx1 = tBegin - 1;
+
+		logger.info("@handleMaxOrMinCount : s:  " + s.toString() + "\tt : " + t.toString()); 
+		// Handle query like "the state borders the most states".
+		if (tEntity.getModifizers() == null )
+			return false;
+		logger.info("modifier : " + StringUtils.join(tEntity.getModifizers()));
+		for (DGNode node : tEntity.getModifizers()) {
+			if (this.meWrapper.getDepGraph().isSuperModifier(node) && node.word.toLowerCase().equals("most")) { //idx1 > sEnd && tags[idx1].equals("RBS")
+				//String abj = stems[idx1];
+				String abj = node.stem;
+				String groupName = "?" + s.toString();
+				String countName = "?" + t.toString();
+				
+				//sparql.addSelect(groupName);
+				String countVar = sparql.addCount(countName);
+				sparql.addGroupBy(groupName);
+				
+				if (vocabulary.isSmallWord(abj)) {
+					sparql.addAscOrder(countVar);
+				} else {
+					sparql.addDescOrder(countVar);
+				}
+				sparql.setLimit(1);
+				return true;
+			}
+		}
+		
+		// Handle query like "the state borders the most number of states"
+		// TODO
+		
+		return false;
+	}
+	
+	/**
+	 * // TODO
+	 * Handles query like "the state borders the most states" or 
+	 * "the state borders the most number of states".
+	 *
+	 * @param node
+	 */
+	/*private boolean handleMaxOrMinCount(QueryNode s, QueryNode t) {
 		MatchedEntity sEntity = s.getEntity();
 		MatchedEntity tEntity = t.getEntity();
 		if (sEntity == null || tEntity == null) return false;
@@ -431,7 +565,7 @@ public class GenerateSparql {
 		// TODO
 		
 		return false;
-	}
+	}*/
 	
 	public void generateSubQuery(QueryNode node) {
 		subQuery = sparql;
@@ -490,8 +624,8 @@ public class GenerateSparql {
 					QueryNode t = graph.getEdgeTarget(edge);
 					PropertyNode p = edge.getPropertyNode();
 					logger.info("s : " + s.toString()); // debug
-					logger.info("t : " + t.toString());
 					logger.info("p : " + p.toString());
+					logger.info("t : " + t.toString());
 					if (!edge.isReverse()) {
 						generate(s, p, t);
 						// Handles query like "what state has the smallest area ?"
