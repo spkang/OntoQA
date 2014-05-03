@@ -345,5 +345,11 @@ public class QueryMatchedEntityWrapper {
 	public void setOrgMatchedQuery(List<List<MatchedEntity>> orgMatchedQuery) {
 		this.orgMatchedQuery = orgMatchedQuery;
 	}
+
+	@Override
+	public String toString() {
+		return "QueryMatchedEntityWrapper [matchEntityWrapper="
+				+ matchEntityWrapper + "]";
+	}
 	
 }
