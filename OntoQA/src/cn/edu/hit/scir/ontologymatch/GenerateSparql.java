@@ -6,6 +6,7 @@
  */
 package cn.edu.hit.scir.ontologymatch;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
@@ -382,19 +383,90 @@ public class GenerateSparql {
 	}
 	
 	public void generate(QueryNode s, PropertyNode p, QueryNode o) {
-		String subject = getName(s);
-		String property = getName(p.getProperty());
-		String object = getName(o);
+		
 		// spkang added 
 		String triple = "";
 		if (isNotNoModifier (s, p, o)) {
-			triple = 	"NOT EXISTS{ " + subject + " " + property + " " + object + " . }";
+			List<String> subject = getNotNoName(s);
+			String property = getName(p.getProperty());
+			List<String> object = getNotNoName(o);
+			String sub = "";
+			String obj = "";
+			sub = subject.get(subject.size()-1);
+			subject.remove(subject.size()-1);
+			obj = object.get(object.size()-1);
+			object.remove(object.size()-1);
+			
+			for (String t : subject) {
+				triple += " " + t + " ";
+			}
+			
+			triple += 	"NOT EXISTS{ " + sub + " " + property + " " + obj + " . ";
+			
+			for (String t : subject) {
+				triple += " " + t + " ";
+			}
+			triple += " }";
+			logger.info("Notno modifier : " + triple);
 		}
 		else {
+			String subject = getName(s);
+			String property = getName(p.getProperty());
+			String object = getName(o);
 			triple = subject + " " + property + " " + object + " .";
 		}
 		sparql.addWhere(triple);
 		
+	}
+	
+	public List<String> getNotNoName (QueryNode node ) {
+		Resource r = node.getResource();
+		List<String> res = new ArrayList<String>();
+		// if it's literal value
+		if (node.isLiteralValue()) {
+			String t = "\"" + node.getValue() + "\"";
+			res.add(t);
+			return res;
+		}
+		
+		// if it's literal class
+		if (ontology.isLiteralClass(r)) {
+			res.add(getLiteralVar(node));
+			return res;
+		}
+		
+		// if it's a class
+		if (ontology.isClass(r)) {		
+			String name = "?" + node.toString();
+			if (!nameSet.contains(name)) {
+				nameSet.add(name);
+				String c = getName(r);
+				String triple = name + " a " + c + " .";
+				//name = triple + " # " + name;
+				res.add(triple);
+				res.add(name);
+				// sparql.addWhere(triple); 
+				
+				//handleMaxOrMin(node);
+			}
+			return res;
+		// if it's a instance
+		} else {
+			String name = "?" + node.toString();
+			if (!nameSet.contains(name)) {
+				nameSet.add(name);
+				String tmp = "";
+				String value = "\"" + ontology.getLabel(r) + "\"";
+				//sparql.addWhere(name, Ontology.RDFS_LABEL, value);
+				res.add(name + " " +  Ontology.RDFS_LABEL + " " + value + " .");
+				//tmp = name + " " +  Ontology.RDFS_LABEL + " " + value + " .";
+				String c = getName(node.getSchemaResource());
+				res.add(name + " " + "a" + " " + c + " .");
+				//sparql.addWhere(name, "a", c);
+				res.add(name);
+			}
+			return res;
+		}
 	}
 	
 	public String getName(Resource r) {		
@@ -423,7 +495,7 @@ public class GenerateSparql {
 				nameSet.add(name);
 				String c = getName(r);
 				String triple = name + " a " + c + " .";
-				sparql.addWhere(triple);
+				sparql.addWhere(triple); 
 				
 				//handleMaxOrMin(node);
 			}

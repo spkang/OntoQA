@@ -438,15 +438,17 @@ public class GenerateGraph {
 			double meWeight = getResourceDistance(me.getDistance());
 			//int nextIndex = me.getEnd() + 1;
 			int nextIndex  = index + 1;
-			logger.info("@searchProperty\t nextIndex : " + nextIndex);	// debug
+			logger.info("@searchProperty\t me : " + me.toString() + "\tnextIndex : " + nextIndex);	// debug
 			if (me.isProperty()) {
 				Resource p = mr;
 				PropertyNode pNode = new PropertyNode(me, meWeight);
 				Set<Resource> subjects = schemaGraph.getSubjectSet(p, r);
+				logger.info("@searchProperty\t subjects : " + subjects);
 				if (subjects != null) {
 					searchSubject(source, pNode, nextIndex);
 				}
 				Set<Resource> objects = schemaGraph.getObjectSet(r, p);
+				logger.info("@searchProperty\t objects : " + objects);
 				if (objects != null) {
 					searchObject(source, pNode, nextIndex);
 				}
@@ -454,7 +456,7 @@ public class GenerateGraph {
 				Resource r2 = schemaGraph.getSchemaResource(mr);
 				QueryNode target = new QueryNode(me, r2, index, meWeight);
 				Set<Resource> properties = null;
-
+				
 				// if r is subject and r2 is object
 				properties = schemaGraph.getPropertySet(r, r2);
 				if (properties != null) {
@@ -499,7 +501,7 @@ public class GenerateGraph {
 		}
 		Resource src = source.getSchemaResource();
 		Resource tgt = target.getSchemaResource();
-		logger.info("@searchProperty\t" + src + ", " + tgt + ", " + index);
+		logger.info("@searchProperty111\t" + src + ", " + tgt + ", " + index);
 
 		//Set<Resource> s2tSet = schemaGraph.getPropertySet(src, tgt);
 		Set<Resource> t2sSet = schemaGraph.getPropertySet(tgt, src);
@@ -508,7 +510,7 @@ public class GenerateGraph {
 //		index = sentence.nextIndex(index);
 //		index = index + 1;
 		//index = entityWrapper.nextIndex(index);
-		logger.info("@searchProperty\t index : "  + index);
+		logger.info("@searchProperty1111\t index : "  + index);
 //		List<MatchedEntity> mes = sentence.getEntities(index);
 //		List<MatchedEntity> mes = this.matchedPath.getPathNodeMap().get(this.matchedPath.getPathNode (index));
 		List<MatchedEntity> mes = this.entityWrapper.getEntities(index);
@@ -516,7 +518,7 @@ public class GenerateGraph {
 			double meWeight = getResourceDistance(me.getDistance());
 //			int nextIndex = me.getEnd() + 1;
 			int nextIndex = index + 1;
-			logger.info("@searchProperty\t nextIndex : "  + nextIndex);
+			logger.info("@searchProperty111\t nextIndex : "  + nextIndex);
 			if (me.isProperty()) {
 				Resource p = me.getResource();
 				if (t2sSet.contains(p)) {
@@ -624,7 +626,27 @@ public class GenerateGraph {
 				searchEnding();
 				popEdge();
 			} else {
-				searchEnding();
+				//spkang added begin 
+				Set<Resource> objects = schemaGraph.getObjectSet(source.getSchemaResource(), pNode.getProperty());
+				if (objects == null) {
+					searchEnding() ;
+					return;
+				}
+				else if (objects.size() == 1) {
+					for (Resource re : objects ) {
+						if (ontology.getType(re) != null && ontology.getType(re).equals(ontology.classClass)) {
+							QueryNode target = new QueryNode(re, re, index, addedResourceDistance);
+							logger.info("spkang : re : " + re + "\ttarget : " + target);
+							pushEdge(source, pNode, target, false);
+							searchEnding();
+							popEdge();
+						}
+					}
+				}
+				// added end 
+				else {
+					searchEnding();
+				}
 			}
 			return;
 		}
