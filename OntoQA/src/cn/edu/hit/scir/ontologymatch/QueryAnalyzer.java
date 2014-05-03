@@ -42,6 +42,7 @@ public class QueryAnalyzer {
 	public QueryMatchedEntityWrapper getQueryMatchedEntityWrapper (String sentence) {
 		if (sentence == null ) return null;
 		queryMeWrapper = new QueryMatchedEntityWrapper (sentence); 
+		System.out.println("query matched entity : " + queryMeWrapper.toString());
 		return queryMeWrapper;
 	}	
 	public GenerateGraph getGenerateGraph (String sentence) {

@@ -348,13 +348,53 @@ public class GenerateSparql {
 		this.meWrapper = meWrapper;
 	}
 	
+	/**
+	 *  判断一个实体是不是存在否定修饰
+	 *
+	 * @param 
+	 * @return boolean 
+	 */
+	private boolean isNotNoModifier (MatchedEntity me ) {
+		if (me == null )
+			return false;
+		if (me.getModifizers() == null || me.getModifizers().isEmpty())
+			return false;
+		for (DGNode node : me.getModifizers()) {
+			if (this.meWrapper.getDepGraph().isNegativeModifier(node)) {
+				return true;
+			}
+		}
+		return false;
+	}
+	
+	/**
+	 * 判断一个三元组是不是存在否定修饰，不论是subject, predicate, object
+	 *
+	 * @param 
+	 * @return boolean 
+	 */
+	public boolean isNotNoModifier (QueryNode s, PropertyNode p, QueryNode o) {
+		if (s == null || p == null || o == null )
+			return false;
+		if (isNotNoModifier(s.getEntity()) || isNotNoModifier(p.getEntity()) ||isNotNoModifier(o.getEntity()))
+			return true;
+		return false;
+	}
+	
 	public void generate(QueryNode s, PropertyNode p, QueryNode o) {
 		String subject = getName(s);
 		String property = getName(p.getProperty());
 		String object = getName(o);
-		
-		String triple = subject + " " + property + " " + object + " .";	
+		// spkang added 
+		String triple = "";
+		if (isNotNoModifier (s, p, o)) {
+			triple = 	"NOT EXISTS{ " + subject + " " + property + " " + object + " . }";
+		}
+		else {
+			triple = subject + " " + property + " " + object + " .";
+		}
 		sparql.addWhere(triple);
+		
 	}
 	
 	public String getName(Resource r) {		
@@ -618,7 +658,7 @@ public class GenerateSparql {
 					
 					QueryNode other = otherVertex(graph, edge, cur);
 					
-					logger.debug("other: " + other + ", cur: " + cur);
+					logger.info("other: " + other + ", cur: " + cur);
 					
 					QueryNode s = graph.getEdgeSource(edge);
 					QueryNode t = graph.getEdgeTarget(edge);
