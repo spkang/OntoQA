@@ -24,11 +24,12 @@ import org.eclipse.jetty.server.Server;
 import org.eclipse.jetty.server.handler.AbstractHandler;
 import org.eclipse.jetty.server.nio.SelectChannelConnector;
 
-import com.hp.hpl.jena.rdf.model.RDFNode;
-
 import cn.edu.hit.ir.ontology.Ontology;
 import cn.edu.hit.ir.questionanalysis.QuestionAnalyzer;
 import cn.edu.hit.ir.util.ConfigUtil;
+import cn.edu.hit.scir.ontologymatch.QueryAnalyzer;
+
+import com.hp.hpl.jena.rdf.model.RDFNode;
 
 /**
  * The OntoQA Demo.
@@ -100,7 +101,8 @@ class OntoQAHandler extends AbstractHandler {
 	
 	private static Logger logger = Logger.getLogger(OntoQADemo.class);
 	
-	private QuestionAnalyzer analyzer;
+	//private QuestionAnalyzer analyzer; 
+	private QueryAnalyzer analyzer;
 	private Ontology ontology;
 	
 	/**
@@ -109,7 +111,8 @@ class OntoQAHandler extends AbstractHandler {
 	public OntoQAHandler() {
 		super();
 
-		analyzer = new QuestionAnalyzer();
+		//analyzer = new QuestionAnalyzer();
+		analyzer = new QueryAnalyzer();
 		ontology = Ontology.getInstance();
 	}
 	
