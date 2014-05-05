@@ -127,6 +127,8 @@ public class CorpusTool {
 				String sparql = ex.getSparql();
 				String answer = ex.getAnswer();
 				String sparqlOut = ex.getSparqlOut();
+				if (sparqlOut == null )
+					sparqlOut = "";
 				
 				Element example = examples.appendElement(EXAMPLE);
 				example.attr(ID_ATTR, id);

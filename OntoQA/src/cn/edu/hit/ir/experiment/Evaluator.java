@@ -106,20 +106,6 @@ public class Evaluator {
 			String id = example.getId();
 			String query = example.getQuery();
 			
-//			String[] tags = tool.tag(query);
-			
-			//String[] tags = nlpTool.tag(query);
-//			boolean flag= false;
-//			for (int i = 0; i < tags.length && ! flag; ++i ) {
-//				if (tags[i].toUpperCase().equals("JJS") || tags[i].toUpperCase().equals("RBS") )
-//					flag  = true;
-//			}
-//			
-//			if (flag) {
-//				logger.info("query : " + query);
-//				continue;
-//			}
-			
 			String sparql = example.getSparql();
 			
 			if (!Ontology.isLegalSparql(sparql) 
@@ -187,9 +173,11 @@ public class Evaluator {
 			String id = example.getId();
 			String query = example.getQuery();
 			
-			String sparqlOut = analyzer.getSparql(query);			
-			example.setSparqlOut(sparqlOut);
-			
+			String sparqlOut = analyzer.getSparql(query);		
+			if (sparqlOut == null )
+				example.setSparqlOut("null");
+			else 
+				example.setSparqlOut(sparqlOut);
 			
 			logger.info("----------------------------------------------------------------------------------------------------------------------------");
 			logger.info("#" + id);
