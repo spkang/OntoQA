@@ -56,10 +56,24 @@ public class JenaTest {
 			System.out.println("No result.");
 		}
 	}
-	
-	
-	
 	@Test
+	public void testReadYuetanRDF () {
+		String testRDFFileName = DATA_DIR + "yuetanSong.rdf";
+		System.out.println ("@testReadYuetanSongRdf");
+		jena.read(testRDFFileName);
+		testSearch("大海");
+		testSearch("浮夸") ;
+		testSearch ("好人一生平安");
+		testSearch ("十二生肖");
+		testSearch ("流沙");
+		testSearch ("隶属于");
+		testSearch ("隶属");
+		testSearch ("属于");
+		testSearch("周杰伦");
+	}
+	
+	
+	//@Test
 	public void testReadChineseRdf () {
 		//String testRDFFileName = DATA_DIR + "chinesetest.rdf";
 		String testRDFFileName = DATA_DIR + "ontology.owl";

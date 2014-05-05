@@ -55,6 +55,7 @@ public class QueryMatchedEntityWrapperTest {
 //		System.out.println (testNotNoWrapper (15, "what state has no rivers ?"));
 //		System.out.println (testNotNoWrapper (16, "what river is the longest one in the united states ?"));
 //		System.out.println (testNotNoWrapper (17, "what is the length of the river that runs through the most number of states ?"));
+		
 	}
 	
 	
@@ -70,7 +71,7 @@ public class QueryMatchedEntityWrapperTest {
 		return bf.toString();
 	} 
 	
-	@Test
+//	@Test
 	public void testBatchFile () throws Exception {
 		System.out.println("@testBatchFiles");
 		final String inputFileName = "data/geo880.txt";
@@ -87,11 +88,12 @@ public class QueryMatchedEntityWrapperTest {
 		FileUtils.writeLines(new File (outputFileName), output);
 	} 
 	
-	//@Test
+	@Test
 	public void testWrapper () {
 		System.out.println (testMEWrapper (0, "how many people in new york city ?"));
 		System.out.println (testMEWrapper (1, "how many rivers in new york city ?"));
 		System.out.println (testMEWrapper (2, "how many rivers in new york city ?"));
+		System.out.println (testMEWrapper (2, "which states have cities named austin ?"));
 		
 	}
 	

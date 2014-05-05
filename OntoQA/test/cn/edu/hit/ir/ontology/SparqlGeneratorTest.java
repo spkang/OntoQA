@@ -178,6 +178,8 @@ public class SparqlGeneratorTest {
 		testQuery ("SELECT ?p WHERE { ?s geo:hasPopulation ?p . ?s geo:hasName \"new york\" . ?s a geo:city .}");
 		testQuery ("SELECT ?p WHERE { ?s geo:hasPopulation ?p . ?s geo:hasName \"new york\" . ?s a geo:state .}");
 		testQuery("SELECT ?area WHERE {	?city rdf:type geo:city . ?city geo:hasArea ?area . ?city geo:hasName \"new york\" .}");
+		// not 
+		testQuery("SELECT ?state2  WHERE { ?state rdf:type geo:state . ?state2 rdf:type geo:state . NOT EXISTS{?state2 geo:border ?state } ?state geo:hasName \"texas\" . }"); 
 	}
 	
 	public void testQuery (String query) {
@@ -217,7 +219,7 @@ public class SparqlGeneratorTest {
 //		testGenerateSparql ("how many states does the mississippi run through ?");
 //		testGenerateSparql ("how many states border on the state whose capital is boston ?");
 //		testGenerateSparql ("name the state washed by mississippi and has a major city named texas.");
-		testGenerateSparql ("what state has the highest elevation ?");
+//		testGenerateSparql ("what state has the highest elevation ?");
 		
 	}
 }

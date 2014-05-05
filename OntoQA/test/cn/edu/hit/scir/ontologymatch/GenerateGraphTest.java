@@ -115,6 +115,8 @@ public class GenerateGraphTest {
 		testBestMatch("how big is the city of new york ?");
 		testOptionalMatch("how big is the city of new york?");
 		
+		testOptionalMatch("which river run through the most states ?");
+		
 		
 		
 //		testBestMatch("how many major cities are in arizona ?");

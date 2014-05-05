@@ -45,9 +45,17 @@ public class QueryAnalyzerTest {
 //		queryAnalyzer("which state border the most state ?");
 		//System.out.println(isEqual("what state has the smallest area ?"));
 		//System.out.println(isEqual("what river flows through the most states ?"));
-		queryAnalyzer("which state border the most state ?");
+		/*queryAnalyzer("which state border the most state ?");
 		queryAnalyzer("what river flows through the most states ?");
 		queryAnalyzer("how big is the city of new york ?");
+		queryAnalyzer("which river run through the most states ?");
+		queryAnalyzer("which capitals are not major cities ?");
+		queryAnalyzer ("which states border no other states ?");
+		queryAnalyzer ("which states does not border texas ?");*/
+		queryAnalyzer("which rivers do not run through usa ?");
+		queryAnalyzer("which rivers do not run through texas ?");
+		queryAnalyzer("what is the longest river in the state with the highest point ?");
+		queryAnalyzer("which states have cities named austin ?");
 	}
 	
 	public boolean isEqual (String query ) {
