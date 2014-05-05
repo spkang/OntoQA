@@ -225,14 +225,14 @@ public class EntityMatcherEngine {
 		List<Integer> pos = new ArrayList<Integer> ();
 		for (int index = 0; index < this.matchedQuery.size(); ++index ) {
 			pos.add(index);
-			logger.info("index : " + index);
+			//logger.info("index : " + index);
 			if (isPropertyMatchVerb (index) ) {
 				// 获得verb the subj node and obj node
 				List<DGNode> nsubjObjNodes = this.semanticGraph.getDependencyGraph().getSubObjNode(index);
 				// 判断给定位置定动词次序是不合理的
-				logger.info("out nsubjObj : " + StringUtils.join(nsubjObjNodes, ", "));
+				//logger.info("out nsubjObj : " + StringUtils.join(nsubjObjNodes, ", "));
 				if (isPropertyVerbPosIllegal (index, nsubjObjNodes)) { 
-					logger.info("nsubjObj : " + StringUtils.join(nsubjObjNodes, ", "));
+					//logger.info("nsubjObj : " + StringUtils.join(nsubjObjNodes, ", "));
 					// 是否有介词链接， e.g. : through which states does the mississippi run ?, 
 					// run and through匹配的属性要合并，并且将合并的属性放在obj和sub之间
 					DGNode subjNode = nsubjObjNodes.get(0);
@@ -241,7 +241,7 @@ public class EntityMatcherEngine {
 					// obj和verb之间没有介词
 					//logger.info("");
 					if (objEdge != null && objEdge.status && (objEdge.reln.toLowerCase().equals("rcmod") || objEdge.reln.toLowerCase().equals("dep"))) {
-						logger.info ("there is no preposition word in the nsubj and obj");
+						//logger.info ("there is no preposition word in the nsubj and obj");
 						List<DGNode> linkWds = this.semanticGraph.getDependencyGraph().getLinkedWords(index);
 						for (DGNode node : linkWds ) {
 							if (this.semanticGraph.getDependencyGraph().getEdge(index, node.idx).reln.toLowerCase().equals("prep") 
@@ -262,7 +262,7 @@ public class EntityMatcherEngine {
 						}
 					}
 					else {//(this.semanticGraph.getDependencyGraph().isContainTagInPath(index, objNode.idx, this.semanticGraph.getDependencyGraph().IN)) { // 之间有介词
-						logger.info("the exists preposition between nsubj and obj");
+						//logger.info("the exists preposition between nsubj and obj");
 						List<Integer> path = this.semanticGraph.getDependencyGraph().searchPath(index,  objNode.idx);
 						for (Integer p : path ) {
 							if (p != index && p != objNode.idx && this.semanticGraph.getDependencyGraph().getVertexNode(p).tag.toUpperCase().equals(this.semanticGraph.getDependencyGraph().IN)) {
@@ -273,7 +273,7 @@ public class EntityMatcherEngine {
 										&& this.matchedQuery.get(index).size() == 1
 										&& this.matchedQuery.get(p).get(0).getResource().equals(this.matchedQuery.get(index).get(0).getResource())) 
 								{
-									logger.info("in merge : " + objEdge.toString());
+							//		logger.info("in merge : " + objEdge.toString());
 									mergePropertyIndex.add(p);
 									// 合并属性
 									this.semanticGraph.getDependencyGraph().getVertexNode(index).nextIndex = p;
@@ -315,7 +315,7 @@ public class EntityMatcherEngine {
 			} // if		
 		} // for
 		
-		logger.info("pos : " + StringUtils.join(pos, ","));
+//		logger.info("pos : " + StringUtils.join(pos, ","));
 		
 		for (int i = 0; i < this.matchedQuery.size(); ++i) {
 			if (this.matchedQuery.get(pos.get(i)) != null && ! this.matchedQuery.get(pos.get(i)).isEmpty() && ! mergePropertyIndex.contains(pos.get(i)) && this.semanticGraph.getDependencyGraph().getVertexNode(pos.get(i)).prevIndex == -1) {
@@ -323,9 +323,9 @@ public class EntityMatcherEngine {
 			}
 		}
 		
-		for (int i = 0; i < this.matchedQuery.size(); ++i ) {
-			logger.info("DGNode  : " + this.semanticGraph.getDependencyGraph().getVertexNode(i).toString()); 
-		}
+//		for (int i = 0; i < this.matchedQuery.size(); ++i ) {
+//			logger.info("DGNode  : " + this.semanticGraph.getDependencyGraph().getVertexNode(i).toString()); 
+//		}
 		
 		return rearrangeMeList;
 	}
@@ -344,8 +344,8 @@ public class EntityMatcherEngine {
 		int numTokens = rhs.getBegin() + rhs.getNumTokens() - lhs.getBegin();
 		String query = StringUtils.join (tokens, " ", lhs.getBegin(), lhs.getBegin() + numTokens);
 		MatchedEntity mergedEntity = null;
-		logger.info ("lhs me : " + lhs.toString());
-		logger.info ("rhs me : " + rhs.toString());
+//		logger.info ("lhs me : " + lhs.toString());
+//		logger.info ("rhs me : " + rhs.toString());
 		if (isLhsClass) {
 			mergedEntity= new MatchedEntity (rhs.getResource(), rhs.getLabel(), RDFNodeType.INSTANCE, query, (lhs.getScore() + rhs.getScore())/2.0, lhs.getBegin(), numTokens);
 		}
