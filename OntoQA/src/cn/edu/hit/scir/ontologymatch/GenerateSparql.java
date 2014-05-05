@@ -136,11 +136,11 @@ public class GenerateSparql {
 		
 		if (!ontology.isClass(node.getResource())) return false;
 		
-		logger.info("@handleMaxOrMin node : " + node);
+		logger.debug("@handleMaxOrMin node : " + node);
 		
 		if (entity.getModifizers() != null ) {
 			// jjs or rbs
-			logger.info("node : modifier : " + StringUtils.join(entity.getModifizers(), ", "));
+			logger.debug("node : modifier : " + StringUtils.join(entity.getModifizers(), ", "));
 			for (DGNode mNode : entity.getModifizers()) {
 				if (this.meWrapper.getDepGraph().isSuperModifier(mNode) && !mNode.word.toLowerCase().equals("most")) {
 					Resource subject = node.getResource();
@@ -238,7 +238,7 @@ public class GenerateSparql {
 		if (ontology.isLiteralClass(object) 
 				&& schemaGraph.isComparableProperty(subject, property)) {
 			int begin = p.getEntity().getBegin();
-			logger.info("handle MaxOrMin s p o :  entity : " + p.getEntity());
+			logger.debug("handle MaxOrMin s p o :  entity : " + p.getEntity());
 			
 			MatchedEntity entity = p.getEntity();
 			if (entity == null ) return false;
@@ -246,7 +246,7 @@ public class GenerateSparql {
 			if (entity.getModifizers() != null ) {
 				for (DGNode node : entity.getModifizers()) {
 					if (this.meWrapper.getDepGraph().isSuperModifier(node)) {
-						logger.info("Modify Node : " + node.toString());
+						logger.debug("Modify Node : " + node.toString());
 //						String abj = stems[idx];
 						String abj = node.stem;
 						String var = getLiteralVar(o);
@@ -281,7 +281,7 @@ public class GenerateSparql {
 		if (ontology.isLiteralClass(object) 
 				&& schemaGraph.isComparableProperty(subject, property)) {
 			int begin = p.getEntity().getBegin();
-			logger.info("p entity : " + p.getEntity());
+			logger.debug("p entity : " + p.getEntity());
 			int idx = begin - 1;
 //			SemanticNode smtcNode  = (SemanticNode)tEntity.getPathNode().getNode();
 //			if (( !tEntity.getPathNode().isSemanticEdge()) && ( smtcNode.existsSuperModifer("JJS") || smtcNode.existsSuperModifer("RBS") )) { //idx1 > sEnd && tags[idx1].equals("RBS")
@@ -407,7 +407,7 @@ public class GenerateSparql {
 				triple += " " + t + " ";
 			}
 			triple += " }";
-			logger.info("Notno modifier : " + triple);
+			logger.debug("Notno modifier : " + triple);
 		}
 		else {
 			String subject = getName(s);
@@ -471,7 +471,7 @@ public class GenerateSparql {
 	
 	public String getName(Resource r) {		
 		String uri = shortenUri(r.getURI());
-		logger.info("uri : " + uri);
+		logger.debug("uri : " + uri);
 		return uri;
 	}
 	
@@ -601,11 +601,11 @@ public class GenerateSparql {
 //		int tBegin = tEntity.getBegin();
 //		int idx1 = tBegin - 1;
 
-		logger.info("@handleMaxOrMinCount : s:  " + s.toString() + "\tt : " + t.toString()); 
+		logger.debug("@handleMaxOrMinCount : s:  " + s.toString() + "\tt : " + t.toString()); 
 		// Handle query like "the state borders the most states".
 		if (tEntity.getModifizers() == null )
 			return false;
-		logger.info("modifier : " + StringUtils.join(tEntity.getModifizers()));
+		logger.debug("modifier : " + StringUtils.join(tEntity.getModifizers()));
 		for (DGNode node : tEntity.getModifizers()) {
 			if (this.meWrapper.getDepGraph().isSuperModifier(node) && node.word.toLowerCase().equals("most")) { //idx1 > sEnd && tags[idx1].equals("RBS")
 				//String abj = stems[idx1];
@@ -705,8 +705,8 @@ public class GenerateSparql {
 			return sparql;
 		}
 		
-		logger.info("query graph : <--" + graph.toString() + "-->"); //debug
-		logger.info("schema Graph : <--" + schemaGraph.toString() + "-->"); // debug
+		logger.debug("query graph : <--" + graph.toString() + "-->"); //debug
+		logger.debug("schema Graph : <--" + schemaGraph.toString() + "-->"); // debug
 		
 		
 		initData();
@@ -721,7 +721,7 @@ public class GenerateSparql {
 		if (handleMaxOrMin(cur)) {
 			generateSubQuery(cur);
 		}
-		logger.info("cur : " + cur.toString());
+		logger.debug("cur : " + cur.toString());
 		QueryEdge preEdge = null;
 		while (!cur.equals(source)) {
 			Set<QueryEdge> edges = graph.edgesOf(cur);
@@ -730,14 +730,14 @@ public class GenerateSparql {
 					
 					QueryNode other = otherVertex(graph, edge, cur);
 					
-					logger.info("other: " + other + ", cur: " + cur);
+					logger.debug("other: " + other + ", cur: " + cur);
 					
 					QueryNode s = graph.getEdgeSource(edge);
 					QueryNode t = graph.getEdgeTarget(edge);
 					PropertyNode p = edge.getPropertyNode();
-					logger.info("s : " + s.toString()); // debug
-					logger.info("p : " + p.toString());
-					logger.info("t : " + t.toString());
+					logger.debug("s : " + s.toString()); // debug
+					logger.debug("p : " + p.toString());
+					logger.debug("t : " + t.toString());
 					if (!edge.isReverse()) {
 						generate(s, p, t);
 						// Handles query like "what state has the smallest area ?"
