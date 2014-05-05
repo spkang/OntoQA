@@ -44,18 +44,34 @@ public class StanfordParser {
 	
 	private static Logger logger = Logger.getLogger(StanfordParser.class);
 	private static final String ENGLISH_MODEL_PATH = "english.parser.model.path";
-	
+	private static final String CHINESE_MODEL_PATH = "chinese.parser.model.path";
 	private Configuration config = null;
 	private LexicalizedParser lparser = null;
 	//private static StanfordTagger tagger = StanfordTagger.getInstance();
+	
+	// 是不是中文的parser
+	private boolean isChinese = false;
 	
 	/**
 	 * constructor of StanfordParser
 	 */
 	public StanfordParser () {
+		this(false);
+	}
+	
+	
+	/**
+	 * 根据输入的布尔变量来判断生成英文的parser还是中文的parser
+	 *
+	 * @param boolean isChinese, 是否是中文的parser， 默认是英文的parser
+	 * @return 
+	 */
+	public StanfordParser (boolean isChinese ) {
+		this.isChinese = isChinese;
 		initConfig ();
 		lparser = loadLexicalizedParser ();
 	}
+	
 	
 	/**
 	 * get an instance of LexicalizedParser 
@@ -87,9 +103,16 @@ public class StanfordParser {
 	 */
 	public LexicalizedParser loadLexicalizedParser () {
 		if ( lparser == null ) {
-			String modelPath = config.getString( ENGLISH_MODEL_PATH );
+			String modelPath = "";
+			if (this.isChinese) {
+				modelPath = config.getString( this.CHINESE_MODEL_PATH );
+			}
+			else {
+				modelPath = config.getString( this.ENGLISH_MODEL_PATH );
+			}
 			logger.info("modelPath : " + modelPath);
 			lparser = LexicalizedParser.loadModel(modelPath);
+			
 		}
 		return lparser;
 	}
@@ -194,8 +217,9 @@ public class StanfordParser {
 	
 	public static void main (String [] args) {
 		logger.info("In main function");
-		StanfordParser parser = new StanfordParser ();
-		String sentence = "how many states does the colorado_river flow through ?";
+		StanfordParser parser = new StanfordParser (true);
+		//String sentence = "how many states does the colorado_river flow through ?";
+		String sentence = "刘德华 有 哪些 专辑";
 //		String sentence = "What states border texas?";
 		List<CoreLabel> tokens = parser.tokenizerString(sentence);
 		for (CoreLabel cl : tokens ) {
