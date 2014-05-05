@@ -368,10 +368,10 @@ public class DependencyGraph {
 			String reln = td.reln().toString().toLowerCase();
 			if (reln.equals("root")) {
 				this.rootIndex = td.dep().index() - 1;
-				logger.info("relations : " + td.toString());
+				//logger.info("relations : " + td.toString());
 				continue;
 			}
-			logger.info("relations : " + td.toString());
+			//logger.info("relations : " + td.toString());
 			Integer govIdx = td.gov().index() - 1;
 			Integer depIdx = td.dep().index() - 1;
 			DGNode gov = new DGNode(getVertexNode(govIdx));
@@ -895,6 +895,7 @@ public class DependencyGraph {
 			return null;
 		DGNode nsubjNode = null;
 		DGNode objNode = null;
+		boolean dobjFlag = false;
 		for (DGNode node : linkedWords) {
 			if (node.tag.toUpperCase().startsWith(this.NOUN)) {
 				//nsubj
@@ -905,9 +906,15 @@ public class DependencyGraph {
 				else if (this.graph[pos][node.idx] != null && this.graph[node.idx][pos].isDirected && this.graph[node.idx][pos].reln.toLowerCase().equals("rcmod")) {
 					objNode = node;
 				}
+				// handle : which states have cities named austin ?
+				else if (this.graph[pos][node.idx] != null && this.graph[pos][node.idx].isDirected && this.graph[pos][node.idx].reln.toLowerCase().equals("dobj")) {
+					objNode = node;
+					dobjFlag = true;
+				}
 				// dep : handle how many states does the mississippi river run through ?
 				else if (this.graph[pos][node.idx] != null && this.graph[pos][node.idx].isDirected && this.graph[pos][node.idx].reln.toLowerCase().equals("dep")) {
-					objNode = node;
+					if (!dobjFlag)
+						objNode = node;
 				}
 			}
 			else if (node.tag.toUpperCase ().startsWith(this.IN)) {
@@ -921,8 +928,8 @@ public class DependencyGraph {
 				}
  			}
 			// 及时停止循环
-			if (nsubjNode != null && objNode != null )
-				break;
+			//if (nsubjNode != null && objNode != null )
+				//break;
 		}
 		if (nsubjNode != null && objNode != null ) {
 			List<DGNode> subobjNodes = new ArrayList<DGNode>();
