@@ -709,7 +709,7 @@ public class EntityMatcherEngine {
 				List<Entity> tmpEntityList = new ArrayList<Entity> (node.matchedEntitySet);
 //				System.out.println ("inState : " + tmpEntityList.get(0));
 				if (tmpEntityList.get(0).getResource().equals(ontology.getResource("http://ir.hit.edu/nli/geo/inState"))){
-					System.out.println ("inState : " + tmpEntityList.get(0));
+					//System.out.println ("inState : " + tmpEntityList.get(0));
 					int i = node.idx - 1;
 					while (i >= 0) {
 						if (queryNodes.get(i).matchedEntitySet != null && !queryNodes.get(i).matchedEntitySet.isEmpty()) {
