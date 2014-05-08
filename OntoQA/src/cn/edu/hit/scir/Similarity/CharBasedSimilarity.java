@@ -3,7 +3,7 @@ package cn.edu.hit.scir.Similarity;
 import java.util.ArrayList;
 import java.util.List;
 
-import ruc.irm.similarity.Similaritable;
+
 
 
 /**
