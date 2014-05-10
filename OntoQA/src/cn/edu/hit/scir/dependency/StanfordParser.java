@@ -9,6 +9,7 @@ package cn.edu.hit.scir.dependency;
 
 import java.io.StringReader;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 import org.apache.commons.configuration.Configuration;
@@ -32,6 +33,8 @@ import edu.stanford.nlp.trees.Tree;
 import edu.stanford.nlp.trees.TreePrint;
 import edu.stanford.nlp.trees.TreebankLanguagePack;
 import edu.stanford.nlp.trees.TypedDependency;
+import edu.stanford.nlp.trees.international.pennchinese.ChineseGrammaticalStructure;
+import edu.stanford.nlp.trees.international.pennchinese.ChineseTreebankLanguagePack;
 
 /**
  * this class is a package for StanfordParser
@@ -205,6 +208,19 @@ public class StanfordParser {
 //		
 //	}
 	
+	public List<TypedDependency> getChineseDependency (List<? extends HasWord> words) {
+		if (words == null || words.isEmpty())
+			return null;
+		if (lparser == null ) 
+			lparser = loadLexicalizedParser();
+		Tree parseTree = lparser.apply(words);
+		ChineseTreebankLanguagePack tlp = new ChineseTreebankLanguagePack();
+	    //GrammaticalStructureFactory gsf = tlp.grammaticalStructureFactory();
+	    ChineseGrammaticalStructure gs = new ChineseGrammaticalStructure(parseTree);
+	    List<TypedDependency> tdl = new ArrayList<TypedDependency>(gs.typedDependencies());
+	    return tdl;
+	}
+	
 	/**
 	 * print the tree
 	 * 	
@@ -219,14 +235,16 @@ public class StanfordParser {
 		logger.info("In main function");
 		StanfordParser parser = new StanfordParser (true);
 		//String sentence = "how many states does the colorado_river flow through ?";
-		String sentence = "刘德华 有 哪些 专辑";
+		//String sentence = "刘德华 的 专辑 忘不了 是 什么 时候 发行 的";
+//		String sentence = "王菲 的 哪个 专辑 包含 的 歌曲 最 多";
+		String sentence = "我们是一家人 属于 谁 的 专辑 ";
 //		String sentence = "What states border texas?";
 		List<CoreLabel> tokens = parser.tokenizerString(sentence);
 		for (CoreLabel cl : tokens ) {
 			logger.info(cl.value());
 		}
 		
-		List<TypedDependency> dependency = parser.getTypedDependencies(tokens);
+		List<TypedDependency> dependency = parser.getChineseDependency(tokens);
 		for (TypedDependency td : dependency ) {
 			logger.info(td.toString() + " -> " + td.gov().taggedLabeledYield()  + " -> "  + td.dep().taggedLabeledYield());
 		}
@@ -237,7 +255,7 @@ public class StanfordParser {
 			logger.info("taggedWords : " + tw.toString());
 		}
 		
-		Tree treeParser = parser.getLexicalizedParser().apply(tokens);
-		parser.printTree(treeParser);
+		/*Tree treeParser = parser.getLexicalizedParser().apply(tokens);
+		parser.printTree(treeParser);*/
 	}
 }
