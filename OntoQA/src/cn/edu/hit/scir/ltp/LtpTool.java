@@ -68,5 +68,8 @@ public interface LtpTool {
 	 */
 	public List<String> ltpSegmentTag (String sentence);
 	
+	public String analyze (String sentence);
+	public String analyze (String sentence, boolean xmlInput);
+	
 }
 

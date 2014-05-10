@@ -3,9 +3,17 @@ package cn.edu.hit.scir.ltp;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.io.StringWriter;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.transform.Transformer;
+import javax.xml.transform.TransformerFactory;
+import javax.xml.transform.dom.DOMSource;
+import javax.xml.transform.stream.StreamResult;
 
 import org.apache.commons.configuration.Configuration;
 import org.apache.commons.configuration.ConfigurationException;
@@ -21,6 +29,7 @@ import org.dom4j.Attribute;
 import org.dom4j.Document;
 import org.dom4j.DocumentException;
 import org.dom4j.DocumentHelper;
+import org.w3c.dom.Element;
 
 import cn.edu.hit.ir.util.ConfigUtil;
 
@@ -28,10 +37,10 @@ public class LtpUtil implements LtpTool {
 	private static LtpUtil m_instance;
 	
 	private CloseableHttpClient m_httpClient; 	//client to do the POST request
-	private static final String LTP_HOST = "ltp.host";
-	private static final String LTP_PORT = "ltp.port";
-	private static final String LTP_PATH = "ltp.path";
-	private static final String LTP_CACHHE_SIZE = "ltp.cache.size"; 
+	private final String LTP_HOST = "ltp.host";
+	private final String LTP_PORT = "ltp.port";
+	private final String LTP_PATH = "ltp.path";
+	private final String LTP_CACHHE_SIZE = "ltp.cache.size"; 
 
 	private String m_ltpHost; 					//LTP部署的位置
 	private String m_ltpPort;					//LTP服务器的端口号
@@ -105,15 +114,47 @@ public class LtpUtil implements LtpTool {
 		return m_ltpHost + ":" + m_ltpPort + "/" + m_ltpPath;
 	}
 	
+	@Override
+	public String analyze (String sentence) {
+		return analyze (sentence, "pos", false, "utf-8");
+	}
+	
+	public String analyze (String sentence, String task) {
+		return analyze (sentence, task, false, "utf-8");
+	} 
+	
+	public String analyze (String sentence, String task, boolean xmlInput) {
+		return analyze (sentence, task, xmlInput, "utf-8");
+	}
+	
+	@Override
+	public String analyze (String sentence, boolean xmlInput) {
+		return analyze (sentence, "dp", xmlInput, "utf-8");
+	}
+	
 	/**
 	 * 调用LTP分析句子
-	 * @param sentence，待分析的句子
+	 * @param content，待分析的句子
+	 * @param task : 分析的任务 : 用以指明分析目标，
+	 * 		task 可以为
+	 * 			分词			ws
+	 * 			词性标注		pos
+	 * 			命名实体识别	ner
+	 * 			依存句法分析	dp
+	 * 			语义角色标注	srl
+	 * 			或者全部任务	all
+	 * 
+	 * @param xmlInput :  指定输入的内容是句子还是xml
+	 * @param encoding : 指定编码
 	 * @return LTP分析结果，字符串形式的XML
 	 */
-	private String analyze(String sentence){
-		String cacheResult = getFromCache(sentence);
-		if(null != cacheResult){	//sentence analysis result is in cache
-			return cacheResult;
+	
+	public String analyze(String content, String task, boolean xmlInput, String encoding){
+		if (!xmlInput) {
+			String cacheResult = getFromCache(content);
+			if(null != cacheResult){	//sentence analysis result is in cache
+				return cacheResult;
+			}
 		}
 		
 		//else, call LTP server to analyze the sentence, and put the result to cache
@@ -122,10 +163,13 @@ public class LtpUtil implements LtpTool {
 		post.addHeader("User-Agent", "Mozilla/5.0");
 		
 		List<NameValuePair> urlParams = new ArrayList<NameValuePair>();
-		urlParams.add(new BasicNameValuePair("t", "pos"));
-		urlParams.add(new BasicNameValuePair("s", sentence));
-		urlParams.add(new BasicNameValuePair("x", "n"));
-		
+		urlParams.add(new BasicNameValuePair("t", task));
+		urlParams.add(new BasicNameValuePair("s", content));
+		if (!xmlInput)
+			urlParams.add(new BasicNameValuePair("x", "n"));
+		else 
+			urlParams.add(new BasicNameValuePair("x", "y"));
+		urlParams.add(new BasicNameValuePair("c", encoding));
 		StringBuffer result = new StringBuffer();
 		
 		try{
@@ -147,10 +191,87 @@ public class LtpUtil implements LtpTool {
 		catch(IOException e){
 			e.printStackTrace();
 		}
-
-		putToCache(sentence, result.toString());
+		if (!xmlInput)
+		putToCache(content, result.toString());
 		return result.toString();
 	}
+	
+	
+	/**
+	 *  根据句子、词、词性来构造一个xml字符串，根据该函数可以将修改词性后的xml内容传递给ltp，来获得更改词性后的依存分析结果
+	 * 
+	 * @param line, 句子的内容
+	 * @param words, 句子经过分词后的结果
+	 * @param tags, 每个词的词性
+	 * @return String 能够被ltp接受的xml格式的字符串
+	 */
+	private String buildLTMLFromWords(String line,List<String> words, List<String> tags)  {
+        try {
+            DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+            DocumentBuilder builder = factory.newDocumentBuilder();
+            org.w3c.dom.Document document = builder.newDocument();
+
+            Element xml4nlp = document.createElement("xml4nlp");
+            document.appendChild(xml4nlp);
+
+            Element note = document.createElement("note");
+            note.setAttribute("sent",   "y");
+            note.setAttribute("word",   "y");
+            note.setAttribute("pos",    "y");
+            note.setAttribute("ne",     "n");
+            note.setAttribute("parser", "n");
+            note.setAttribute("srl",    "n");
+            xml4nlp.appendChild(note);
+
+            Element doc = document.createElement("doc");
+            xml4nlp.appendChild(doc);
+
+            Element para = document.createElement("para");
+            para.setAttribute("id", "0");
+            doc.appendChild(para);
+
+            int sentId = 0;
+            Element sent = document.createElement("sent");
+            sent.setAttribute("id", String.valueOf(sentId));
+            sent.setAttribute("cont", line.replaceAll(" ", ""));
+            para.appendChild(sent);
+
+            for (int i = 0; i < words.size(); ++ i) {
+                Element word = document.createElement("word");
+
+                StringBuilder sb = new StringBuilder();
+                sb.append(i);
+                word.setAttribute("id",   sb.toString());
+                word.setAttribute("cont", words.get(i)); 
+                word.setAttribute("pos",  tags.get(i));
+                sent.appendChild(word);
+                
+               /* if(words[i].equals("。")||words[i].equals("！"))
+                {
+                	sentId++;
+                	sent = document.createElement("sent");
+                    sent.setAttribute("id", String.valueOf(sentId));
+                    para.appendChild(sent);
+                }*/
+            }
+
+            StringWriter xmlResultResource = new StringWriter();
+
+            Transformer transformer =
+                TransformerFactory.newInstance().newTransformer();
+
+            transformer.transform(
+                    new DOMSource(document),
+                    new StreamResult(xmlResultResource)
+                    );
+
+            return xmlResultResource.getBuffer().toString();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return null;
+    }
 	
 	/**
 	 * 缓存LTP分析结果
@@ -236,6 +357,7 @@ public class LtpUtil implements LtpTool {
 	 * TODO 简单描述该方法的实现功能（可选）.
 	 * @see test.LtpTool#ltpSegment(java.lang.String)
 	 */
+	@Override
 	public List<String> ltpSegment (String sentence) {
 		return this.wordSegment(sentence);
 	}
@@ -244,6 +366,7 @@ public class LtpUtil implements LtpTool {
 	 * TODO 简单描述该方法的实现功能（可选）.
 	 * @see test.LtpTool#ltpTag(java.lang.String)
 	 */
+	@Override
 	public List<String> ltpTag (String sentence) {
 		return this.posTag(sentence);
 	}
@@ -252,6 +375,7 @@ public class LtpUtil implements LtpTool {
 	 * TODO 简单描述该方法的实现功能（可选）.
 	 * @see test.LtpTool#ltpSegmentTag(java.lang.String)
 	 */
+	@Override
 	public List<String> ltpSegmentTag (String sentence) {
 		List<String> seg = this.wordSegment(sentence);
 		List<String> tag = this.posTag(sentence);
@@ -263,4 +387,7 @@ public class LtpUtil implements LtpTool {
 		}
 		return segTag;
 	}
+	
+	
+	
 }
