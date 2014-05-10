@@ -58,7 +58,8 @@ public class JenaTest {
 	}
 	@Test
 	public void testReadYuetanRDF () {
-		String testRDFFileName = DATA_DIR + "yuetanSong.rdf";
+		//String testRDFFileName = DATA_DIR + "yuetanSong.rdf";
+		String testRDFFileName = DATA_DIR + "yuetanAll1.rdf";
 		System.out.println ("@testReadYuetanSongRdf");
 		jena.read(testRDFFileName);
 		testSearch("大海");

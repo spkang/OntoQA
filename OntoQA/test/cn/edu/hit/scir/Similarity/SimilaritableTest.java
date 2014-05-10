@@ -22,7 +22,7 @@ public class SimilaritableTest {
 	public void test() {
 		System.out.println (sim.getSimilarity("中国", "美国"));
 		System.out.println (sim.getSimilarity("中国", "国家"));
-		System.out.println (sim.getSimilarity("中国", "日本"));
+		System.out.println (sim.getSimilarity("天秤座", "星座"));
 	}
 
 }

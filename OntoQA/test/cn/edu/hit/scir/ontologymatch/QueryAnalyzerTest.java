@@ -52,10 +52,11 @@ public class QueryAnalyzerTest {
 		queryAnalyzer("which capitals are not major cities ?");
 		queryAnalyzer ("which states border no other states ?");
 		queryAnalyzer ("which states does not border texas ?");*/
-		queryAnalyzer("which rivers do not run through usa ?");
-		queryAnalyzer("which rivers do not run through texas ?");
-		queryAnalyzer("what is the longest river in the state with the highest point ?");
-		queryAnalyzer("which states have cities named austin ?");
+//		queryAnalyzer("which rivers do not run through usa ?");
+//		queryAnalyzer("which rivers do not run through texas ?");
+//		queryAnalyzer("what is the longest river in the state with the highest point ?");
+//		queryAnalyzer("which states have cities named austin ?");
+		queryAnalyzer("how many rivers do not traverse the state with the capital albany ?");
 	}
 	
 	public boolean isEqual (String query ) {

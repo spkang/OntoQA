@@ -192,7 +192,7 @@ public class OntologyTest {
 		assertEquals(null, texasProperty);	// TODO
 	}
 	
-//	@Test
+	@Test
 	public void testReadChineseRdf () {
 		System.out.println ("@testReadChineseRdf");
 
