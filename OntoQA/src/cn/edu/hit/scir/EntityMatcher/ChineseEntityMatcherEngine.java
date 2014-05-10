@@ -7,18 +7,24 @@
 package cn.edu.hit.scir.EntityMatcher;
 
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
 
+import cn.edu.hit.ir.dict.ChineseSynonym;
 import cn.edu.hit.ir.dict.Entity;
 import cn.edu.hit.ir.dict.MatchedEntity;
 import cn.edu.hit.ir.dict.StringToEntitiesMap;
+import cn.edu.hit.ir.dict.Synonym;
 import cn.edu.hit.ir.ontology.Ontology;
+import cn.edu.hit.ir.util.Util;
 import cn.edu.hit.scir.ChineseQuery.ChineseQueryNormalizer;
-
-import com.hp.hpl.jena.rdf.model.RDFNode;
+import cn.edu.hit.scir.Similarity.CharBasedSimilarity;
+import cn.edu.hit.scir.Similarity.Similaritable;
 
 /**
  *  匹配中文问题中的实体
@@ -37,10 +43,12 @@ public class ChineseEntityMatcherEngine {
 	private final int MAX_MATCH_LENGTH = 8;
 	
 	private Ontology ontology = null;
+	private Synonym synonym = ChineseSynonym.getInstance ();
 	
 	// label －> Resource 
 	private StringToEntitiesMap s2eMap;
 	
+	private Similaritable sim = new CharBasedSimilarity ();
 	
 	private List<List<MatchedEntity>> matchedQuery = null;
 	
@@ -86,16 +94,28 @@ public class ChineseEntityMatcherEngine {
 	 * @return The matched entities
 	 */
 	public List<MatchedEntity> getMatchedEntities(Set<Entity> entities,
-			String phrase, double score, int begin, int numTokens) {
+			String phrase, int begin, int numTokens) {
 		List<MatchedEntity> mes = new ArrayList<MatchedEntity>();
+		
 		if (entities != null) {
 			for (Entity entity : entities) {
-				MatchedEntity me = new MatchedEntity(entity, phrase, score,
+				MatchedEntity me = new MatchedEntity(entity, phrase, sim.getSimilarity(phrase, Util.lastWord(entity.getResource())),
 						begin, numTokens);
 				mes.add(me);
 			}
 		}
 		return mes;
+	}
+	
+	public Set<Entity> getEntities(Collection<String> phrasees) {
+		Set<Entity> entities = new HashSet<Entity>();
+		for (String p : phrasees) {
+			Set<Entity> set = s2eMap.get(p);
+			if (set != null) {
+				entities.addAll(set);
+			}
+		}
+		return entities;
 	}
 	
 	/**
@@ -106,9 +126,10 @@ public class ChineseEntityMatcherEngine {
 	 */
 	private void matcher (String query) {
 		logger.info("query : " + query);
-//		for (int i = 0; i < query.length(); ++i ) {
-//			this.matchedQuery.add(new ArrayList<MatchedEntity>());
-//		}
+		this.matchedQuery.clear();
+		for (int i = 0; i < query.length(); ++i ) {
+			this.matchedQuery.add(new ArrayList<MatchedEntity>());
+		}
 		List<List<Entity>> matchedEntity = new ArrayList<List<Entity>> ();
 		int begin = 0, end = 0;
 		String subStr = "";
@@ -117,10 +138,24 @@ public class ChineseEntityMatcherEngine {
 				end = Math.min(query.length(), begin + j);
 				subStr = query.substring(begin, end);
 				Set<Entity> meSet = this.s2eMap.get(subStr);
-				if (meSet != null ) {
+				Set<String> subStrSynSet = synonym.getSet(subStr);
+				
+				Set<Entity> meSynSet = getEntities(subStrSynSet);
+				
+				if (meSet != null && !meSet.isEmpty()) {
+					List<MatchedEntity> mes = getMatchedEntities (meSet, subStr, begin, end - begin);
+					this.matchedQuery.set(begin, mes);
 					List<Entity> meList = new ArrayList<Entity>(meSet);
 					matchedEntity.add (meList);
-					begin = end - 1;
+					//begin = end - 1;
+					break;
+				}
+				else if (meSynSet != null && !meSynSet.isEmpty()){
+					//logger.info("syn  " + StringUtils.join(subStrSynSet, ", "));
+					//logger.info("synEntity  " + StringUtils.join(meSynSet, ", "));
+					List<MatchedEntity> mes = getMatchedEntities (meSynSet, subStr, begin, end - begin);
+					//logger.info("synMes  " + StringUtils.join(mes, ", "));
+					this.matchedQuery.set(begin, mes);
 					break;
 				}
 				
@@ -139,5 +174,18 @@ public class ChineseEntityMatcherEngine {
 				logger.info("e : " + e.toString());
 			}
 		}
+		
+		for (List<MatchedEntity> mes : this.matchedQuery) {
+			logger.info("mes : " + StringUtils.join (mes, ", "));
+		}
+		
+	}
+
+	public List<List<MatchedEntity>> getMatchedQuery() {
+		return matchedQuery;
+	}
+
+	public void setMatchedQuery(List<List<MatchedEntity>> matchedQuery) {
+		this.matchedQuery = matchedQuery;
 	}
 }
