@@ -392,9 +392,13 @@ public class GenerateSparql {
 			List<String> object = getNotNoName(o);
 			String sub = "";
 			String obj = "";
+			logger.info("s : " + s);
+			logger.info("p : " + p);
+			logger.info("o : " + o);
 			sub = subject.get(subject.size()-1);
 			subject.remove(subject.size()-1);
 			obj = object.get(object.size()-1);
+			
 			object.remove(object.size()-1);
 			
 			for (String t : subject) {
@@ -444,11 +448,12 @@ public class GenerateSparql {
 				String triple = name + " a " + c + " .";
 				//name = triple + " # " + name;
 				res.add(triple);
-				res.add(name);
+				
 				// sparql.addWhere(triple); 
 				
 				//handleMaxOrMin(node);
 			}
+			res.add(name);
 			return res;
 		// if it's a instance
 		} else {
@@ -463,8 +468,9 @@ public class GenerateSparql {
 				String c = getName(node.getSchemaResource());
 				res.add(name + " " + "a" + " " + c + " .");
 				//sparql.addWhere(name, "a", c);
-				res.add(name);
+				
 			}
+			res.add(name);
 			return res;
 		}
 	}
