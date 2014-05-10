@@ -30,11 +30,12 @@ import cn.edu.hit.scir.ontologymatch.QueryAnalyzer;
 
 public class Evaluator {
 
-	public static final String corpusFilename = CorpusTool.DATA_DIR + "corpus.xml";
+	//public static final String corpusFilename = CorpusTool.DATA_DIR + "corpus.xml";
 	//public static final String corpusFilename = CorpusTool.DATA_DIR + "small_corpus.xml";
-	public static final String outputFilename = CorpusTool.DATA_DIR + "output_spkang.xml";
-	public static final String wrongFilename = CorpusTool.DATA_DIR + "wrong_spkang.xml";
-	public static final String sparqloutFilename = CorpusTool.DATA_DIR + "sparql_out_spkang.xml";
+	public static final String corpusFilename = CorpusTool.DATA_DIR + "sparql_all.xml";
+	public static final String outputFilename = CorpusTool.DATA_DIR + "output_spkang_all.xml";
+	public static final String wrongFilename = CorpusTool.DATA_DIR + "wrong_spkang_all.xml";
+	public static final String sparqloutFilename = CorpusTool.DATA_DIR + "sparql_out_spkang_all.xml";
 	
 	private static Logger logger = Logger.getLogger(Evaluator.class);
 	
