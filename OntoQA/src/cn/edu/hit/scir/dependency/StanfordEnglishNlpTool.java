@@ -108,7 +108,7 @@ public class StanfordEnglishNlpTool implements StanfordNlpTool {
 	 * @see cn.edu.hit.scir.dependency.StanfordNlpTool#defaultTag(java.util.List)
 	 */
 	@Override
-	public String[] defaultTag (List<CoreLabel> tokens) {
+	public String[] defaultTag ( List<CoreLabel> tokens) {
 		if (tokens == null)
 			return null;
 		List<TaggedWord> taggedWords = parser.getTaggedWords(tokens); 
