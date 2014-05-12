@@ -51,6 +51,10 @@ public class ChineseEntityMatcherEngine {
 	private Similaritable sim = new CharBasedSimilarity ();
 	
 	private List<List<MatchedEntity>> matchedQuery = null;
+	private List<String> matchedWords = null;
+	
+	private String orgQuery = null;
+	private String processedQuery = null;
 	
 	private ChineseEntityMatcherEngine () {
 		initData ();
@@ -67,6 +71,7 @@ public class ChineseEntityMatcherEngine {
 		s2eMap = new StringToEntitiesMap();
 		s2eMap.indexOntology(ontology);
 		this.matchedQuery = new ArrayList<List<MatchedEntity>> ();
+		this.matchedWords = new ArrayList<String> ();
 	}
 
 	public StringToEntitiesMap getS2EMap () {
@@ -82,7 +87,12 @@ public class ChineseEntityMatcherEngine {
 	public void queryEntityMatcher (String orgQuery ) {
 		if (orgQuery == null || orgQuery.isEmpty() )
 			return ;
+		setOrgQuery (orgQuery); // set the origin query
+		
 		String query = this.queryNormalizer.removePunctuation(orgQuery);
+		
+		setProcessedQuery (query); // set the processed query
+		
 		matcher(query);
 	} 
 	
@@ -143,6 +153,7 @@ public class ChineseEntityMatcherEngine {
 				Set<Entity> meSynSet = getEntities(subStrSynSet);
 				
 				if (meSet != null && !meSet.isEmpty()) {
+					this.matchedWords.add (subStr);
 					List<MatchedEntity> mes = getMatchedEntities (meSet, subStr, begin, end - begin);
 					this.matchedQuery.set(begin, mes);
 					List<Entity> meList = new ArrayList<Entity>(meSet);
@@ -153,6 +164,7 @@ public class ChineseEntityMatcherEngine {
 				else if (meSynSet != null && !meSynSet.isEmpty()){
 					//logger.info("syn  " + StringUtils.join(subStrSynSet, ", "));
 					//logger.info("synEntity  " + StringUtils.join(meSynSet, ", "));
+					this.matchedWords.add (subStr);
 					List<MatchedEntity> mes = getMatchedEntities (meSynSet, subStr, begin, end - begin);
 					//logger.info("synMes  " + StringUtils.join(mes, ", "));
 					this.matchedQuery.set(begin, mes);
@@ -168,17 +180,6 @@ public class ChineseEntityMatcherEngine {
 				}
 			}
 		}
-		for (List<Entity> eLst : matchedEntity) {
-			logger.info("me:  ");
-			for (Entity e : eLst) {
-				logger.info("e : " + e.toString());
-			}
-		}
-		
-		for (List<MatchedEntity> mes : this.matchedQuery) {
-			logger.info("mes : " + StringUtils.join (mes, ", "));
-		}
-		
 	}
 
 	public List<List<MatchedEntity>> getMatchedQuery() {
@@ -187,5 +188,29 @@ public class ChineseEntityMatcherEngine {
 
 	public void setMatchedQuery(List<List<MatchedEntity>> matchedQuery) {
 		this.matchedQuery = matchedQuery;
+	}
+
+	public String getOrgQuery() {
+		return orgQuery;
+	}
+
+	public void setOrgQuery(String orgQuery) {
+		this.orgQuery = orgQuery;
+	}
+
+	public String getProcessedQuery() {
+		return processedQuery;
+	}
+
+	public void setProcessedQuery(String processedQuery) {
+		this.processedQuery = processedQuery;
+	}
+
+	public List<String> getMatchedWords() {
+		return matchedWords;
+	}
+
+	public void setMatchedWords(List<String> matchedWords) {
+		this.matchedWords = matchedWords;
 	}
 }
