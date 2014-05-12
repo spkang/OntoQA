@@ -128,14 +128,12 @@ public interface StanfordNlpTool {
 	 */
 	public List<TypedDependency> typedDependenciesCCprocessed(List<? extends HasWord> taggedWords);
 	
-	
 	/**
 	 * using the tagged words to get the typed dependencies which not CCprocessed
 	 *
 	 * @param words, the taggedwords
 	 * @return List<TypedDependency> 
 	 */
-	public List<TypedDependency> typedDependencies (List<? extends HasWord> taggedWords); 
-
+	public List<TypedDependency> typedDependencies (List<? extends HasWord> taggedWords);
 	
 }
