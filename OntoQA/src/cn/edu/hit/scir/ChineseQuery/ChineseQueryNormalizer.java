@@ -28,7 +28,7 @@ public class ChineseQueryNormalizer {
 	public String removePunctuation (String query) {
 		if (query == null || query.isEmpty() )
 			return null;
-		query = query.replaceAll("[?？。.，，!！“”\" ]", "");
+		query = query.replaceAll("[?？？。.，，!！“”\" <>《》]", "");
 		return query;
 	}
 }
