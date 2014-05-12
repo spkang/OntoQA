@@ -103,7 +103,6 @@ public class DependencyGraph {
 		this.orgQuestion = orgQuestion;
 		
 		initGraph(tool);
-		
 	}
 	
 	
