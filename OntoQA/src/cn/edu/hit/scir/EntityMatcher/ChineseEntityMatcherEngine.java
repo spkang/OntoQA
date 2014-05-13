@@ -154,18 +154,18 @@ public class ChineseEntityMatcherEngine {
 				
 				if (meSet != null && !meSet.isEmpty()) {
 					this.matchedWords.add (subStr);
-					List<MatchedEntity> mes = getMatchedEntities (meSet, subStr, begin, end - begin);
+					List<MatchedEntity> mes = getMatchedEntities (meSet, subStr, begin, 1);
 					this.matchedQuery.set(begin, mes);
 					List<Entity> meList = new ArrayList<Entity>(meSet);
 					matchedEntity.add (meList);
-					//begin = end - 1;
+					begin = end - 1;
 					break;
 				}
 				else if (meSynSet != null && !meSynSet.isEmpty()){
 					//logger.info("syn  " + StringUtils.join(subStrSynSet, ", "));
 					//logger.info("synEntity  " + StringUtils.join(meSynSet, ", "));
 					this.matchedWords.add (subStr);
-					List<MatchedEntity> mes = getMatchedEntities (meSynSet, subStr, begin, end - begin);
+					List<MatchedEntity> mes = getMatchedEntities (meSynSet, subStr, begin, 1);
 					//logger.info("synMes  " + StringUtils.join(mes, ", "));
 					this.matchedQuery.set(begin, mes);
 					break;

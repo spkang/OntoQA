@@ -13,6 +13,7 @@ import java.util.Set;
 
 import org.apache.commons.lang.StringUtils;
 
+import cn.edu.hit.ir.dict.MatchedEntity;
 import cn.edu.hit.scir.ltp.LtpTool;
 import cn.edu.hit.scir.ltp.LtpUtil;
 
@@ -38,6 +39,7 @@ public class ChineseQuerySegment {
 	// words 经过matchedEntityWord合并后的结果
 	private List<String> mergedWords = null;
 	
+	// 利用合并后的结果  空格链接起来的查询
 	private String mergedQuery = null;
 	
 	/**
@@ -57,13 +59,35 @@ public class ChineseQuerySegment {
 		// segment words 
 		this.words = tool.ltpSegment(emEngine.getProcessedQuery());
 		
-		mergeWords();
+		splitWord(); // 切分
+		
+		mergeWords(); // 合并
 		
 		mergedQuery ();
 		
+		reSetMatchedEntitiesBegin();
 	}
 	
-	
+	/**
+	 * 根据合并分词后的结果对匹配的实体的begin信息进行更新
+	 *
+	 * @param 
+	 * @return void 
+	 */
+	private void reSetMatchedEntitiesBegin () {
+		int index = 0;
+		String word = "";
+		for (int i = 0; i < this.mergedWords.size(); ++i ) {
+			word = this.mergedWords.get(i);
+			List<MatchedEntity> mes = this.emEngine.getMatchedQuery().get(index);
+			if (mes != null && !mes.isEmpty() && word.equals(mes.get(0).getQuery())) {
+				for (int j = 0; j < mes.size(); ++j ) {
+					this.emEngine.getMatchedQuery().get(index).get(j).setBegin(i);
+				}
+			}
+			index += word.length();
+		}
+	}
 
 	/**
 	 * 分词结果和实体匹配结果进行合并
@@ -71,7 +95,7 @@ public class ChineseQuerySegment {
 	 * @param 
 	 * @return void 
 	 */
-	public void mergeWords () {
+	private void mergeWords () {
 		this.mergedWords = new ArrayList<String> ();
 		Set<String> matchedSet = new HashSet<String>(this.matchedEntityWord);
 		String tmpWord = "";
@@ -92,6 +116,37 @@ public class ChineseQuerySegment {
 			}
 			++i;
 		}
+	}
+	
+	/**
+	 * 该函数主要功能是对像匹配的实体是分词的一部分的情况进行切分
+	 * like : 张信哲发行了多少张专辑 －》 张信哲 发行 了 多少 张专辑 ————》 这句话分词有错误，但是我们可以通过这个函数把“张专辑” 切分开
+	 * 
+	 * @param 
+	 * @return void 
+	 */
+	public void splitWord () {
+		for (String wd : this.matchedEntityWord) {
+			for (int i = 0; i < words.size(); ++i ) {
+				String tmpWord = words.get(i);
+				if (tmpWord.indexOf(wd) != -1 && !tmpWord.equals(wd)) {
+					if (tmpWord.startsWith(wd)) {
+						words.set(i, wd);
+						words.add(i + 1, tmpWord.replaceAll(wd, ""));
+					}
+					else if (tmpWord.endsWith(wd)) {
+						words.set(i, tmpWord.replaceAll(wd, ""));
+						words.add(i + 1, wd);
+					}
+					else {
+						words.set(i, tmpWord.substring(0, tmpWord.indexOf(wd)));
+						words.add(i+1, wd);
+						words.add(i+2, tmpWord.substring(tmpWord.indexOf(wd) + wd.length(), tmpWord.length()));
+					}
+				}
+				
+			}
+		} 
 	}
 	
 	/**
@@ -145,5 +200,13 @@ public class ChineseQuerySegment {
 
 	public void setWords(List<String> words) {
 		this.words = words;
+	}
+
+	public ChineseEntityMatcherEngine getEmEngine() {
+		return emEngine;
+	}
+
+	public void setEmEngine(ChineseEntityMatcherEngine emEngine) {
+		this.emEngine = emEngine;
 	}
 }

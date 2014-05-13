@@ -9,6 +9,7 @@ package cn.edu.hit.scir.EntityMatcher;
 import java.util.List;
 
 import cn.edu.hit.ir.dict.MatchedEntity;
+import cn.edu.hit.scir.dependency.ChineseStanfordBasedGraph;
 
 /**
  * 中文匹配实体的容器	 
@@ -19,8 +20,9 @@ import cn.edu.hit.ir.dict.MatchedEntity;
  * @date 2014年5月8日 
  */
 public class ChineseQueryMatchedEntityWrapper {
-	private List<List<MatchedEntity>> orgMatchedQuery = null;
-	private List<List<MatchedEntity>> mergedQuery = null;
+	private List<List<MatchedEntity>> orgMatchedQuery = null; // 原始匹配的实体
+	private List<List<MatchedEntity>> mergedQuery = null;    // 经过整理的实体
+	private ChineseStanfordBasedGraph cnStnfdBsdGraph = null; // 中文的基于stanford的依存图
 	
 	private ChineseEntityMatcherEngine cqmEngine = ChineseEntityMatcherEngine.getInstance();
 	
