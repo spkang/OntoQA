@@ -169,5 +169,27 @@ public class ChineseBasedGraph {
 			return null;
 		return this.vertexs.get(index);
 	}
+
+	
+
+	public List<ChineseWord> getVertexs() {
+		return vertexs;
+	}
+
+
+	public void setVertexs(List<ChineseWord> vertexs) {
+		this.vertexs = vertexs;
+	}
+
+
+	public int getGraphSize() {
+		return graphSize;
+	}
+
+	@Override
+	public String toString() {
+		return "ChineseBasedGraph [vertexs=" + vertexs + ", graph=" + graph
+				+ ", graphSize=" + graphSize + "]";
+	}
 	
 }
