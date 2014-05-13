@@ -19,15 +19,23 @@ public class ChineseWord {
 	public int idx = 0; // 这个词在句子中的位置
 	public int wordBegin = -1;  // 这个词在句子中的开始位置
 	public int wordEnd = -1;    // 这个词在句子中的结束位置
-	public ChineseWord (String word, String tag, int idx, int wordBegin, int wordEnd ) {
+	public int prevIndex = -1;  // 用于实体合并
+	public int nextIndex = -1;  // 用于实体合并
+	
+	
+	public ChineseWord (String word, String tag, int idx, int wordBegin, int wordEnd) {
+		this(word, tag, idx, wordBegin, wordEnd, -1, -1);
+	}
+	
+	public ChineseWord (String word, String tag, int idx, int wordBegin, int wordEnd, int prevIndex, int nextIndex) {
 		this.word = word;
 		this.tag = tag;
 		this.idx = idx;
 		this.wordBegin = wordBegin;
 		this.wordEnd = wordEnd;
+		this.prevIndex = prevIndex;
+		this.nextIndex = nextIndex;
 	}
-	
-	
 	
 	@Override
 	public int hashCode() {
@@ -40,8 +48,6 @@ public class ChineseWord {
 		result = prime * result + wordEnd;
 		return result;
 	}
-
-
 
 	@Override
 	public boolean equals(Object obj) {
@@ -71,12 +77,10 @@ public class ChineseWord {
 		return true;
 	}
 
-
-
 	@Override
 	public String toString() {
-		return "ChineseWord [word=" + word + ", tag=" + tag + ", idx=" + idx
-				+ ", wordBegin=" + wordBegin + ", wordEnd=" + wordEnd + "]";
+		return "ChineseWord [" + word + " " + tag + " " + idx
+				+ " " + wordBegin + " " + wordEnd
+				+ " " + prevIndex + " " + nextIndex + "]";
 	}
-	
 }

@@ -17,6 +17,8 @@ import org.apache.commons.configuration.ConfigurationException;
 import org.apache.commons.configuration.PropertiesConfiguration;
 import org.apache.log4j.Logger;
 
+import com.chaoticity.dependensee.Main;
+
 import cn.edu.hit.ir.util.ConfigUtil;
 import edu.stanford.nlp.ling.CoreLabel;
 import edu.stanford.nlp.ling.HasWord;
@@ -231,6 +233,32 @@ public class StanfordParser {
 		tp.printTree(tree);
 	}
 	
+	public void generatePicture (List<? extends HasWord> words, String picName) {
+		if (lparser == null ) 
+			lparser = loadLexicalizedParser();
+		
+		try {
+			if (this.isChinese) { // 中文的可视化存在问题
+				Tree parseTree = lparser.apply(words);
+				ChineseTreebankLanguagePack tlp = new ChineseTreebankLanguagePack();
+			    ChineseGrammaticalStructure gs = new ChineseGrammaticalStructure(parseTree);
+			    List<TypedDependency> tdl = new ArrayList<TypedDependency>(gs.typedDependencies());
+			    Main.writeImage(parseTree, tdl, picName, 3);
+			}
+			else {
+				Tree parse = lparser.apply(words);
+				TreebankLanguagePack tlp = new PennTreebankLanguagePack ();
+				GrammaticalStructureFactory gsf  = tlp.grammaticalStructureFactory();
+				GrammaticalStructure gs = gsf.newGrammaticalStructure(parse);
+				List<TypedDependency> tdl = new ArrayList<TypedDependency>(gs.typedDependencies());
+				Main.writeImage(parse, tdl, picName, 3);
+			}
+		}
+		catch (Exception ex ) {
+			ex.printStackTrace();
+		}
+	}
+	
 	public static void main (String [] args) {
 		logger.info("In main function");
 		StanfordParser parser = new StanfordParser (true);
@@ -254,7 +282,7 @@ public class StanfordParser {
 		for (TaggedWord tw : taggedWords ) {
 			logger.info("taggedWords : " + tw.toString());
 		}
-		
+		//parser.generatePicture(tokens, "./data/output/chinesePic.png");
 		/*Tree treeParser = parser.getLexicalizedParser().apply(tokens);
 		parser.printTree(treeParser);*/
 	}
