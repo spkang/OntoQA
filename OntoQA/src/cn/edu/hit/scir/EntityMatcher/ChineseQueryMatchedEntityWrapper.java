@@ -6,10 +6,12 @@
  */
 package cn.edu.hit.scir.EntityMatcher;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import cn.edu.hit.ir.dict.MatchedEntity;
 import cn.edu.hit.scir.dependency.ChineseStanfordBasedGraph;
+import cn.edu.hit.scir.dependency.ChineseWord;
 
 /**
  * 中文匹配实体的容器	 
@@ -21,10 +23,10 @@ import cn.edu.hit.scir.dependency.ChineseStanfordBasedGraph;
  */
 public class ChineseQueryMatchedEntityWrapper {
 	private List<List<MatchedEntity>> orgMatchedQuery = null; // 原始匹配的实体
-	private List<List<MatchedEntity>> mergedQuery = null;    // 经过整理的实体
-	private ChineseStanfordBasedGraph cnStnfdBsdGraph = null; // 中文的基于stanford的依存图
+	private List<List<MatchedEntity>> matchedQueryWrapper = null;    // 经过整理的实体
+	private ChineseStanfordBasedGraph cnStanfordBasedGraph = null; // 中文的基于stanford的依存图
 	
-	private ChineseEntityMatcherEngine cqmEngine = ChineseEntityMatcherEngine.getInstance();
+	//private ChineseEntityMatcherEngine cqmEngine = ChineseEntityMatcherEngine.getInstance();
 	
 	/**
 	 * wrapper 构造函数， 对输入的query进行实体匹配
@@ -37,8 +39,25 @@ public class ChineseQueryMatchedEntityWrapper {
 	}
 	
 	private void initResource (String query ) {
-		cqmEngine.queryEntityMatcher(query);
-		this.orgMatchedQuery = cqmEngine.getMatchedQuery();
+//		cqmEngine.queryEntityMatcher(query);
+//		this.orgMatchedQuery = cqmEngine.getMatchedQuery();
+		this.cnStanfordBasedGraph = new ChineseStanfordBasedGraph (query);
+		this.orgMatchedQuery = this.cnStanfordBasedGraph.getQueryWordMatchedEntities();
+		this.matchedQueryWrapper = new ArrayList<List<MatchedEntity>> ();
+		extractMatchedQueryWrapper();
+	}
+	
+	private void extractMatchedQueryWrapper () {
+		this.matchedQueryWrapper.clear();
+		List<ChineseWord> queryWord = this.cnStanfordBasedGraph.getCnBasedGraph().getVertexs();
+		for (int i = 0; i < this.orgMatchedQuery.size(); ++i ) {
+			List<MatchedEntity> mes = this.orgMatchedQuery.get(i);
+			if (mes == null || mes.isEmpty())
+				continue;
+			if (queryWord.get(i).prevIndex == -1) {
+				this.matchedQueryWrapper.add(new ArrayList<MatchedEntity>(mes)); 
+			}
+		}
 	}
 
 	public List<List<MatchedEntity>> getOrgMatchedQuery() {
@@ -50,15 +69,15 @@ public class ChineseQueryMatchedEntityWrapper {
 	}
 
 	public List<List<MatchedEntity>> getMergedQuery() {
-		return mergedQuery;
+		return matchedQueryWrapper;
 	}
 
-	public void setMergedQuery(List<List<MatchedEntity>> mergedQuery) {
-		this.mergedQuery = mergedQuery;
+	public void setMergedQuery(List<List<MatchedEntity>> matchedQueryWrapper) {
+		this.matchedQueryWrapper = matchedQueryWrapper;
 	}
 	
 	public boolean isIndexLegal (int index ) {
-		if (index < 0 || index >= this.mergedQuery.size())
+		if (index < 0 || index >= this.matchedQueryWrapper.size())
 			return false;
 		return true;
 	}
@@ -77,7 +96,7 @@ public class ChineseQueryMatchedEntityWrapper {
 	
 	public List<MatchedEntity> getEntities (int index ) {
 		if (isIndexLegal (index)) {
-			return this.mergedQuery.get(index);
+			return this.matchedQueryWrapper.get(index);
 		}
 		return null;
 	} 

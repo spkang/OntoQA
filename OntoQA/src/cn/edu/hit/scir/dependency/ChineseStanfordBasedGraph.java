@@ -7,6 +7,8 @@
 package cn.edu.hit.scir.dependency;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 import org.apache.commons.lang.StringUtils;
@@ -15,6 +17,7 @@ import org.apache.log4j.Logger;
 import cn.edu.hit.ir.dict.MatchedEntity;
 import cn.edu.hit.ir.ontology.Ontology;
 import cn.edu.hit.ir.ontology.RDFNodeType;
+import cn.edu.hit.scir.ChineseQuery.ChineseQueryDict;
 import cn.edu.hit.scir.EntityMatcher.ChineseQuerySegment;
 import edu.stanford.nlp.ling.CoreLabel;
 import edu.stanford.nlp.ling.TaggedWord;
@@ -40,6 +43,8 @@ public class ChineseStanfordBasedGraph {
 	// 用于实体合并
 	private  static Ontology ontology = Ontology.getInstance();
 	
+	// 疑问词典
+	private static ChineseQueryDict cnQueryDict = ChineseQueryDict.getInstance();
 	
 	// 用于存储最初匹配的到的实体
 	private List<List<MatchedEntity>> queryWordMatchedEntities = null;
@@ -80,7 +85,7 @@ public class ChineseStanfordBasedGraph {
 		List<GraphNode> graphNodeList = new ArrayList<GraphNode> ();
 		
 		for (TypedDependency td : typedDeps ) {
-			//logger.info ("relation : " + td.toString());
+			logger.info ("relation : " + td.toString());
 			if (td.reln().toString().toLowerCase().equals("root"))
 				continue;
 			int govIndex = td.gov().index() - 1;
@@ -94,10 +99,158 @@ public class ChineseStanfordBasedGraph {
 		mergeAdjoinEntities();
 		
 		mergeTopAttrEntities();
+		
+		tagSelectTarget();
+		
+//		logger.info("equal--------: " + (this.queryWordMatchedEntities.size() == this.querySeg.getMergedWords().size())  + "\t merged word size : " + this.querySeg.getMergedWords().size() + "\tmes size : " + this.queryWordMatchedEntities.size());
+//		logger.info ("word : " + StringUtils.join(this.querySeg.getMergedWords(), ", "));
+//		logger.info("mes : ");
+//		for (List<MatchedEntity> mes : this.queryWordMatchedEntities) {
+//			System.out.println ("me : " + StringUtils.join (mes, ", "));
+//		}
 	}
 	
 	
-	//private void 
+	/**
+	 * 根据疑问词对匹配的实体进行查询点标注
+	 *
+	 * @param 
+	 * @return void 
+	 */
+	private void tagSelectTarget () {
+		int queryWordIndex = -1;
+		for (int i = 0; i < this.querySeg.getMergedWords ().size(); ++i ) {
+			String word = this.querySeg.getMergedWords().get(i);
+			if (this.cnQueryDict.isInDict(word)) { // 找到疑问词
+				queryWordIndex = i;
+				break;
+			}
+		}
+		
+		if (queryWordIndex == -1) // 没有疑问词， 或者是疑问词被分词的时候切分了
+			return ;
+		
+		// 查找疑问词链接的实体
+		int lhs = queryWordIndex - 1;
+		int rhs = queryWordIndex + 1;
+		List<List<Integer>> allPath = new ArrayList<List<Integer>> ();
+		while (true) {
+			if (lhs >= 0 || rhs < this.queryWordMatchedEntities.size()) {
+				// 向疑问词的左边搜索
+				if (lhs >= 0) { 
+					List<Integer> subPath = this.cnBasedGraph.searchPath(queryWordIndex, lhs);
+					if (subPath != null && subPath.size () > 1) {
+						allPath.add(subPath);
+					}
+					--lhs;
+				}
+				// 向疑问词的右边搜索实体
+				if (rhs < this.queryWordMatchedEntities.size() ) {
+					List<Integer> subPath = this.cnBasedGraph.searchPath(queryWordIndex, rhs);
+					if (subPath != null && subPath.size () > 1) {
+						allPath.add(subPath);
+					}
+					++rhs;
+				}
+			}
+			else {
+				break;
+			}
+		}
+		
+		// 对搜索到的路径进行排序
+		Collections.sort(allPath, new Comparator () {
+			public int compare (Object o1, Object o2) {
+				List<Integer> path1 = (List<Integer>)o1;
+				List<Integer> path2 = (List<Integer>)o2;
+				return path1.size() - path2.size();
+			}
+		});
+		
+		for (List<Integer> path : allPath) {
+			// 疑问词<--det---实体
+			if ( this.queryWordMatchedEntities.get(path.get(path.size()-1)).isEmpty())
+				continue;
+			if (isSingleRelation (path, "det")) {
+				setQueryTarget (path.get(path.size()-1));
+//				logger.info("target-----------=======>>>>>>>>" + this.queryWordMatchedEntities.get(path.get(path.size()-1)));
+				break;
+			}
+			// 疑问词<--assmod---实体
+			else if (isSingleRelation (path, "assmod")) {
+				setQueryTarget (path.get(path.size()-1));
+//				logger.info("target-----------=======>>>>>>>>" + this.queryWordMatchedEntities.get(path.get(path.size()-1)));
+				break;
+			}
+			// 疑问词<--nummod---实体 like ： 多少专辑
+			else if (isSingleRelation(path, "nummod")) {
+				setQueryTarget (path.get(path.size()-1));
+//				logger.info("target-----------=======>>>>>>>>" + this.queryWordMatchedEntities.get(path.get(path.size()-1)));
+				break;
+			}
+			// 实体 <--top-- linker or holder---attr--> 疑问词
+			else if (isDoubleRelation (path, "top", "attr")) {
+				setQueryTarget (path.get(path.size()-1));
+//				logger.info("target-----------=======>>>>>>>>" + this.queryWordMatchedEntities.get(path.get(path.size()-1)));
+				break;
+			}
+			// 实体 <--top-- linker or holder---dobj--> 疑问词
+			else if (isDoubleRelation (path, "top", "dobj")) {
+				setQueryTarget (path.get(path.size()-1));
+//				logger.info("target-----------=======>>>>>>>>" + this.queryWordMatchedEntities.get(path.get(path.size()-1)));
+				break;
+			}
+		}
+		
+	}
+	
+	private void setQueryTarget (int matchedEntityIndex) {
+		if (matchedEntityIndex < 0 || matchedEntityIndex >= this.queryWordMatchedEntities.size()) 
+			return ;
+		for (MatchedEntity me : this.getQueryWordMatchedEntities().get(matchedEntityIndex)) {
+			me.setQueryTarget(true);
+		}
+	}
+	
+	
+	/**
+	 * 判断这个路径是不是 reln 链接的路径
+	 *
+	 * @param 链接路径(路径上只有两个节点)
+	 * @return boolean 
+	 */
+	private boolean isSingleRelation (List<Integer> path, final String reln) {
+		if (reln == null || path == null || path.size() != 2) return false;
+		List<String> relnPath = this.cnBasedGraph.searchRelationPath(path);
+		if (relnPath != null && relnPath.size() == 1) {
+			if (relnPath.get(0).toLowerCase().equals(reln.toLowerCase()))
+				return true;
+		}
+		return false;
+	}
+	
+	
+	/**
+	 * 判断一个路径上是不是只有两个特定的关系链接
+	 *
+	 * @param path,路径节点
+	 * @param lhsReln , one relation
+	 * @param rhsReln , one relation
+	 * @return boolean 
+	 */
+	private boolean isDoubleRelation (List<Integer> path, final String lhsReln, final String rhsReln) {
+		if (path == null || path.size() != 3) return false;
+		List<String> relnPath = this.cnBasedGraph.searchRelationPath(path);
+		if (relnPath != null && relnPath.size() > 1) {
+			if (relnPath.get(0).toLowerCase().equals(lhsReln.toLowerCase()) && relnPath.get(relnPath.size()-1).toLowerCase().equals(rhsReln.toLowerCase())) {
+				return true;
+			}
+			else if (relnPath.get(0).toLowerCase().equals(rhsReln.toLowerCase()) && relnPath.get(relnPath.size()-1).toLowerCase().equals(lhsReln.toLowerCase())) {
+				return true;
+			}
+		} 
+		return false;
+	} 
 	
 	
 	/**
@@ -260,6 +413,46 @@ public class ChineseStanfordBasedGraph {
 
 	public List<List<MatchedEntity>> getQueryWordMatchedEntities() {
 		return queryWordMatchedEntities;
+	}
+
+
+	public ChineseBasedGraph getCnBasedGraph() {
+		return cnBasedGraph;
+	}
+
+
+	public void setCnBasedGraph(ChineseBasedGraph cnBasedGraph) {
+		this.cnBasedGraph = cnBasedGraph;
+	}
+
+
+	public ChineseQuerySegment getQuerySeg() {
+		return querySeg;
+	}
+
+
+	public void setQuerySeg(ChineseQuerySegment querySeg) {
+		this.querySeg = querySeg;
+	}
+
+
+	public static Ontology getOntology() {
+		return ontology;
+	}
+
+
+	public static void setOntology(Ontology ontology) {
+		ChineseStanfordBasedGraph.ontology = ontology;
+	}
+
+
+	public static ChineseQueryDict getCnQueryDict() {
+		return cnQueryDict;
+	}
+
+
+	public static void setCnQueryDict(ChineseQueryDict cnQueryDict) {
+		ChineseStanfordBasedGraph.cnQueryDict = cnQueryDict;
 	}
 
 

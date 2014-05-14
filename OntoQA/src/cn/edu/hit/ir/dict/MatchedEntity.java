@@ -52,6 +52,8 @@ public class MatchedEntity extends Entity {
 	
 	private List<DGNode> modifiers = null; 
 	
+	// 是否是查询点－－》 中文中使用
+	private boolean isQueryTarget = false;
 	
 	/**
 	 * Creates a new instance of MatchedEntity.
@@ -165,9 +167,26 @@ public class MatchedEntity extends Entity {
 	}
 	
 	
-	
-	
-	
+	/**
+	 * 获得这个这个实体是否是查询点
+	 *
+	 * @param 
+	 * @return boolean 
+	 */
+	public boolean isQueryTarget() {
+		return isQueryTarget;
+	}
+
+	/**
+	 * 设定实体是否是查询点
+	 *
+	 * @param boolean 
+	 * @return void 
+	 */
+	public void setQueryTarget(boolean isQueryTarget) {
+		this.isQueryTarget = isQueryTarget;
+	}
+
 	/**
 	 * set the entity modifiers 
 	 * 
