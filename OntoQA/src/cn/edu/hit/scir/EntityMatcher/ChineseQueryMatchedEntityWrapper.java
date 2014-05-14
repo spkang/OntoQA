@@ -68,11 +68,11 @@ public class ChineseQueryMatchedEntityWrapper {
 		this.orgMatchedQuery = orgMatchedQuery;
 	}
 
-	public List<List<MatchedEntity>> getMergedQuery() {
+	public List<List<MatchedEntity>> getMatchedQueryWrapper() {
 		return matchedQueryWrapper;
 	}
 
-	public void setMergedQuery(List<List<MatchedEntity>> matchedQueryWrapper) {
+	public void setMatchedQueryWrapper(List<List<MatchedEntity>> matchedQueryWrapper) {
 		this.matchedQueryWrapper = matchedQueryWrapper;
 	}
 	
@@ -82,7 +82,7 @@ public class ChineseQueryMatchedEntityWrapper {
 		return true;
 	}
 	
-	public boolean hasNext (int index) {
+	public boolean hasNextIndex (int index) {
 		if (isIndexLegal (index))
 			return true;
 		return false;
@@ -94,6 +94,23 @@ public class ChineseQueryMatchedEntityWrapper {
 		return -1;
 	}
 	
+	public int getMatchedEntityWrapperSize () {
+		return this.matchedQueryWrapper.size();
+	}
+	
+	public boolean isCount () {
+		return false;
+	}
+	
+	public ChineseStanfordBasedGraph getCnStanfordBasedGraph() {
+		return cnStanfordBasedGraph;
+	}
+
+	public void setCnStanfordBasedGraph(
+			ChineseStanfordBasedGraph cnStanfordBasedGraph) {
+		this.cnStanfordBasedGraph = cnStanfordBasedGraph;
+	}
+
 	public List<MatchedEntity> getEntities (int index ) {
 		if (isIndexLegal (index)) {
 			return this.matchedQueryWrapper.get(index);

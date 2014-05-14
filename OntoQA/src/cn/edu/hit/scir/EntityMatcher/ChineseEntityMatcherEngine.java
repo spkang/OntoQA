@@ -119,9 +119,11 @@ public class ChineseEntityMatcherEngine {
 		
 		if (entities != null) {
 			for (Entity entity : entities) {
-				MatchedEntity me = new MatchedEntity(entity, phrase, sim.getSimilarity(phrase, Util.lastWord(entity.getResource())),
-						begin, numTokens);
-				mes.add(me);
+				double score = sim.getSimilarity(phrase, Util.lastWord(entity.getResource()));
+				if (score > 0) {
+					MatchedEntity me = new MatchedEntity(entity, phrase, score, begin, numTokens);
+					mes.add(me);
+				}
 			}
 		}
 		return mes;
