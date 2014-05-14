@@ -10,6 +10,7 @@ import java.util.List;
 
 import cn.edu.hit.ir.graph.QueryGraph;
 import cn.edu.hit.ir.ontology.Ontology;
+import cn.edu.hit.scir.EntityMatcher.ChineseQueryMatchedEntityWrapper;
 import cn.edu.hit.scir.EntityMatcher.QueryMatchedEntityWrapper;
 import cn.edu.hit.scir.ontologymatch.GenerateGraph;
 import cn.edu.hit.scir.ontologymatch.GenerateSparql;
@@ -22,49 +23,50 @@ import cn.edu.hit.scir.ontologymatch.GenerateSparql;
  */
 
 public class ChineseQueryAnalyzer {
-	private Ontology ontology = Ontology.getInstance();
-	private GenerateGraph generateGraph;
-	private GenerateSparql sparqlGenerator;
-	private QueryMatchedEntityWrapper queryMeWrapper = null;
+	private Ontology ontology;
+	private GenerateChineseGraph generateGraph;
+	private GenerateChineseSparql sparqlGenerator;
+	private ChineseQueryMatchedEntityWrapper queryMeWrapper = null;
+	
+	
 	public ChineseQueryAnalyzer () {
 		initResource ();
 	}
 	
-	public ChineseQueryAnalyzer (String sentence) {
-		queryMeWrapper = new QueryMatchedEntityWrapper (sentence);
-	}
-	
 	private void initResource  () {
-		generateGraph = new GenerateGraph (ontology);
-		sparqlGenerator = new GenerateSparql (ontology);
-		sparqlGenerator.addPrefix("http://ir.hit.edu/nli/geo/", "geo");
+		ontology = Ontology.getInstance();
+		ontology.setChinese(true);
+		
+		generateGraph = new GenerateChineseGraph (ontology);
+		sparqlGenerator = new GenerateChineseSparql (ontology);
+		sparqlGenerator.addPrefix("http://ir.hit.edu/nli/yuetan/", "yuetan");
 	}
 	
 	
-	public QueryMatchedEntityWrapper getQueryMatchedEntityWrapper (String sentence) {
+	public ChineseQueryMatchedEntityWrapper getChineseQueryMatchedEntityWrapper (String sentence) {
 		if (sentence == null ) return null;
-		queryMeWrapper = new QueryMatchedEntityWrapper (sentence); 
+		queryMeWrapper = new ChineseQueryMatchedEntityWrapper (sentence); 
 		System.out.println("query matched entity : " + queryMeWrapper.toString());
 		return queryMeWrapper;
 	}	
-	public GenerateGraph getGenerateGraph (String sentence) {
+	public GenerateChineseGraph getGenerateGraph (String sentence) {
 		if (sentence == null )
 			return null;
 		
-		queryMeWrapper = getQueryMatchedEntityWrapper (sentence);
+		queryMeWrapper = getChineseQueryMatchedEntityWrapper (sentence);
 		if (this.generateGraph == null )
-			this.generateGraph = new GenerateGraph (this.ontology);
+			this.generateGraph = new GenerateChineseGraph (this.ontology);
 		return this.generateGraph;
 	}
 	
-	public GenerateGraph getGenerateGraph () {
+	public GenerateChineseGraph getGenerateChineseGraph () {
 		return this.generateGraph;
 	}
 	
 	public QueryGraph getQueryGraph (String sentence) {
 		if (sentence == null )
 			return null;
-		return this.generateGraph.optionalMatch(this.getQueryMatchedEntityWrapper(sentence));
+		return this.generateGraph.optionalMatch(this.getChineseQueryMatchedEntityWrapper(sentence));
 	}
 
 	public String getSparql (String sentence ) {
@@ -74,7 +76,7 @@ public class ChineseQueryAnalyzer {
 		System.out.println ("queryGraph : " + queryGraph);
 		if (queryGraph == null )
 			return null;
-		return sparqlGenerator.generate(queryGraph,this.queryMeWrapper.getDepGraph().getVertexs(), this.queryMeWrapper);
+		return sparqlGenerator.generate(queryGraph,this.queryMeWrapper.getCnStanfordBasedGraph().getCnBasedGraph().getVertexs(), this.queryMeWrapper);
 	}
 	
 	public Object analyze(String question) {

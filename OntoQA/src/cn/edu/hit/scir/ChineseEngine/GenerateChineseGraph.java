@@ -26,7 +26,7 @@ import cn.edu.hit.ir.ontology.Ontology;
 import cn.edu.hit.ir.ontology.SchemaGraph;
 import cn.edu.hit.ir.util.ConfigUtil;
 import cn.edu.hit.ir.util.Util;
-import cn.edu.hit.scir.EntityMatcher.QueryMatchedEntityWrapper;
+import cn.edu.hit.scir.EntityMatcher.ChineseQueryMatchedEntityWrapper;
 
 
 import com.hp.hpl.jena.rdf.model.Resource;
@@ -61,9 +61,10 @@ public class GenerateChineseGraph {
 	private Ontology ontology;
 	private SchemaGraph schemaGraph;
 
-	private MatchedEntitiesSentence sentence;
+//	private MatchedEntitiesSentence sentence;
 	//private MatchedPath matchedPath;
-	private QueryMatchedEntityWrapper entityWrapper = null;
+//	private QueryMatchedEntityWrapper entityWrapper = null;
+	private ChineseQueryMatchedEntityWrapper entityWrapper = null;
 
 	private QueryGraph queryGraph;
 	private List<QueryGraph> graphs;
@@ -97,15 +98,12 @@ public class GenerateChineseGraph {
 		graphs = new ArrayList<QueryGraph>();
 	}
 
-	private void initData(MatchedEntitiesSentence sentence) {
-		this.sentence = sentence;
-	}
 
 //	private void initMatchedPath (MatchedPath matchedPath ) {
 //		this.matchedPath = matchedPath;
 //	}
 	
-	private void initMatchedEntityWrapper (QueryMatchedEntityWrapper wrapper ) {
+	private void initMatchedEntityWrapper (ChineseQueryMatchedEntityWrapper wrapper ) {
 		this.entityWrapper = wrapper;
 	}
 
@@ -155,7 +153,7 @@ public class GenerateChineseGraph {
 	}
 
 
-	public QueryGraph optionalMatch ( QueryMatchedEntityWrapper entityWrapper) {
+	public QueryGraph optionalMatch ( ChineseQueryMatchedEntityWrapper entityWrapper) {
 		if (entityWrapper == null)
 			return null;
 		
@@ -171,7 +169,6 @@ public class GenerateChineseGraph {
 
 		int index = 0;
 		logger.debug("@optionalMatch : index " + index);
-//		List<MatchedEntity> mes = matchedPath.getPathNodeMap().get(node);
 		List<MatchedEntity> mes = entityWrapper.getEntities(index);
 		for (MatchedEntity me : mes ) {
 			Resource mr = me.getResource();
@@ -193,6 +190,16 @@ public class GenerateChineseGraph {
 		}
 		Collections.sort(graphs);
 		QueryGraph queryGraph = graphs.size() > 0 ? graphs.get(0) : null;
+		if (queryGraph != null ) {
+			Set<QueryEdge> edgeSet = queryGraph.edgeSet();
+			Set<QueryNode> queryNode = queryGraph.vertexSet();
+			for (QueryEdge edge : edgeSet) {
+				logger.info("edge : " + edge.toString());
+			}
+			for (QueryNode node : queryNode ) {
+				logger.info("node : " + node.toString());
+			}
+		}
 		return queryGraph;
 	}
 	
@@ -203,7 +210,7 @@ public class GenerateChineseGraph {
 			return null;
 		}
 
-		initData(sentence);
+		//initData(sentence);
 
 		if (sentence.nextIndex(0) == -1) return null;
 
@@ -265,19 +272,12 @@ public class GenerateChineseGraph {
 		if (subjects == null && objects == null) return;
 		logger.debug("subjects of p : " + subjects.toString());
 		logger.debug("objects  of p : " + objects.toString());
-		//index = sentence.nextIndex(index);
-		//index = index + 1;
-		//index = entityWrapper.nextIndex(index);
 		logger.debug("@searchResource index : " + index);
-		//List<MatchedEntity> mes = sentence.getEntities(index);
-//		List<MatchedEntity> mes = matchedPath.getPathNodeMap().get(matchedPath.getPathNode(index));
 		List<MatchedEntity> mes = entityWrapper.getEntities(index);
 		for (MatchedEntity me : mes) {
 			Resource mr = me.getResource();
 			double meWeight = getResourceDistance(me.getDistance());
 			logger.debug("match entity me: " + me);
-//			int nextIndex = me.getEnd() + 1;
-//			int nextIndex = index + 1;
 			int nextIndex = entityWrapper.nextIndex(index);
 			logger.debug("@searchResource nextIndex : " + nextIndex);
 			if (me.isProperty()) {
