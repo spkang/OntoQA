@@ -7,6 +7,7 @@
 package cn.edu.hit.scir.dependency;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -21,6 +22,9 @@ public class ChineseBasedGraph {
 	private List<ChineseWord> vertexs  = null; // the vertex of the query
 	private List<List<GraphNode>> graph = null; // the dependency graph of the query
 	private int graphSize = -1; 
+	
+	private boolean [] visited;
+	
 	
 	public ChineseBasedGraph (List<ChineseWord> vertex, List<GraphNode> relations ) {
 		this.vertexs = vertex;
@@ -40,6 +44,7 @@ public class ChineseBasedGraph {
 		if (graphSize <= 0) 
 			return ;
 		this.graph = new ArrayList<List<GraphNode>> ();
+		this.visited = new boolean [this.graphSize + 1];
 		for (int i = 0; i < this.graphSize; ++i ) {
 			this.graph.add(new ArrayList<GraphNode>());
 			for (int j = 0; j < this.graphSize; ++j ) {
@@ -171,7 +176,90 @@ public class ChineseBasedGraph {
 	}
 
 	
+	/**
+	 * 深度优先查找两点之间的路径
+	 *
+	 * @param 
+	 * @return void 
+	 */
+	private void dfsShortestPath (int src, int des, List<Integer> path ) {
+		if (src ==  des) {
+			return ;
+		}
+		this.visited[src] = true;
+		for (int u = 0; u < this.graphSize; ++u) {
+			if ( src != u && this.getGraphNode(src, u) != null && this.getGraphNode(src, u).status && this.visited[u] == false) {
+				path.set(u, src);
+				dfsShortestPath (u, des, path);
+			}
+		}
+	} 
+	
+	/**
+	 * find the shortest path between src and des
+	 *
+	 * @param int src, the start point
+	 * @param int des, the destination point
+	 * @return List<Integer> the shortest path between src and des
+	 */
+	public List<Integer> searchPath (int src, int des ){
+		List<Integer> path = new ArrayList<Integer> ();
+		for (int i = 0; i < this.graphSize; ++i ) {
+			this.visited[i] =false;
+			path.add(0);
+		}
+		dfsShortestPath (src, des, path);
+		List<Integer> resPath = new ArrayList<Integer> ();
+		int pre = des;
+		resPath.add(des);
+		while (pre != src) {
+			pre = path.get(pre);
+			resPath.add(pre);
+		}
+		Collections.reverse(resPath);
+		return resPath;
+	}
+	
+	
+	/**
+	 * 返回src到des的路径上的关系列表
+	 *
+	 * @param src, the start point 
+	 * @param des, the end point
+	 * @return List<String> 
+	 */
+	public List<String> searchRelationPath ( int src, int des ) {
+		List<String> relnPath = new ArrayList<String>();
+		List<Integer> path = searchPath (src, des);
+		if (path == null || path.isEmpty() || path.size() < 2)
+			return null;
+		int index = 0;
+		while (index + 1 < path.size()) {
+			relnPath.add(this.getGraphNode(path.get(index), path.get(index + 1)).reln);
+			++index;
+		}
+		return relnPath;
+	}
 
+	
+	/**
+	 * 返回路径上的关系
+	 *
+	 * @param path, 路径
+	 * @return List<String> 
+	 */
+	public List<String> searchRelationPath (List<Integer> path) {
+		List<String> relnPath = new ArrayList<String>();
+		if (path == null || path.isEmpty() || path.size() < 2)
+			return null;
+		int index = 0;
+		while (index + 1 < path.size()) {
+			relnPath.add(this.getGraphNode(path.get(index), path.get(index + 1)).reln);
+			++index;
+		}
+		return relnPath;
+	}
+	
 	public List<ChineseWord> getVertexs() {
 		return vertexs;
 	}

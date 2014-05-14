@@ -102,6 +102,8 @@ public class ChineseQueryDict {
 	 * @return boolean 
 	 */
 	public boolean isInDict (String keyWord ) {
+		if (keyWord == null )
+			return false;
 		if (this.cnQueryDict.contains(keyWord))
 			return true;
 		return false;
@@ -115,6 +117,8 @@ public class ChineseQueryDict {
 	 * @return boolean 
 	 */
 	public boolean addToDict (String addWord) {
+		if (addWord == null )
+			return false;
 		if (this.cnQueryDict.contains(addWord))
 			return true;
 		else {
@@ -129,10 +133,28 @@ public class ChineseQueryDict {
 	 * @return boolean , is remove successfully
 	 */
 	public boolean removeFromDict (String removeWord) {
-		 if (this.cnQueryDict.contains(removeWord))
-			 return this.cnQueryDict.remove(removeWord);
-		 return false;
-	 }
+		if (removeWord == null )
+			return false;
+		if (this.cnQueryDict.contains(removeWord))
+			return this.cnQueryDict.remove(removeWord);
+		return false;
+	}
 	
 	
+	/**
+	 * 判断一个给定的句子是否包含疑问词
+	 *
+	 * @param sentence, 待检测的词
+	 * @return boolean 
+	 */
+	public boolean containsQueryWord (String sentence ) {
+		if (sentence == null )
+			return false;
+		for (String key : this.cnQueryDict) {
+			if (sentence.contains(key)) {
+				return true;
+			}
+		}
+		return false;
+	} 
 }

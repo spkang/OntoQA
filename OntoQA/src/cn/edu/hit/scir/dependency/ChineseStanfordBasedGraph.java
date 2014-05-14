@@ -42,10 +42,10 @@ public class ChineseStanfordBasedGraph {
 	
 	
 	// 用于存储最初匹配的到的实体
-	private List<List<MatchedEntity>> matchedEntities = null;
+	private List<List<MatchedEntity>> queryWordMatchedEntities = null;
 	
 	// 存储合并后的实体
-	private List<List<MatchedEntity>> mergedMatchedEntities = null;
+	//private List<List<MatchedEntity>> mergedMatchedEntities = null;
 	
 	private static Logger logger = Logger.getLogger(ChineseStanfordBasedGraph.class);
 	
@@ -53,12 +53,15 @@ public class ChineseStanfordBasedGraph {
 		initGraph (query);
 	}
 	
+	
 	private void initGraph (String query ) {
 		if (query == null )
 			return ;
 		if (parser == null )
 			this.parser = new StanfordParser (true); // 中文的parser
 		this.querySeg = new ChineseQuerySegment (query);
+		this.queryWordMatchedEntities = new ArrayList<List<MatchedEntity>>(this.querySeg.getEmEngine().getQueryWordMatchedEntities());
+		
 		List<CoreLabel> words =  this.parser.tokenizerString(this.querySeg.getMergedQuery());
 		List<TypedDependency> typedDeps = this.parser.getChineseDependency(words);
 		List<TaggedWord> taggedWds = this.parser.getTaggedWords(words);
@@ -67,16 +70,17 @@ public class ChineseStanfordBasedGraph {
 		for (TaggedWord tw : taggedWds ) {
 			end += tw.word().length();
 			chineseWordList.add (new ChineseWord (tw.word(), tw.tag(), idx, begin, end));
+			
 			++idx;
 			begin = end;
 		}
 		
-		//logger.info("chineseWordList : " + StringUtils.join(chineseWordList, ", "));
+		logger.info("chineseWordList : " + StringUtils.join(chineseWordList, ", "));
 		
 		List<GraphNode> graphNodeList = new ArrayList<GraphNode> ();
 		
 		for (TypedDependency td : typedDeps ) {
-			logger.info ("relation : " + td.toString());
+			//logger.info ("relation : " + td.toString());
 			if (td.reln().toString().toLowerCase().equals("root"))
 				continue;
 			int govIndex = td.gov().index() - 1;
@@ -86,10 +90,70 @@ public class ChineseStanfordBasedGraph {
 		//logger.info("GraphNodeList : " + StringUtils.join(graphNodeList, ", "));
 		
 		this.cnBasedGraph = new ChineseBasedGraph (chineseWordList, graphNodeList);
-		this.matchedEntities = this.querySeg.getEmEngine().getMatchedQuery();
 		
 		mergeAdjoinEntities();
 		
+		mergeTopAttrEntities();
+	}
+	
+	
+	//private void 
+	
+	
+	/**
+	 * 判断path之间连接的收拾top－attr关系
+	 *
+	 * @param 实体之间的路径
+	 * @return boolean 
+	 */
+	private boolean isTopAttrRellationOfPath (List<Integer> path ) {
+		if (path == null || path.size() != 3) return false;
+		List<String> relnPath = this.cnBasedGraph.searchRelationPath(path);
+		if (relnPath != null && relnPath.size() > 1) {
+			if (relnPath.get(0).toLowerCase().equals("top") && relnPath.get(relnPath.size()-1).toLowerCase().equals("attr")) {
+				return true;
+			}
+			else if (relnPath.get(0).toLowerCase().equals("attr") && relnPath.get(relnPath.size()-1).toLowerCase().equals("top")) {
+				return true;
+			}
+		} 
+		return false;
+	}
+	
+	/**
+	 * 对top attr的实体进行合并
+	 * like : 刘德华是哪里的歌手？
+	 * 	刘德华 <--top--是--attr-->歌手
+	 *
+	 * @param 
+	 * @return void 
+	 */
+	private void mergeTopAttrEntities () {
+		for (int i = 0; i < this.queryWordMatchedEntities.size (); ++i ) {
+			if (this.queryWordMatchedEntities.get(i) == null || this.queryWordMatchedEntities.get(i).isEmpty() || this.cnBasedGraph.getVertexs().get(i).prevIndex != -1)
+				continue;
+			for (int j = i + 1; j < this.queryWordMatchedEntities.size(); ++j ) {
+				if (this.queryWordMatchedEntities.get(j) == null || this.queryWordMatchedEntities.get(j).isEmpty() || this.cnBasedGraph.getVertexs().get(j).prevIndex != -1)
+					continue;
+				List<Integer> path = this.cnBasedGraph.searchPath(i, j);
+				if (isTopAttrRellationOfPath (path)) {
+					List<MatchedEntity> srcMes = this.queryWordMatchedEntities.get(i);
+					List<MatchedEntity> desMes = this.queryWordMatchedEntities.get(j);
+					
+					boolean stop = false;
+					for (int k = 0; k < srcMes.size() && !stop; ++k ) {
+						for (int m = 0; m  < desMes.size(); ++m ) {
+							if (merger (srcMes.get(k), desMes.get(m))) {
+								logger.info ("relation merged : " + srcMes.toString());
+								logger.info ("relation merged : " + desMes.toString());
+								stop = true;
+								break;
+							}
+						} 
+					}
+				}
+			}
+		}
 	}
 	
 	
@@ -100,21 +164,22 @@ public class ChineseStanfordBasedGraph {
 	 * @return void 
 	 */
 	public void  mergeAdjoinEntities () {
-		for (int i = 0; i < this.matchedEntities.size(); ++i) {
-			List<MatchedEntity> lhsMes = this.matchedEntities.get(i);
+		for (int i = 0; i < this.queryWordMatchedEntities.size(); ++i) {
+			List<MatchedEntity> lhsMes = this.queryWordMatchedEntities.get(i);
 			if (lhsMes == null || lhsMes.isEmpty() )
 				continue;
 			
 			//  查找下一非空的实体
 			int j = i + 1;
 			List<MatchedEntity> rhsMes = null;
-			while ( j < this.matchedEntities.size() ) {
-				rhsMes = matchedEntities.get(j);
+			while ( j < this.queryWordMatchedEntities.size() ) {
+				rhsMes = queryWordMatchedEntities.get(j);
 				if (rhsMes != null && !rhsMes.isEmpty() && this.cnBasedGraph.getVertex(rhsMes.get(0).getBegin()).prevIndex == -1)
 					break;
 				++j;
 			}
-			
+			if (rhsMes == null )
+				continue;
 			boolean stop = false;
 			for (int k = 0; k < lhsMes.size() && !stop; ++k ) {
 				for (int m = 0; m  < rhsMes.size(); ++m ) {
@@ -128,6 +193,14 @@ public class ChineseStanfordBasedGraph {
 	}
 	
 	
+	/**
+	 * 链接两个实体
+	 *
+	 * @param lhs, 第一个实体
+	 * @param rhs, 第二个实体
+	 * @param isLhsClass, 第一个实体是不是class
+	 * @return void 
+	 */
 	private void connectMatchedEntiies (MatchedEntity lhs, MatchedEntity rhs, boolean isLhsClass ) {
 //		String [] tokens = new String[this.querySeg.getMergedWords().size ()];
 //		this.querySeg.getMergedWords().toArray(tokens);
@@ -158,14 +231,18 @@ public class ChineseStanfordBasedGraph {
 		nextIndex = lhs.getBegin();
 		int t = 0;
 		while (nextIndex != -1) {
-			logger.info("nextIndex : " + nextIndex);
-			this.matchedEntities.get(nextIndex).clear();
-			this.matchedEntities.get(nextIndex).add(mergedEntity);
-			logger.info("querNodes get index : " + queryNodes.get(nextIndex).toString());
+			this.queryWordMatchedEntities.get(nextIndex).clear();
+			this.queryWordMatchedEntities.get(nextIndex).add(mergedEntity);
 			nextIndex = queryNodes.get(nextIndex).nextIndex;
 		}
 	}
 	
+	/**
+	 *  首先判断给定的两个实体能不能合并，如果可以合并，然后进行合并
+	 *
+	 * @param 
+	 * @return boolean 
+	 */
 	private boolean merger (MatchedEntity lhs, MatchedEntity rhs ) {
 		if (lhs == null || rhs == null )
 			return false;
@@ -179,6 +256,16 @@ public class ChineseStanfordBasedGraph {
 			return true;
 		}
 		return false;
+	}
+
+	public List<List<MatchedEntity>> getQueryWordMatchedEntities() {
+		return queryWordMatchedEntities;
+	}
+
+
+	public void setQueryWordMatchedEntities(
+			List<List<MatchedEntity>> queryWordMatchedEntities) {
+		this.queryWordMatchedEntities = queryWordMatchedEntities;
 	}
 
 	@Override

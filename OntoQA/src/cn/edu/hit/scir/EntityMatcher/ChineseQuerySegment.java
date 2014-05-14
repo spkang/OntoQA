@@ -17,6 +17,8 @@ import cn.edu.hit.ir.dict.MatchedEntity;
 import cn.edu.hit.scir.ltp.LtpTool;
 import cn.edu.hit.scir.ltp.LtpUtil;
 
+import com.hp.hpl.jena.rdf.model.Resource;
+
 /**
  * 根据实体匹配的结果和ltp分词的结果对
  *
@@ -32,6 +34,10 @@ public class ChineseQuerySegment {
 	private LtpTool tool = LtpUtil.getInstance();
 	// 最初分词结果
 	private List<String> words = null;
+	
+	
+	// 词性结果
+	private List<String> tags = null;
 	
 	// 最初实体匹配的字符串
 	private List<String> matchedEntityWord = null;
@@ -59,6 +65,12 @@ public class ChineseQuerySegment {
 		// segment words 
 		this.words = tool.ltpSegment(emEngine.getProcessedQuery());
 		
+		
+		// words tag
+		this.tags = tool.ltpTag(emEngine.getProcessedQuery());
+		
+		removeIllegallEntities(); // 去除噪声
+		
 		splitWord(); // 切分
 		
 		mergeWords(); // 合并
@@ -66,6 +78,32 @@ public class ChineseQuerySegment {
 		mergedQuery ();
 		
 		reSetMatchedEntitiesBegin();
+	}
+	
+	
+	/**
+	 * 对分词之后已经是人名的匹配的实体列表进行规整
+	 *
+	 * @param 
+	 * @return void 
+	 */
+	private void removeIllegallEntities () {
+		int index = 0;
+		Resource singer = this.emEngine.getOntology().getResource("http://ir.hit.edu/nli/yuetan/歌手");
+		for (int i = 0; i < this.words.size(); ++i ) {
+			String word = this.words.get(i);
+			List<MatchedEntity> mes = this.emEngine.getMatchedQuery().get(index);
+			if (mes != null && !mes.isEmpty() && word.equals(mes.get(0).getQuery()) && this.tags.get(i).toLowerCase().equals("nh")) { // person
+				for (int j = 0; j < mes.size(); ++j ) {
+					if (mes.get(j).isInstance() && !emEngine.getOntology().isInstanceOf(mes.get(j).getResource(), singer )) {
+						System.out.println("************remvoe me : " + mes.get(j).toString());
+						mes.remove(j);
+						--j;
+					}
+				}
+			}
+			index += word.length();
+		}
 	}
 	
 	/**
@@ -77,6 +115,7 @@ public class ChineseQuerySegment {
 	private void reSetMatchedEntitiesBegin () {
 		int index = 0;
 		String word = "";
+		List<List<MatchedEntity>> wordMatchedEntities = new ArrayList<List<MatchedEntity>>();
 		for (int i = 0; i < this.mergedWords.size(); ++i ) {
 			word = this.mergedWords.get(i);
 			List<MatchedEntity> mes = this.emEngine.getMatchedQuery().get(index);
@@ -84,10 +123,24 @@ public class ChineseQuerySegment {
 				for (int j = 0; j < mes.size(); ++j ) {
 					this.emEngine.getMatchedQuery().get(index).get(j).setBegin(i);
 				}
+				wordMatchedEntities.add(mes);
+			}
+			else {
+				wordMatchedEntities.add(new ArrayList<MatchedEntity>());
 			}
 			index += word.length();
 		}
+		
+		//System.out.println ("orgMatchedEntity" + StringUtils.join(this.emEngine.getMatchedQuery(), ", "));
+		//System.out.println ("orgMatchedEntity" + StringUtils.join(wordMatchedEntities, ", "));
+		
+		// 对ChineseEntityMatherEngine中的匹配实体列表进行设定
+		this.emEngine.setQueryWordMatchedEntities(wordMatchedEntities);
+		
 	}
+	
+
+	
 
 	/**
 	 * 分词结果和实体匹配结果进行合并
