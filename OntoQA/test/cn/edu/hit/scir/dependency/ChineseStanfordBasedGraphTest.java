@@ -49,10 +49,19 @@ public class ChineseStanfordBasedGraphTest {
 	@Test
 	public void test() throws Exception {
 		
-		testGraphBuild ("《拯救》是谁唱的");
-		testGraphBuild ("唱《心太软》的是谁");
-		testGraphBuild ("签约周杰伦的公司是哪个？");
-		batchFile ();
+//		testGraphBuild ("《拯救》是谁唱的");
+//		testGraphBuild ("唱《心太软》的是谁");
+//		testGraphBuild ("签约周杰伦的公司是哪个？");
+//		testGraphBuild ("天秤座的歌手有哪些？");
+		testGraphBuild ("刘德华是哪里的歌手");
+		testGraphBuild ("刘德华的专辑忘不了的是什么时候发行的");
+		testGraphBuild ("唱七里香的人是谁");
+		testGraphBuild ("孙燕姿在2009年后发行了多少专辑");
+		testGraphBuild ("陈奕迅即将发行的专辑的叫什么");
+		testGraphBuild ("浙江的歌手有哪些");
+		testGraphBuild ("吴莫愁是什么星座的");
+		testGraphBuild ("周杰伦的唱片公司叫什么");
+		//batchFile ();
 		
 	}
 	
@@ -61,7 +70,10 @@ public class ChineseStanfordBasedGraphTest {
 		for (List<MatchedEntity> mes : graph.getQueryWordMatchedEntities()) {
 			if (mes == null || mes.isEmpty() )
 				continue;
-			System.out.println(StringUtils.join(mes, ", "));
+//			System.out.println(StringUtils.join(mes, ", "));
+			for (MatchedEntity me : mes ) {
+				System.out.println ("isTarget : " + me.isQueryTarget() + "\t me : " + me.toString());
+			}
 		}
 		//System.out.println ("Graph : " + graph.toString());
 	}

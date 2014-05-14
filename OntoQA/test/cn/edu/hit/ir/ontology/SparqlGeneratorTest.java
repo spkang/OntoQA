@@ -177,7 +177,7 @@ public class SparqlGeneratorTest {
 		testQuery ("SELECT ?p WHERE { ?s geo:hasPopulation ?p . ?s geo:hasName \"new york\" .}");
 		testQuery ("SELECT ?p WHERE { ?s geo:hasPopulation ?p . ?s geo:hasName \"new york\" . ?s a geo:city .}");
 		testQuery ("SELECT ?p WHERE { ?s geo:hasPopulation ?p . ?s geo:hasName \"new york\" . ?s a geo:state .}");
-		testQuery("SELECT ?area WHERE {	?city rdf:type geo:city . ?city geo:hasArea ?area . ?city geo:hasName \"new york\" .}");
+		testQuery("SELECT ?area WHERE {	?城市 rdf:type geo:city . ?城市 geo:hasArea ?area . ?城市 geo:hasName \"new york\" .}");
 		// not 
 		testQuery("SELECT ?state2  WHERE { ?state rdf:type geo:state . ?state2 rdf:type geo:state . NOT EXISTS{?state2 geo:border ?state } ?state geo:hasName \"texas\" . }"); 
 	}
