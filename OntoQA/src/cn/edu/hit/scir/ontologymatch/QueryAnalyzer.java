@@ -28,9 +28,9 @@ public class QueryAnalyzer {
 		initResource ();
 	}
 	
-	public QueryAnalyzer (String sentence) {
-		queryMeWrapper = new QueryMatchedEntityWrapper (sentence);
-	}
+//	public QueryAnalyzer (String sentence) {
+//		queryMeWrapper = new QueryMatchedEntityWrapper (sentence);
+//	}
 	
 	private void initResource  () {
 		generateGraph = new GenerateGraph (ontology);
