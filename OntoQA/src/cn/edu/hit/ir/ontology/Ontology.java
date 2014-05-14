@@ -65,6 +65,11 @@ public class Ontology {
 	
 	public static final String DEFAULT_PREFIX = "PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>\nPREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>\nPREFIX geo: <http://ir.hit.edu/nli/geo/>\n";
 	
+	// 支持中文
+	public static final String YUETAN_PREFIX = "PREFIX  rdfs: <http://www.w3.org/2000/01/rdf-schema#>\nPREFIX  yuetan: <http://ir.hit.edu/nli/yuetan/>\nPREFIX  base: <http://ir.hit.edu/nli/>\nPREFIX  xsd:  <http://www.w3.org/2001/XMLSchema#>\nPREFIX  rdf:  <http://www.w3.org/1999/02/22-rdf-syntax-ns#>\n";
+	private boolean isChinese = false;
+	
+	
 	public static final String RDFS_LABEL = "rdfs:label";
 	
 	private String hasNameUri;
@@ -220,8 +225,19 @@ public class Ontology {
 		return nodeSet.toArray(RDF_NODES);
 	}
 	
+
+	public boolean isChinese() {
+		return isChinese;
+	}
+
+	public void setChinese(boolean isChinese) {
+		this.isChinese = isChinese;
+	}
+
 	// TODO
 	public String fixPrefix(String sparql) {
+		if (this.isChinese)
+			return this.YUETAN_PREFIX + sparql;
 		return DEFAULT_PREFIX + sparql;
 	}
 	
