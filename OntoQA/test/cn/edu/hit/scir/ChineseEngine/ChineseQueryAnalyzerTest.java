@@ -47,7 +47,7 @@ public class ChineseQueryAnalyzerTest {
 		int t = 0;
 		for (String line : lines ) {
 			queryAnalyzer(line);
-			if(++t > 1)
+			if(++t > 10)
 				break;
 		}
 	}
