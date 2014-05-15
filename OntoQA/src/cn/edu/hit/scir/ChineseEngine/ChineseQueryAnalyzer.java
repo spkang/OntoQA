@@ -8,12 +8,13 @@ package cn.edu.hit.scir.ChineseEngine;
 
 import java.util.List;
 
+import org.apache.log4j.Logger;
+
+import cn.edu.hit.ir.dict.MatchedEntity;
 import cn.edu.hit.ir.graph.QueryGraph;
 import cn.edu.hit.ir.ontology.Ontology;
 import cn.edu.hit.scir.EntityMatcher.ChineseQueryMatchedEntityWrapper;
-import cn.edu.hit.scir.EntityMatcher.QueryMatchedEntityWrapper;
-import cn.edu.hit.scir.ontologymatch.GenerateGraph;
-import cn.edu.hit.scir.ontologymatch.GenerateSparql;
+import edu.stanford.nlp.util.StringUtils;
 
 /**
  *
@@ -27,7 +28,7 @@ public class ChineseQueryAnalyzer {
 	private GenerateChineseGraph generateGraph;
 	private GenerateChineseSparql sparqlGenerator;
 	private ChineseQueryMatchedEntityWrapper queryMeWrapper = null;
-	
+	private static Logger logger = Logger.getLogger(ChineseQueryAnalyzer.class);
 	
 	public ChineseQueryAnalyzer () {
 		initResource ();
@@ -46,7 +47,10 @@ public class ChineseQueryAnalyzer {
 	public ChineseQueryMatchedEntityWrapper getChineseQueryMatchedEntityWrapper (String sentence) {
 		if (sentence == null ) return null;
 		queryMeWrapper = new ChineseQueryMatchedEntityWrapper (sentence); 
-		System.out.println("query matched entity : " + queryMeWrapper.toString());
+		logger.info("query matched entity : ");
+		for (List<MatchedEntity> mes : queryMeWrapper.getMatchedQueryWrapper()) {
+			logger.info("me : " + StringUtils.join(mes, ", "));
+		}
 		return queryMeWrapper;
 	}	
 	public GenerateChineseGraph getGenerateGraph (String sentence) {

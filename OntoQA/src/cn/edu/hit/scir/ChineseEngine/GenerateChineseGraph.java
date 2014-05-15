@@ -136,9 +136,18 @@ public class GenerateChineseGraph {
 
 	private QueryEdge pushEdge(QueryNode source, PropertyNode pNode,
 			QueryNode target, boolean isReverse) {
-		logger.debug("@pushEdge " + source + ", " + pNode + ", " + target + ", " + isReverse);	// debug
+		logger.info("@pushEdge " + source + ", " + pNode + ", " + target + ", " + isReverse);	// debug
 		if (isReverse) {
 			pNode.setWeight(pNode.getWeight() + reverseTripleDistance);
+		}
+		if (source.getEntity() != null && source.getEntity().isQueryTarget()) {
+			queryGraph.setSource(source);
+		}
+		else if (target.getEntity()!= null && target.getEntity().isQueryTarget()) {
+			queryGraph.setSource(target);
+		}
+		else if (pNode.getEntity() != null && pNode.getEntity().isQueryTarget()) {
+			queryGraph.setSource(target);
 		}
 		return queryGraph.pushEdge(source, pNode, target, isReverse);
 	}
@@ -148,7 +157,7 @@ public class GenerateChineseGraph {
 	}
 
 	private void searchEnding() {
-		logger.debug("@searchEnding queryGraph: " + queryGraph);	// debug
+		logger.info("@searchEnding queryGraph: " + queryGraph);	// debug
 		graphs.add((QueryGraph)queryGraph.clone());
 	}
 
