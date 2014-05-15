@@ -1,2 +1,0 @@
-data.dir = res/nlp/synonym/chinese
-data.files = ${data.dir}chinese.syn
