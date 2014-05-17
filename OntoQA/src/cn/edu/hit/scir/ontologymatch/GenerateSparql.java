@@ -74,7 +74,7 @@ public class GenerateSparql {
 		this.ontology = ontology;
 		schemaGraph = ontology.getSchemaGraph();
 		vocabulary = Vocabulary.getInstance();
-		
+		logger.info("schemaGraph : " + schemaGraph.toString());
 		prefixMap = new HashMap<String, String>();
 		nameSet = new HashSet<String>();
 		node2varMap = new HashMap<QueryNode, String>();

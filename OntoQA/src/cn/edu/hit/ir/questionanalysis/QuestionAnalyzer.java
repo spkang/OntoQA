@@ -9,6 +9,8 @@ package cn.edu.hit.ir.questionanalysis;
 
 import java.util.List;
 
+import org.apache.log4j.Logger;
+
 import cn.edu.hit.ir.dict.EntityMatcher;
 import cn.edu.hit.ir.dict.MatchedEntitiesSentence;
 import cn.edu.hit.ir.nlp.EnglishNlpTool;
@@ -39,6 +41,8 @@ public class QuestionAnalyzer {
 	private GraphSearcher graphSeracher;
 	private SparqlGenerator sparqlGenerator;
 
+	private static Logger logger = Logger.getLogger(QuestionAnalyzer.class);
+	
 	public QuestionAnalyzer() {
 		initResources();
 	}
@@ -46,6 +50,7 @@ public class QuestionAnalyzer {
 	void initResources() {
 		nlpTool = EnglishNlpTool.getInstance();
 		ontology = Ontology.getInstance();
+		ontology.setChinese(false);
 		
 		questionNormalizer = QuestionNormalizer.getInstance();
 		entityMatcher = new EntityMatcher();

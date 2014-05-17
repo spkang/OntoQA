@@ -25,8 +25,9 @@ import org.eclipse.jetty.server.handler.AbstractHandler;
 import org.eclipse.jetty.server.nio.SelectChannelConnector;
 
 import cn.edu.hit.ir.ontology.Ontology;
-import cn.edu.hit.ir.questionanalysis.QuestionAnalyzer;
 import cn.edu.hit.ir.util.ConfigUtil;
+import cn.edu.hit.ir.util.Util;
+import cn.edu.hit.scir.ChineseEngine.ChineseQueryAnalyzer;
 import cn.edu.hit.scir.ontologymatch.QueryAnalyzer;
 
 import com.hp.hpl.jena.rdf.model.RDFNode;
@@ -98,11 +99,13 @@ public class OntoQADemo {
 class OntoQAHandler extends AbstractHandler {
 	public static final String CMD_PARAMETER = "cmd";
 	public static final String QUERY_PARAMETER = "query";
+
 	
 	private static Logger logger = Logger.getLogger(OntoQADemo.class);
 	
 	//private QuestionAnalyzer analyzer; 
 	private QueryAnalyzer analyzer;
+	private ChineseQueryAnalyzer chineseAnalyzer;
 	private Ontology ontology;
 	
 	/**
@@ -113,11 +116,22 @@ class OntoQAHandler extends AbstractHandler {
 
 		//analyzer = new QuestionAnalyzer();
 		analyzer = new QueryAnalyzer();
+		chineseAnalyzer = new ChineseQueryAnalyzer();
 		ontology = Ontology.getInstance();
 	}
 	
-	private String getResult(String query) {
-		String sparql = analyzer.getSparql(query);
+	private String getResult(String query, boolean isChinese) {
+		//String sparql = analyzer.getSparql(query);
+		String sparql = "";
+		if (isChinese) {
+			ontology.setChinese(true);
+			sparql = chineseAnalyzer.getSparql(query);
+			
+		}
+		else {
+			ontology.setChinese(false);
+			sparql = analyzer.getSparql(query);
+		}
 		List<RDFNode> results = ontology.getResultNodes(sparql);
 		if (results != null && results.size() > 0) {
 			ResultTemplate template = new ResultTemplate(ontology);
@@ -143,8 +157,13 @@ class OntoQAHandler extends AbstractHandler {
 
 		String query = request.getParameter(QUERY_PARAMETER).trim();
 		logger.info("query: " + query);
+		boolean isChinese = false;
+		if (query != null && !query.isEmpty()) {
+			if (Util.isChinese(query)) 
+				isChinese = true;
+		}
 		
-		String result = getResult(query);
+		String result = getResult(query, isChinese);
 
 		logger.info("result: " + result);
 		
