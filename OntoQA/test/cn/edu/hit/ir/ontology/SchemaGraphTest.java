@@ -55,7 +55,7 @@ public class SchemaGraphTest {
 	public void tearDown() throws Exception {
 	}
 
-	@Test
+	//@Test
 	public void testSchemaGraph() {
 		System.out.println(schemaGraph);
 		Set<SchemaNode> nodes = graph.vertexSet();
@@ -64,6 +64,13 @@ public class SchemaGraphTest {
 	}
 	
 	@Test
+	public void testScoredObjectToSet () {
+		System.out.println("subjObj2PropSet : " + schemaGraph.getSubjObj2PropSet().toString().replaceAll("http://ir.hit.edu/nli/geo/", "").replaceAll("http://www.w3.org/2000/01/rdf-schema#", ""));
+		System.out.println("subjProp2ObjSet : " + schemaGraph.getSubjProp2ObjSet().toString().replaceAll("http://ir.hit.edu/nli/geo/", "").replaceAll("http://www.w3.org/2000/01/rdf-schema#", ""));
+		System.out.println("objProp2SubjSet : " + schemaGraph.getObjProp2SubjSet().toString().replaceAll("http://ir.hit.edu/nli/geo/", "").replaceAll("http://www.w3.org/2000/01/rdf-schema#", ""));
+	}
+	
+//	@Test
 	public void testGetSet() {
 		System.out.println("@testGetSet");
 		
@@ -78,7 +85,7 @@ public class SchemaGraphTest {
 		}
 	}
 	
-	@Test
+//	@Test
 	public void testGetObjectSet() {
 		System.out.println("@testGetObjectSet");
 		
@@ -97,16 +104,16 @@ public class SchemaGraphTest {
 		}
 	}
 	
-	@Test
+//	@Test
 	public void testPropertyPairMap() {
 		System.out.println("@testPropertyPairMap");
 		
-		System.out.println(schemaGraph.getSubjsubjMap());
-		System.out.println(schemaGraph.getObjobjMap());
-		System.out.println(schemaGraph.getSubjobjMap());
+		System.out.println(schemaGraph.getSubjsubjMap().toString().replaceAll("http://ir.hit.edu/nli/geo/", "geo:"));
+		System.out.println(schemaGraph.getObjobjMap().toString().replaceAll("http://ir.hit.edu/nli/geo/", "geo:"));
+		System.out.println(schemaGraph.getSubjobjMap().toString().replaceAll("http://ir.hit.edu/nli/geo/", "geo:"));
 	}
 	
-	@Test
+//	@Test
 	public void testGetPropertySet() {
 		System.out.println("@testGetPropertySet");
 		
@@ -123,7 +130,7 @@ public class SchemaGraphTest {
 		}
 	}
 	
-	@Test
+//	@Test
 	public void testGetLiteralSet() {
 		System.out.println("@testGetLiteralSet");
 		
@@ -142,7 +149,7 @@ public class SchemaGraphTest {
 		System.out.println(subject + ", " + word + ": " + literal);
 	}
 	
-	@Test
+//	@Test
 	public void testGetComparableLiteral() {
 		System.out.println("@testGetComparableLiteral");
 		
