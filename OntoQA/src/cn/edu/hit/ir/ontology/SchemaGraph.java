@@ -31,6 +31,8 @@ import com.hp.hpl.jena.rdf.model.Resource;
 import com.hp.hpl.jena.rdf.model.Statement;
 import com.hp.hpl.jena.rdf.model.StmtIterator;
 
+import edu.stanford.nlp.util.StringUtils;
+
 /**
  * A schema graph of an ontology.
  *
@@ -90,6 +92,33 @@ public class SchemaGraph {
 	private Map<Resource, String> res2labelMap;
 	
 	
+	// new added
+	/**
+	 * 一对实体映射到一个属性
+	 * 
+	 * (subject, object) --> property
+	 * like (river, state) --> runThrough 
+	 * 
+	 * */
+	private ObjectToSet<Pair<Resource, Resource>, ScoredResource> subjObj2PropSet;
+	
+	/**
+	 * 一个subject和一个property决定一个object 
+	 * (subject, property) --> object
+	 * like : (state, hasPopulation) --> literal
+	 * 
+	 */
+	private ObjectToSet<Pair<Resource, Resource>, ScoredResource> subjProp2ObjSet;
+
+	/**
+	 * 一个subject和一个property决定一个object 
+	 * (object, property) --> object
+	 * like : (Literal, hasPopulation) --> state, city
+	 *  
+	 */
+	private ObjectToSet<Pair<Resource, Resource>, ScoredResource>  objProp2SubjSet;
+	
+	
 	private static Distance<CharSequence> editDistance = new EditDistance(false);
 	
 	public SchemaGraph(Ontology ontology) {
@@ -119,6 +148,11 @@ public class SchemaGraph {
 		subjsubjMap = new ObjectToSet<Pair<Resource, Resource>, Resource>();
 		objobjMap = new ObjectToSet<Pair<Resource, Resource>, Resource>();
 		subjobjMap = new ObjectToSet<Pair<Resource, Resource>, Resource>();
+		
+		// new added
+		subjObj2PropSet = new ObjectToSet<Pair<Resource, Resource>, ScoredResource>();
+		subjProp2ObjSet = new ObjectToSet<Pair<Resource, Resource>, ScoredResource>();
+		objProp2SubjSet = new ObjectToSet<Pair<Resource, Resource>, ScoredResource>();
 	}
 	
 	private void build() {
@@ -138,9 +172,12 @@ public class SchemaGraph {
 			Statement stmt = sit.next();
 			addEdge(stmt);
 		}
-		//System.out.println(edgeSet.size() + ": " + edgeSet);	//debug
+		//System.out.println("cnt : " + cnt + "\t edgeSet size : " + edgeSet.size() + ": " + edgeSet);	//debug
 		
 		initPropertyPairMap();
+		calculateObjetcToSetScore(this.subjObj2PropSet);
+		calculateObjetcToSetScore(this.subjProp2ObjSet);
+		calculateObjetcToSetScore(this.objProp2SubjSet);
 	}
 	
 	private SchemaNode addNode(Resource resource) {
@@ -148,7 +185,7 @@ public class SchemaGraph {
 		graph.addVertex(node);
 		nodes.add(node);
 		res2nodeMap.put(resource, node);
-		//System.out.println(resource);	// debug
+		//System.out.println("add node ,resource : " + resource);	// debug
 		return node;
 	}
 	
@@ -182,10 +219,11 @@ public class SchemaGraph {
 			//System.out.println(subjectTypeNode + ", " + objectTypeNode);	// debug
 			if (objectTypeNode != null) {
 				addEdge(subjectTypeNode, objectTypeNode, property);
+				addScoredObjectToSet(subjectTypeNode, objectTypeNode, property);
 			}
 		} else {
 			addEdge(subjectTypeNode, literalNode, property);
-			
+			addScoredObjectToSet(subjectTypeNode, literalNode, property);
 			Resource propRes = ontology.asResource(property);
 			// Add literal property
 			subj2litPropMap.addMember(subjectTypeNode.getResource(), propRes);
@@ -236,6 +274,131 @@ public class SchemaGraph {
 		}
 	}
 	
+	
+	
+	
+	public ObjectToSet<Pair<Resource, Resource>, ScoredResource> getSubjObj2PropSet() {
+		return subjObj2PropSet;
+	}
+	
+	
+	private void addScoredObjectToSet (SchemaNode source, SchemaNode target, Property property) {
+		if (source == null || target == null || property == null ) return ;
+		Resource subject = source.getResource();
+		Resource object  = target.getResource();
+		Resource propRes = ontology.asResource(property);
+		if (ontology.isLabelClass(propRes))
+			return;
+		this.addSubjObj2PropSet(subject, object, propRes);
+		this.addSubjProp2ObjSet(subject, propRes, object);
+		this.addObjProp2SubjSet(object, propRes, subject);
+	}
+	
+	/**
+	 * 计算
+	 * subjObj2PropSet
+	 * subjProp2ObjSet
+	 * objProp2SubjSet 这三个set中的对应的valset的score的最大似然估计score
+	 * 
+	 * 计算方法, 首先根据特定的key获得相应的valSet,然后将valSet中的所有的score相加求和得到sum，
+	 * 然后再用valset中每个元素score除以sum得到最大似然估计
+	 *
+	 * @param 
+	 * @return void 
+	 */
+	private void calculateObjetcToSetScore (ObjectToSet<Pair<Resource, Resource>, ScoredResource> objSet) {
+		if (objSet == null ) return ;
+		
+		for (Pair<Resource, Resource> key : objSet.keySet()) {
+			double sum = 0.0;
+			List<ScoredResource> valList = new ArrayList<ScoredResource>(objSet.get(key));
+			for (ScoredResource sr : valList) {
+				sum += sr.score;
+			}
+			for (ScoredResource sr : valList) {
+				if (sum < 10e-8) {// sum == 0
+					sr.score = 0;
+				}
+				else 
+					sr.score = sr.score / sum;
+			}
+		}
+		
+	}
+	
+	
+	/**
+	 * 根据a，b的pair进行数据加入，如果valset中已经存在v了，那么就对valset中的对应项的score进行更新，加一
+	 * 否则加入
+	 *
+	 * @param 
+	 * @return void 
+	 */
+	private void addScoredTriple (ObjectToSet<Pair<Resource, Resource>, ScoredResource> objSet, Resource a, Resource b, Resource v) {
+		Pair<Resource, Resource> pair = Pair.of(a,  b);
+		if (objSet.containsKey(pair)) {
+			Set<ScoredResource> valSet = objSet.get(pair);
+			ScoredResource sr = new ScoredResource(v, 1.0);
+			ScoredResource removeSr = null;
+			if (valSet.contains(sr)) {
+				ScoredResource [] valArray = new ScoredResource[valSet.size()];
+				valSet.toArray(valArray);
+				//System.out.println("valArray : " + StringUtils.join(valArray, ", "));
+				for (ScoredResource tsr : valArray) {
+					if (tsr.resource.equals(v)) {
+						sr.score += tsr.score;
+						removeSr = tsr;
+						break;
+					}
+				}
+				if (removeSr != null )  {
+					objSet.removeMember(pair, removeSr);
+					objSet.addMember(pair, sr); // 加入新的
+				}
+				else {
+					objSet.addMember(pair, sr); // 加入新的
+				}
+			}
+			else {
+				objSet.addMember(pair, sr); // 加入新的
+			}
+		}
+		else {
+			ScoredResource sr = new ScoredResource(v, 1.0);
+			objSet.addMember(pair, sr);
+		}
+	}
+
+	/**
+	 * set subjObj2PropSet
+	 *
+	 * @param a, b are the pair
+	 * @param v is the value
+	 * @return void 
+	 */
+	public void addSubjObj2PropSet(Resource a, Resource b, Resource v) {
+		if (a == null || b == null || v == null ) return ;
+		addScoredTriple(this.subjObj2PropSet, a, b, v);
+	}
+
+	public ObjectToSet<Pair<Resource, Resource>, ScoredResource> getSubjProp2ObjSet() {
+		return subjProp2ObjSet;
+	}
+
+	public void addSubjProp2ObjSet(Resource a, Resource b, Resource v) {
+		if (a == null || b == null || v == null ) return ;
+		addScoredTriple(this.subjProp2ObjSet, a, b, v);
+	}
+
+	public ObjectToSet<Pair<Resource, Resource>, ScoredResource> getObjProp2SubjSet() {
+		return objProp2SubjSet;
+	}
+
+	public void addObjProp2SubjSet(Resource a, Resource b, Resource v) {
+		if (a == null || b == null || v == null ) return ;
+		addScoredTriple(this.objProp2SubjSet, a, b, v);
+	}
+
 	/**
 	 * Returns the label of a resource(including properties) in schema graph.
 	 *

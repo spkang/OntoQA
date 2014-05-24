@@ -7,6 +7,8 @@
 
 package cn.edu.hit.ir.ontology;
 
+import cn.edu.hit.ir.util.Util;
+
 import com.hp.hpl.jena.rdf.model.Resource;
 
 /**
@@ -26,6 +28,36 @@ public class ScoredResource implements Comparable<ScoredResource> {
 		this.score = score;
 	}
 	
+	
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result
+				+ ((resource == null) ? 0 : resource.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		ScoredResource other = (ScoredResource) obj;
+		if (resource == null) {
+			if (other.resource != null)
+				return false;
+		} else if (!resource.equals(other.resource))
+			return false;
+		return true;
+	}
+
+
+
+
 	/**
 	 * (non-Javadoc)
 	 * @see java.lang.Comparable#compareTo(java.lang.Object)
@@ -39,4 +71,10 @@ public class ScoredResource implements Comparable<ScoredResource> {
 			return -1;
 		return 0;		
 	}
+	
+	public String toString() {
+		String s = resource.toString();
+		return "[" + Util.lastWord(s) + " -> " + score + "]\n";
+	}
+	
 }
