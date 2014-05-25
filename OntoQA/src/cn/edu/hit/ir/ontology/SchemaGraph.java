@@ -213,7 +213,7 @@ public class SchemaGraph {
 		SchemaNode subjectTypeNode = getTypeNode(subject);
 		if (subjectTypeNode == null) return;
 		
-		//System.out.println(stmt);	// debug
+//		System.out.println(stmt);	// debug
 		if (object instanceof Resource) {
 			SchemaNode objectTypeNode = getTypeNode((Resource)object);
 			//System.out.println(subjectTypeNode + ", " + objectTypeNode);	// debug
@@ -627,6 +627,65 @@ public class SchemaGraph {
 			return ontology.getType(resource);
 		}
 	}	
+	
+	/**
+	 * 根据两个属性，获得两个属性之间可能的实体集合
+	 *
+	 * @param lhsProp, 左边的属性
+	 * @param rhsProp, 右边的属性
+	 * @return Set<Resource> 
+	 */
+	public Set<Resource> getPropPropSet (Resource lhsProp, Resource rhsProp) {
+		if (lhsProp == null || rhsProp == null ) return null;
+		
+		Set<Resource> resSet = new HashSet<Resource>();
+		
+		Set<Resource> subjSubjSet = this.getSubjsubjSet(lhsProp, rhsProp);
+		if (subjSubjSet != null && ! subjSubjSet.isEmpty())
+			resSet.addAll(subjSubjSet);
+		
+		Set<Resource> subjObjSet  = this.getSubjobjSet(lhsProp, rhsProp);
+		if (subjObjSet != null && ! subjObjSet.isEmpty())
+			resSet.addAll(subjObjSet);
+		
+		Set<Resource> objObjSet   = this.getObjobjSet(lhsProp, rhsProp);
+		if (subjObjSet != null && ! objObjSet.isEmpty())
+			resSet.addAll(objObjSet);
+		return (resSet.isEmpty() ? null : resSet); 
+	}
+	
+	
+	/**
+	 *  判断一个三元组是否合法
+	 *
+	 * @param 
+	 * @return boolean 
+	 */
+	public boolean isLegalTriple (Resource s, Resource p, Resource o) {
+		if (s == null || p == null || o == null)
+			return false;
+		Resource subj = s;
+		if (!this.resourceSet.contains(s)) {
+			 subj = getTypeNode(s).getResource();
+		}
+		Resource obj = o;
+		if (!this.resourceSet.contains(o)) {
+			 obj = getTypeNode(o).getResource();
+		}
+		Pair<Resource, Resource> pair = Pair.of(subj,  p);
+		if (this.subjProp2ObjSet.containsKey(pair)) {
+			ScoredResource sr = new ScoredResource(obj, 1);
+			if (this.subjProp2ObjSet.get(pair).contains(sr))
+				return true;
+		}
+		Pair<Resource, Resource> pair2 = Pair.of(obj, p);
+		if (this.subjProp2ObjSet.containsKey(pair2)) {
+			ScoredResource sr = new ScoredResource(subj, 1);
+			if (this.subjProp2ObjSet.get(pair2).contains(sr))
+				return true;
+		}
+		return false;
+	}
 	
 	public String toString() {
 		return graph.toString();

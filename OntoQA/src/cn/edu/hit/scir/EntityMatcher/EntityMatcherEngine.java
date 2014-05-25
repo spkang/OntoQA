@@ -146,16 +146,27 @@ public class EntityMatcherEngine {
 		// 匹配单个实体
 		this.matchQuery(this.semanticGraph.getDependencyGraph().getVertexs());
 		
+		//showMatchedQuery();
+		
 		// 匹配两个单词实体
 		this.mergeEntities(this.semanticGraph.getDependencyGraph().getVertexs());
 		
+		//showMatchedQuery();
 		// 合并实体
 		this.mergeEntities();
 		
+		//showMatchedQuery();
 		// 对已经匹配的实体进行重排
 		return this.rearrangeMatchedEntityList ();
 	}
 	
+	
+	private void showMatchedQuery () {
+		logger.info("matchedQuery : ");
+		for (List<MatchedEntity> mes : this.matchedQuery) {
+			logger.info("me : " + StringUtils.join(mes, ", "));
+		}
+	}
 	
 	/**
 	 *   判断这个位置是否有匹配的实体并且这个位置的词是一个动词， 如果是，返回真
@@ -670,7 +681,7 @@ public class EntityMatcherEngine {
 			Set<Entity> prefixCompleteMatchSet = this.completeMatchDGNodeEntity(node, this.prefix2eMap);
 			Set<Entity> stringCompleteMatchSet = this.completeMatchDGNodeEntity(node, this.s2eMap);
 			Set<Entity> suffixCompleteMatchSet = this.completeMatchDGNodeEntity(node, this.suffix2eMap);
-			
+		
 			// 决策，如果前缀匹配的内容和完全匹配的内容一致，那么实体集合直接付给node的匹配的实体集合
 			// 如果前缀匹配和完全匹配的集合不一致（stringCompleteMatchSet != null ）， 以stringCompleteMatch 为准，
 			// 如果stringCompleteMatchSet == null , 以前缀匹配为准

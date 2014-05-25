@@ -28,16 +28,23 @@ public class PropertyNode {
 	
 	private double weight;
 	
+	
+	// ProbabilityGraph 消歧时候使用
+	private boolean isLegal = false;
+	
+	
 	public PropertyNode(MatchedEntity entity, double weight) {
 		setEntity(entity);
 		setProperty(entity.getResource());
 		setWeight(weight);
+		setLegal (false);
 	}
 	
 	public PropertyNode(Resource property, double weight) {
 		setEntity(null);
 		setProperty(property);
 		setWeight(weight);
+		setLegal (false);
 	}
 
 	/**
@@ -94,7 +101,25 @@ public class PropertyNode {
 		this.weight = weight;
 	}
 	
+	public boolean isLegal() {
+		return isLegal;
+	}
+
+	public void setLegal(boolean isLegal) {
+		this.isLegal = isLegal;
+	}
+
+	/**
+	 * 判断该node是不是添加的，而不是匹配而来的
+	 * spkang add
+	 * @param 
+	 * @return boolean 
+	 */
+	public boolean isAdded () {
+		return this.entity == null;
+	} 
+	
 	public String toString() {
-		return Util.lastWord(property);
+		return "[" + Util.lastWord(property) + " -> " + (this.entity == null) + "]" ;
 	}
 }
