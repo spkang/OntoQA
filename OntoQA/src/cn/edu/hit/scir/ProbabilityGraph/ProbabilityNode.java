@@ -106,7 +106,7 @@ public class ProbabilityNode {
 
 	public String toString() {
 		String s = resource.toString();
-		return "[" + Util.lastWord(s) + "->" + this.isAdded + "]";
+		return "[" + Util.lastWord(s) + "->" + this.isAdded + ", " + this.matchScore + ", " + this.probabilityScore + "]";
 	}
 	
 	public boolean isLegal() {

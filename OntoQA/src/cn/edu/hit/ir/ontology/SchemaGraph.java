@@ -111,7 +111,7 @@ public class SchemaGraph {
 	private ObjectToSet<Pair<Resource, Resource>, ScoredResource> subjProp2ObjSet;
 
 	/**
-	 * 一个subject和一个property决定一个object 
+	 * 一个object和一个property决定一个subject 
 	 * (object, property) --> object
 	 * like : (Literal, hasPopulation) --> state, city
 	 *  
@@ -200,7 +200,7 @@ public class SchemaGraph {
 		return res2nodeMap.get(resource);
 	}
 	
-	private SchemaNode getTypeNode(Resource resource) {
+	public SchemaNode getTypeNode(Resource resource) {
 		Resource type = ontology.getType(resource);
 		return getNode(type);
 	}
@@ -274,8 +274,15 @@ public class SchemaGraph {
 		}
 	}
 	
-	
-	
+	public Set<ScoredResource> getSubjObj2PropSet (Resource s, Resource o ) {
+		if (s == null || o == null ) return null;
+		
+		Pair<Resource, Resource> key = Pair.of(this.getSchemaResource(s),  this.getSchemaResource(o));
+		if (this.subjObj2PropSet.containsKey(key)) {
+			return this.subjObj2PropSet.get(key);
+		}
+		return null;
+	}
 	
 	public ObjectToSet<Pair<Resource, Resource>, ScoredResource> getSubjObj2PropSet() {
 		return subjObj2PropSet;
@@ -380,7 +387,17 @@ public class SchemaGraph {
 		if (a == null || b == null || v == null ) return ;
 		addScoredTriple(this.subjObj2PropSet, a, b, v);
 	}
-
+	
+	public Set<ScoredResource> getSubjProp2ObjSet (Resource s, Resource p) {
+		if (s == null || p == null )
+			return null;
+		Pair<Resource, Resource> key = Pair.of(this.getSchemaResource(s),  this.getSchemaResource(p));
+		if (this.subjProp2ObjSet.containsKey(key)) {
+			return this.subjProp2ObjSet.get(key);
+		}
+		return null;
+ 	}
+	
 	public ObjectToSet<Pair<Resource, Resource>, ScoredResource> getSubjProp2ObjSet() {
 		return subjProp2ObjSet;
 	}
@@ -390,6 +407,16 @@ public class SchemaGraph {
 		addScoredTriple(this.subjProp2ObjSet, a, b, v);
 	}
 
+	public Set<ScoredResource> getObjProp2SubjSet (Resource o, Resource p ) {
+		if (o == null ||p == null ) return null;
+		
+		Pair <Resource, Resource> key = Pair.of(this.getSchemaResource(o), this.getSchemaResource(p));
+		if (this.objProp2SubjSet.containsKey(key)) {
+			return this.objProp2SubjSet.get(key);
+		}
+		return null;
+	}
+	
 	public ObjectToSet<Pair<Resource, Resource>, ScoredResource> getObjProp2SubjSet() {
 		return objProp2SubjSet;
 	}
@@ -621,6 +648,10 @@ public class SchemaGraph {
 	
 	
 	public Resource getSchemaResource(Resource resource) {
+		if (resource == null )
+			return null;
+		if (resource.equals(this.literalNode.getResource()))
+			return resource;
 		if (ontology.isClass(resource) || ontology.isProperty(resource)) {
 			return resource;
 		} else {
@@ -641,15 +672,18 @@ public class SchemaGraph {
 		Set<Resource> resSet = new HashSet<Resource>();
 		
 		Set<Resource> subjSubjSet = this.getSubjsubjSet(lhsProp, rhsProp);
+//		System.out.println ("subjsubjset : " + subjSubjSet);
 		if (subjSubjSet != null && ! subjSubjSet.isEmpty())
 			resSet.addAll(subjSubjSet);
 		
 		Set<Resource> subjObjSet  = this.getSubjobjSet(lhsProp, rhsProp);
+//		System.out.println ("subjObjset : " + subjObjSet);
 		if (subjObjSet != null && ! subjObjSet.isEmpty())
 			resSet.addAll(subjObjSet);
 		
 		Set<Resource> objObjSet   = this.getObjobjSet(lhsProp, rhsProp);
-		if (subjObjSet != null && ! objObjSet.isEmpty())
+//		System.out.println ("objObjset : " + objObjSet);
+		if (objObjSet != null && ! objObjSet.isEmpty())
 			resSet.addAll(objObjSet);
 		return (resSet.isEmpty() ? null : resSet); 
 	}

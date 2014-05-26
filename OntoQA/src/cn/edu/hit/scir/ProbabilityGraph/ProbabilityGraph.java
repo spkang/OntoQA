@@ -19,7 +19,9 @@ import cn.edu.hit.ir.dict.MatchedEntity;
 import cn.edu.hit.ir.graph.LoopMultiGraph;
 import cn.edu.hit.ir.graph.PropertyNode;
 import cn.edu.hit.ir.ontology.Ontology;
+import cn.edu.hit.ir.ontology.RDFNodeType;
 import cn.edu.hit.ir.ontology.SchemaGraph;
+import cn.edu.hit.ir.ontology.ScoredResource;
 import cn.edu.hit.ir.util.ConfigUtil;
 import cn.edu.hit.scir.EntityMatcher.QueryMatchedEntityWrapper;
 
@@ -53,9 +55,12 @@ public class ProbabilityGraph {
 	// 为使路径完整，添加属性，该分值为添加属性的匹配分值
 	private final String ADD_PROPERTY_SCORE = "add.property.score";
 	
+	private final String MATCH_PROBABILITY_SCORE = "match.probability.score";
+	
 	private double addEntityScore = 0.6;
 	private double addPropertyScore = 0.4;
-	
+	private double matchProbabilityScore = 1.0;
+			
 	// 这个是存储所有路径的概率和匹配图
 	private LoopMultiGraph<ProbabilityNode, ProbabilityEdge> graph;
 	
@@ -110,6 +115,7 @@ public class ProbabilityGraph {
 	private void initScore () {
 		this.addEntityScore   = config.getDouble(this.ADD_ENTITY_SCORE);
 		this.addPropertyScore = config.getDouble(this.ADD_PROPERTY_SCORE);
+		this.matchProbabilityScore = config.getDouble(this.MATCH_PROBABILITY_SCORE);
 	}
 	
 	
@@ -268,13 +274,46 @@ public class ProbabilityGraph {
 	/**
 	 *property list, entity list,  property list 三个列表进行标注是否合法的内容
 	 *
-	 * @param 
+	 * @param prevObjs, lhsProperty
+	 * @param currObjs, mid entity
+	 * @param nextObjs, rhsProperty
 	 * @return void 
 	 */
-	private void removeIllegalPropEntityProp (List<Object> prevObjs, List<Object> currObjs, List<Object> nextObjs) {
-		;
+	private boolean removeIllegalPropEntityProp (List<Object> prevObjs, List<Object> currObjs, List<Object> nextObjs) {
+		if (prevObjs == null || prevObjs.isEmpty() || currObjs == null || currObjs.isEmpty() || nextObjs == null || nextObjs.isEmpty() )
+			return false;
+		
+		boolean isExistsLegal = false;
+		for (Object cur : currObjs) {
+			if (cur instanceof ProbabilityNode )
+				((ProbabilityNode)cur).setLegal(false);
+		}
+		for (Object prev : prevObjs ) {
+			for (Object next : nextObjs ) {
+				if (prev instanceof PropertyNode && next instanceof PropertyNode) {
+					Set<Resource> legalEntities = schemaGraph.getPropPropSet(((PropertyNode)prev).getProperty(), ((PropertyNode)next).getProperty());
+					logger.info("legal set : " + legalEntities);
+					for (Object cur : currObjs) {
+						if (legalEntities != null && cur instanceof ProbabilityNode && (legalEntities.contains(((ProbabilityNode)cur).getResource()))) {
+							((ProbabilityNode)cur).setLegal(true);
+							logger.info("(" + prev + ", " + cur + ", " + next + ")" + "true");
+							isExistsLegal = true;
+						}
+					}
+				}
+			}
+		}
+		if (isExistsLegal) {
+			removeIllegalObject (currObjs);
+		}
+		return isExistsLegal;
 	} 
 	
+	
+	public Resource instance2Class (Resource instance) {
+		if (instance == null ) return null;
+		return this.schemaGraph.getSchemaResource(instance);
+	}
 	
 	/**
 	 * entity list, property list, entity list 三个列表进行标注是否合法的内容
@@ -289,14 +328,31 @@ public class ProbabilityGraph {
 		for (Object prev : prevObjs) {
 			for (Object cur : currObjs) {
 				for (Object next : nextObjs) {
-					//logger.info("(" + prev + ", " + cur + ", " + next + ")");
 					if (this.schemaGraph.isLegalTriple(((ProbabilityNode)prev).getResource(), ((PropertyNode)cur).getProperty(), ((ProbabilityNode)next).getResource())) {
-						//logger.info("legal triple"); 
-						logger.info("(" + prev + ", " + cur + ", " + next + ")" + "true");
 						((ProbabilityNode)prev).setLegal(true);
 						((PropertyNode)cur).setLegal(true);
 						((ProbabilityNode)next).setLegal(true);
 						isExistsLegal = true;
+					}
+					else {
+						if (prevObjs.size() == 1 && nextObjs.size() == 1 && currObjs.size() == 1) {
+							Set<Resource> propSet = schemaGraph.getPropertySet(instance2Class(((ProbabilityNode)prev).getResource()), instance2Class(((ProbabilityNode)next).getResource()));
+							if (propSet == null ) {
+								propSet = schemaGraph.getPropertySet(instance2Class(((ProbabilityNode)next).getResource()), instance2Class(((ProbabilityNode)prev).getResource()));
+							}
+							if (propSet != null && !propSet.contains(((PropertyNode)currObjs.get(0)).getProperty())) {
+								currObjs.clear();
+								for (Resource pnode : propSet) {
+									PropertyNode tn = new PropertyNode(pnode, this.addPropertyScore);
+									tn.setLegal(true);
+									currObjs.add(tn);
+								}
+								((ProbabilityNode)prev).setLegal(true);
+								((ProbabilityNode)next).setLegal(true);
+								isExistsLegal = true;
+							}
+							
+						}
 					}
 				}
 			}
@@ -362,26 +418,85 @@ public class ProbabilityGraph {
 					if (!this.removeIllegalEntityPropEntity(prevObjs, currObjs, nextObjs)) {
 						logger.info("需要处理");
 					}
+					
+					
+					
 					break;
 				case 1 : // 0, 0, 1, 最后一个是添加的
 					if (!this.removeIllegalEntityPropEntity(prevObjs, currObjs, nextObjs)) {
 						logger.info("需要处理");
 					}
+					
+					// s, p --> o 
+					
 					break;
 				case 2 : // 0, 1, 0, 中间那个是添加的
 					if (!this.removeIllegalEntityPropEntity(prevObjs, currObjs, nextObjs)) {
+						logger.info("需要处理");
+					}
+					
+					// s, o --> p
+					
+					break;
+				case 3 : // 0, 1, 1, 不存在， 两个添加的内容不可能
+					logger.info("不可能");
+					break;
+				case 4 : // 1, 0, 0, 第一个是添加的内容
+					if (!this.removeIllegalEntityPropEntity(nextObjs, currObjs, prevObjs)) {
+						logger.info("需要处理");
+					}
+					
+					// o p --> s
+					
+					break;
+				case 5 : // 1, 0, 1, 第一个和第三个是添加的内容
+					if (!this.removeIllegalEntityPropEntity(prevObjs, currObjs, nextObjs)) {
+						logger.info("需要处理");
+					}
+					
+					
+					break;
+				case 6 : // 1, 1, 0 不存在，两个添加的内容不可能连在一起
+					logger.info("不可能");
+					break;
+				case 7 :// 1, 1, 1, 都是填充的，这种情况不可能存在
+					logger.info("不可能");
+					break;
+				default : 
+					logger.info("不可能");
+					break;
+				}
+			}
+			else { // property
+				boolean [] bits = {((PropertyNode)prevObjs.get(0)).isAdded(),
+						  ((ProbabilityNode)currObjs.get(0)).isAdded(),
+						   (((PropertyNode)nextObjs.get(0)).isAdded())};
+				int choice = choice (bits);
+				switch (choice) {
+				case 0 : // 0, 0, 0 没有是填充的, 合法检查
+					if (!this.removeIllegalPropEntityProp(prevObjs, currObjs, nextObjs)) {
+						logger.info("需要处理");
+					}
+					break;
+				case 1 : // 0, 0, 1, 最后一个是添加的
+					if (!this.removeIllegalPropEntityProp(prevObjs, currObjs, nextObjs)) {
+						logger.info("需要处理");
+					}
+					break;
+				case 2 : // 0, 1, 0, 中间那个是添加的
+					if (!this.removeIllegalPropEntityProp(prevObjs, currObjs, nextObjs)) {
 						logger.info("需要处理");
 					}
 					break;
 				case 3 : // 0, 1, 1, 不存在， 两个添加的内容不可能
 					break;
 				case 4 : // 1, 0, 0, 第一个是添加的内容
-					if (!this.removeIllegalEntityPropEntity(nextObjs, currObjs, prevObjs)) {
+					if (!this.removeIllegalPropEntityProp(prevObjs, currObjs, nextObjs)) {
 						logger.info("需要处理");
 					}
 					break;
 				case 5 : // 1, 0, 1, 第一个和第三个是添加的内容
-					if (!this.removeIllegalEntityPropEntity(prevObjs, currObjs, nextObjs)) {
+					if (!this.removeIllegalPropEntityProp(prevObjs, currObjs, nextObjs)) {
 						logger.info("需要处理");
 					}
 					break;
@@ -392,11 +507,282 @@ public class ProbabilityGraph {
 				default : 
 					break;
 				}
-				
 			}
-			else { // property
-				
+		}
+	}
+	
+//	public void calculateProbScore (ProbabilityNode subject, PropertyNode property, ProbabilityNode object) {
+//		Set<ScoredResource> scRes = this.schemaGraph.getSubjProp2ObjSet(prevNode.getResource(), curNode.getProperty());
+//		boolean exists = false;
+//		for (ScoredResource sr : scRes ) {
+//			if (sr.resource.equals(nextNode.getResource())) {
+//				nextNode.setProbabilityScore(sr.score);
+//				exists = true;
+//				break;
+//			}
+//		}
+//		if (!exists ) {
+//			nextNode.setProbabilityScore(1.0 / nextObjs.size());
+//		}
+//	}
+//	
+	
+	private boolean isSubjectObject (ProbabilityNode lhs, ProbabilityNode rhs, PropertyNode propterty) {
+		if (lhs == null || rhs == null ) return false;
+		Set<Resource> propSet = this.schemaGraph.getPropertySet(this.schemaGraph.getSchemaResource(lhs.getResource()), this.schemaGraph.getSchemaResource(rhs.getResource()));
+		if (propSet != null && propSet.contains(propterty.getProperty())) {
+			return true;
+		}
+		return false;
+	}
+	/**
+	 * 对经过修正的实体的进行打分
+	 *
+	 * @param 
+	 * @return void 
+	 */
+	public void completeMatchedObjectScore () {
+		for (int i = 1; i < this.completeMatchedObjects.size() - 1; ++i ) {
+			List<Object> prevObjs = this.completeMatchedObjects.get(i-1);
+			List<Object> currObjs = this.completeMatchedObjects.get(i);
+			List<Object> nextObjs = this.completeMatchedObjects.get(i + 1);
+			
+			// entity
+			if (prevObjs.get(0) instanceof ProbabilityNode) {
+				for (Object prev : prevObjs) {
+					ProbabilityNode prevNode  =((ProbabilityNode)prev);
+					for (Object cur : currObjs ) {
+						PropertyNode curNode  =((PropertyNode)cur);
+						for (Object next : nextObjs ) {
+							ProbabilityNode nextNode  =((ProbabilityNode)next);
+							
+							if (!this.schemaGraph.isLegalTriple(prevNode.getResource(), curNode.getProperty(), nextNode.getResource()))
+								continue;
+							logger.info("s : " + prevNode.getResource()  + "\tp : " + curNode.getProperty() + "\to : " + nextNode.getResource());
+							// 0, 0 , 0
+							if (!prevNode.isAdded() && !curNode.isAdded() && !nextNode.isAdded()) {
+								prevNode.setProbabilityScore(this.matchProbabilityScore);
+								curNode.setProbabilityScore(this.matchProbabilityScore);
+								nextNode.setProbabilityScore(this.matchProbabilityScore);
+							}
+							// 0, 0, 1
+							else if (!prevNode.isAdded() && !curNode.isAdded() && nextNode.isAdded()) {
+								prevNode.setProbabilityScore(this.matchProbabilityScore);
+								curNode.setProbabilityScore(this.matchProbabilityScore);
+								
+								// prevNode is subject ,
+								if (this.isSubjectObject(prevNode, nextNode, curNode)) {
+									Set<ScoredResource> scRes = this.schemaGraph.getSubjProp2ObjSet(prevNode.getResource(), curNode.getProperty());
+									boolean exists = false;
+									if (scRes != null ) {
+										for (ScoredResource sr : scRes ) {
+											if (sr.resource.equals(nextNode.getResource())) {
+												nextNode.setProbabilityScore(sr.score);
+												exists = true;
+												break;
+											}
+										}
+									}
+									if (!exists ) {
+										nextNode.setProbabilityScore(1.0 / nextObjs.size());
+									}
+								}
+								// nextNode is subject 
+								else if (this.isSubjectObject(nextNode, prevNode, curNode)) {
+									Set<ScoredResource> scRes = this.schemaGraph.getObjProp2SubjSet(prevNode.getResource(), curNode.getProperty());
+									boolean exists = false;
+									if (scRes != null ) {
+										for (ScoredResource sr : scRes ) {
+											if (sr.resource.equals(nextNode.getResource())) {
+												nextNode.setProbabilityScore(sr.score);
+												exists = true;
+												break;
+											}
+										}
+									}
+									if (!exists ) {
+										nextNode.setProbabilityScore(1.0 / nextObjs.size());
+									}
+								}else {
+									logger.error("出现错误！！！！");
+									nextNode.setProbabilityScore(1.0 / nextObjs.size());
+								}
+							}
+							// 0, 1, 0
+							else if (!prevNode.isAdded() && curNode.isAdded() && !nextNode.isAdded()) {
+								prevNode.setProbabilityScore(this.matchProbabilityScore);
+								nextNode.setProbabilityScore(this.matchProbabilityScore);
+								
+								// prevNode is subject ,
+								if (this.isSubjectObject(prevNode, nextNode, curNode)) {
+									Set<ScoredResource> scRes = this.schemaGraph.getSubjObj2PropSet(prevNode.getResource(), nextNode.getResource());
+									boolean exists = false;
+									if (scRes != null ) {
+										for (ScoredResource sr : scRes ) {
+											if (sr.resource.equals(curNode.getProperty())) {
+												curNode.setProbabilityScore(sr.score);
+												exists = true;
+												break;
+											}
+										}
+									}
+									if (!exists ) {
+										curNode.setProbabilityScore(1.0 / currObjs.size());
+									}
+								}
+								// nextNode is subject 
+								else if (this.isSubjectObject(nextNode, prevNode, curNode)) {
+									Set<ScoredResource> scRes = this.schemaGraph.getSubjObj2PropSet(nextNode.getResource(), prevNode.getResource());
+									boolean exists = false;
+									if (scRes != null ) {
+										for (ScoredResource sr : scRes ) {
+											if (sr.resource.equals(curNode.getProperty())) {
+												curNode.setProbabilityScore(sr.score);
+												exists = true;
+												break;
+											}
+										}
+									}
+									if (!exists ) {
+										curNode.setProbabilityScore(1.0 / currObjs.size());
+									}
+								}else {
+									logger.error("出现错误！！！！");
+									curNode.setProbabilityScore(1.0 / currObjs.size());
+								}
+							}
+							// 1, 0, 0
+							else if (prevNode.isAdded() && !curNode.isAdded() && !nextNode.isAdded()) {
+								curNode.setProbabilityScore(this.matchProbabilityScore);
+								nextNode.setProbabilityScore(this.matchProbabilityScore);
+								
+								// prevNode is subject ,
+								if (this.isSubjectObject(prevNode, nextNode, curNode)) {
+									Set<ScoredResource> scRes = this.schemaGraph.getObjProp2SubjSet(nextNode.getResource(), curNode.getProperty());
+									logger.info("1scRes : " + scRes);
+									boolean exists = false;
+									if (scRes != null ) {
+										
+										for (ScoredResource sr : scRes ) {
+											if (sr.resource.equals(prevNode.getResource())) {
+												prevNode.setProbabilityScore(sr.score);
+												exists = true;
+												break;
+											}
+										}
+									}
+									if (!exists ) {
+										prevNode.setProbabilityScore(1.0 / prevObjs.size());
+									}
+								}
+								// nextNode is subject 
+								else if (this.isSubjectObject(nextNode, prevNode, curNode)) {
+									Set<ScoredResource> scRes = this.schemaGraph.getSubjProp2ObjSet(nextNode.getResource(), curNode.getProperty());
+									logger.info("2scRes : " + scRes);
+									boolean exists = false;
+									if (scRes != null ) {
+										for (ScoredResource sr : scRes ) {
+											if (sr.resource.equals(prevNode.getResource())) {
+												prevNode.setProbabilityScore(sr.score);
+												exists = true;
+												break;
+											}
+										}
+									}
+									if (!exists ) {
+										prevNode.setProbabilityScore(1.0 / prevObjs.size());
+									}
+								}else {
+									logger.error("出现错误！！！！");
+									prevNode.setProbabilityScore(1.0 / prevObjs.size());
+								}
+								
+								
+							}
+							// 1, 0, 1
+							else if (prevNode.isAdded() && !curNode.isAdded() && nextNode.isAdded()) {
+								curNode.setProbabilityScore(this.matchProbabilityScore);
+								// prevNode is subject ,
+								if (this.isSubjectObject(prevNode, nextNode, curNode)) {
+									Set<ScoredResource> scRes = this.schemaGraph.getObjProp2SubjSet(nextNode.getResource(), curNode.getProperty());
+									boolean exists = false;
+									if (scRes != null ) {
+										for (ScoredResource sr : scRes ) {
+											if (sr.resource.equals(prevNode.getResource())) {
+												prevNode.setProbabilityScore(sr.score);
+												exists = true;
+												break;
+											}
+										}
+									}
+									if (!exists ) {
+										prevNode.setProbabilityScore(1.0 / prevObjs.size());
+									}
+									
+									Set<ScoredResource> scRes2 = this.schemaGraph.getSubjProp2ObjSet(prevNode.getResource(), curNode.getProperty());
+									boolean exists2 = false;
+									if (scRes2 != null ) {
+										for (ScoredResource sr : scRes2 ) {
+											if (sr.resource.equals(nextNode.getResource())) {
+												nextNode.setProbabilityScore(sr.score);
+												exists2 = true;
+												break;
+											}
+										}
+									}
+									if (!exists2 ) {
+										nextNode.setProbabilityScore(1.0 / nextObjs.size());
+									}
+								}
+								// nextNode is subject 
+								else if (this.isSubjectObject(nextNode, prevNode, curNode)) {
+									Set<ScoredResource> scRes = this.schemaGraph.getSubjProp2ObjSet(nextNode.getResource(), curNode.getProperty());
+									boolean exists = false;
+									if (scRes != null ) {
+										for (ScoredResource sr : scRes ) {
+											if (sr.resource.equals(prevNode.getResource())) {
+												prevNode.setProbabilityScore(sr.score);
+												exists = true;
+												break;
+											}
+										}
+									}
+									if (!exists ) {
+										prevNode.setProbabilityScore(1.0 / prevObjs.size());
+									}
+									
+									Set<ScoredResource> scRes2 = this.schemaGraph.getObjProp2SubjSet(prevNode.getResource(), curNode.getProperty());
+									boolean exists2 = false;
+									if (scRes2 != null ) {
+										for (ScoredResource sr : scRes2 ) {
+											if (sr.resource.equals(nextNode.getResource())) {
+												nextNode.setProbabilityScore(sr.score);
+												exists2 = true;
+												break;
+											}
+										}
+									}
+									if (!exists2 ) {
+										nextNode.setProbabilityScore(1.0 / nextObjs.size());
+									}
+								}else {
+									logger.error("出现错误！！！！");
+									prevNode.setProbabilityScore(1.0 / prevObjs.size());
+									nextNode.setProbabilityScore(1.0 / nextObjs.size());
+								}
+							}
+							else {
+								logger.info ("不做处理～～～");
+							}
+						}
+					}
+				}
 			}
+			// property
+			else {
+				;
+			}
+			
 		}
 	}
 	

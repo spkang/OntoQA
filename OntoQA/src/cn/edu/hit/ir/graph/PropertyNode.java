@@ -28,6 +28,9 @@ public class PropertyNode {
 	
 	private double weight;
 	
+	// 概率值
+	private double probabilityScore = 1.0;
+	
 	
 	// ProbabilityGraph 消歧时候使用
 	private boolean isLegal = false;
@@ -109,6 +112,14 @@ public class PropertyNode {
 		this.isLegal = isLegal;
 	}
 
+	public double getProbabilityScore() {
+		return probabilityScore;
+	}
+
+	public void setProbabilityScore(double probabilityScore) {
+		this.probabilityScore = probabilityScore;
+	}
+
 	/**
 	 * 判断该node是不是添加的，而不是匹配而来的
 	 * spkang add
@@ -120,6 +131,6 @@ public class PropertyNode {
 	} 
 	
 	public String toString() {
-		return "[" + Util.lastWord(property) + " -> " + (this.entity == null) + "]" ;
+		return "[" + Util.lastWord(property) + " -> " + (this.entity == null) + ", " + this.weight +  ","+ + probabilityScore + "]" ;
 	}
 }
