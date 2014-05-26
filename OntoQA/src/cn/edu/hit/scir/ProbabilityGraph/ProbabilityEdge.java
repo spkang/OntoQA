@@ -27,8 +27,6 @@ public class ProbabilityEdge extends DefaultEdge {
 
 	private boolean isReverse = false;
 	
-	private boolean isAdded = false;
-	
 	//概率匹配分值
 	private double probabilityScore = 1.0;
 	
@@ -98,12 +96,10 @@ public class ProbabilityEdge extends DefaultEdge {
 	}
 	
 	public boolean isAdded() {
-		return isAdded;
+		return this.propertyNode.isAdded();
 	}
 
-	public void setAdded(boolean isAdded) {
-		this.isAdded = isAdded;
-	}
+	
 
 	/**
 	 * Get the weight.

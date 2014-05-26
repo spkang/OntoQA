@@ -7,6 +7,7 @@
 package cn.edu.hit.scir.ProbabilityGraph;
 
 import cn.edu.hit.ir.dict.MatchedEntity;
+import cn.edu.hit.ir.graph.QueryNode;
 import cn.edu.hit.ir.ontology.SchemaNode;
 import cn.edu.hit.ir.util.Util;
 
@@ -21,6 +22,10 @@ import com.hp.hpl.jena.rdf.model.Resource;
  * @date 2014年5月24日 
  */
 public class ProbabilityNode {
+	
+	private int id = 0;
+	private static int nextId  = 100000;
+	
 	private MatchedEntity matchedEntity;
 
 	private Resource resource;
@@ -33,7 +38,6 @@ public class ProbabilityNode {
 	
 	private boolean isLegal = false;
 	
-	
 	// 标志这个节点是不是添加进来的，而不是匹配而来的
 	private boolean isAdded = false;
 	
@@ -44,13 +48,15 @@ public class ProbabilityNode {
 		this.setAdded(true);
 		this.setMatchScore(addEntityScore);
 		this.setLegal(false);
+		id = nextId++;
 	}
 	
-	public ProbabilityNode (MatchedEntity matchedEntity ) {
+	public ProbabilityNode (MatchedEntity matchedEntity, int id) {
 		this.setMatchedEntity(matchedEntity);
 		this.setResource(matchedEntity.getResource());
 		this.setMatchScore(matchedEntity.getScore());
 		this.setLegal(false);
+		this.id = id;
 	}
 	
 	public double getMatchScore() {
@@ -104,11 +110,21 @@ public class ProbabilityNode {
 		this.isAdded = isAdded;
 	}
 
-	public String toString() {
-		String s = resource.toString();
-		return "[" + Util.lastWord(s) + "->" + this.isAdded + ", " + this.matchScore + ", " + this.probabilityScore + "]";
-	}
 	
+	
+//	public String toString() {
+//		String s = resource.toString();
+//		return "[" + Util.lastWord(s) + "->" + this.isAdded + ", " + this.matchScore + ", " + this.probabilityScore + "]";
+//	}
+	
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
+
 	public boolean isLegal() {
 		return isLegal;
 	}
@@ -116,13 +132,22 @@ public class ProbabilityNode {
 	public void setLegal(boolean isLegal) {
 		this.isLegal = isLegal;
 	}
+	
+	public int hashCode() {
+		return resource.hashCode() + id;
+	}
 
 	public boolean equals(Object obj) {
-		if (obj instanceof SchemaNode) {
-			SchemaNode schemaNode = (SchemaNode)obj;
-			return schemaNode.getResource().equals(resource);
+		if (obj instanceof ProbabilityNode) {
+			ProbabilityNode probabilityNode = (ProbabilityNode)obj;
+			return probabilityNode.id == this.id &&  probabilityNode.getResource().equals(resource);
 		}
 		return false;
+	}
+	public String toString() {
+		String s = (matchedEntity == null) ? "_" : "";
+		s += Util.lastWord(resource) + "_" + id;
+		return "[" + s + ", " + this.isAdded + ", " + this.matchScore + ", " + this.probabilityScore + "]";
 	}
 
 }

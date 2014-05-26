@@ -35,6 +35,22 @@ public class PropertyNode {
 	// ProbabilityGraph 消歧时候使用
 	private boolean isLegal = false;
 	
+	public PropertyNode (PropertyNode other ) {
+		if (other.isAdded()) {
+			setEntity(null);
+			setProperty(other.getProperty());
+			setWeight(other.getWeight());
+			setLegal (other.isLegal());
+			setProbabilityScore (other.getProbabilityScore());
+		}
+		else {
+			setEntity(other.getEntity());
+			setProperty(other.getEntity().getResource());
+			setWeight(other.getWeight());
+			setLegal (other.isLegal());
+			setProbabilityScore (other.getProbabilityScore());
+		}
+	}
 	
 	public PropertyNode(MatchedEntity entity, double weight) {
 		setEntity(entity);
