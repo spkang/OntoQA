@@ -28,7 +28,7 @@ public class ProbabilityEdge extends DefaultEdge {
 	private boolean isReverse = false;
 	
 	//概率匹配分值
-	private double probabilityScore = 1.0;
+	//private double probabilityScore = 1.0;
 	
 
 
@@ -88,12 +88,9 @@ public class ProbabilityEdge extends DefaultEdge {
 	}
 
 	public double getProbabilityScore() {
-		return probabilityScore;
+		return this.propertyNode.getProbabilityScore();
 	}
 
-	public void setProbabilityScore(double probabilityScore) {
-		this.probabilityScore = probabilityScore;
-	}
 	
 	public boolean isAdded() {
 		return this.propertyNode.isAdded();

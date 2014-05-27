@@ -7,6 +7,7 @@
 package cn.edu.hit.scir.ProbabilityGraph;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -15,11 +16,13 @@ import org.apache.commons.configuration.Configuration;
 import org.apache.commons.configuration.ConfigurationException;
 import org.apache.commons.configuration.PropertiesConfiguration;
 import org.apache.log4j.Logger;
+import org.jgrapht.GraphPath;
 
 import cn.edu.hit.ir.dict.MatchedEntity;
 import cn.edu.hit.ir.graph.LoopMultiGraph;
 import cn.edu.hit.ir.graph.PropertyNode;
 import cn.edu.hit.ir.graph.QueryGraph;
+import cn.edu.hit.ir.graph.QueryNode;
 import cn.edu.hit.ir.ontology.Ontology;
 import cn.edu.hit.ir.ontology.SchemaGraph;
 import cn.edu.hit.ir.ontology.ScoredResource;
@@ -27,6 +30,8 @@ import cn.edu.hit.ir.util.ConfigUtil;
 import cn.edu.hit.scir.EntityMatcher.QueryMatchedEntityWrapper;
 
 import com.hp.hpl.jena.rdf.model.Resource;
+
+import edu.stanford.nlp.util.StringUtils;
 
 /**
  * 存储实体路径的图
@@ -67,7 +72,7 @@ public class ProbabilityGraph {
 	// 如果一个三元组是反的，那么对匹配的分值进行罚分
 	private final String REVERSE_TRIPLE_PUBLISH_SCORE = "reverse.triple.publish.score";
 	
-	
+	private QueryGraph queryGraph = null;
 	
 	private double addEntityScore = 0.6;
 	private double addPropertyScore = 0.4;
@@ -95,14 +100,125 @@ public class ProbabilityGraph {
 		removeIllegalMatchedObjects();
 		completeMatchedObjectScore();
 		buildGraph();
+		setQueryGraph (this.generateQueryGraph());
 	}
 	
+	/**
+	 * 生成查询图
+	 *
+	 * @param 
+	 * @return QueryGraph 
+	 */
 	public QueryGraph generateQueryGraph () {
-		QueryGraph queryGraph = new QueryGraph(null);
-		GraphPathSelector pathSel = new GraphPathSelector (this.graph, this.beginNodes, this.endNodes);
-		return null;
+		if (this.completeMatchedObjects == null || this.completeMatchedObjects.isEmpty())
+			return null;
+		QueryGraph qGraph = new QueryGraph(null);
 		
+		if (this.completeMatchedObjects.size() > 2) { 
+			GraphPathSelector pathSel = new GraphPathSelector (this.graph, this.beginNodes, this.endNodes);
+			
+			GraphPath<ProbabilityNode, ProbabilityEdge> bestPath = pathSel.getHighestScoredPath();
+			if (bestPath == null )
+				return null;
+			List<ProbabilityEdge> edges = bestPath.getEdgeList();
+			ProbabilityNode source = (ProbabilityNode)bestPath.getStartVertex();
+			ProbabilityNode target = null;
+			for (int i = 0; i < edges.size(); ++i) {
+				ProbabilityEdge edge = (ProbabilityEdge)edges.get(i);
+				target = pathSel.otherVertex(edge, source);
+				pushEdge (qGraph, source, edge, target);
+				source = target;
+			}
+		}
+		else if (this.completeMatchedObjects.size() == 1){
+			if(this.completeMatchedObjects.get(0).isEmpty())
+				return null;
+			ProbabilityNode tmpNode = (ProbabilityNode)this.completeMatchedObjects.get(0).get(0);
+			if (tmpNode.isAdded()) {
+				qGraph.setSource(this.generateAddedQueryNode(tmpNode));
+			}
+			else {
+				qGraph.setSource(new QueryNode (tmpNode.getMatchedEntity(),this.schemaGraph.getSchemaResource(tmpNode.getResource()), tmpNode.getId(), tmpNode.getMatchScore()));
+			}
+		}
+		if (this.entityWrapper.isCount()) {
+			qGraph.setCount(true);
+		}
+		return qGraph;
 	}
+	
+	public QueryGraph getQueryGraph() {
+		return queryGraph;
+	}
+
+	public void setQueryGraph(QueryGraph queryGraph) {
+		this.queryGraph = queryGraph;
+	}
+
+	private void pushEdge (QueryGraph queryGraph, ProbabilityNode source, ProbabilityEdge property, ProbabilityNode target) {
+		if (queryGraph == null || source == null || property == null || target == null)
+			return ;
+		
+//		QueryNode qSource = generateQueryNode (source, property, target);
+//		QueryNode qTarget = generateQueryNode (source, property, target);
+		QueryNode qSource = null;
+		QueryNode qTarget = null;
+		if (source.isAdded()) {
+			qSource = generateAddedQueryNode(source);
+		}
+		if (target.isAdded())
+			qTarget = generateAddedQueryNode(target);
+		
+		if (qSource == null && qTarget == null ) {
+			qSource = this.generateQueryNode(target, property, source);
+			qTarget = this.generateQueryNode(source, property, target);
+		}
+		else if (qSource !=  null && qTarget == null ){
+			qTarget = this.generateQueryNode(source, property, target);
+		}else if (qSource == null && qTarget != null ) {
+			qSource = this.generateQueryNode(target, property, source);
+		}
+		
+		if (qSource !=null && qTarget != null ) {
+			//设置查询点
+			if (queryGraph.vertexSet().isEmpty()) {
+				queryGraph.setSource(qSource);
+			}
+			queryGraph.pushEdge(qSource, property.getPropertyNode(), qTarget, property.isReverse());
+		}
+	}
+	
+	
+	private QueryNode generateAddedQueryNode (ProbabilityNode node ) {
+		if (node  == null )
+			return null;
+		if (node.isAdded()) {
+			QueryNode queryNode = new QueryNode (node.getResource(), this.schemaGraph.getSchemaResource(node.getResource()), node.getId(), node.getMatchScore());
+			return queryNode;
+		}
+		return null;
+	}
+	
+	private QueryNode generateQueryNode (ProbabilityNode s, ProbabilityEdge p, ProbabilityNode o) {
+		if (s == null || p == null || o == null  ) return null;
+		
+		if (schemaGraph.isComparableProperty(this.schemaGraph.getSchemaResource(s.getResource()), p.getProperty())) {
+			QueryNode target = new QueryNode(ontology.literalClass, o.getMatchScore());
+			return target;
+		}
+//		logger.debug("s : " + s + ", p : " + p + ", o : " + o);
+//		logger.debug("test : " + this.schemaGraph.getSchemaResource(o.getResource()) + " --------- " + o.getResource() + ", is instance " + ontology.isInstanceOf(o.getResource(), this.schemaGraph.getSchemaResource(o.getResource())));
+//		logger.debug("is literal prop : " + schemaGraph.isLiteralProperty(s.getResource(), p.getProperty()));
+		if (schemaGraph.isLiteralProperty(s.getResource(), p.getProperty())
+				&& ontology.isInstanceOf(o.getResource(), this.schemaGraph.getSchemaResource(o.getResource()))) {	// handles question like "a city named austin"
+//			logger.debug("in test : " + this.schemaGraph.getSchemaResource(o.getResource()) + " --------- " + o.getResource() + ", is instance " + ontology.isInstanceOf(o.getResource(), this.schemaGraph.getSchemaResource(o.getResource())));
+			QueryNode literalValue = new QueryNode(ontology.literalClass, o.getMatchScore());
+			literalValue.setValue(o.getMatchedEntity().getLabel());
+			return literalValue;
+		}
+		QueryNode queryNode = new QueryNode (o.getMatchedEntity(), this.schemaGraph.getSchemaResource(o.getResource()), o.getId(), o.getMatchScore());
+		return queryNode;
+	} 
 	
 	/**
 	 * 根据query初始化匹配的实体
@@ -291,9 +407,9 @@ public class ProbabilityGraph {
 	private int choice (boolean [] bits ) {
 		if (bits == null )return 0;
 		int nb = 0;
-		for (int i = bits.length-1; i >= 0 ; --i ) {
+		for (int i = 0; i < bits.length ; ++i ) {
 			if (bits[i]) {
-				nb = (nb | ( 1 << i));
+				nb = (nb | ( 1 << (bits.length - i - 1)));
 			}
 		}
 		return nb;
@@ -324,7 +440,7 @@ public class ProbabilityGraph {
 					for (Object cur : currObjs) {
 						if (legalEntities != null && cur instanceof ProbabilityNode && (legalEntities.contains(((ProbabilityNode)cur).getResource()))) {
 							((ProbabilityNode)cur).setLegal(true);
-							//logger.info("(" + prev + ", " + cur + ", " + next + ")" + "true");
+							//logger.debug("(" + prev + ", " + cur + ", " + next + ")" + "true");
 							isExistsLegal = true;
 						}
 					}
@@ -356,6 +472,10 @@ public class ProbabilityGraph {
 		for (Object prev : prevObjs) {
 			for (Object cur : currObjs) {
 				for (Object next : nextObjs) {
+//					logger.debug("prev : " + prev);
+//					logger.debug("cure : " + cur);
+//					logger.debug("next : " + next);
+//					logger.debug("next is literal : " +((ProbabilityNode)next).getResource().isLiteral());
 					if (this.schemaGraph.isLegalTriple(((ProbabilityNode)prev).getResource(), ((PropertyNode)cur).getProperty(), ((ProbabilityNode)next).getResource())) {
 						((ProbabilityNode)prev).setLegal(true);
 						((PropertyNode)cur).setLegal(true);
@@ -363,34 +483,39 @@ public class ProbabilityGraph {
 						isExistsLegal = true;
 					}
 					else {
-						if (prevObjs.size() == 1 && nextObjs.size() == 1 && currObjs.size() == 1) {
-							Set<Resource> propSet = schemaGraph.getPropertySet(instance2Class(((ProbabilityNode)prev).getResource()), instance2Class(((ProbabilityNode)next).getResource()));
-							if (propSet == null ) {
-								propSet = schemaGraph.getPropertySet(instance2Class(((ProbabilityNode)next).getResource()), instance2Class(((ProbabilityNode)prev).getResource()));
-							}
-							if (propSet != null && !propSet.contains(((PropertyNode)currObjs.get(0)).getProperty())) {
-								currObjs.clear();
-								for (Resource pnode : propSet) {
-									PropertyNode tn = new PropertyNode(pnode, this.addPropertyScore);
-									tn.setLegal(true);
-									currObjs.add(tn);
-								}
-								((ProbabilityNode)prev).setLegal(true);
-								((ProbabilityNode)next).setLegal(true);
-								isExistsLegal = true;
-							}
-							
-						}
+						;
 					}
 				}
 			}
 		}
+		
 		// 不存在合法  state border river, 属性border是错误的
 		if (isExistsLegal) {
 			// 删除不合法的元素
 			removeIllegalObject (prevObjs);
 			removeIllegalObject (currObjs);
 			removeIllegalObject (nextObjs);
+		}else {
+			if (prevObjs.size() == 1 && nextObjs.size() == 1 && currObjs.size() == 1) {
+				Object prev = prevObjs.get(0);
+				Object next = nextObjs.get(0);
+				Set<Resource> propSet = schemaGraph.getPropertySet(instance2Class(((ProbabilityNode)prev).getResource()), instance2Class(((ProbabilityNode)next).getResource()));
+				if (propSet == null ) {
+					propSet = schemaGraph.getPropertySet(instance2Class(((ProbabilityNode)next).getResource()), instance2Class(((ProbabilityNode)prev).getResource()));
+				}
+				if (propSet != null && !propSet.contains(((PropertyNode)currObjs.get(0)).getProperty())) {
+					currObjs.clear();
+					for (Resource pnode : propSet) {
+						PropertyNode tn = new PropertyNode(pnode, this.addPropertyScore);
+						tn.setLegal(true);
+						currObjs.add(tn);
+					}
+					((ProbabilityNode)prev).setLegal(true);
+					((ProbabilityNode)next).setLegal(true);
+					isExistsLegal = true;
+				}
+				
+			}
 		}
 		return isExistsLegal;
 	}
@@ -431,6 +556,11 @@ public class ProbabilityGraph {
 	 * @return void 
 	 */
 	public void removeIllegalMatchedObjects () {
+//		logger.debug("completeMatchedObjects : ");
+//		for (List<Object> os : this.completeMatchedObjects) {
+//			logger.debug("obj : " + StringUtils.join(os, ", "));
+//		}
+		
 		for (int i = 1; i < this.completeMatchedObjects.size() - 1; ++i ) {
 			List<Object> prevObjs = this.completeMatchedObjects.get(i-1);
 			List<Object> currObjs = this.completeMatchedObjects.get(i);
@@ -441,18 +571,17 @@ public class ProbabilityGraph {
 								  ((PropertyNode)currObjs.get(0)).isAdded(),
 								   (((ProbabilityNode)nextObjs.get(0)).isAdded())};
 				int choice = choice (bits);
+//				logger.debug("bits : " + bits[0] + ", " + bits[1] + ", " + bits[2]);
+//				logger.debug("choice : " + choice);
 				switch (choice) {
 				case 0 : // 0, 0, 0 没有是填充的, 合法检查
 					if (!this.removeIllegalEntityPropEntity(prevObjs, currObjs, nextObjs)) {
-						logger.info("需要处理");
+						logger.debug("需要处理");
 					}
-					
-					
-					
 					break;
 				case 1 : // 0, 0, 1, 最后一个是添加的
 					if (!this.removeIllegalEntityPropEntity(prevObjs, currObjs, nextObjs)) {
-						logger.info("需要处理");
+						logger.debug("需要处理");
 					}
 					
 					// s, p --> o 
@@ -460,18 +589,18 @@ public class ProbabilityGraph {
 					break;
 				case 2 : // 0, 1, 0, 中间那个是添加的
 					if (!this.removeIllegalEntityPropEntity(prevObjs, currObjs, nextObjs)) {
-						logger.info("需要处理");
+						logger.debug("需要处理");
 					}
 					
 					// s, o --> p
 					
 					break;
 				case 3 : // 0, 1, 1, 不存在， 两个添加的内容不可能
-					logger.info("不可能");
+					logger.debug("不可能");
 					break;
 				case 4 : // 1, 0, 0, 第一个是添加的内容
 					if (!this.removeIllegalEntityPropEntity(nextObjs, currObjs, prevObjs)) {
-						logger.info("需要处理");
+						logger.debug("需要处理");
 					}
 					
 					// o p --> s
@@ -479,19 +608,19 @@ public class ProbabilityGraph {
 					break;
 				case 5 : // 1, 0, 1, 第一个和第三个是添加的内容
 					if (!this.removeIllegalEntityPropEntity(prevObjs, currObjs, nextObjs)) {
-						logger.info("需要处理");
+						logger.debug("需要处理");
 					}
 					
 					
 					break;
 				case 6 : // 1, 1, 0 不存在，两个添加的内容不可能连在一起
-					logger.info("不可能");
+					logger.debug("不可能");
 					break;
 				case 7 :// 1, 1, 1, 都是填充的，这种情况不可能存在
-					logger.info("不可能");
+					logger.debug("不可能");
 					break;
 				default : 
-					logger.info("不可能");
+					logger.debug("不可能");
 					break;
 				}
 			}
@@ -503,29 +632,29 @@ public class ProbabilityGraph {
 				switch (choice) {
 				case 0 : // 0, 0, 0 没有是填充的, 合法检查
 					if (!this.removeIllegalPropEntityProp(prevObjs, currObjs, nextObjs)) {
-						logger.info("需要处理");
+						logger.debug("需要处理");
 					}
 					break;
 				case 1 : // 0, 0, 1, 最后一个是添加的
 					if (!this.removeIllegalPropEntityProp(prevObjs, currObjs, nextObjs)) {
-						logger.info("需要处理");
+						logger.debug("需要处理");
 					}
 					break;
 				case 2 : // 0, 1, 0, 中间那个是添加的
 					if (!this.removeIllegalPropEntityProp(prevObjs, currObjs, nextObjs)) {
-						logger.info("需要处理");
+						logger.debug("需要处理");
 					}
 					break;
 				case 3 : // 0, 1, 1, 不存在， 两个添加的内容不可能
 					break;
 				case 4 : // 1, 0, 0, 第一个是添加的内容
 					if (!this.removeIllegalPropEntityProp(prevObjs, currObjs, nextObjs)) {
-						logger.info("需要处理");
+						logger.debug("需要处理");
 					}
 					break;
 				case 5 : // 1, 0, 1, 第一个和第三个是添加的内容
 					if (!this.removeIllegalPropEntityProp(prevObjs, currObjs, nextObjs)) {
-						logger.info("需要处理");
+						logger.debug("需要处理");
 					}
 					break;
 				case 6 : // 1, 1, 0 不存在，两个添加的内容不可能连在一起
@@ -550,7 +679,14 @@ public class ProbabilityGraph {
 	 */
 	private boolean isSubjectObject (ProbabilityNode lhs, ProbabilityNode rhs, PropertyNode property) {
 		if (lhs == null || rhs == null || property == null) return false;
+//		logger.debug("is reverse : " + this.schemaGraph.getSchemaResource(lhs.getResource()) + ", " + property + ", " + this.schemaGraph.getSchemaResource(rhs.getResource()));
 		Set<Resource> propSet = this.schemaGraph.getPropertySet(this.schemaGraph.getSchemaResource(lhs.getResource()), this.schemaGraph.getSchemaResource(rhs.getResource()));
+		if (this.schemaGraph.isLiteralResource(rhs.getResource()))
+			return true;
+		if (schemaGraph.isLiteralProperty(this.schemaGraph.getSchemaResource(lhs.getResource()), property.getProperty())
+				&& ontology.isInstanceOf(rhs.getResource(), this.schemaGraph.getSchemaResource(rhs.getResource()))) {	// handles question like "a city named austin"
+			return true;
+		}
 		if (propSet != null && propSet.contains(property.getProperty())) {
 			return true;
 		}
@@ -582,7 +718,7 @@ public class ProbabilityGraph {
 							
 							if (!this.schemaGraph.isLegalTriple(prevNode.getResource(), curNode.getProperty(), nextNode.getResource()))
 								continue;
-//							logger.info("s : " + prevNode.getResource()  + "\tp : " + curNode.getProperty() + "\to : " + nextNode.getResource());
+//							logger.debug("s : " + prevNode.getResource()  + "\tp : " + curNode.getProperty() + "\to : " + nextNode.getResource());
 							// 0, 0 , 0
 							if (!prevNode.isAdded() && !curNode.isAdded() && !nextNode.isAdded()) {
 								prevNode.setProbabilityScore(this.matchProbabilityScore);
@@ -683,7 +819,7 @@ public class ProbabilityGraph {
 								// prevNode is subject ,
 								if (this.isSubjectObject(prevNode, nextNode, curNode)) {
 									Set<ScoredResource> scRes = this.schemaGraph.getObjProp2SubjSet(nextNode.getResource(), curNode.getProperty());
-//									logger.info("1scRes : " + scRes);
+//									logger.debug("1scRes : " + scRes);
 									boolean exists = false;
 									if (scRes != null ) {
 										
@@ -702,7 +838,7 @@ public class ProbabilityGraph {
 								// nextNode is subject 
 								else if (this.isSubjectObject(nextNode, prevNode, curNode)) {
 									Set<ScoredResource> scRes = this.schemaGraph.getSubjProp2ObjSet(nextNode.getResource(), curNode.getProperty());
-									logger.info("2scRes : " + scRes);
+									logger.debug("2scRes : " + scRes);
 									boolean exists = false;
 									if (scRes != null ) {
 										for (ScoredResource sr : scRes ) {
@@ -796,7 +932,7 @@ public class ProbabilityGraph {
 								}
 							}
 							else {
-								logger.info ("不做处理～～～");
+								logger.debug ("不做处理～～～");
 							}
 						}
 					}
@@ -837,7 +973,7 @@ public class ProbabilityGraph {
 							if (i == this.completeMatchedObjects.size() -2) {
 								endNodeSet.add(nextNode);
 							}
-							logger.info("triple : " + prevNode + ", " + curNode + ", " + nextNode);
+//							logger.debug("triple : " + prevNode + ", " + curNode + ", " + nextNode);
 							// 正向
 							if (this.isSubjectObject(prevNode, nextNode, curNode)) {
 								pushEdge(prevNode, curNode, nextNode, false);
@@ -857,7 +993,7 @@ public class ProbabilityGraph {
 		}// if
 		// 只匹配到一列实体的情况
 		else {
-			
+			; // generateQueryGraph 中做处理了
 		}
 	}
 	
@@ -894,11 +1030,11 @@ public class ProbabilityGraph {
 	 * @return ProbabilityEdge 
 	 */
 	public ProbabilityEdge pushEdge (ProbabilityNode source, PropertyNode property, ProbabilityNode target, boolean isReverse) {
-		logger.info("@pushEdge " + source + ", " + property + ", " + target + ", " + isReverse);
+		logger.debug("@pushEdge " + source + ", " + property + ", " + target + ", " + isReverse);
 		PropertyNode newProp = new PropertyNode(property);
 		if (isReverse) {
 			newProp.setWeight(property.getWeight() - this.reverseTriplePublishScore);
-			logger.info("@pushEdge reverse : " + source + ", " + newProp + ", " + target + ", " + isReverse);
+			logger.debug("@pushEdge reverse : " + source + ", " + newProp + ", " + target + ", " + isReverse);
 		}
 		if (!graph.containsVertex(source))
 			graph.addVertex(source);
@@ -908,7 +1044,7 @@ public class ProbabilityGraph {
 		if (edge != null ) {
 			edge.set(newProp);
 			edge.setReverse(isReverse);
-			logger.info("push edge : " + edge );
+			logger.debug("push edge : " + edge );
 		}
 		return edge;
 	}
@@ -964,6 +1100,14 @@ public class ProbabilityGraph {
 		return findPos;
 	}*/
 	
+	public QueryMatchedEntityWrapper getEntityWrapper() {
+		return entityWrapper;
+	}
+
+	public void setEntityWrapper(QueryMatchedEntityWrapper entityWrapper) {
+		this.entityWrapper = entityWrapper;
+	}
+
 	/**
 	 * 核心搜索算法
 	 *

@@ -17,6 +17,7 @@ import org.apache.log4j.Logger;
 import cn.edu.hit.ir.nlp.EnglishNlpTool;
 import cn.edu.hit.ir.ontology.Ontology;
 import cn.edu.hit.ir.questionanalysis.QuestionAnalyzer;
+import cn.edu.hit.scir.ProbabilityGraph.ProbabilityGraphAnalyzer;
 import cn.edu.hit.scir.dependency.StanfordEnglishNlpTool;
 import cn.edu.hit.scir.ontologymatch.QueryAnalyzer;
 
@@ -91,7 +92,8 @@ public class Evaluator {
 		List<String> failureIds = new ArrayList<String>();
 		
 //		QuestionAnalyzer analyzer = new QuestionAnalyzer(); // bin3
-		QueryAnalyzer analyzer = new QueryAnalyzer (); // spakng
+//		QueryAnalyzer analyzer = new QueryAnalyzer (); // spakng
+		ProbabilityGraphAnalyzer analyzer= new ProbabilityGraphAnalyzer();
 		Ontology ontology = Ontology.getInstance();
 		
 		List<Example> examples = CorpusTool.readCorpus(corpusFilename);

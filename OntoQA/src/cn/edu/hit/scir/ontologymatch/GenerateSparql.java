@@ -74,7 +74,7 @@ public class GenerateSparql {
 		this.ontology = ontology;
 		schemaGraph = ontology.getSchemaGraph();
 		vocabulary = Vocabulary.getInstance();
-		logger.info("schemaGraph : " + schemaGraph.toString());
+		logger.debug("schemaGraph : " + schemaGraph.toString());
 		prefixMap = new HashMap<String, String>();
 		nameSet = new HashSet<String>();
 		node2varMap = new HashMap<QueryNode, String>();
@@ -392,9 +392,9 @@ public class GenerateSparql {
 			List<String> object = getNotNoName(o);
 			String sub = "";
 			String obj = "";
-			logger.info("s : " + s);
-			logger.info("p : " + p);
-			logger.info("o : " + o);
+			logger.debug("s : " + s);
+			logger.debug("p : " + p);
+			logger.debug("o : " + o);
 			sub = subject.get(subject.size()-1);
 			subject.remove(subject.size()-1);
 			obj = object.get(object.size()-1);

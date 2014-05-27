@@ -675,13 +675,16 @@ public class EntityMatcherEngine {
 	public void matchQuery (List<DGNode> queryNodes ) {
 		if (queryNodes == null )
 			return ;
-		
+		logger.info("queryNodes : " + queryNodes);
 		for (DGNode node : queryNodes) {
 			Set<Entity> matchSet = new HashSet<Entity> ();
 			Set<Entity> prefixCompleteMatchSet = this.completeMatchDGNodeEntity(node, this.prefix2eMap);
 			Set<Entity> stringCompleteMatchSet = this.completeMatchDGNodeEntity(node, this.s2eMap);
 			Set<Entity> suffixCompleteMatchSet = this.completeMatchDGNodeEntity(node, this.suffix2eMap);
 		
+//			logger.info("prefixCompleteMatchSet : " + prefixCompleteMatchSet);
+//			logger.info("stringCompleteMatchSet : " + stringCompleteMatchSet);
+//			logger.info("suffixCompleteMatchSet : " + suffixCompleteMatchSet);
 			// 决策，如果前缀匹配的内容和完全匹配的内容一致，那么实体集合直接付给node的匹配的实体集合
 			// 如果前缀匹配和完全匹配的集合不一致（stringCompleteMatchSet != null ）， 以stringCompleteMatch 为准，
 			// 如果stringCompleteMatchSet == null , 以前缀匹配为准

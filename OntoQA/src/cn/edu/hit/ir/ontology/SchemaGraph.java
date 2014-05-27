@@ -706,6 +706,9 @@ public class SchemaGraph {
 		if (!this.resourceSet.contains(o)) {
 			 obj = getTypeNode(o).getResource();
 		}
+		
+		
+		
 		Pair<Resource, Resource> pair = Pair.of(subj,  p);
 		if (this.subjProp2ObjSet.containsKey(pair)) {
 			ScoredResource sr = new ScoredResource(obj, 1);
@@ -718,7 +721,17 @@ public class SchemaGraph {
 			if (this.subjProp2ObjSet.get(pair2).contains(sr))
 				return true;
 		}
+		if (isLiteralProperty (s, p) && ontology.getRDFNodeType(o).equals(RDFNodeType.INSTANCE) 
+			    || isLiteralProperty(o, p) && ontology.getRDFNodeType(s).equals(RDFNodeType.INSTANCE)) {
+				return true;
+			}
 		return false;
+	}
+	
+	public boolean isLiteralResource (Resource resource) {
+		if (resource == null )
+			return false;
+		return this.getSchemaResource(resource).equals(this.literalNode.getResource());
 	}
 	
 	public String toString() {
