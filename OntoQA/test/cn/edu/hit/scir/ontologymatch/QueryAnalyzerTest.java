@@ -15,6 +15,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import cn.edu.hit.ir.questionanalysis.QuestionAnalyzer;
+import cn.edu.hit.scir.ProbabilityGraph.ProbabilityGraphAnalyzer;
 
 /**
  *
@@ -26,7 +27,7 @@ public class QueryAnalyzerTest {
 
 	QueryAnalyzer  queryAnalyzer = new QueryAnalyzer (); // spkang
 	QuestionAnalyzer analyzer = new QuestionAnalyzer(); // bin3
-	
+	ProbabilityGraphAnalyzer pganalyzer= new ProbabilityGraphAnalyzer();  
 	@Before
 	public void setUp () throws Exception {
 		System.out.println ("set up !");
@@ -57,6 +58,31 @@ public class QueryAnalyzerTest {
 //		queryAnalyzer("what is the longest river in the state with the highest point ?");
 //		queryAnalyzer("which states have cities named austin ?");
 		queryAnalyzer("how many rivers do not traverse the state with the capital albany ?");
+		queryAnalyzer("how big is the new york ?");
+		queryAnalyzer("how many states have cities named austin ?");
+		queryAnalyzer("which state border the most state ?");
+		queryAnalyzer("what river flows through the most states ?");
+	}
+	
+	@Test
+	public void testPGAnalyzer() {
+//		pgAny("how many rivers do not traverse the state with the capital albany ?");
+		
+//		pgAny("how many river in us ?");
+//		pgAny ("how many states have cities named austin ?");
+//		pgAny("how big is the new york ?");
+//		pgAny("which river run through the most states ?");
+//		
+//		pgAny("which state border the most state ?");
+//		pgAny("what river flows through the most states ?");
+		pgAny("how many major cities are there ?");
+//		pgAny("which capitals are not major cities ?");
+//		pgAny ("which states border no other states ?");
+//		pgAny ("which states does not border texas ?");
+	}
+	private void pgAny (String query) {
+		System.out.println("Query : " + query);
+		System.out.println("res : " + pganalyzer.analyze(query));
 	}
 	
 	public boolean isEqual (String query ) {
