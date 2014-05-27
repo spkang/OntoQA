@@ -50,11 +50,11 @@ public class ProbabilityGraphTest {
 	
 	@Test
 	public void testBit () {
-		boolean [] bits = {true, true, true};
+		boolean [] bits = {true, false, false};
 		int nb = 0;
-		for (int i = bits.length-1; i >= 0 ; --i ) {
+		for (int i = 0; i < bits.length ; ++i ) {
 			if (bits[i]) {
-				nb = (nb | ( 1 << i));
+				nb = (nb | ( 1 << (bits.length - i - 1)));
 			}
 		}
 		System.out.println ("nb : " + nb);
@@ -62,19 +62,21 @@ public class ProbabilityGraphTest {
 	
 	@Test
 	public void testMissResource() {
-		testMiss ("how many states border the state that borders the most states ?");
-		testMiss ("how tall is the highest point in montana ?");
-		testMiss ("name the states which have no surrounding states ?");
-		testMiss ("through which states does the mississippi flow ?");
-		testMiss ("rivers in new york ?");
-		
-		// 调参数用的
-		testMiss ("what is the capital of new york ?");
-		
-		testMiss ("how many river run through us ?");
-		testMiss ("how many aa run through us which border the adfa ?");
-		testMiss("how many river in new york");
-		testMiss ("which state border mississippi river ?");
+//		testMiss ("how many states border the state that borders the most states ?");
+//		testMiss ("how tall is the highest point in montana ?");
+//		testMiss ("name the states which have no surrounding states ?");
+//		testMiss ("through which states does the mississippi flow ?");
+//		testMiss ("rivers in new york ?");
+//		
+//		// 调参数用的
+//		testMiss ("what is the capital of new york ?");
+//		testMiss ("what is the capital of new york which the mississippi run through?");
+//		
+//		testMiss ("how many river run through us ?");
+//		testMiss ("how many aa run through us which border the adfa ?");
+//		testMiss("how many river in new york");
+//		testMiss ("which state border mississippi river ?");
+		testMiss ("how many states have cities named austin ?");
 		
 	}
 
@@ -92,9 +94,24 @@ public class ProbabilityGraphTest {
 		for (List<Object> objs : graph.getCompleteMatchedObjects()) {
 			System.out.println("obj : " + StringUtils.join(objs, ","));
 		}
-		graph.removeIllegalMatchedObjects();System.out.println("objs : ----------------");
+		graph.removeIllegalMatchedObjects();
+		graph.completeMatchedObjectScore();
+		System.out.println("objs : ----------------");
 		for (List<Object> objs : graph.getCompleteMatchedObjects()) {
 			System.out.println("obj : " + StringUtils.join(objs, ","));
 		}
+		
+		System.out.println("begin Nodes : " + this.graph.getBeginNodes() );
+		System.out.println("end   Nodes : " + this.graph.getEndNodes() );
+		System.out.println("graph   " + graph.getGraph().toString());
+		System.out.println("graph vertex  " + graph.getGraph().vertexSet());
+		System.out.println("graph edgeset " + graph.getGraph().edgeSet());
+		
+		if (this.graph.getGraph() == null )
+			return ;
+		GraphPathSelector pathSel = new GraphPathSelector (this.graph.getGraph(), this.graph.getBeginNodes(), this.graph.getEndNodes());
+		
+		//pathSel.findAllPath();
+		
 	} 
 }
