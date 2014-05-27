@@ -272,7 +272,7 @@ public class OntologyTest {
 		Resource state = ontology.getResource("http://ir.hit.edu/nli/geo/state");
 		Resource texas = ontology.getResource("http://ir.hit.edu/nli/geo/state/texas");
 		Resource highestPoint = ontology.getResource("http://ir.hit.edu/nli/geo/hasHighestPoint");
-
+		
 		assertTrue(ontology.isInstanceOf(texas, state));
 		assertFalse(ontology.isInstanceOf(state, state));
 		assertFalse(ontology.isInstanceOf(state, texas));

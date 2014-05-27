@@ -103,8 +103,24 @@ public class SchemaGraphTest {
 			}
 		}
 	}
+	@Test
+	public void testIsTriple () {
+		Resource point = ontology.getResource("http://ir.hit.edu/nli/geo/point");
+	    Resource prop  = ontology.getResource("http://ir.hit.edu/nli/geo/hasHighestPoint");
+	    Resource state = ontology.getResource("http://ir.hit.edu/nli/geo/state");
+	    System.out.println("is : " + this.schemaGraph.isLegalTriple(state, prop,point));
+	    
+	    Resource run  = ontology.getResource("http://ir.hit.edu/nli/geo/runThrough");
+	    Resource border  = ontology.getResource("http://ir.hit.edu/nli/geo/border");
+	    
+	    System.out.println ("run : " + run.toString());
+	    System.out.println ("border : " + border.toString());
+	    
+	    System.out.println("set : " + schemaGraph.getPropPropSet(run, border));
+
+	} 
 	
-//	@Test
+	@Test
 	public void testPropertyPairMap() {
 		System.out.println("@testPropertyPairMap");
 		
