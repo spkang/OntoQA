@@ -15,12 +15,14 @@ import java.util.List;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang.StringUtils;
 import org.jsoup.Jsoup;
-import org.jsoup.nodes.*;
+import org.jsoup.nodes.Document;
+import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
 import cn.edu.hit.ir.nlp.EnglishNlpTool;
 import cn.edu.hit.ir.nlp.NlpTool;
 import cn.edu.hit.ir.questionanalysis.QuestionAnalyzer;
+import cn.edu.hit.scir.ChineseEngine.ChineseQueryAnalyzer;
 
 /**
  * A tool of corpus.
@@ -58,7 +60,7 @@ public class CorpusTool {
 		try {
 			final String EMPTY_SPARQL = "\nSELECT \nWHERE {\n\n}\n";
 			
-			final String inFilename = DATA_DIR + "geo880.txt";
+			final String inFilename = DATA_DIR + "chinesequestion.txt";
 			
 			Document corpus = new Document("");
 			Element examples = corpus.prependElement(EXAMPLES);
@@ -75,7 +77,7 @@ public class CorpusTool {
 				System.out.println(example);
 			}
 			
-			String corpusFilename = DATA_DIR + "corpus2.xml";
+			String corpusFilename = DATA_DIR + "chinese_corpus.xml";
 			FileUtils.writeStringToFile(new File(corpusFilename), corpus.toString());
 
 		} catch (IOException e) {
@@ -129,6 +131,8 @@ public class CorpusTool {
 				String sparqlOut = ex.getSparqlOut();
 				if (sparqlOut == null )
 					sparqlOut = "";
+				if (sparql == null )
+					sparql ="";
 				
 				Element example = examples.appendElement(EXAMPLE);
 				example.attr(ID_ATTR, id);
@@ -259,10 +263,13 @@ public class CorpusTool {
 		
 		long begin = System.currentTimeMillis();
 		
-		final String corpusFilename = CorpusTool.DATA_DIR + "corpus.xml";
-		final String outputFilename = CorpusTool.DATA_DIR + "sparql_all.xml";
+		//final String corpusFilename = CorpusTool.DATA_DIR + "corpus.xml";
+		final String corpusFilename = CorpusTool.DATA_DIR + "chinese_corpus.xml";
+		//final String outputFilename = CorpusTool.DATA_DIR + "sparql_all.xml";
+		final String outputFilename = CorpusTool.DATA_DIR + "chinese_sparql_all.xml";
 		
-		QuestionAnalyzer analyzer = new QuestionAnalyzer();
+		//QuestionAnalyzer analyzer = new QuestionAnalyzer();
+		ChineseQueryAnalyzer analyzer = new ChineseQueryAnalyzer ();
 		
 		List<Example> examples = CorpusTool.readCorpus(corpusFilename);
 		

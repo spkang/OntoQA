@@ -14,12 +14,9 @@ import java.util.Set;
 
 import org.apache.log4j.Logger;
 
-import cn.edu.hit.ir.nlp.EnglishNlpTool;
 import cn.edu.hit.ir.ontology.Ontology;
 import cn.edu.hit.ir.questionanalysis.QuestionAnalyzer;
-import cn.edu.hit.scir.ProbabilityGraph.ProbabilityGraphAnalyzer;
-import cn.edu.hit.scir.dependency.StanfordEnglishNlpTool;
-import cn.edu.hit.scir.ontologymatch.QueryAnalyzer;
+import cn.edu.hit.scir.ChineseEngine.ChineseQueryAnalyzer;
 
 /**
  * The evaluator which evaluate the performance of the whole OntoQA system.
@@ -33,10 +30,17 @@ public class Evaluator {
 
 	//public static final String corpusFilename = CorpusTool.DATA_DIR + "corpus.xml";
 	//public static final String corpusFilename = CorpusTool.DATA_DIR + "small_corpus.xml";
-	public static final String corpusFilename = CorpusTool.DATA_DIR + "sparql_all.xml";
-	public static final String outputFilename = CorpusTool.DATA_DIR + "output_spkang_all.xml";
-	public static final String wrongFilename = CorpusTool.DATA_DIR + "wrong_spkang_all.xml";
-	public static final String sparqloutFilename = CorpusTool.DATA_DIR + "sparql_out_spkang_all.xml";
+	//english
+//	public static final String corpusFilename = CorpusTool.DATA_DIR + "sparql_all.xml";
+//	public static final String outputFilename = CorpusTool.DATA_DIR + "output_spkang_all.xml";
+//	public static final String wrongFilename = CorpusTool.DATA_DIR + "wrong_spkang_all.xml";
+//	public static final String sparqloutFilename = CorpusTool.DATA_DIR + "sparql_out_spkang_all.xml";
+	
+	//chinese
+	public static final String corpusFilename = CorpusTool.DATA_DIR + "chinese_sparql_all.xml";
+	public static final String outputFilename = CorpusTool.DATA_DIR + "chinese_output_spkang_all.xml";
+	public static final String wrongFilename = CorpusTool.DATA_DIR + "chinese_wrong_spkang_all.xml";
+	public static final String sparqloutFilename = CorpusTool.DATA_DIR + "chinese_sparql_out_spkang_all.xml";
 	
 	private static Logger logger = Logger.getLogger(Evaluator.class);
 	
@@ -76,7 +80,7 @@ public class Evaluator {
 		set1.addAll(results1);
 		set2.addAll(results2);
 		
-		return (set1.equals(set2) || set1.containsAll(set2));
+		return (set1.equals(set2));// || set1.containsAll(set2));
 	}
 	
 	public static void evaluate() {
@@ -93,7 +97,8 @@ public class Evaluator {
 		
 //		QuestionAnalyzer analyzer = new QuestionAnalyzer(); // bin3
 //		QueryAnalyzer analyzer = new QueryAnalyzer (); // spakng
-		ProbabilityGraphAnalyzer analyzer= new ProbabilityGraphAnalyzer();
+//		ProbabilityGraphAnalyzer analyzer= new ProbabilityGraphAnalyzer();
+		ChineseQueryAnalyzer analyzer = new ChineseQueryAnalyzer ();
 		Ontology ontology = Ontology.getInstance();
 		
 		List<Example> examples = CorpusTool.readCorpus(corpusFilename);

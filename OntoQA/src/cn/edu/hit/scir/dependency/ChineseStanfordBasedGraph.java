@@ -19,6 +19,7 @@ import cn.edu.hit.ir.ontology.Ontology;
 import cn.edu.hit.ir.ontology.RDFNodeType;
 import cn.edu.hit.scir.ChineseQuery.ChineseQueryDict;
 import cn.edu.hit.scir.EntityMatcher.ChineseQuerySegment;
+import cn.edu.hit.scir.semanticgraph.DGNode;
 import edu.stanford.nlp.ling.CoreLabel;
 import edu.stanford.nlp.ling.TaggedWord;
 import edu.stanford.nlp.trees.TypedDependency;
@@ -54,6 +55,9 @@ public class ChineseStanfordBasedGraph {
 	
 	private static Logger logger = Logger.getLogger(ChineseStanfordBasedGraph.class);
 	
+	// 判定该查询是否需要进行计数操作
+	private boolean isCount = false;
+	
 	public ChineseStanfordBasedGraph (String query) {
 		initGraph (query);
 	}
@@ -66,6 +70,7 @@ public class ChineseStanfordBasedGraph {
 			this.parser = new StanfordParser (true); // 中文的parser
 		this.querySeg = new ChineseQuerySegment (query);
 		this.queryWordMatchedEntities = new ArrayList<List<MatchedEntity>>(this.querySeg.getEmEngine().getQueryWordMatchedEntities());
+		this.setCount(this.judgeCount(query));
 		
 		List<CoreLabel> words =  this.parser.tokenizerString(this.querySeg.getMergedQuery());
 		List<TypedDependency> typedDeps = this.parser.getChineseDependency(words);
@@ -102,12 +107,127 @@ public class ChineseStanfordBasedGraph {
 		
 		tagSelectTarget();
 		
+		this.addModifiers(query, chineseWordList);
+		
+		logger.info("chinese word list size : " + chineseWordList.size());
+		logger.info("query matched entity size : " + this.queryWordMatchedEntities.size());
+		
 //		logger.info("equal--------: " + (this.queryWordMatchedEntities.size() == this.querySeg.getMergedWords().size())  + "\t merged word size : " + this.querySeg.getMergedWords().size() + "\tmes size : " + this.queryWordMatchedEntities.size());
 //		logger.info ("word : " + StringUtils.join(this.querySeg.getMergedWords(), ", "));
 //		logger.info("mes : ");
 //		for (List<MatchedEntity> mes : this.queryWordMatchedEntities) {
 //			System.out.println ("me : " + StringUtils.join (mes, ", "));
 //		}
+	}
+	
+	/**
+	 * 
+	 * 判断一个输入的查询是否需要进行计数操作
+	 *
+	 * @param String query, 输入的查询
+	 * @return boolean 是否进行计数操作 
+	 */
+	private  boolean judgeCount (String query) {
+		if (query == null )
+			return false;
+		int index1 = query.toLowerCase().indexOf("多少");
+		int index2 = query.toLowerCase().indexOf("几个");
+		int index3 = query.toLowerCase().indexOf("哪几个");
+		int index4 = query.toLowerCase().indexOf("那几个");
+		if (index3 != -1 || index4 != -1 )
+			return false;
+		if (index1 !=-1 ||  index2 != -1)
+			return true;
+		return  false;
+	}
+	
+	private List<Integer> findIndexes (String query, List<ChineseWord> chineseWds , int index) {
+		List<String> wordList = new ArrayList<String>();
+		wordList.add(query.substring(index, index + 1));
+		wordList.add(query.substring(index+1, index + 2));
+		wordList.add(query.substring(index, index+2));
+		List<Integer> findList = new ArrayList<Integer>();
+		for (int i = 0; i < chineseWds.size(); ++i ) {
+			ChineseWord wd = chineseWds.get(i);
+			for (String w : wordList) {
+				if (wd.word.equals(w)) {
+					findList.add(i);
+				}
+			}
+		}
+		return (findList.isEmpty() ? null : findList);
+	}
+	
+	private void addModifier (String query,List<ChineseWord> chineseWds , int index, String modifyWd) {
+		List<Integer> findList = this.findIndexes(query, chineseWds, index);
+		int maxOffset = chineseWds.size(); // 实体和修饰词之间的距离绝对值
+		int modifiedIndex = -1;
+		for (Integer from : findList) {
+			List<ChineseWord> linkToList = this.cnBasedGraph.getLinkWords(from);
+			for (ChineseWord wd : linkToList) {
+				if (this.queryWordMatchedEntities.get(wd.idx) != null && ! this.queryWordMatchedEntities.get(wd.idx).isEmpty()) {
+					if (Math.abs(from - wd.idx) < maxOffset) {
+						maxOffset = Math.abs(from - wd.idx);
+						modifiedIndex = wd.idx;
+					}
+				}
+			}
+		}
+		if (modifiedIndex!= -1) {
+			List<DGNode> modifier = new ArrayList<DGNode> ();
+			DGNode mnode= new DGNode(modifyWd, "", "", index);
+			modifier.add(mnode);
+			for (MatchedEntity me : this.queryWordMatchedEntities.get(modifiedIndex)) {
+				me.setModifiers(modifier);
+			}
+		}
+	}
+	
+	/**
+	 * 对匹配的实体添加修饰词
+	 *
+	 * @param 
+	 * @return void 
+	 */
+	private void addModifiers (String query, List<ChineseWord> chineseWds ) {
+		if (query == null || chineseWds == null || chineseWds.isEmpty())
+			return ;
+	
+		int indexMax = query.indexOf("最多");
+		int indexMin = query.indexOf("最少");
+		
+		logger.info("find pos max : " + indexMax);
+		logger.info("find pos min : " + indexMin);
+		
+		if (indexMax != -1) {
+			addModifier(query, chineseWds, indexMax, "最多");
+		}
+		else if (indexMin != -1) {
+			addModifier(query, chineseWds, indexMin, "最少");
+		}
+	}
+	
+	public boolean isMaxModifier (DGNode node ) {
+		if (node  ==null)
+			return false;
+		if (node.word != null && node.word.equals("最多"))
+			return true;
+		return false;
+	}
+	
+	public boolean isMinModifier (DGNode node ) {
+		if (node  ==null)
+			return false;
+		if (node.word != null && node.word.equals("最少"))
+			return true;
+		return false;
+	}
+	
+	
+	public boolean isSupperModifier (DGNode node ) {
+		if (isMaxModifier (node ) || isMinModifier (node)) 
+			return true;
+		return false;
 	}
 	
 	
@@ -460,6 +580,18 @@ public class ChineseStanfordBasedGraph {
 			List<List<MatchedEntity>> queryWordMatchedEntities) {
 		this.queryWordMatchedEntities = queryWordMatchedEntities;
 	}
+	
+	
+
+	public boolean isCount() {
+		return isCount;
+	}
+
+
+	public void setCount(boolean isCount) {
+		this.isCount = isCount;
+	}
+
 
 	@Override
 	public String toString() {

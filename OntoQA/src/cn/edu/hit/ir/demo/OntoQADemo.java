@@ -113,11 +113,11 @@ class OntoQAHandler extends AbstractHandler {
 	 */
 	public OntoQAHandler() {
 		super();
-
+		ontology = Ontology.getInstance();
 		//analyzer = new QuestionAnalyzer();
 		analyzer = new QueryAnalyzer();
 		chineseAnalyzer = new ChineseQueryAnalyzer();
-		ontology = Ontology.getInstance();
+		
 	}
 	
 	private String getResult(String query, boolean isChinese) {
@@ -126,11 +126,12 @@ class OntoQAHandler extends AbstractHandler {
 		if (isChinese) {
 			ontology.setChinese(true);
 			sparql = chineseAnalyzer.getSparql(query);
-			
+			logger.info("sparql: " + sparql);
 		}
 		else {
 			ontology.setChinese(false);
 			sparql = analyzer.getSparql(query);
+			logger.info("sparql: " + sparql);
 		}
 		List<RDFNode> results = ontology.getResultNodes(sparql);
 		if (results != null && results.size() > 0) {

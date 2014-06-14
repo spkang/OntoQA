@@ -145,16 +145,27 @@ public class EntityMatcherEngine {
 		
 		// 匹配单个实体
 		this.matchQuery(this.semanticGraph.getDependencyGraph().getVertexs());
-		
+		logger.info("over match one");
 		//showMatchedQuery();
 		
 		// 匹配两个单词实体
 		this.mergeEntities(this.semanticGraph.getDependencyGraph().getVertexs());
-		
+		logger.info("over match two");
 		//showMatchedQuery();
 		// 合并实体
 		this.mergeEntities();
+		logger.info("over merge entities");
+		showMatchedQuery();
 		
+		
+//		List<List<MatchedEntity>> res = new ArrayList<List<MatchedEntity>> ();
+//		for (List<MatchedEntity> mes : this.matchedQuery) {
+//			if (mes == null || mes.isEmpty())
+//				continue;
+//			res.add(mes);
+//		}
+//		
+//		return res;
 		//showMatchedQuery();
 		// 对已经匹配的实体进行重排
 		return this.rearrangeMatchedEntityList ();
@@ -164,6 +175,8 @@ public class EntityMatcherEngine {
 	private void showMatchedQuery () {
 		logger.info("matchedQuery : ");
 		for (List<MatchedEntity> mes : this.matchedQuery) {
+			if (mes == null || mes.isEmpty())
+				continue;
 			logger.info("me : " + StringUtils.join(mes, ", "));
 		}
 	}
@@ -326,9 +339,24 @@ public class EntityMatcherEngine {
 			} // if		
 		} // for
 		
-//		logger.info("pos : " + StringUtils.join(pos, ","));
+		logger.info("pos : " + StringUtils.join(pos, ","));
 		
-		for (int i = 0; i < this.matchedQuery.size(); ++i) {
+		List<List<MatchedEntity>> res = new ArrayList<List<MatchedEntity>> ();
+		int i = 0;
+		for (List<MatchedEntity> mes : this.matchedQuery) {
+			if (this.matchedQuery.get(i) != null && ! this.matchedQuery.get(i).isEmpty() && ! mergePropertyIndex.contains(i) && this.semanticGraph.getDependencyGraph().getVertexNode(i).prevIndex == -1) {
+				//rearrangeMeList.add(new ArrayList<MatchedEntity> (this.matchedQuery.get(pos.get(i))));
+				res.add(mes);
+			}
+			++i;
+		}
+		
+		return res;
+		
+//		return this.matchedQuery;
+		
+		
+		/*for (int i = 0; i < this.matchedQuery.size(); ++i) {
 			if (this.matchedQuery.get(pos.get(i)) != null && ! this.matchedQuery.get(pos.get(i)).isEmpty() && ! mergePropertyIndex.contains(pos.get(i)) && this.semanticGraph.getDependencyGraph().getVertexNode(pos.get(i)).prevIndex == -1) {
 				rearrangeMeList.add(new ArrayList<MatchedEntity> (this.matchedQuery.get(pos.get(i))));
 			}
@@ -338,7 +366,7 @@ public class EntityMatcherEngine {
 //			logger.info("DGNode  : " + this.semanticGraph.getDependencyGraph().getVertexNode(i).toString()); 
 //		}
 		
-		return rearrangeMeList;
+		return rearrangeMeList;*/
 	}
 	
 	

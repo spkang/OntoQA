@@ -216,7 +216,7 @@ public class MatchedEntity extends Entity {
 	}
 	
 	public String toString() {
-		return "[" + super.toString() + ", " + query + ", " + numTokens + ", " + score + "]";
+		return "[" + super.toString() + ", " + query + ", " + numTokens + ", " + score + this.modifiers + "]";
 	}
 
 }

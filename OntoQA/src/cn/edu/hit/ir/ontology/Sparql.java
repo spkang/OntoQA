@@ -27,7 +27,7 @@ public class Sparql {
 	
 	public static final String SPACE = " ";
 	public static final String TAB = "\t";
-	public static final String LINE_END = "\n";
+	public static final String LINE_END = System.getProperty("line.separator", "\n");
 	
 	private List<String> select;
 	private List<String> where;

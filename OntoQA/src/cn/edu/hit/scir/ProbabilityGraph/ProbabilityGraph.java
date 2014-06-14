@@ -7,7 +7,6 @@
 package cn.edu.hit.scir.ProbabilityGraph;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -94,13 +93,21 @@ public class ProbabilityGraph {
 	 */
 	public ProbabilityGraph (String query) {
 		initResource(query);
+		logger.info("initResouce");
 		initConfig();
+		logger.info("initConfig");
 		initScore();
+		logger.info("initScore");
 		completeMatchedEntities();
+		logger.info("complete matched entities");
 		removeIllegalMatchedObjects();
+		logger.info("complete removeIllegalMathcedObject");
 		completeMatchedObjectScore();
+		logger.info("complete matched object score");
 		buildGraph();
+		logger.info("complete buildGraph");
 		setQueryGraph (this.generateQueryGraph());
+		logger.info("complete generate query graph");
 	}
 	
 	/**
@@ -229,6 +236,10 @@ public class ProbabilityGraph {
 	private void initResource (String query) {
 		entityWrapper = new QueryMatchedEntityWrapper (query);
 		queryMatchedEntities = this.entityWrapper.getMatchEntityWrapper();
+		logger.info("matched Entities : ");
+		for (List<MatchedEntity> mes : queryMatchedEntities) {
+			logger.info("me : " + StringUtils.join(mes, ", "));
+		}
 		graph = new LoopMultiGraph<ProbabilityNode, ProbabilityEdge>(ProbabilityEdge.class);
 		beginNodes = new ArrayList<ProbabilityNode>();
 		endNodes   = new ArrayList<ProbabilityNode>();
@@ -354,8 +365,10 @@ public class ProbabilityGraph {
 			int idx = 0;
 			while (idx < this.queryMatchedEntities.size()) {
 				List<MatchedEntity> mes = this.queryMatchedEntities.get(idx);
-				if (mes == null || mes.isEmpty())
+				if (mes == null || mes.isEmpty()) {
+					++idx;
 					continue;
+				}
 				if (!mes.get(0).isProperty() && !isProperty ) {
 					isProperty = !isProperty;
 					this.completeMatchedObjects.add(this.me2ProbNodeObject(mes, idx));

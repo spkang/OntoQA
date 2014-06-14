@@ -99,7 +99,9 @@ public class ChineseQueryMatchedEntityWrapper {
 	}
 	
 	public boolean isCount () {
-		return false;
+		if (this.cnStanfordBasedGraph == null || this.matchedQueryWrapper == null || this.matchedQueryWrapper.isEmpty())
+			return false;
+		return this.cnStanfordBasedGraph.isCount();
 	}
 	
 	public ChineseStanfordBasedGraph getCnStanfordBasedGraph() {

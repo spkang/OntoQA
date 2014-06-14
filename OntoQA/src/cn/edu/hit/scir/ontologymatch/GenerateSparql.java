@@ -237,7 +237,6 @@ public class GenerateSparql {
 
 		if (ontology.isLiteralClass(object) 
 				&& schemaGraph.isComparableProperty(subject, property)) {
-			int begin = p.getEntity().getBegin();
 			logger.debug("handle MaxOrMin s p o :  entity : " + p.getEntity());
 			
 			MatchedEntity entity = p.getEntity();

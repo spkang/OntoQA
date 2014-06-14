@@ -136,7 +136,7 @@ public class GenerateChineseGraph {
 
 	private QueryEdge pushEdge(QueryNode source, PropertyNode pNode,
 			QueryNode target, boolean isReverse) {
-		logger.info("@pushEdge " + source + ", " + pNode + ", " + target + ", " + isReverse);	// debug
+		logger.debug("@pushEdge " + source + ", " + pNode + ", " + target + ", " + isReverse);	// debug
 		if (isReverse) {
 			pNode.setWeight(pNode.getWeight() + reverseTripleDistance);
 		}
@@ -149,6 +149,9 @@ public class GenerateChineseGraph {
 		else if (pNode.getEntity() != null && pNode.getEntity().isQueryTarget()) {
 			queryGraph.setSource(target);
 		}
+		else {
+			queryGraph.setSource(target);
+		}
 		return queryGraph.pushEdge(source, pNode, target, isReverse);
 	}
 
@@ -157,7 +160,7 @@ public class GenerateChineseGraph {
 	}
 
 	private void searchEnding() {
-		logger.info("@searchEnding queryGraph: " + queryGraph);	// debug
+		logger.debug("@searchEnding queryGraph: " + queryGraph);	// debug
 		graphs.add((QueryGraph)queryGraph.clone());
 	}
 
@@ -198,15 +201,19 @@ public class GenerateChineseGraph {
 			}
 		}
 		Collections.sort(graphs);
+		logger.debug("Graphs : ");
+		for (QueryGraph g : graphs) {
+			logger.debug ("g : " + g.toString());
+		}
 		QueryGraph queryGraph = graphs.size() > 0 ? graphs.get(0) : null;
 		if (queryGraph != null ) {
 			Set<QueryEdge> edgeSet = queryGraph.edgeSet();
 			Set<QueryNode> queryNode = queryGraph.vertexSet();
 			for (QueryEdge edge : edgeSet) {
-				logger.info("edge : " + edge.toString());
+				logger.debug("edge : " + edge.toString());
 			}
 			for (QueryNode node : queryNode ) {
-				logger.info("node : " + node.toString());
+				logger.debug("node : " + node.toString());
 			}
 		}
 		return queryGraph;
@@ -540,7 +547,20 @@ public class GenerateChineseGraph {
 	 */
 	private void searchSubject(QueryNode source, PropertyNode pNode, int index) {
 		if (!this.entityWrapper.hasNextIndex(index)) {
-			searchEnding();
+			Set<Resource> subjects = schemaGraph.getSubjectSet(pNode.getProperty(), source.getSchemaResource());
+			if (subjects != null && !subjects.isEmpty()) {
+				for (Resource re : subjects ) {
+					if (ontology.getType(re) != null && ontology.getType(re).equals(ontology.classClass)) {
+						QueryNode target = new QueryNode(re, re, index, addedResourceDistance);
+						logger.debug("spkang : re : " + re + "\ttarget : " + target);
+						pushEdge(source, pNode, target, true);
+						searchEnding();
+						popEdge();
+					}
+				}
+			} 
+			else 
+				searchEnding();
 			return;
 		}
 		Resource o = source.getSchemaResource();
@@ -631,11 +651,17 @@ public class GenerateChineseGraph {
 					searchEnding() ;
 					return;
 				}
-				else if (objects.size() == 1) {
+				else if (!objects.isEmpty()) {
 					for (Resource re : objects ) {
 						if (ontology.getType(re) != null && ontology.getType(re).equals(ontology.classClass)) {
-							QueryNode target = new QueryNode(re, re, index, addedResourceDistance);
+							QueryNode target = new QueryNode(re, re, index, addedResourceDistance + 0.3);
 							logger.debug("spkang : re : " + re + "\ttarget : " + target);
+							pushEdge(source, pNode, target, false);
+							searchEnding();
+							popEdge();
+						}
+						else {
+							QueryNode target = new QueryNode(ontology.literalClass, addedResourceDistance);
 							pushEdge(source, pNode, target, false);
 							searchEnding();
 							popEdge();

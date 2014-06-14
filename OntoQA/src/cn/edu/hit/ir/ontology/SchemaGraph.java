@@ -700,11 +700,11 @@ public class SchemaGraph {
 			return false;
 		Resource subj = s;
 		if (!this.resourceSet.contains(s)) {
-			 subj = getTypeNode(s).getResource();
+			 subj = this.getSchemaResource(s);;
 		}
 		Resource obj = o;
 		if (!this.resourceSet.contains(o)) {
-			 obj = getTypeNode(o).getResource();
+			obj = this.getSchemaResource(o);
 		}
 		
 		
