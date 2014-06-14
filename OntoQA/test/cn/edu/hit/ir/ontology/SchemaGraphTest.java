@@ -55,12 +55,17 @@ public class SchemaGraphTest {
 	public void tearDown() throws Exception {
 	}
 
-	//@Test
+	@Test
 	public void testSchemaGraph() {
 		System.out.println(schemaGraph);
 		Set<SchemaNode> nodes = graph.vertexSet();
 		Set<SchemaEdge> edges = graph.edgeSet();
 		System.out.println(nodes.size() + ", " + edges.size());
+		System.out.println("propery : " + schemaGraph.getPropertySet().size());
+		for (Resource p : schemaGraph.getPropertySet()) {
+			System.out.println("property : " + p.toString());
+		}
+		System.out.println("class set size : " + schemaGraph.getResourceSet().size());
 	}
 	
 	@Test

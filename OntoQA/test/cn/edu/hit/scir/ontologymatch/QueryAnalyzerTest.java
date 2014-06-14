@@ -57,11 +57,11 @@ public class QueryAnalyzerTest {
 //		queryAnalyzer("which rivers do not run through texas ?");
 //		queryAnalyzer("what is the longest river in the state with the highest point ?");
 //		queryAnalyzer("which states have cities named austin ?");
-		queryAnalyzer("how many rivers do not traverse the state with the capital albany ?");
-		queryAnalyzer("how big is the new york ?");
-		queryAnalyzer("how many states have cities named austin ?");
-		queryAnalyzer("which state border the most state ?");
-		queryAnalyzer("what river flows through the most states ?");
+//		queryAnalyzer("how many rivers do not traverse the state with the capital albany ?");
+//		queryAnalyzer("how big is the new york ?");
+//		queryAnalyzer("how many states have cities named austin ?");
+//		queryAnalyzer("which state border the most state ?");
+//		queryAnalyzer("what river flows through the most states ?");
 	}
 	
 	@Test
@@ -76,6 +76,8 @@ public class QueryAnalyzerTest {
 //		pgAny("which state border the most state ?");
 //		pgAny("what river flows through the most states ?");
 		pgAny("how many major cities are there ?");
+		pgAny("which states does the mississippi river run through ?");
+		pgAny("which states have points higher than the highest point in colorado ?");
 //		pgAny("which capitals are not major cities ?");
 //		pgAny ("which states border no other states ?");
 //		pgAny ("which states does not border texas ?");

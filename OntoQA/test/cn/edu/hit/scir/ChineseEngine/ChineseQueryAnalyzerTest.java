@@ -46,8 +46,9 @@ public class ChineseQueryAnalyzerTest {
 		List<String> lines = FileUtils.readLines(new File (fileName));
 		int t = 0;
 		for (String line : lines ) {
+			if (t > 63 && t < 69)
 			queryAnalyzer(line);
-			if(++t > 10)
+			if(++t > 69)
 				break;
 		}
 	}

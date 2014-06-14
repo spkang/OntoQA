@@ -59,8 +59,10 @@ public class GenerateChineseGraphTest {
 		List<String> lines = FileUtils.readLines(new File (fileName));
 		int t = 0;
 		for (String line : lines ) {
-			testGenerateGraph(line);
-			if(++t > 15)
+			if( t > 63 && t < 69)
+				testGenerateGraph(line);
+			
+			if(++t > 69)
 				break;
 		}
 	}

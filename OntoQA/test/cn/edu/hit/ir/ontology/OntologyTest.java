@@ -12,7 +12,9 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
+import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Map;
 import java.util.Set;
 
 import org.junit.After;
@@ -141,11 +143,13 @@ public class OntologyTest {
 	
 	public void showStatements(StmtIterator sit) {
 		System.out.println("@showPropeties");
-		
+		int cnt = 0;
 		while (sit.hasNext()) {
 			Statement stmt = sit.next();
-			System.out.println(stmt);	
+			System.out.println(stmt);
+			++cnt;
 		}
+		System.out.println("count : " + cnt);
 	}
 	
 	//@Test
@@ -192,7 +196,7 @@ public class OntologyTest {
 		assertEquals(null, texasProperty);	// TODO
 	}
 	
-	@Test
+//	@Test
 	public void testReadChineseRdf () {
 		System.out.println ("@testReadChineseRdf");
 
@@ -217,32 +221,74 @@ public class OntologyTest {
 	}
 	
 	
-	//@Test
+//	@Test
 	public void testProperty() {
 		Model model = ontology.getModel();
 		
 //		String uri = "http://ir.hit.edu/nli/geo/hasHighestPoint";
-		String uri = "http://ir.hit.edu/nli/geo/隶属于";
-		Resource highestPoint = ontology.getResource(uri);
-		if (highestPoint == null ) {
-			System.out.println("null");
-			return ;
-		}
-		Property highestPointProperty = ontology.asProperty(highestPoint);
-		
-		StmtIterator sit;
-		sit = model.listStatements(highestPoint, null, (RDFNode)null);	
-		showStatements(sit);
-		sit = model.listStatements(null, null, highestPoint);	
-		showStatements(sit);
-		sit = model.listStatements(null, highestPointProperty, (RDFNode)null);	
+//		String uri = "http://ir.hit.edu/nli/geo/隶属于";
+//		Resource highestPoint = ontology.getResource(uri);
+//		if (highestPoint == null ) {
+//			System.out.println("null");
+//			return ;
+//		}
+//		Property highestPointProperty = ontology.asProperty(highestPoint);
+//		
+//		StmtIterator sit;
+//		sit = model.listStatements(highestPoint, null, (RDFNode)null);	
+//		showStatements(sit);
+//		sit = model.listStatements(null, null, highestPoint);	
+//		showStatements(sit);
+//		sit = model.listStatements(null, highestPointProperty, (RDFNode)null);	
+//		showStatements(sit);
+		StmtIterator sit = model.listStatements(null, null, (RDFNode)null);	
 		showStatements(sit);
 	}
 	
-	//@Test
+	@Test
+	public void statistic () {
+		System.out.println("@statistic");
+		//StmtIterator sit = ontology.listStatementsWithLabel();
+		
+		StmtIterator sit = ontology.getModel().listStatements(null, null, (RDFNode)null);	
+//		Map<Resource, Integer> instanceMap = new HashMap<Resource, Integer>();
+		Set<Resource> instanceSet = new HashSet<Resource>(); 
+		int tripleCnt = 0;
+		while (sit.hasNext()) {
+			Statement stmt = sit.next();
+//			String label = stmt.getString();
+//			if (label != null) {			
+				Resource subj = stmt.getSubject();
+				Resource obj = null;
+				Property pro = stmt.getPredicate();
+				if (!stmt.getObject().isLiteral() && !pro.toString().equals("http://www.w3.org/1999/02/22-rdf-syntax-ns#type"))
+					obj = stmt.getObject().asResource();
+				
+				//System.out.println("triple : " + stmt.toString());
+				System.out.println("<s, p, o> - <" + subj.toString() + ", " + pro + ", " + obj + ">");
+				if (RDFNodeType.INSTANCE.equals(ontology.getRDFNodeType(subj))) {
+					if (!instanceSet.contains(subj)) {
+						instanceSet.add(subj);
+					}
+				}
+				if (obj!= null && RDFNodeType.INSTANCE.equals(ontology.getRDFNodeType(obj))) {
+					if (!instanceSet.contains(obj)) {
+						instanceSet.add(obj);
+					}
+				}
+//				boolean isProperty = resource instanceof Property;
+//				System.out.println(resource + ": " + isProperty);
+//			}
+			++tripleCnt;
+		}
+		System.out.println("tripe count : " + tripleCnt);
+		System.out.println("instance num : " + instanceSet.size());
+	}
+	
+//	@Test
 	public void testListStatementsWithLabel() {
 		System.out.println("@testListStatementsWithLabel");
-		
+	
 		StmtIterator sit = ontology.listStatementsWithLabel();
 		while (sit.hasNext()) {
 			Statement stmt = sit.next();
@@ -266,7 +312,7 @@ public class OntologyTest {
 		assertEquals(RDFNodeType.PROPERTY, ontology.getRDFNodeType(highestPoint));
 	}
 	
-	@Test
+//	@Test
 	public void testIsInstanceOf() {
 		System.out.println("@testIsInstanceOf");
 		Resource state = ontology.getResource("http://ir.hit.edu/nli/geo/state");
